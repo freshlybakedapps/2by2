@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F52048BE-CBFA-469F-A942-B26BCDD0A852</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TwoByTwo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>985D353C-D31C-4482-A6AB-1612DE2E0BEC</key>
+		<string>ssh://github.com/amintorres/2by2.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TwoByTwo/TwoByTwo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>985D353C-D31C-4482-A6AB-1612DE2E0BEC</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/amintorres/2by2.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>985D353C-D31C-4482-A6AB-1612DE2E0BEC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>985D353C-D31C-4482-A6AB-1612DE2E0BEC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>2by2</string>
+		</dict>
+	</array>
+</dict>
+</plist>
