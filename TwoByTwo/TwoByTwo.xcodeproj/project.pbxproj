@@ -23,6 +23,7 @@
 		7CF39E1517E00775003A859F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1417E00775003A859F /* MainViewController.m */; };
 		7CF39E1817E00782003A859F /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1717E00782003A859F /* FeedViewController.m */; };
 		7CF39E1B17E00792003A859F /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1A17E00792003A859F /* FeedCell.m */; };
+		7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1D17E00D30003A859F /* CameraViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		7CF39E1717E00782003A859F /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		7CF39E1917E00792003A859F /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
 		7CF39E1A17E00792003A859F /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCell.m; sourceTree = "<group>"; };
+		7CF39E1C17E00D30003A859F /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		7CF39E1D17E00D30003A859F /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,13 +123,10 @@
 			children = (
 				7CF39DED17E0070A003A859F /* AppDelegate.h */,
 				7CF39DEE17E0070A003A859F /* AppDelegate.m */,
-				7CF39E1317E00775003A859F /* MainViewController.h */,
-				7CF39E1417E00775003A859F /* MainViewController.m */,
-				7CF39E1617E00782003A859F /* FeedViewController.h */,
-				7CF39E1717E00782003A859F /* FeedViewController.m */,
-				7CF39E1917E00792003A859F /* FeedCell.h */,
-				7CF39E1A17E00792003A859F /* FeedCell.m */,
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
+				7CF39E2117E00D3F003A859F /* Main */,
+				7CF39E2017E00D3A003A859F /* Camera */,
+				7CF39E1F17E00D35003A859F /* Feed */,
 				7CF39DF617E0070A003A859F /* Images.xcassets */,
 				7CF39DE517E0070A003A859F /* Supporting Files */,
 			);
@@ -160,6 +160,35 @@
 				7CF39E0617E0070B003A859F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7CF39E1F17E00D35003A859F /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				7CF39E1617E00782003A859F /* FeedViewController.h */,
+				7CF39E1717E00782003A859F /* FeedViewController.m */,
+				7CF39E1917E00792003A859F /* FeedCell.h */,
+				7CF39E1A17E00792003A859F /* FeedCell.m */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
+		7CF39E2017E00D3A003A859F /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				7CF39E1C17E00D30003A859F /* CameraViewController.h */,
+				7CF39E1D17E00D30003A859F /* CameraViewController.m */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		7CF39E2117E00D3F003A859F /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				7CF39E1317E00775003A859F /* MainViewController.h */,
+				7CF39E1417E00775003A859F /* MainViewController.m */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +291,7 @@
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7CF39E1B17E00792003A859F /* FeedCell.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
+				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 			);
