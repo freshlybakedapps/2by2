@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Photo.h"
+
 
 @interface FeedCell : UICollectionViewCell
+
+@property (nonatomic, weak) Photo *photo;
 
 @end

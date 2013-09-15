@@ -8,24 +8,20 @@
 
 #import "FeedCell.h"
 
+
+@interface FeedCell ()
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@end
+
+
 @implementation FeedCell
 
-- (id)initWithFrame:(CGRect)frame
+- (void)setPhoto:(Photo *)photo
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    _photo = photo;
+    
+    UIImage *image = [UIImage imageWithContentsOfFile:photo.photoPath];
+    self.imageView.image = image;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Photo.h"
 
 
 @interface CameraViewController : UIViewController
-@property (nonatomic, strong) UIImage *sourceImage;
+@property (nonatomic, weak) Photo *photo;
 @end

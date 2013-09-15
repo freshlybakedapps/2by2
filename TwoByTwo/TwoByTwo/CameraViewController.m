@@ -9,6 +9,7 @@
 #import "CameraViewController.h"
 #import "GPUImage.h"
 #import "ProgressButton.h"
+#import "DataManager.h"
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
@@ -25,7 +26,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 @property (nonatomic, weak) IBOutlet UIButton *topButton;
 @property (nonatomic, weak) IBOutlet ProgressButton *bottomButton;
 @property (nonatomic, strong) GPUImageStillCamera *stillCamera;
-@property (nonatomic, strong) GPUImageLightenBlendFilter *filter;
+@property (nonatomic, strong) GPUImageFilter *filter;
 @property (nonatomic, strong) GPUImagePicture *sourcePicture;
 @property (nonatomic) CameraViewState state;
 @end
@@ -41,19 +42,26 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
-    self.filter = [[GPUImageLightenBlendFilter alloc] init];
-    [self.filter addTarget:self.liveView];
-    
-    if (self.sourceImage) {
-        self.sourcePicture = [[GPUImagePicture alloc] initWithImage:self.sourceImage smoothlyScaleOutput:YES];
+    if (self.photo) {
+        self.filter = [[GPUImageLightenBlendFilter alloc] init];
+        [self.filter addTarget:self.liveView];
+        
+        UIImage *image = [UIImage imageWithContentsOfFile:self.photo.photoPath];
+        self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
         [self.sourcePicture processImage];
         [self.sourcePicture addTarget:self.filter];
+        
+    }
+    else {
+        self.filter = [[GPUImageGammaFilter alloc] init];
+        [self.filter addTarget:self.liveView];
     }
     
     self.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
     self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     [self.stillCamera addTarget:self.filter];
     [self.stillCamera startCameraCapture];
+
 }
 
 
@@ -64,16 +72,22 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     _state = state;
     switch (state) {
         case CameraViewStateTakePhoto:
+            self.liveView.hidden = NO;
+            self.previewView.hidden = YES;
             [self.topButton setImage:[UIImage imageNamed:@"button-close"] forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-shutter-black"] forState:UIControlStateNormal];
             break;
             
         case CameraViewStateReadyToUpload:
+            self.liveView.hidden = YES;
+            self.previewView.hidden = NO;
             [self.topButton setImage:[UIImage imageNamed:@"button-back"] forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-upload"] forState:UIControlStateNormal];
             break;
             
         case CameraViewStateUploading:
+            self.liveView.hidden = YES;
+            self.previewView.hidden = NO;
             [self.topButton setImage:[UIImage imageNamed:@"button-back"] forState:UIControlStateNormal];
             [self.bottomButton setImage:nil forState:UIControlStateNormal];
             self.bottomButton.outerColor = [UIColor appBlackishColor];
@@ -86,6 +100,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             break;
             
         case CameraViewStateDone:
+            self.liveView.hidden = YES;
+            self.previewView.hidden = NO;
             [self.topButton setImage:nil forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-done"] forState:UIControlStateNormal];
             break;
@@ -124,8 +140,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     switch (self.state) {
         case CameraViewStateTakePhoto:
         {
-            self.liveView.hidden = YES;
-            self.previewView.hidden = NO;
             self.state = CameraViewStateReadyToUpload;
             [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
                 self.previewView.image = processedImage;
@@ -134,11 +148,35 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             break;
             
         case CameraViewStateReadyToUpload:
+        {
             self.state = CameraViewStateUploading;
+            
+            NSNumber *identifier = @((int)[NSDate timeIntervalSinceReferenceDate]);
+            
+            NSData *data = UIImageJPEGRepresentation(self.previewView.image, 0.8);
+            
+            NSString *path = [[DataManager documentsDirectory] path];
+            NSString *filename = [NSString stringWithFormat:@"%@.jpg", identifier];
+            path = [path stringByAppendingPathComponent:filename];
+            
+            NSError *error = nil;
+            if (![data writeToFile:path options:0 error:nil]) {
+                NSLog(@"error: %@", error);
+            }
+            Photo *photo = [Photo insertObjectInContext:[DataManager sharedInstance].mainContext];
+            photo.identifier = identifier;
+            photo.photoPath = path;
+            [[DataManager sharedInstance] save];
+            
+            double delayInSeconds = 1.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                self.state = CameraViewStateDone;
+            });
+        }
             break;
             
         case CameraViewStateUploading:
-            self.state = CameraViewStateDone;
             break;
             
         case CameraViewStateDone:
