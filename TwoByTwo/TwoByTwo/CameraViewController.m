@@ -37,6 +37,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 {
     [super viewDidLoad];
     
+    self.state = CameraViewStateTakePhoto;
+    
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
     self.filter = [[GPUImageLightenBlendFilter alloc] init];
@@ -53,6 +55,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     [self.stillCamera addTarget:self.filter];
     [self.stillCamera startCameraCapture];
 }
+
+
+#pragma mark -
 
 - (void)setState:(CameraViewState)state
 {
@@ -75,6 +80,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             self.bottomButton.innerColor = [UIColor appBlackishColor];
             self.bottomButton.trackColor = [UIColor appDarkGrayColor];
             self.bottomButton.progressColor = [UIColor appRedColor];
+            self.bottomButton.trackInset = 4.0;
+            self.bottomButton.trackWidth = 2.0;
+            self.bottomButton.progress = 0.3;
             break;
             
         case CameraViewStateDone:
@@ -86,6 +94,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             break;
     }
 }
+
+
+#pragma mark -
 
 - (IBAction)topButtonTapped:(id)sender
 {

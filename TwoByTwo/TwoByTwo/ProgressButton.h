@@ -16,4 +16,5 @@
 @property (nonatomic, strong) UIColor *progressColor;
 @property (nonatomic) CGFloat trackInset;
 @property (nonatomic) CGFloat trackWidth;
+@property (nonatomic) double progress;
 @end

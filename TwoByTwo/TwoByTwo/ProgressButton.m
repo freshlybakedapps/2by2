@@ -32,13 +32,6 @@
     self.innerLayer = [CAShapeLayer layer];
     self.trackLayer = [CAShapeLayer layer];
     self.progressLayer = [CAShapeLayer layer];
-    
-    self.outerColor = [UIColor colorWithRed:41.0/255 green:41.0/255 blue:41.0/255 alpha:1.0];
-    self.innerColor = [UIColor colorWithRed:41.0/255 green:41.0/255 blue:41.0/255 alpha:1.0];
-    self.trackColor = [UIColor colorWithRed:102.0/255 green:102.0/255 blue:102.0/255 alpha:1.0];
-    self.progressColor = [UIColor colorWithRed:255.0/255 green:102.0/255 blue:102.0/255 alpha:1.0];
-    self.trackInset = 4.0;
-    self.trackWidth = 2.0;
 }
 
 - (void)layoutSubviews
@@ -46,31 +39,43 @@
     [super layoutSubviews];
     
     CGFloat length = MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
-    CGFloat radius = (0.5 * length) - self.trackInset;
-    CGPoint center = CGPointMake(0.5 * CGRectGetWidth(self.bounds), 0.5 * CGRectGetHeight(self.bounds));
     CGRect outerRect = CGRectInset(self.bounds, 0.5 * (CGRectGetWidth(self.bounds) - length), 0.5 * (CGRectGetHeight(self.bounds) - length));
     CGRect trackRect = CGRectInset(outerRect, self.trackInset, self.trackInset);
     CGRect innerRect = CGRectInset(trackRect, self.trackWidth, self.trackWidth);
     
     self.outerLayer.frame = self.bounds;
     self.outerLayer.path = [UIBezierPath bezierPathWithOvalInRect:outerRect].CGPath;
-    self.outerLayer.fillColor = self.outerColor.CGColor;
     [self.layer insertSublayer:self.outerLayer atIndex:0];
 
     self.trackLayer.frame = self.bounds;
     self.trackLayer.path = [UIBezierPath bezierPathWithOvalInRect:trackRect].CGPath;
-    self.trackLayer.fillColor = self.trackColor.CGColor;
     [self.layer insertSublayer:self.trackLayer atIndex:1];
 
     self.progressLayer.frame = self.bounds;
-    self.progressLayer.path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle:M_PI clockwise:YES].CGPath;
-    self.progressLayer.fillColor = self.progressColor.CGColor;
     [self.layer insertSublayer:self.progressLayer atIndex:2];
 
     self.innerLayer.frame = self.bounds;
     self.innerLayer.path = [UIBezierPath bezierPathWithOvalInRect:innerRect].CGPath;
-    self.innerLayer.fillColor = self.innerColor.CGColor;
     [self.layer insertSublayer:self.innerLayer atIndex:3];
+}
+
+
+#pragma mark -
+
+- (void)setProgress:(double)progress
+{
+    _progress = progress;
+    
+    CGFloat length = MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+    CGFloat radius = (0.5 * length) - self.trackInset;
+    CGPoint center = CGPointMake(0.5 * CGRectGetWidth(self.bounds), 0.5 * CGRectGetHeight(self.bounds));
+    CGFloat startAngle = -M_PI_2;
+    CGFloat endAngle = -M_PI_2 + (2 * M_PI * progress);
+    
+    self.progressLayer.path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES].CGPath;
+    
+    [self setTitle:[NSString stringWithFormat:@"%1.0f%%", progress * 100] forState:UIControlStateNormal];
+    [self setTitleColor:self.progressColor forState:UIControlStateNormal];
 }
 
 
@@ -91,24 +96,28 @@
 {
     _outerColor = outerColor;
     self.highlightedOuterColor = [outerColor darkenColor];
+    self.outerLayer.fillColor = (self.highlighted) ? self.highlightedOuterColor.CGColor : self.outerColor.CGColor;
 }
 
 - (void)setInnerColor:(UIColor *)innerColor
 {
     _innerColor = innerColor;
     self.highlightedInnerColor = [innerColor darkenColor];
+    self.innerLayer.fillColor = (self.highlighted) ? self.highlightedInnerColor.CGColor : self.innerColor.CGColor;
 }
 
 - (void)setTrackColor:(UIColor *)trackColor
 {
     _trackColor = trackColor;
     self.highlightedTrackColor = [trackColor darkenColor];
+    self.trackLayer.fillColor = (self.highlighted) ? self.highlightedTrackColor.CGColor : self.trackColor.CGColor;
 }
 
 - (void)setProgressColor:(UIColor *)progressColor
 {
     _progressColor = progressColor;
     self.highlightedProgressColor = [progressColor darkenColor];
+    self.progressLayer.fillColor = (self.highlighted) ? self.highlightedProgressColor.CGColor : self.progressColor.CGColor;
 }
 
 @end
