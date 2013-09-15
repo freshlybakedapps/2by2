@@ -7,11 +7,13 @@
 //
 
 #import "CameraViewController.h"
-#import <AVFoundation/AVFoundation.h>
+#import "GPUImage.h"
 
 
 @interface CameraViewController ()
-@property (nonatomic, weak) IBOutlet UIView *previewView;
+@property (nonatomic, weak) IBOutlet GPUImageView *previewView;
+@property (nonatomic, strong) GPUImageStillCamera *stillCamera;
+@property (nonatomic, strong) GPUImageSepiaFilter *filter;
 @end
 
 
@@ -21,30 +23,16 @@
 {
     [super viewDidLoad];
     
+    self.previewView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
-    NSError *error = nil;
+    self.filter = [[GPUImageSepiaFilter alloc] init];
+    [self.filter addTarget:self.previewView];
     
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
-    
-    AVCaptureStillImageOutput *output = [[AVCaptureStillImageOutput alloc] init];
-    output.outputSettings = @{AVVideoCodecKey:AVVideoCodecJPEG};
+    self.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
+    self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+    [self.stillCamera addTarget:self.filter];
 
-    
-    AVCaptureSession *session = [[AVCaptureSession alloc] init];
-    [session beginConfiguration];
-    session.sessionPreset = AVCaptureSessionPresetPhoto;
-    [session addInput:input];
-    [session addOutput:output];
-    [session commitConfiguration];
-
-
-    AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
-    previewLayer.frame = self.previewView.bounds;
-    previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    [self.previewView.layer addSublayer:previewLayer];
-
-    [session startRunning];
+    [self.stillCamera startCameraCapture];
 }
 
 - (IBAction)closeButtonTapped:(id)sender
@@ -54,6 +42,9 @@
 
 - (IBAction)shutterButtonTapped:(id)sender
 {
+    [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
+        
+    }];    
 }
 
 @end
