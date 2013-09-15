@@ -238,6 +238,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Joseph Lin";
 				TargetAttributes = {
+					7CF39DDA17E0070A003A859F = {
+						DevelopmentTeam = V4J6375GP4;
+					};
 					7CF39DFB17E0070B003A859F = {
 						TestTargetID = 7CF39DDA17E0070A003A859F;
 					};
@@ -420,11 +423,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";
 				INFOPLIST_FILE = "TwoByTwo/TwoByTwo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -434,11 +440,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";
 				INFOPLIST_FILE = "TwoByTwo/TwoByTwo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -504,6 +513,7 @@
 				7CF39E0F17E0070B003A859F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7CF39E1017E0070B003A859F /* Build configuration list for PBXNativeTarget "TwoByTwoTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +522,7 @@
 				7CF39E1217E0070B003A859F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
