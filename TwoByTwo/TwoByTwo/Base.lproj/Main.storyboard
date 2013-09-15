@@ -115,6 +115,14 @@
                                     <action selector="closeButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="izi-gN-8v4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXU-zQ-8jK" customClass="ProgressButton">
+                                <rect key="frame" x="205" y="464" width="70" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.24313725490196078" green="0.24313725490196078" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -127,7 +135,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="previewView" destination="b3r-Er-iE6" id="jCy-Hd-SRF"/>
+                        <outlet property="liveView" destination="b3r-Er-iE6" id="jAU-Mt-Ivj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KRt-tr-coo" userLabel="First Responder" sceneMemberID="firstResponder"/>

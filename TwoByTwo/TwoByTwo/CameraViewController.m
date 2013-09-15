@@ -11,9 +11,12 @@
 
 
 @interface CameraViewController ()
-@property (nonatomic, weak) IBOutlet GPUImageView *previewView;
+@property (nonatomic, weak) IBOutlet GPUImageView *liveView;
+@property (nonatomic, weak) IBOutlet UIImageView *previewView;
+@property (nonatomic, weak) IBOutlet UIButton *topButton;
 @property (nonatomic, strong) GPUImageStillCamera *stillCamera;
-@property (nonatomic, strong) GPUImageSepiaFilter *filter;
+@property (nonatomic, strong) GPUImageLightenBlendFilter *filter;
+@property (nonatomic, strong) GPUImagePicture *sourcePicture;
 @end
 
 
@@ -23,15 +26,20 @@
 {
     [super viewDidLoad];
     
-    self.previewView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
+    self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
-    self.filter = [[GPUImageSepiaFilter alloc] init];
-    [self.filter addTarget:self.previewView];
+    self.filter = [[GPUImageLightenBlendFilter alloc] init];
+    [self.filter addTarget:self.liveView];
+    
+    if (self.sourceImage) {
+        self.sourcePicture = [[GPUImagePicture alloc] initWithImage:self.sourceImage smoothlyScaleOutput:YES];
+        [self.sourcePicture processImage];
+        [self.sourcePicture addTarget:self.filter];
+    }
     
     self.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
     self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     [self.stillCamera addTarget:self.filter];
-
     [self.stillCamera startCameraCapture];
 }
 

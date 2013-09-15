@@ -10,5 +10,5 @@
 
 
 @interface CameraViewController : UIViewController
-
+@property (nonatomic, strong) UIImage *sourceImage;
 @end
