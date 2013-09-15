@@ -86,6 +86,11 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vZe-BE-PZL">
+                                <rect key="frame" x="10" y="124" width="300" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3r-Er-iE6" userLabel="Preview View" customClass="GPUImageView">
                                 <rect key="frame" x="10" y="124" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -95,14 +100,18 @@
                                     <constraint firstAttribute="width" constant="300" id="hM1-mt-3lx"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLB-bE-VZL">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLB-bE-VZL" customClass="ProgressButton">
                                 <rect key="frame" x="128" y="464" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="EzE-CL-Mjv"/>
+                                    <constraint firstAttribute="height" constant="64" id="rsD-rH-Zwa"/>
+                                </constraints>
                                 <state key="normal" image="button-shutter-black">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="shutterButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="sCh-LA-P7U"/>
+                                    <action selector="bottomButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="aAH-Ag-qwL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9">
@@ -112,16 +121,8 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="closeButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="izi-gN-8v4"/>
+                                    <action selector="topButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="e47-BW-WZh"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXU-zQ-8jK" customClass="ProgressButton">
-                                <rect key="frame" x="205" y="464" width="70" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.24313725490196078" green="0.24313725490196078" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
@@ -130,12 +131,19 @@
                             <constraint firstAttribute="centerX" secondItem="nKa-8F-6M9" secondAttribute="centerX" id="2nS-U3-VTF"/>
                             <constraint firstAttribute="centerX" secondItem="mLB-bE-VZL" secondAttribute="centerX" id="5ym-jJ-i1C"/>
                             <constraint firstAttribute="centerY" secondItem="b3r-Er-iE6" secondAttribute="centerY" id="P5j-PS-gor"/>
+                            <constraint firstItem="vZe-BE-PZL" firstAttribute="bottom" secondItem="b3r-Er-iE6" secondAttribute="bottom" id="iOR-w2-bQH"/>
+                            <constraint firstItem="vZe-BE-PZL" firstAttribute="leading" secondItem="b3r-Er-iE6" secondAttribute="leading" id="kSd-Un-j2r"/>
+                            <constraint firstItem="vZe-BE-PZL" firstAttribute="trailing" secondItem="b3r-Er-iE6" secondAttribute="trailing" id="m6X-b7-MY0"/>
                             <constraint firstAttribute="centerX" secondItem="b3r-Er-iE6" secondAttribute="centerX" id="oat-dr-DyB"/>
                             <constraint firstItem="nKa-8F-6M9" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="20" id="v2v-dM-7U0"/>
+                            <constraint firstItem="vZe-BE-PZL" firstAttribute="top" secondItem="b3r-Er-iE6" secondAttribute="top" id="vtf-y4-CcO"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomButton" destination="mLB-bE-VZL" id="4jj-ua-c8O"/>
                         <outlet property="liveView" destination="b3r-Er-iE6" id="jAU-Mt-Ivj"/>
+                        <outlet property="previewView" destination="vZe-BE-PZL" id="QVN-C0-i41"/>
+                        <outlet property="topButton" destination="nKa-8F-6M9" id="pW2-Zc-L20"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KRt-tr-coo" userLabel="First Responder" sceneMemberID="firstResponder"/>

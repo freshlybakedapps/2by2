@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface UIColor (Addon)
+@interface UIColor (Utilities)
 
 + (UIColor *)colorFromHexString:(NSString *)hexString;
 - (UIColor *)darkenColor;

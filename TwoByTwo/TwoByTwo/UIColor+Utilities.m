@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "UIColor+Addon.h"
+#import "UIColor+Utilities.h"
 
 
-@implementation UIColor (Addon)
+@implementation UIColor (Utilities)
 
 + (UIColor *)colorFromHexString:(NSString *)hexString
 {

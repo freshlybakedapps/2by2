@@ -7,7 +7,7 @@
 //
 
 #import "ProgressButton.h"
-#import "UIColor+Addon.h"
+#import "UIColor+Utilities.h"
 
 
 @interface ProgressButton ()
@@ -73,17 +73,19 @@
     [self.layer insertSublayer:self.innerLayer atIndex:3];
 }
 
+
+#pragma mark -
+
 - (void)setHighlighted:(BOOL)highlighted
 {
-    [CATransaction setAnimationDuration:0.2];
+    [super setHighlighted:highlighted];
+    
+    [CATransaction setAnimationDuration:0.1];
     self.outerLayer.fillColor = (highlighted) ? self.highlightedOuterColor.CGColor : self.outerColor.CGColor;
     self.innerLayer.fillColor = (highlighted) ? self.highlightedInnerColor.CGColor : self.innerColor.CGColor;
     self.trackLayer.fillColor = (highlighted) ? self.highlightedTrackColor.CGColor : self.trackColor.CGColor;
     self.progressLayer.fillColor = (highlighted) ? self.highlightedProgressColor.CGColor : self.progressColor.CGColor;
 }
-
-
-#pragma mark -
 
 - (void)setOuterColor:(UIColor *)outerColor
 {

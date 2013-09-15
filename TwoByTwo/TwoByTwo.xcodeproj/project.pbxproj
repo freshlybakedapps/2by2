@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
-		7C73FFC617E637C50055C57C /* UIColor+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Addon.m */; };
+		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
+		7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */; };
 		7CF39DDF17E0070A003A859F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DDE17E0070A003A859F /* Foundation.framework */; };
 		7CF39DE117E0070A003A859F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE017E0070A003A859F /* CoreGraphics.framework */; };
 		7CF39DE317E0070A003A859F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE217E0070A003A859F /* UIKit.framework */; };
@@ -42,8 +43,10 @@
 /* Begin PBXFileReference section */
 		7C73FFC117E62EB50055C57C /* ProgressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressButton.h; sourceTree = "<group>"; };
 		7C73FFC217E62EB50055C57C /* ProgressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressButton.m; sourceTree = "<group>"; };
-		7C73FFC417E637C50055C57C /* UIColor+Addon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Addon.h"; sourceTree = "<group>"; };
-		7C73FFC517E637C50055C57C /* UIColor+Addon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Addon.m"; sourceTree = "<group>"; };
+		7C73FFC417E637C50055C57C /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
+		7C73FFC517E637C50055C57C /* UIColor+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Utilities.m"; sourceTree = "<group>"; };
+		7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TwoByTwo.h"; sourceTree = "<group>"; };
+		7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TwoByTwo.m"; sourceTree = "<group>"; };
 		7CF39DDB17E0070A003A859F /* TwoByTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoByTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CF39DDE17E0070A003A859F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7CF39DE017E0070A003A859F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -98,6 +101,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7CD9507417E657BC00C70956 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				7C73FFC417E637C50055C57C /* UIColor+Utilities.h */,
+				7C73FFC517E637C50055C57C /* UIColor+Utilities.m */,
+				7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */,
+				7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		7CF39DD217E0070A003A859F = {
 			isa = PBXGroup;
 			children = (
@@ -136,11 +150,10 @@
 				7CF39DED17E0070A003A859F /* AppDelegate.h */,
 				7CF39DEE17E0070A003A859F /* AppDelegate.m */,
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
-				7C73FFC417E637C50055C57C /* UIColor+Addon.h */,
-				7C73FFC517E637C50055C57C /* UIColor+Addon.m */,
 				7CF39E2117E00D3F003A859F /* Main */,
 				7CF39E2017E00D3A003A859F /* Camera */,
 				7CF39E1F17E00D35003A859F /* Feed */,
+				7CD9507417E657BC00C70956 /* Categories */,
 				7CF39DF617E0070A003A859F /* Images.xcassets */,
 				7CF39DE517E0070A003A859F /* Supporting Files */,
 			);
@@ -344,10 +357,11 @@
 			files = (
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7CF39E1B17E00792003A859F /* FeedCell.m in Sources */,
+				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
-				7C73FFC617E637C50055C57C /* UIColor+Addon.m in Sources */,
+				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 			);
