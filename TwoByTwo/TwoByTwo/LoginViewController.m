@@ -25,14 +25,14 @@
 }
 
 - (void) viewDidLoad{
-    NSLog(@"xxxx");
+    
 }
 
 - (void) viewDidAppear:(BOOL)animated{
     if ([PFUser currentUser]) {
         [self start];
     }else{
-        NSLog(@"viewDidAppear");
+        //NSLog(@"viewDidAppear");
     }
 }
 
@@ -58,7 +58,7 @@
             } else {
                 NSLog(@"Uh oh. An error occurred: %@", error);
                 
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login was canceled" message:@"If you want to save your sketches, you need to login." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login was canceled" message:@"If you want to save your images, you need to login." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
                 [alert show];
             }
         } else if (user.isNew) {
@@ -73,12 +73,9 @@
             [self start];
         }
     }];
-    
-    //[_activityIndicator startAnimating]; // Show loading indicator until login is finished
 }
 
-- (void) start{
-    NSLog(@"start");
+- (void) start{    
     [self performSegueWithIdentifier:@"MainView" sender:self];
 }
 

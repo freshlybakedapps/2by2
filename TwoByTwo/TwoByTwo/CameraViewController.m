@@ -10,6 +10,8 @@
 #import "GPUImage.h"
 #import "ProgressButton.h"
 #import "DataManager.h"
+#import "UIImage+ResizeAdditions.h"
+#import "UIImage+RoundedCornerAdditions.h"
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
@@ -29,6 +31,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 @property (nonatomic, strong) GPUImageFilter *filter;
 @property (nonatomic, strong) GPUImagePicture *sourcePicture;
 @property (nonatomic) CameraViewState state;
+@property (nonatomic, assign) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @end
 
 
@@ -168,6 +171,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             photo.photoPath = path;
             [[DataManager sharedInstance] save];
             
+            //jt
+            [self shouldUploadImage:self.previewView.image];
+            
             double delayInSeconds = 1.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -187,5 +193,63 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             break;
     }
 }
+
+- (BOOL)shouldUploadImage:(UIImage *)anImage {
+    if (![PFUser currentUser]) {
+        return NO;
+    }
+    
+    // JPEG to decrease file size and enable faster uploads & downloads
+    NSData *imageData = UIImageJPEGRepresentation(anImage, 0.8f);
+    
+    if (!imageData) {
+        return NO;
+    }
+    
+    PFFile* photoFile = [PFFile fileWithData:imageData];
+    
+    
+    
+    // Request a background execution task to allow us to finish uploading the photo even if the app is backgrounded
+    self.fileUploadBackgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
+    }];
+    
+    //NSLog(@"Requested background expiration task with id %d for Sketchio photo upload", self.fileUploadBackgroundTaskId);
+    [photoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"Photo uploaded successfully");
+            [self performSelector:@selector(saveSuccessfully) withObject:nil afterDelay:1];
+        } else {
+            [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
+        }
+    }];
+    
+    
+    // create a photo object
+    PFObject *photo = [PFObject objectWithClassName:@"Photo"];
+    [photo setObject:[PFUser currentUser] forKey:@"user"];
+    [photo setObject:photoFile forKey:@"image"];
+    
+    
+    
+    // photos are public, but may only be modified by the user who uploaded them
+    PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+    [photoACL setPublicReadAccess:YES];
+    photo.ACL = photoACL;
+    
+    [photo saveInBackground];
+    
+    
+    return YES;
+}
+
+- (void) saveSuccessfully{
+    
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Saved successfully!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
+
 
 @end

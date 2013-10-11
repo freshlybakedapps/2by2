@@ -17,6 +17,9 @@
 		1D4207CF17E6AB62008A7F98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207CE17E6AB62008A7F98 /* Security.framework */; };
 		1D4207D117E6AB6A008A7F98 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207D017E6AB6A008A7F98 /* StoreKit.framework */; };
 		1D4207D317E6AB78008A7F98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */; };
+		1D74B56D1808BB0A005A4937 /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D74B5681808BB0A005A4937 /* UIImage+AlphaAdditions.m */; };
+		1D74B56E1808BB0A005A4937 /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D74B56A1808BB0A005A4937 /* UIImage+ResizeAdditions.m */; };
+		1D74B56F1808BB0A005A4937 /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D74B56C1808BB0A005A4937 /* UIImage+RoundedCornerAdditions.m */; };
 		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
@@ -67,6 +70,12 @@
 		1D4207CE17E6AB62008A7F98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1D4207D017E6AB6A008A7F98 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1D74B5671808BB0A005A4937 /* UIImage+AlphaAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AlphaAdditions.h"; sourceTree = "<group>"; };
+		1D74B5681808BB0A005A4937 /* UIImage+AlphaAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+AlphaAdditions.m"; sourceTree = "<group>"; };
+		1D74B5691808BB0A005A4937 /* UIImage+ResizeAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeAdditions.h"; sourceTree = "<group>"; };
+		1D74B56A1808BB0A005A4937 /* UIImage+ResizeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeAdditions.m"; sourceTree = "<group>"; };
+		1D74B56B1808BB0A005A4937 /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
+		1D74B56C1808BB0A005A4937 /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
 		1DCD412618083BA2007A5D56 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1DCD412718083BA2007A5D56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7C73FFC117E62EB50055C57C /* ProgressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressButton.h; sourceTree = "<group>"; };
@@ -148,6 +157,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D74B5661808BB0A005A4937 /* uiimage */ = {
+			isa = PBXGroup;
+			children = (
+				1D74B5671808BB0A005A4937 /* UIImage+AlphaAdditions.h */,
+				1D74B5681808BB0A005A4937 /* UIImage+AlphaAdditions.m */,
+				1D74B5691808BB0A005A4937 /* UIImage+ResizeAdditions.h */,
+				1D74B56A1808BB0A005A4937 /* UIImage+ResizeAdditions.m */,
+				1D74B56B1808BB0A005A4937 /* UIImage+RoundedCornerAdditions.h */,
+				1D74B56C1808BB0A005A4937 /* UIImage+RoundedCornerAdditions.m */,
+			);
+			path = uiimage;
+			sourceTree = "<group>";
+		};
 		1DCD412518083B88007A5D56 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +262,7 @@
 		7CF39DE417E0070A003A859F /* TwoByTwo */ = {
 			isa = PBXGroup;
 			children = (
+				1D74B5661808BB0A005A4937 /* uiimage */,
 				7CF39DED17E0070A003A859F /* AppDelegate.h */,
 				7CF39DEE17E0070A003A859F /* AppDelegate.m */,
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
@@ -451,6 +474,7 @@
 				7CD9507A17E6659A00C70956 /* TwoByTwo.xcdatamodeld in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7CF39E1B17E00792003A859F /* FeedCell.m in Sources */,
+				1D74B56D1808BB0A005A4937 /* UIImage+AlphaAdditions.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CCEC4E017E66C32002AC51C /* Photo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
@@ -458,8 +482,10 @@
 				7CCEC4E617E67030002AC51C /* NSManagedObject+Utilities.m in Sources */,
 				7CCEC4DD17E66760002AC51C /* DataManager.m in Sources */,
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
+				1D74B56F1808BB0A005A4937 /* UIImage+RoundedCornerAdditions.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
+				1D74B56E1808BB0A005A4937 /* UIImage+ResizeAdditions.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,
 			);
