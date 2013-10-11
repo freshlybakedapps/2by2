@@ -14,4 +14,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "UIColor+TwoByTwo.h"
+    #import <Parse/Parse.h>
+    #import "TestFlight.h"
+    #import "Flurry.h"
 #endif

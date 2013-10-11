@@ -17,6 +17,7 @@
 		1D4207CF17E6AB62008A7F98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207CE17E6AB62008A7F98 /* Security.framework */; };
 		1D4207D117E6AB6A008A7F98 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207D017E6AB6A008A7F98 /* StoreKit.framework */; };
 		1D4207D317E6AB78008A7F98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */; };
+		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
 		7CCEC4DD17E66760002AC51C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4DC17E66760002AC51C /* DataManager.m */; };
@@ -66,6 +67,8 @@
 		1D4207CE17E6AB62008A7F98 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1D4207D017E6AB6A008A7F98 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1DCD412618083BA2007A5D56 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		1DCD412718083BA2007A5D56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7C73FFC117E62EB50055C57C /* ProgressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressButton.h; sourceTree = "<group>"; };
 		7C73FFC217E62EB50055C57C /* ProgressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressButton.m; sourceTree = "<group>"; };
 		7C73FFC417E637C50055C57C /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
@@ -145,6 +148,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DCD412518083B88007A5D56 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1DCD412618083BA2007A5D56 /* LoginViewController.m */,
+				1DCD412718083BA2007A5D56 /* LoginViewController.h */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		7CD9507417E657BC00C70956 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +187,7 @@
 		7CD9507C17E665AA00C70956 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1DCD412518083B88007A5D56 /* Login */,
 				7CF39E2117E00D3F003A859F /* Main */,
 				7CF39E1F17E00D35003A859F /* Feed */,
 				7CF39E2017E00D3A003A859F /* Camera */,
@@ -448,6 +461,7 @@
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
+				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
