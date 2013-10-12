@@ -10,8 +10,7 @@
 #import "GPUImage.h"
 #import "ProgressButton.h"
 #import "DataManager.h"
-#import "UIImage+ResizeAdditions.h"
-#import "UIImage+RoundedCornerAdditions.h"
+
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
