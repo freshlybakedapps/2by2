@@ -25,20 +25,21 @@
 }
 
 - (void) viewDidLoad{
-    
+    NSLog(@"viewDidLoad %@",[PFUser currentUser]);
 }
 
 - (void) viewDidAppear:(BOOL)animated{
+    NSLog(@"viewDidAppear %@",[PFUser currentUser]);
+    
+    
+    //[PFUser logOut];
+    
     if ([PFUser currentUser]) {
         [self start];
     }else{
-        //NSLog(@"viewDidAppear");
+        NSLog(@"viewDidAppear %@",[PFUser currentUser]);
     }
 }
-
-
-
-
 
 - (IBAction)loginButtonTouchHandler:(id)sender{
     // Set permissions required from the facebook user account
@@ -47,9 +48,6 @@
     
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-        //[_activityIndicator stopAnimating]; // Hide loading indicator
-        
-        
         if (!user) {
             if (!error) {
                 NSLog(@"Uh oh. The user cancelled the Facebook login.");
@@ -63,12 +61,17 @@
             }
         } else if (user.isNew) {
             [Flurry setUserID:[user username]];
+            
+            NSLog(@"email: %@",[user email]);
+            
             NSLog(@"User with facebook signed up and logged in!");
             
             [self start];
         } else {
             [Flurry setUserID:[user username]];
             NSLog(@"User with facebook logged in!");
+            
+            NSLog(@"email: %@",[user email]);
             
             [self start];
         }
