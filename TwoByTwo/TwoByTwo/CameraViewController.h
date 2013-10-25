@@ -10,6 +10,7 @@
 #import "Photo.h"
 
 
-@interface CameraViewController : UIViewController
+@interface CameraViewController : UIViewController <CLLocationManagerDelegate>
 @property (nonatomic, weak) Photo *photo;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 @end

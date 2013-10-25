@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "2by2": {
+            "applicationId": "6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg", 
+            "masterKey": "UkiGMegLmvjTDtOpM9jBUePuTN814MQ49su7Mmoj"
+        }, 
+        "_default": {
+            "link": "2by2"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.12"
+    }
+}

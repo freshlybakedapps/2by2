@@ -10,6 +10,8 @@
 #import "GPUImage.h"
 #import "ProgressButton.h"
 #import "DataManager.h"
+#import "AppDelegate.h"
+#import "UIImage+UIImageResizing.h"
 
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
@@ -40,6 +42,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 {
     [super viewDidLoad];
     
+    [self getLocation];
+    
     self.state = CameraViewStateTakePhoto;
     
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
@@ -54,7 +58,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         [self.sourcePicture addTarget:self.filter];
         
     }
-    else {
+    else {       
         self.filter = [[GPUImageGammaFilter alloc] init];
         [self.filter addTarget:self.liveView];
     }
@@ -64,6 +68,50 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     [self.stillCamera addTarget:self.filter];
     [self.stillCamera startCameraCapture];
 
+}
+
+#pragma mark - location stuff
+
+- (void) getLocation{
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    // Set a movement threshold for new events
+    self.locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
+    
+    [self.locationManager startUpdatingLocation];
+    
+    // Set initial location if available
+    CLLocation *currentLocation = self.locationManager.location;
+    if (currentLocation) {
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        appDelegate.currentLocation = currentLocation;
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(locationDidChange:)
+                                                 name:@"LocationChangeNotification"
+                                               object:nil];
+}
+
+- (void)locationDidChange:(NSNotification *)note;
+{
+    //AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    //appDelegate.currentLocation.coordinate
+    
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    // Set new location and post a notification to the NSNotificationCenter
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.currentLocation = newLocation;
 }
 
 
@@ -144,7 +192,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         {
             self.state = CameraViewStateReadyToUpload;
             [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
-                self.previewView.image = processedImage;
+                
+                UIImage* smallImage = [processedImage scaleToSize:CGSizeMake(300.0f,300.0f)];
+                self.previewView.image = smallImage;
             }];
         }
             break;
@@ -224,11 +274,24 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         }
     }];
     
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
     
     // create a photo object
     PFObject *photo = [PFObject objectWithClassName:@"Photo"];
     [photo setObject:[PFUser currentUser] forKey:@"user"];
-    [photo setObject:photoFile forKey:@"image"];
+    
+    PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
+    
+    if (self.photo) {
+        [photo setObject:geoPoint forKey:@"location_full"];
+        [photo setObject:photoFile forKey:@"image_full"];
+        [photo setObject:@"full" forKey:@"state"];
+    }else{
+        [photo setObject:geoPoint forKey:@"location_half"];
+        [photo setObject:photoFile forKey:@"image_half"];
+        [photo setObject:@"half" forKey:@"state"];
+    }
     
     
     
