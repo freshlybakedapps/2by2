@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "Reachability.h"
 
 @implementation AppDelegate
+
+@synthesize networkStatus;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -40,6 +43,11 @@
         [[PFInstallation currentInstallation] saveEventually];
     }
 }
+
+- (BOOL)isParseReachable {
+    return self.networkStatus != NotReachable;
+}
+
 
 
 

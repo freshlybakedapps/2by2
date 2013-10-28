@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */; };
+		1D1B34F2181EA25600E6F26A /* FeedViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EE181EA25600E6F26A /* FeedViewController2.m */; };
+		1D1B34F3181EA25600E6F26A /* CPFQueryCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */; };
+		1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34F6181EAFA200E6F26A /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1D4207C117E6AAC4008A7F98 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C017E6AAC4008A7F98 /* Parse.framework */; };
 		1D4207C317E6AB10008A7F98 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */; };
 		1D4207C517E6AB1E008A7F98 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */; };
@@ -60,6 +63,12 @@
 /* Begin PBXFileReference section */
 		1D1B34EB181B203800E6F26A /* UIImage+UIImageResizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageResizing.h"; sourceTree = "<group>"; };
 		1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageResizing.m"; sourceTree = "<group>"; };
+		1D1B34EE181EA25600E6F26A /* FeedViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController2.m; sourceTree = "<group>"; };
+		1D1B34EF181EA25600E6F26A /* FeedViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController2.h; sourceTree = "<group>"; };
+		1D1B34F0181EA25600E6F26A /* CPFQueryCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFQueryCollectionViewController.h; sourceTree = "<group>"; };
+		1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFQueryCollectionViewController.m; sourceTree = "<group>"; };
+		1D1B34F5181EAFA200E6F26A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		1D1B34F6181EAFA200E6F26A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1D4207C017E6AAC4008A7F98 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -151,6 +160,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D1B34F4181EAFA200E6F26A /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				1D1B34F5181EAFA200E6F26A /* Reachability.h */,
+				1D1B34F6181EAFA200E6F26A /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 		1DCD412518083B88007A5D56 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +263,7 @@
 		7CF39DE417E0070A003A859F /* TwoByTwo */ = {
 			isa = PBXGroup;
 			children = (
+				1D1B34F4181EAFA200E6F26A /* Reachability */,
 				7CF39DED17E0070A003A859F /* AppDelegate.h */,
 				7CF39DEE17E0070A003A859F /* AppDelegate.m */,
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
@@ -289,10 +308,14 @@
 		7CF39E1F17E00D35003A859F /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				1D1B34EF181EA25600E6F26A /* FeedViewController2.h */,
+				1D1B34EE181EA25600E6F26A /* FeedViewController2.m */,
 				7CF39E1617E00782003A859F /* FeedViewController.h */,
 				7CF39E1717E00782003A859F /* FeedViewController.m */,
 				7CF39E1917E00792003A859F /* FeedCell.h */,
 				7CF39E1A17E00792003A859F /* FeedCell.m */,
+				1D1B34F0181EA25600E6F26A /* CPFQueryCollectionViewController.h */,
+				1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -462,15 +485,18 @@
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7CF39E1B17E00792003A859F /* FeedCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
+				1D1B34F2181EA25600E6F26A /* FeedViewController2.m in Sources */,
 				7CCEC4E017E66C32002AC51C /* Photo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
 				7CCEC4E617E67030002AC51C /* NSManagedObject+Utilities.m in Sources */,
+				1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */,
 				7CCEC4DD17E66760002AC51C /* DataManager.m in Sources */,
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
+				1D1B34F3181EA25600E6F26A /* CPFQueryCollectionViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,
 			);

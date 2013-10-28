@@ -14,4 +14,8 @@
 
 @property (strong, nonatomic) CLLocation *currentLocation;
 
+@property (nonatomic, readonly) int networkStatus;
+
+- (BOOL)isParseReachable;
+
 @end

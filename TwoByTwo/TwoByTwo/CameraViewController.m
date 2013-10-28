@@ -48,11 +48,16 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
-    if (self.photo) {
+    if (self.object) {
         self.filter = [[GPUImageLightenBlendFilter alloc] init];
         [self.filter addTarget:self.liveView];
         
-        UIImage *image = [UIImage imageWithContentsOfFile:self.photo.photoPath];
+        PFFile *file = [self.object objectForKey:@"newThumbnail"];
+        //NSLog(@"url: %@",[file url]);
+        NSURL *imageURL = [NSURL URLWithString:[file url]];
+        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        UIImage *image = [UIImage imageWithData:imageData];
+        
         self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
         [self.sourcePicture processImage];
         [self.sourcePicture addTarget:self.filter];
@@ -278,29 +283,31 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     
     
     // create a photo object
-    PFObject *photo = [PFObject objectWithClassName:@"Photo"];
-    [photo setObject:[PFUser currentUser] forKey:@"user"];
+    
     
     PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
     
-    if (self.photo) {
-        [photo setObject:geoPoint forKey:@"location_full"];
-        [photo setObject:photoFile forKey:@"image_full"];
-        [photo setObject:@"full" forKey:@"state"];
+    if (self.object) {
+        [self.object setObject:geoPoint forKey:@"location_full"];
+        [self.object setObject:photoFile forKey:@"image_full"];
+        [self.object setObject:@"full" forKey:@"state"];
+        [self.object saveInBackground];
     }else{
+        PFObject *photo = [PFObject objectWithClassName:@"Photo"];
+        [photo setObject:[PFUser currentUser] forKey:@"user"];
         [photo setObject:geoPoint forKey:@"location_half"];
         [photo setObject:photoFile forKey:@"image_half"];
         [photo setObject:@"half" forKey:@"state"];
+        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+        [photoACL setPublicReadAccess:YES];
+        photo.ACL = photoACL;
+        [photo saveInBackground];
+
     }
     
     
     
     // photos are public, but may only be modified by the user who uploaded them
-    PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-    [photoACL setPublicReadAccess:YES];
-    photo.ACL = photoACL;
-    
-    [photo saveInBackground];
     
     
     return YES;

@@ -14,4 +14,6 @@
 
 @property (nonatomic, weak) Photo *photo;
 
+@property (nonatomic, weak) PFObject *object;
+
 @end

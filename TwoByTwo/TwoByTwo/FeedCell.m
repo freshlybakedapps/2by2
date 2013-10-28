@@ -24,4 +24,25 @@
     self.imageView.image = image;
 }
 
+- (void)setObject:(PFObject *)object
+{
+    _object = object;
+    
+    PFFile *file = [object objectForKey:@"newThumbnail"];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            UIImage *image = [UIImage imageWithData:data];
+            
+            self.imageView.image = image;
+        } else {
+            NSLog(@"Error on fetching file");
+        }
+    }];  
+    
+}
+
+
+
+
+
 @end
