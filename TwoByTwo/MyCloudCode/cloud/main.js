@@ -82,7 +82,7 @@ Parse.Cloud.beforeSave("Photo", function(request, response) {
  
   }).then(function(result) {
   	var url = cropped.url();	
-
+  	
   	mandrill.sendEmail({
     message: {
       text: "url: "+ theUrl,
@@ -90,11 +90,7 @@ Parse.Cloud.beforeSave("Photo", function(request, response) {
       subject: "2by2 - User took a photo",
       from_email: "jtubert@gmail.com",
       from_name: "2by2 - Cloud Code",
-      to: [
-        {
-          email: "jtubert@gmail.com",
-          name: "John Tubert"
-        },
+      to: [        
         {
           email: "amin@amintorres.com",
           name: "Amin Torres"
@@ -106,7 +102,7 @@ Parse.Cloud.beforeSave("Photo", function(request, response) {
     success: function(httpResponse) { response.success("Email sent!"); },
     error: function(httpResponse) { response.error("Uh oh, something went wrong"); }
   });
-
+	
 
     response.success();
   }, function(error) {

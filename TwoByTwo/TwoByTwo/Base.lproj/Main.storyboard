@@ -50,6 +50,18 @@
                                     <segue destination="vVh-uF-8fn" kind="modal" identifier="" id="rQK-3z-u2A"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="q5s-Gd-dB9">
+                                <rect key="frame" x="20" y="20" width="280" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="You"/>
+                                    <segment title="Single"/>
+                                    <segment title="Public"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeSeg" destination="kXQ-kM-6nA" eventType="valueChanged" id="pWp-iT-EmT"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -69,10 +81,13 @@
                             </segments>
                         </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="Segment" destination="q5s-Gd-dB9" id="AAo-sl-IEg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DWP-Nj-xW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="584" y="187"/>
+            <point key="canvasLocation" x="574" y="131"/>
         </scene>
         <!--Feed View Controller2-->
         <scene sceneID="lMZ-wE-yta">
@@ -307,6 +322,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="g2R-CL-5Du"/>
+        <segue reference="rQK-3z-u2A"/>
     </inferredMetricsTieBreakers>
 </document>

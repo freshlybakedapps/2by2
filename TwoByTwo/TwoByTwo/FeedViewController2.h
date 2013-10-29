@@ -11,4 +11,7 @@
 
 @interface FeedViewController2 : CPFQueryCollectionViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) NSDate *lastRefresh;
+
+@property (nonatomic) int currentSection;
+
 @end

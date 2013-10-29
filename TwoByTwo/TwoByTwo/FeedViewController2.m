@@ -13,7 +13,7 @@
 @implementation FeedViewController2
 
 
-@synthesize lastRefresh;
+@synthesize lastRefresh, currentSection;
 
 NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDefaults.FeedViewController2.lastRefresh";
 
@@ -25,12 +25,24 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSegmentChange:) name:@"segmentChanged" object:nil];
+    
     if (![PFUser currentUser]) {
         
     }
     
     lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:FeedViewControllerLastRefreshKey];
 }
+
+- (void) onSegmentChange:(NSNotification*)notification{
+    UISegmentedControl* segment = (UISegmentedControl*) [notification object];
+    self.currentSection = segment.selectedSegmentIndex;
+    NSLog(@"selectedSegmentIndex %i",segment.selectedSegmentIndex);
+    
+    [super performQuery];
+    
+}
+
 
 - (void) viewDidAppear:(BOOL)animated{
     [super performQuery];
@@ -39,8 +51,10 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(FeedCell *)sender
 {
     CameraViewController *controller = segue.destinationViewController;
-    controller.photo = sender.photo;
-    controller.object = sender.object;
+    if(self.currentSection == 1){
+        controller.photo = sender.photo;
+        controller.object = sender.object;
+    }
 }
 
 
@@ -77,8 +91,25 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
     }
     
     PFQuery *queryPhoto = [PFQuery queryWithClassName:@"Photo"];
-    [queryPhoto whereKey:@"user" equalTo:[PFUser currentUser]];
-    [queryPhoto whereKey:@"state" equalTo:@"half"];
+    
+    
+    if(self.currentSection == 0){
+        [queryPhoto whereKey:@"user" equalTo:[PFUser currentUser]];
+    }
+    
+    if(self.currentSection == 1){
+        [queryPhoto whereKey:@"state" equalTo:@"half"];
+        [queryPhoto whereKey:@"user" notEqualTo:[PFUser currentUser]];
+    }
+    
+    if(self.currentSection == 2){
+        [queryPhoto whereKey:@"state" equalTo:@"full"];
+    }
+    
+    
+    
+    
+    
     [queryPhoto orderByDescending:@"createdAt"];
     //[queryPhoto setLimit:4];
     [queryPhoto setCachePolicy:kPFCachePolicyCacheThenNetwork];

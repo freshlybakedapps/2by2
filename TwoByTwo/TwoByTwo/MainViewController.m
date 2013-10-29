@@ -21,4 +21,8 @@
     [super viewDidLoad];
 }
 
+-(IBAction)changeSeg{
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"segmentChanged" object:Segment];    
+}
+
 @end
