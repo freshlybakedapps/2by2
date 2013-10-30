@@ -66,19 +66,96 @@
             
             NSLog(@"User with facebook signed up and logged in!");
             
+            [self onFacebookLogin];
+            
             [self start];
         } else {
             [Flurry setUserID:[user username]];
             NSLog(@"User with facebook logged in!");
             
+            NSLog(@"username: %@",[user username]);
+            
             NSLog(@"email: %@",[user email]);
+            
+            [self onFacebookLogin];
             
             [self start];
         }
     }];
 }
 
-- (void) start{    
+- (void) onFacebookLogin{
+    // Create request for user's facebook data
+    NSString *requestPath = @"me/?fields=name,location,gender,birthday,relationship_status";
+    
+    
+    
+    // Send request to Facebook
+    FBRequest *request = [FBRequest requestForGraphPath:requestPath];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        // handle response
+        if (!error) {
+            // Parse the data received
+            NSDictionary *userData = (NSDictionary *)result;
+            //NSString *facebookId = userData[@"id"];
+            NSString *name = userData[@"name"];
+            NSString *location = userData[@"location"][@"name"];
+            NSString *gender = userData[@"gender"];
+            NSString *birthday = userData[@"birthday"];
+            NSString *email = userData[@"email"];
+            NSString *relationship = userData[@"relationship_status"];
+            
+            // Set received values if they are not nil and reload the table
+            if (name) {
+                NSLog(@"%@",name);
+            }
+            
+            if (location) {
+                NSLog(@"%@",location);
+            }
+            
+            if (gender) {
+                NSLog(@"%@",gender);
+            }
+            
+            if (birthday) {
+                NSLog(@"%@",birthday);
+            }
+            
+            if (relationship) {
+                NSLog(@"%@",relationship);
+            }
+            
+            if (email) {
+                NSLog(@"%@",email);
+            }
+            
+            [Flurry setUserID:userData[@"id"]];
+            
+            
+            
+            
+            [PFUser currentUser].username = name;
+            [[PFUser currentUser] saveInBackground];
+            
+            //NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookId]];
+            
+            //[[NSNotificationCenter defaultCenter] postNotificationName:@"addImage" object:[UIImage imageWithData:[NSData dataWithContentsOfURL:pictureURL]]];
+            
+            
+        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+                    isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
+            NSLog(@"The facebook session was invalidated");
+            //[self logoutButtonTouchHandler:nil];
+        } else {
+            NSLog(@"Some other error: %@", error);
+        }
+    }];
+    
+}
+
+
+- (void) start{
     [self performSegueWithIdentifier:@"MainView" sender:self];
 }
 

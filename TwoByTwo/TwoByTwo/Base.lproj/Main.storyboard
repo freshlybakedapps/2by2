@@ -115,6 +115,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQJ-7v-a15">
+                                            <rect key="frame" x="20" y="259" width="260" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -127,6 +135,7 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="V0G-BQ-POi" id="oD5-5w-jjb"/>
+                                    <outlet property="username" destination="NQJ-7v-a15" id="rST-Y6-sAH"/>
                                     <segue destination="vVh-uF-8fn" kind="modal" id="g2R-CL-5Du"/>
                                 </connections>
                             </collectionViewCell>
@@ -322,6 +331,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rQK-3z-u2A"/>
+        <segue reference="g2R-CL-5Du"/>
     </inferredMetricsTieBreakers>
 </document>

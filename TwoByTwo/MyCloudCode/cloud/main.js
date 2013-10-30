@@ -8,7 +8,7 @@ Parse.Cloud.define("hello", function(request, response) {
   response.success("Hello Parse world!");
 });
 
- 
+/* 
 Parse.Cloud.beforeSave("Photo", function(request, response) {
 	var photo = request.object;
 
@@ -90,7 +90,11 @@ Parse.Cloud.beforeSave("Photo", function(request, response) {
       subject: "2by2 - User took a photo",
       from_email: "jtubert@gmail.com",
       from_name: "2by2 - Cloud Code",
-      to: [        
+      to: [
+        {
+          email: "jtubert@gmail.com",
+          name: "John Tubert"
+        },
         {
           email: "amin@amintorres.com",
           name: "Amin Torres"
@@ -110,7 +114,7 @@ Parse.Cloud.beforeSave("Photo", function(request, response) {
   });
 });
 
-
+*/
 
 Parse.Cloud.job("photosPerUser", function(request, status) {
   // Set up to modify user data

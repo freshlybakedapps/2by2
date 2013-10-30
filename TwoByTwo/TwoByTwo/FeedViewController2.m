@@ -37,10 +37,8 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
 - (void) onSegmentChange:(NSNotification*)notification{
     UISegmentedControl* segment = (UISegmentedControl*) [notification object];
     self.currentSection = segment.selectedSegmentIndex;
-    NSLog(@"selectedSegmentIndex %i",segment.selectedSegmentIndex);
-    
-    [super performQuery];
-    
+    //NSLog(@"selectedSegmentIndex %i",segment.selectedSegmentIndex);
+    [super performQuery];    
 }
 
 
@@ -61,6 +59,7 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
 #pragma mark - collection view stuff
 
 - (void) objectsDidLoad:(NSError *)error{
+    
     [super objectsDidLoad:error];
     if(error){
         NSLog(@"error: %@",error);
@@ -69,7 +68,7 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
     
     lastRefresh = [NSDate date];
     [[NSUserDefaults standardUserDefaults] setObject:lastRefresh forKey:FeedViewControllerLastRefreshKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];    
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     
     
@@ -81,8 +80,8 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
     // Dispose of any resources that can be recreated.
 }
 
-- (PFQuery *)queryForCollection
-{
+- (PFQuery *)queryForCollection{
+    
     if (![PFUser currentUser]) {
         PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
         //[query whereKey:kPAPPhotoUserKey equalTo:[PFUser currentUser]];
@@ -91,7 +90,8 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
     }
     
     PFQuery *queryPhoto = [PFQuery queryWithClassName:@"Photo"];
-    
+    [queryPhoto includeKey:@"user"];
+    [queryPhoto includeKey:@"user_full"];
     
     if(self.currentSection == 0){
         [queryPhoto whereKey:@"user" equalTo:[PFUser currentUser]];
@@ -110,13 +110,13 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
     
     
     
-    [queryPhoto orderByDescending:@"createdAt"];
+    [queryPhoto orderByDescending:@"updatedAt"];
     //[queryPhoto setLimit:4];
     [queryPhoto setCachePolicy:kPFCachePolicyCacheThenNetwork];
     
     // If Pull To Refresh is enabled, query against the network by default.
     if (self.pullToRefreshEnabled) {
-        //queryPhoto.cachePolicy = kPFCachePolicyNetworkOnly;
+        queryPhoto.cachePolicy = kPFCachePolicyNetworkOnly;
     }
     
     // If there is no network connection, we will hit the cache first.

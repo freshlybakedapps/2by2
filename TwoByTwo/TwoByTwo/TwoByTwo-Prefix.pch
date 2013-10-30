@@ -17,4 +17,5 @@
     #import <Parse/Parse.h>
     #import "TestFlight.h"
     #import "Flurry.h"
+    #import <FacebookSDK/FacebookSDK.h>
 #endif

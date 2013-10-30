@@ -9,7 +9,7 @@
 #import "CameraViewController.h"
 #import "GPUImage.h"
 #import "ProgressButton.h"
-#import "DataManager.h"
+//#import "DataManager.h"
 #import "AppDelegate.h"
 #import "UIImage+UIImageResizing.h"
 
@@ -52,7 +52,17 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         self.filter = [[GPUImageLightenBlendFilter alloc] init];
         [self.filter addTarget:self.liveView];
         
-        PFFile *file = [self.object objectForKey:@"newThumbnail"];
+        
+        NSString *state = [self.object objectForKey:@"state"];
+        NSString *fileName;
+        if([state isEqualToString:@"full"]){
+            fileName = @"image_full";
+        }else{
+            fileName = @"image_half";
+        }
+        
+        PFFile *file = [self.object objectForKey:fileName];
+        
         //NSLog(@"url: %@",[file url]);
         NSURL *imageURL = [NSURL URLWithString:[file url]];
         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
@@ -94,12 +104,15 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     if (currentLocation) {
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         appDelegate.currentLocation = currentLocation;
+        
     }
     
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(locationDidChange:)
                                                  name:@"LocationChangeNotification"
                                                object:nil];
+     */
 }
 
 - (void)locationDidChange:(NSNotification *)note;
@@ -173,18 +186,22 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 {
     switch (self.state) {
         case CameraViewStateTakePhoto:
+            [self cleanup];
             [self dismissViewControllerAnimated:YES completion:nil];
             break;
             
         case CameraViewStateReadyToUpload:
+            NSLog(@"CameraViewStateReadyToUpload");
             self.state = CameraViewStateTakePhoto;
             break;
             
         case CameraViewStateUploading:
+            NSLog(@"CameraViewStateUploading");
             self.state = CameraViewStateReadyToUpload;
             break;
             
         case CameraViewStateDone:
+            NSLog(@"CameraViewStateDone");
         default:
             break;
     }
@@ -207,7 +224,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         case CameraViewStateReadyToUpload:
         {
             self.state = CameraViewStateUploading;
-            
+            /*
             NSNumber *identifier = @((int)[NSDate timeIntervalSinceReferenceDate]);
             
             NSData *data = UIImageJPEGRepresentation(self.previewView.image, 0.8);
@@ -220,11 +237,13 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             if (![data writeToFile:path options:0 error:nil]) {
                 NSLog(@"error: %@", error);
             }
+            
+           
             Photo *photo = [Photo insertObjectInContext:[DataManager sharedInstance].mainContext];
             photo.identifier = identifier;
             photo.photoPath = path;
             [[DataManager sharedInstance] save];
-            
+            */
             //jt
             [self shouldUploadImage:self.previewView.image];
             
@@ -240,12 +259,23 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             break;
             
         case CameraViewStateDone:
+            [self cleanup];
+            
             [self dismissViewControllerAnimated:YES completion:nil];
             break;
             
         default:
             break;
     }
+}
+
+- (void) cleanup{
+    self.filter = nil;
+    self.sourcePicture = nil;
+    self.stillCamera = nil;
+    [self.locationManager stopUpdatingLocation];
+    self.object = nil;
+    self.photo = nil;
 }
 
 - (BOOL)shouldUploadImage:(UIImage *)anImage {
@@ -273,7 +303,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     [photoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"Photo uploaded successfully");
-            [self performSelector:@selector(saveSuccessfully) withObject:nil afterDelay:1];
+            [self performSelector:@selector(successfullyWithMessage:) withObject:@"Photo uploaded successfully" afterDelay:1];
         } else {
             [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
         }
@@ -288,20 +318,31 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
     
     if (self.object) {
+        
+        NSLog(@"self.object: %@",self.object);
+        
         [self.object setObject:geoPoint forKey:@"location_full"];
         [self.object setObject:photoFile forKey:@"image_full"];
+        [self.object setObject:[PFUser currentUser] forKey:@"user_full"];
         [self.object setObject:@"full" forKey:@"state"];
-        [self.object saveInBackground];
+        [self.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [self performSelector:@selector(successfullyWithMessage:) withObject:@"Object saved succesfully" afterDelay:1];
+        }];
     }else{
         PFObject *photo = [PFObject objectWithClassName:@"Photo"];
         [photo setObject:[PFUser currentUser] forKey:@"user"];
         [photo setObject:geoPoint forKey:@"location_half"];
         [photo setObject:photoFile forKey:@"image_half"];
         [photo setObject:@"half" forKey:@"state"];
+        /*
         PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [photoACL setPublicReadAccess:YES];
+        [photoACL setPublicReadAccess:YES];        
+        [photoACL setPublicWriteAccess:YES];
         photo.ACL = photoACL;
-        [photo saveInBackground];
+         */
+        [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [self performSelector:@selector(successfullyWithMessage:) withObject:@"Object saved succesfully" afterDelay:1];
+        }];
 
     }
     
@@ -313,9 +354,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     return YES;
 }
 
-- (void) saveSuccessfully{
+- (void) successfullyWithMessage:(NSString*) str{
     
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Success" message:@"Saved successfully!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Success" message:str delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
 

@@ -11,6 +11,7 @@
 
 @interface FeedCell ()
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UILabel *username;
 @end
 
 
@@ -28,10 +29,34 @@
 {
     _object = object;
     
-    PFFile *file = [object objectForKey:@"newThumbnail"];
+    NSString *state = [object objectForKey:@"state"];
+    NSString *fileName;
+    if([state isEqualToString:@"full"]){
+        fileName = @"image_full";
+    }else{
+        fileName = @"image_half";
+    }
+    
+    PFFile *file = [object objectForKey:fileName];
+    
+    PFUser *user = [object objectForKey:@"user"];
+    
+    PFUser *user_full = [object objectForKey:@"user_full"];
+    
+    NSString* username = [user username];
+    
+    if(user_full){
+        NSLog(@"user_full: %@", [user_full username]);
+        username = [username stringByAppendingFormat:@" / %@",[user_full username]];
+
+    }
+    
+    
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
             UIImage *image = [UIImage imageWithData:data];
+            
+            self.username.text = username;
             
             self.imageView.image = image;
         } else {
