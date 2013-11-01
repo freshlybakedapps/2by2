@@ -26,12 +26,17 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSegmentChange:) name:@"segmentChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadImagesTable) name:@"reloadImagesTable" object:nil];
     
     if (![PFUser currentUser]) {
         
     }
     
     lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:FeedViewControllerLastRefreshKey];
+}
+
+- (void) reloadImagesTable{
+    [super performQuery];
 }
 
 - (void) onSegmentChange:(NSNotification*)notification{

@@ -123,6 +123,32 @@
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTB-mY-SoT">
+                                            <rect key="frame" x="20" y="208" width="43" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="X">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="deletePhoto:" destination="rSS-zt-7dK" eventType="touchUpInside" id="0r3-ts-5nC"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plF-sK-bMV">
+                                            <rect key="frame" x="232" y="208" width="48" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="flag">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="flagPhoto:" destination="rSS-zt-7dK" eventType="touchUpInside" id="NIR-h8-BhE"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -134,6 +160,8 @@
                                     <constraint firstAttribute="bottom" secondItem="V0G-BQ-POi" secondAttribute="bottom" id="tQi-Ub-ALq"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="deleteButton" destination="FTB-mY-SoT" id="aK1-nm-c2R"/>
+                                    <outlet property="flagButton" destination="plF-sK-bMV" id="MJq-84-0VV"/>
                                     <outlet property="imageView" destination="V0G-BQ-POi" id="oD5-5w-jjb"/>
                                     <outlet property="username" destination="NQJ-7v-a15" id="rST-Y6-sAH"/>
                                     <segue destination="vVh-uF-8fn" kind="modal" id="g2R-CL-5Du"/>
