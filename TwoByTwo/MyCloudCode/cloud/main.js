@@ -16,9 +16,21 @@ Parse.Cloud.define("flagPhoto", function(request, response) {
   query.get(objid, {
     success: function(photo) {
     	//"Photo saved: ("+currentState+")<img src='"+ url + "'></img>",
-    	var url = photo.get("image_full")._url;
+    	
     	var currentState = photo.get("state");
     	//console.log("photo: "+url);
+    	var theURL;
+
+    	if(currentState == "full"){
+    		theURL = "image_full";
+    	}else{
+    		theURL = "image_half";
+    	}
+
+    	var url = photo.get(theURL)._url;
+
+
+
 
     	mandrill.sendEmail({
 		    message: {
@@ -44,7 +56,7 @@ Parse.Cloud.define("flagPhoto", function(request, response) {
 		    error: function(httpResponse) { response.error("Uh oh, something went wrong"); }
 		  });
 
-    		response.success();
+    		//response.success();
 	    },
 	    error: function(error) {
 	      console.error("Got an error " + error.code + " : " + error.message);

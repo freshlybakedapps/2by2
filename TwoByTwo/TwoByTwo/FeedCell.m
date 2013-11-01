@@ -106,6 +106,8 @@
                                 block:^(NSString *result, NSError *error) {
                                     if (!error) {
                                         NSLog(@"flag photo result: %@", result);
+                                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Flag" message:@"Thanks for flagging this image." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+                                        [alert show];
                                     }
                                 }];
 }
