@@ -53,6 +53,11 @@
 
                 if (!error) {
                     NSString *name = result[@"name"];
+                    NSString *email = result[@"email"];
+                    
+                    //NSLog(@"email %@", email);
+                    
+                    [PFUser currentUser].email = email;
                     [PFUser currentUser].username = name;
                     [[PFUser currentUser] saveInBackground];
                     [Flurry setUserID:name];
