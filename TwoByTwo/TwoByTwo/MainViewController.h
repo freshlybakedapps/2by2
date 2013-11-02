@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, FeedType) {
+    FeedTypeYou = 0,
+    FeedTypeSingle,
+    FeedTypeGlobal,
+};
+
 
 @interface MainViewController : UIViewController
 

@@ -7,10 +7,12 @@
 //
 
 #import "MainViewController.h"
+#import "FeedViewController.h"
+#import "GridViewController.h"
 
 
 @interface MainViewController ()
-
+@property (nonatomic, strong) UIViewController *childViewController;
 @end
 
 
@@ -19,11 +21,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self showControllerWithType:0];
 }
 
 - (IBAction)segmentedControlValueChanged:(UISegmentedControl *)sender
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"segmentChanged" object:@(sender.selectedSegmentIndex)];
+    [self showControllerWithType:sender.selectedSegmentIndex];
+}
+
+- (void)showControllerWithType:(FeedType)type
+{
+    if (self.childViewController) {
+        [self.childViewController willMoveToParentViewController:nil];
+        [self.childViewController.view removeFromSuperview];
+        [self.childViewController removeFromParentViewController];
+    }
+    
+    switch (type) {
+        case FeedTypeGlobal:
+        case FeedTypeSingle:
+        {
+            FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+            controller.currentSection = type;
+            self.childViewController = controller;
+            break;
+        }
+        default:
+        {
+            GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+            controller.type = type;
+            self.childViewController = controller;
+            break;
+        }
+    }
+    
+    [self addChildViewController:self.childViewController];
+    self.childViewController.view.frame = self.view.bounds;
+    [self.view addSubview:self.childViewController.view];
+    [self.childViewController didMoveToParentViewController:self];
 }
 
 @end

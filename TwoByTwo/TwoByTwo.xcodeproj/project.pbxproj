@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */; };
-		1D1B34F2181EA25600E6F26A /* FeedViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EE181EA25600E6F26A /* FeedViewController2.m */; };
+		1D1B34F2181EA25600E6F26A /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EE181EA25600E6F26A /* FeedViewController.m */; };
 		1D1B34F3181EA25600E6F26A /* CPFQueryCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */; };
 		1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34F6181EAFA200E6F26A /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1D4207C117E6AAC4008A7F98 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C017E6AAC4008A7F98 /* Parse.framework */; };
@@ -26,6 +26,7 @@
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
 		7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578A1825962A0053483B /* UIWindow+Animation.m */; };
 		7C76578D182597930053483B /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C76578C182597930053483B /* Login.storyboard */; };
+		7C7657901825AE920053483B /* GridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578F1825AE920053483B /* GridCell.m */; };
 		7CCEC4DD17E66760002AC51C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4DC17E66760002AC51C /* DataManager.m */; };
 		7CCEC4E017E66C32002AC51C /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4DF17E66C32002AC51C /* Photo.m */; };
 		7CCEC4E317E66C32002AC51C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4E217E66C32002AC51C /* User.m */; };
@@ -46,7 +47,7 @@
 		7CF39E0817E0070B003A859F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF39E0617E0070B003A859F /* InfoPlist.strings */; };
 		7CF39E0A17E0070B003A859F /* TwoByTwoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E0917E0070B003A859F /* TwoByTwoTests.m */; };
 		7CF39E1517E00775003A859F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1417E00775003A859F /* MainViewController.m */; };
-		7CF39E1817E00782003A859F /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1717E00782003A859F /* FeedViewController.m */; };
+		7CF39E1817E00782003A859F /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1717E00782003A859F /* GridViewController.m */; };
 		7CF39E1B17E00792003A859F /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1A17E00792003A859F /* FeedCell.m */; };
 		7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1D17E00D30003A859F /* CameraViewController.m */; };
 		8AB5BC5834294D7CBF47B62A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 997CEE5E850E4BFC9549234B /* libPods.a */; };
@@ -65,8 +66,8 @@
 /* Begin PBXFileReference section */
 		1D1B34EB181B203800E6F26A /* UIImage+UIImageResizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageResizing.h"; sourceTree = "<group>"; };
 		1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageResizing.m"; sourceTree = "<group>"; };
-		1D1B34EE181EA25600E6F26A /* FeedViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController2.m; sourceTree = "<group>"; };
-		1D1B34EF181EA25600E6F26A /* FeedViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController2.h; sourceTree = "<group>"; };
+		1D1B34EE181EA25600E6F26A /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		1D1B34EF181EA25600E6F26A /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		1D1B34F0181EA25600E6F26A /* CPFQueryCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFQueryCollectionViewController.h; sourceTree = "<group>"; };
 		1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFQueryCollectionViewController.m; sourceTree = "<group>"; };
 		1D1B34F5181EAFA200E6F26A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -90,6 +91,8 @@
 		7C7657891825962A0053483B /* UIWindow+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Animation.h"; sourceTree = "<group>"; };
 		7C76578A1825962A0053483B /* UIWindow+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Animation.m"; sourceTree = "<group>"; };
 		7C76578C182597930053483B /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		7C76578E1825AE920053483B /* GridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
+		7C76578F1825AE920053483B /* GridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridCell.m; sourceTree = "<group>"; };
 		7CCEC4DB17E66760002AC51C /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		7CCEC4DC17E66760002AC51C /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		7CCEC4DE17E66C32002AC51C /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
@@ -120,8 +123,8 @@
 		7CF39E0917E0070B003A859F /* TwoByTwoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TwoByTwoTests.m; sourceTree = "<group>"; };
 		7CF39E1317E00775003A859F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7CF39E1417E00775003A859F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		7CF39E1617E00782003A859F /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
-		7CF39E1717E00782003A859F /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		7CF39E1617E00782003A859F /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
+		7CF39E1717E00782003A859F /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 		7CF39E1917E00792003A859F /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
 		7CF39E1A17E00792003A859F /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCell.m; sourceTree = "<group>"; };
 		7CF39E1C17E00D30003A859F /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
@@ -183,6 +186,17 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		7C7657911825AEA40053483B /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				7CF39E1617E00782003A859F /* GridViewController.h */,
+				7CF39E1717E00782003A859F /* GridViewController.m */,
+				7C76578E1825AE920053483B /* GridCell.h */,
+				7C76578F1825AE920053483B /* GridCell.m */,
+			);
+			name = Grid;
+			sourceTree = "<group>";
+		};
 		7CD9507417E657BC00C70956 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +233,7 @@
 			children = (
 				1DCD412518083B88007A5D56 /* Login */,
 				7CF39E2117E00D3F003A859F /* Main */,
+				7C7657911825AEA40053483B /* Grid */,
 				7CF39E1F17E00D35003A859F /* Feed */,
 				7CF39E2017E00D3A003A859F /* Camera */,
 			);
@@ -316,10 +331,8 @@
 		7CF39E1F17E00D35003A859F /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				1D1B34EF181EA25600E6F26A /* FeedViewController2.h */,
-				1D1B34EE181EA25600E6F26A /* FeedViewController2.m */,
-				7CF39E1617E00782003A859F /* FeedViewController.h */,
-				7CF39E1717E00782003A859F /* FeedViewController.m */,
+				1D1B34EF181EA25600E6F26A /* FeedViewController.h */,
+				1D1B34EE181EA25600E6F26A /* FeedViewController.m */,
 				7CF39E1917E00792003A859F /* FeedCell.h */,
 				7CF39E1A17E00792003A859F /* FeedCell.m */,
 				1D1B34F0181EA25600E6F26A /* CPFQueryCollectionViewController.h */,
@@ -493,9 +506,10 @@
 				7CCEC4E317E66C32002AC51C /* User.m in Sources */,
 				7CD9507A17E6659A00C70956 /* TwoByTwo.xcdatamodeld in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
+				7C7657901825AE920053483B /* GridCell.m in Sources */,
 				7CF39E1B17E00792003A859F /* FeedCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
-				1D1B34F2181EA25600E6F26A /* FeedViewController2.m in Sources */,
+				1D1B34F2181EA25600E6F26A /* FeedViewController.m in Sources */,
 				7CCEC4E017E66C32002AC51C /* Photo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
@@ -505,7 +519,7 @@
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
-				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
+				7CF39E1817E00782003A859F /* GridViewController.m in Sources */,
 				1D1B34F3181EA25600E6F26A /* CPFQueryCollectionViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,

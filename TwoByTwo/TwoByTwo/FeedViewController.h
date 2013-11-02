@@ -1,14 +1,18 @@
 //
-//  FeedViewController.h
-//  TwoByTwo
+//  ProfileViewController.h
+//  MotorMouth
 //
-//  Created by Joseph Lin on 9/10/13.
-//  Copyright (c) 2013 Joseph Lin. All rights reserved.
+//  Created by John Tubert on 3/4/13.
+//  Copyright (c) 2013 John Tubert. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+
+#import "CPFQueryCollectionViewController.h"
+#import "MainViewController.h"
 
 
-@interface FeedViewController : UIViewController
+@interface FeedViewController : CPFQueryCollectionViewController
+
+@property (nonatomic) int currentSection;
 
 @end
