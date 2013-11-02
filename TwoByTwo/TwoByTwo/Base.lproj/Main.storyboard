@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" initialViewController="FJq-Ka-9gN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
-        <scene sceneID="siK-Xb-A6N">
+        <scene sceneID="ucj-BP-YsX">
             <objects>
-                <navigationController definesPresentationContext="YES" id="FJq-Ka-9gN" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mxr-KP-vg0">
+                <navigationController definesPresentationContext="YES" id="Obj-f5-spw" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dia-uB-aYJ">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="cb9-zQ-ESn" kind="relationship" relationship="rootViewController" id="BM7-HA-6Ar"/>
+                        <segue destination="kXQ-kM-6nA" kind="relationship" relationship="rootViewController" id="jrM-BG-4Om"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hyB-1J-cDX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Wk-wn-Vgy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-304" y="297"/>
+            <point key="canvasLocation" x="72" y="69"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="J3s-OE-Kce">
@@ -51,16 +51,13 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="q5s-Gd-dB9">
-                                <rect key="frame" x="20" y="20" width="280" height="44"/>
+                                <rect key="frame" x="20" y="20" width="280" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="You"/>
                                     <segment title="Single"/>
                                     <segment title="Public"/>
                                 </segments>
-                                <connections>
-                                    <action selector="changeSeg" destination="kXQ-kM-6nA" eventType="valueChanged" id="pWp-iT-EmT"/>
-                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -79,15 +76,15 @@
                                 <segment title="Single"/>
                                 <segment title="Global"/>
                             </segments>
+                            <connections>
+                                <action selector="segmentedControlValueChanged:" destination="kXQ-kM-6nA" eventType="valueChanged" id="q0j-3g-jkf"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
-                    <connections>
-                        <outlet property="Segment" destination="q5s-Gd-dB9" id="AAo-sl-IEg"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DWP-Nj-xW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="574" y="131"/>
+            <point key="canvasLocation" x="547" y="69"/>
         </scene>
         <!--Feed View Controller2-->
         <scene sceneID="lMZ-wE-yta">
@@ -218,7 +215,7 @@
                                     <action selector="bottomButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="aAH-Ag-qwL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9">
                                 <rect key="frame" x="138" y="20" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="button-close">
@@ -263,11 +260,11 @@
                         <viewControllerLayoutGuide type="bottom" id="QRf-1l-zIN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="z3z-Ec-8cH">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KkC-La-NvL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vKF-kW-tei">
@@ -320,32 +317,6 @@
             </objects>
             <point key="canvasLocation" x="1604" y="38"/>
         </scene>
-        <!--Login View Controller-->
-        <scene sceneID="see-dP-ivq">
-            <objects>
-                <viewController id="cb9-zQ-ESn" customClass="LoginViewController" sceneMemberID="viewController">
-                    <button key="view" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tFy-oi-tNB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <state key="normal" title="Login with facebook">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="loginButtonTouchHandler:" destination="cb9-zQ-ESn" eventType="touchUpInside" id="GAc-WY-WXS"/>
-                        </connections>
-                    </button>
-                    <navigationItem key="navigationItem" id="YfP-da-WWc"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <connections>
-                        <segue destination="kXQ-kM-6nA" kind="modal" identifier="MainView" id="34c-Cx-X6H"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8fh-hh-diN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="143" y="297"/>
-        </scene>
     </scenes>
     <resources>
         <image name="button-close" width="44" height="44"/>
@@ -359,6 +330,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="g2R-CL-5Du"/>
+        <segue reference="rQK-3z-u2A"/>
     </inferredMetricsTieBreakers>
 </document>

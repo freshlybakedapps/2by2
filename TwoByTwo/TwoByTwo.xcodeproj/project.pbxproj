@@ -24,6 +24,8 @@
 		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
+		7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578A1825962A0053483B /* UIWindow+Animation.m */; };
+		7C76578D182597930053483B /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C76578C182597930053483B /* Login.storyboard */; };
 		7CCEC4DD17E66760002AC51C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4DC17E66760002AC51C /* DataManager.m */; };
 		7CCEC4E017E66C32002AC51C /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4DF17E66C32002AC51C /* Photo.m */; };
 		7CCEC4E317E66C32002AC51C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4E217E66C32002AC51C /* User.m */; };
@@ -85,6 +87,9 @@
 		7C73FFC217E62EB50055C57C /* ProgressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressButton.m; sourceTree = "<group>"; };
 		7C73FFC417E637C50055C57C /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
 		7C73FFC517E637C50055C57C /* UIColor+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Utilities.m"; sourceTree = "<group>"; };
+		7C7657891825962A0053483B /* UIWindow+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Animation.h"; sourceTree = "<group>"; };
+		7C76578A1825962A0053483B /* UIWindow+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Animation.m"; sourceTree = "<group>"; };
+		7C76578C182597930053483B /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		7CCEC4DB17E66760002AC51C /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		7CCEC4DC17E66760002AC51C /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		7CCEC4DE17E66C32002AC51C /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
@@ -181,6 +186,8 @@
 		7CD9507417E657BC00C70956 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				7C7657891825962A0053483B /* UIWindow+Animation.h */,
+				7C76578A1825962A0053483B /* UIWindow+Animation.m */,
 				7C73FFC417E637C50055C57C /* UIColor+Utilities.h */,
 				7C73FFC517E637C50055C57C /* UIColor+Utilities.m */,
 				7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */,
@@ -263,12 +270,13 @@
 		7CF39DE417E0070A003A859F /* TwoByTwo */ = {
 			isa = PBXGroup;
 			children = (
-				1D1B34F4181EAFA200E6F26A /* Reachability */,
 				7CF39DED17E0070A003A859F /* AppDelegate.h */,
 				7CF39DEE17E0070A003A859F /* AppDelegate.m */,
+				7C76578C182597930053483B /* Login.storyboard */,
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
 				7CD9507C17E665AA00C70956 /* Controllers */,
 				7CD9507B17E6659E00C70956 /* Data Models */,
+				1D1B34F4181EAFA200E6F26A /* Reachability */,
 				7CD9507417E657BC00C70956 /* Categories */,
 				7CF39DF617E0070A003A859F /* Images.xcassets */,
 				7CF39DE517E0070A003A859F /* Supporting Files */,
@@ -426,6 +434,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C76578D182597930053483B /* Login.storyboard in Resources */,
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
 				7CF39DE917E0070A003A859F /* InfoPlist.strings in Resources */,
 				7CF39DF217E0070A003A859F /* Main.storyboard in Resources */,
@@ -480,6 +489,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
 				7CCEC4E317E66C32002AC51C /* User.m in Sources */,
 				7CD9507A17E6659A00C70956 /* TwoByTwo.xcdatamodeld in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,

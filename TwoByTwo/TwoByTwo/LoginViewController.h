@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
 
-- (IBAction)loginButtonTouchHandler:(id)sender;
+@interface LoginViewController : UIViewController
 
 @end

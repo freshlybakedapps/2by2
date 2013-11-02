@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MainViewController : UIViewController{
-    IBOutlet UISegmentedControl *Segment;
-}
-
--(IBAction)changeSeg;
+@interface MainViewController : UIViewController
 
 @end

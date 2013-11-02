@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "Reachability.h"
+#import "UIWindow+Animation.h"
+
 
 @implementation AppDelegate
 
@@ -25,6 +27,16 @@
     // ****************************************************************************
     [TestFlight takeOff:@"d2f2ed31-a333-476b-b821-aa259759a131"];
     
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
+    
+    if ([PFUser currentUser]) {
+        [self showMainViewController];
+    }
+    else {
+        [self showLoginViewController];
+    }
+
     return YES;
 }
 
@@ -49,38 +61,36 @@
 }
 
 
-
-
 // ****************************************************************************
 // App switching methods to support Facebook Single Sign-On
 // ****************************************************************************
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
     return [PFFacebookUtils handleOpenURL:url];
 }
 
-							
-- (void)applicationWillResignActive:(UIApplication *)application
+
+#pragma mark - Root View Controller
+
+- (void)showLoginViewController
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    UIViewController *controller = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
+    [self.window setRootViewController:controller animated:YES];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)showMainViewController
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    UIViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    [self.window setRootViewController:controller animated:YES];
 }
 
 
-- (void)applicationWillTerminate:(UIApplication *)application
+#pragma mark - Convenience Methods
+
++ (AppDelegate *)delegate
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    return (id)[UIApplication sharedApplication].delegate;
 }
 
 @end

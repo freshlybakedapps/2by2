@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) CLLocation *currentLocation;
-
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, readonly) int networkStatus;
 
+- (void)showLoginViewController;
+- (void)showMainViewController;
 - (BOOL)isParseReachable;
+
++ (AppDelegate *)delegate;
 
 @end

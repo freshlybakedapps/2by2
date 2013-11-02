@@ -40,8 +40,8 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
 }
 
 - (void) onSegmentChange:(NSNotification*)notification{
-    UISegmentedControl* segment = (UISegmentedControl*) [notification object];
-    self.currentSection = segment.selectedSegmentIndex;
+    NSNumber *index = notification.object;
+    self.currentSection = [index integerValue];
     //NSLog(@"selectedSegmentIndex %i",segment.selectedSegmentIndex);
     [super performQuery];    
 }

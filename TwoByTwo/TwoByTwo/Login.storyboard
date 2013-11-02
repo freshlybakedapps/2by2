@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2kw-39-nlh">
+    <dependencies>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="5PE-jn-S7n">
+            <objects>
+                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="2kw-39-nlh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aCx-yK-fvJ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="NpQ-lY-3oP" kind="relationship" relationship="rootViewController" id="RhS-pv-G0o"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5c6-wn-f6w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="37"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="A7V-vM-o9B">
+            <objects>
+                <viewController id="NpQ-lY-3oP" customClass="LoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EEw-IS-7ia"/>
+                        <viewControllerLayoutGuide type="bottom" id="AXK-Ob-vKL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ypO-cp-i31">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image-login" translatesAutoresizingMaskIntoConstraints="NO" id="Iml-HH-ahS">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="348"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="236" translatesAutoresizingMaskIntoConstraints="NO" id="tL2-Ns-1Lo">
+                                <rect key="frame" x="42" y="378" width="236" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Two exposures, two photographers, 
+one unexpected  unique image. </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWb-Hw-1aw">
+                                <rect key="frame" x="67" y="442" width="186" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="QMW-sh-Ccb"/>
+                                    <constraint firstAttribute="width" constant="186" id="nBL-lh-YK9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <inset key="titleEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Login with facebook" backgroundImage="button-facebook">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonTouchHandler:" destination="NpQ-lY-3oP" eventType="touchUpInside" id="FEZ-G2-470"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1H-T7-Lmy">
+                                <rect key="frame" x="70" y="512" width="180" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                <state key="normal">
+                                    <string key="title" base64-UTF8="YES">
+QnkgY3JlYXRpbmcgYW4gYWNjb3VudCB5b3UgYWdyZWUgdG8gb3VyCgN0ZXJtcyAmIGNvbmRpdGlvbnM
+</string>
+                                    <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="tL2-Ns-1Lo" secondAttribute="centerX" id="56A-bA-TFp"/>
+                            <constraint firstAttribute="centerX" secondItem="K1H-T7-Lmy" secondAttribute="centerX" id="8pf-dt-nIx"/>
+                            <constraint firstItem="jWb-Hw-1aw" firstAttribute="top" secondItem="tL2-Ns-1Lo" secondAttribute="bottom" constant="30" id="Trh-ug-Bpr"/>
+                            <constraint firstItem="AXK-Ob-vKL" firstAttribute="top" secondItem="K1H-T7-Lmy" secondAttribute="bottom" constant="20" id="U0b-pC-59q"/>
+                            <constraint firstItem="Iml-HH-ahS" firstAttribute="leading" secondItem="ypO-cp-i31" secondAttribute="leading" id="ZbS-LG-hy9"/>
+                            <constraint firstItem="tL2-Ns-1Lo" firstAttribute="top" secondItem="Iml-HH-ahS" secondAttribute="bottom" constant="30" id="a1D-QY-baA"/>
+                            <constraint firstAttribute="centerX" secondItem="jWb-Hw-1aw" secondAttribute="centerX" id="gzV-ed-6hu"/>
+                            <constraint firstItem="Iml-HH-ahS" firstAttribute="top" secondItem="ypO-cp-i31" secondAttribute="top" id="uY2-ee-hC0"/>
+                            <constraint firstAttribute="trailing" secondItem="Iml-HH-ahS" secondAttribute="trailing" id="yIv-8n-ZWb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="yQt-Jf-XO1"/>
+                    <connections>
+                        <outlet property="termsButton" destination="K1H-T7-Lmy" id="fnZ-cx-T1e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AVd-4b-ZsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="957" y="37"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="button-facebook" width="186" height="38"/>
+        <image name="image-login" width="320" height="348"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
