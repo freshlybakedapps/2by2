@@ -54,6 +54,7 @@ NSString *const FeedViewControllerLastRefreshKey    = @"com.jtubert.2by2.userDef
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(FeedCell *)sender
 {
     CameraViewController *controller = segue.destinationViewController;
+    
     if(self.currentSection == 1){
         controller.photo = sender.photo;
         controller.object = sender.object;

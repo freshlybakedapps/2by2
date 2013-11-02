@@ -48,7 +48,77 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
+    
     if (self.object) {
+        //lets check again to make sure photo is not "in-use"
+        PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+        [query includeKey:@"user_inuse"];
+        [query getObjectInBackgroundWithId:self.object.objectId block:^(PFObject *photo, NSError *error) {
+            NSString *state = [photo objectForKey:@"state"];
+            PFUser *user = [photo objectForKey:@"user_inuse"];
+            NSString *username = @"";
+            
+            if(user){
+                username = [user username];
+            }
+            
+            
+            
+            if([state isEqualToString:@"half"]){
+                [self setPhotoState:@"in-use"];
+                
+                self.filter = [[GPUImageLightenBlendFilter alloc] init];
+                [self.filter addTarget:self.liveView];
+                
+                
+                NSString *state = [self.object objectForKey:@"state"];
+                NSString *fileName;
+                if([state isEqualToString:@"full"]){
+                    fileName = @"image_full";
+                }else{
+                    fileName = @"image_half";
+                }
+                
+                PFFile *file = [self.object objectForKey:fileName];
+                
+                //NSLog(@"url: %@",[file url]);
+                NSURL *imageURL = [NSURL URLWithString:[file url]];
+                NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+                UIImage *image = [UIImage imageWithData:imageData];
+                
+                self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
+                [self.sourcePicture processImage];
+                [self.sourcePicture addTarget:self.filter];
+                
+                self.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
+                self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+                [self.stillCamera addTarget:self.filter];
+                [self.stillCamera startCameraCapture];
+                
+                
+            }else{
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:[NSString stringWithFormat:@"Sorry but this photo is in use by %@",username] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+                [alert show];
+                
+                
+            }
+        }];
+
+    }else{
+        self.filter = [[GPUImageGammaFilter alloc] init];
+        [self.filter addTarget:self.liveView];
+        
+        self.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
+        self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+        [self.stillCamera addTarget:self.filter];
+        [self.stillCamera startCameraCapture];
+    }
+    
+    /*
+    if (self.object) {
+        [self setPhotoState:@"in-use"];
+        
         self.filter = [[GPUImageLightenBlendFilter alloc] init];
         [self.filter addTarget:self.liveView];
         
@@ -78,11 +148,26 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         [self.filter addTarget:self.liveView];
     }
     
+     
+     
     self.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
     self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
     [self.stillCamera addTarget:self.filter];
     [self.stillCamera startCameraCapture];
+     */
+}
 
+
+
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        [self cleanup];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+   
 }
 
 #pragma mark - location stuff
@@ -186,6 +271,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 {
     switch (self.state) {
         case CameraViewStateTakePhoto:
+            [self setPhotoState:@"half"];
             [self cleanup];
             [self dismissViewControllerAnimated:YES completion:nil];
             break;
@@ -259,8 +345,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             break;
             
         case CameraViewStateDone:
+            [self setPhotoState:@"half"];
             [self cleanup];
-            
             [self dismissViewControllerAnimated:YES completion:nil];
             break;
             
@@ -276,6 +362,20 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     [self.locationManager stopUpdatingLocation];
     self.object = nil;
     self.photo = nil;
+}
+
+- (void) setPhotoState:(NSString*)state{
+    
+    if (self.object) {
+        //NSString* username = [[PFUser currentUser] username];
+        
+        [self.object setObject:state forKey:@"state"];
+        [self.object setObject:[PFUser currentUser] forKey:@"user_inuse"];
+        [self.object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            NSLog(@"Photo state saved successfully");
+            //[self performSelector:@selector(successfullyWithMessage:) withObject:@"Object saved succesfully" afterDelay:1];
+        }];
+    }
 }
 
 - (BOOL)shouldUploadImage:(UIImage *)anImage {
@@ -303,24 +403,17 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     [photoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"Photo uploaded successfully");
-            [self performSelector:@selector(successfullyWithMessage:) withObject:@"Photo uploaded successfully" afterDelay:1];
+            //[self performSelector:@selector(successfullyWithMessage:) withObject:@"Photo uploaded successfully" afterDelay:1];
         } else {
             [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
         }
     }];
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    
-    
-    // create a photo object
-    
-    
     PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:appDelegate.currentLocation.coordinate.latitude longitude:appDelegate.currentLocation.coordinate.longitude];
     
     if (self.object) {
-        
-        NSLog(@"self.object: %@",self.object);
-        
+        //NSLog(@"self.object: %@",self.object);
         [self.object setObject:geoPoint forKey:@"location_full"];
         [self.object setObject:photoFile forKey:@"image_full"];
         [self.object setObject:[PFUser currentUser] forKey:@"user_full"];
@@ -334,6 +427,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         [photo setObject:geoPoint forKey:@"location_half"];
         [photo setObject:photoFile forKey:@"image_half"];
         [photo setObject:@"half" forKey:@"state"];
+        [photo setObject:0 forKey:@"flag"];
         /*
         PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
         [photoACL setPublicReadAccess:YES];        
@@ -356,6 +450,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
 - (void) successfullyWithMessage:(NSString*) str{
     
+    //NSLog(@"");
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Success" message:str delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
 }
