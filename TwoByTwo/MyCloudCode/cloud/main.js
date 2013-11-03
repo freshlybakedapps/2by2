@@ -4,8 +4,30 @@ var mandrill = require('mandrill');
 
 mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
 
-Parse.Cloud.define("hello", function(request, response) {
-  response.success("Hello Parse world!");
+Parse.Cloud.afterSave("Photo", function(request,response) {
+  	var state = request.object.get("state");
+
+
+
+
+  	if(state == "full"){
+  		var user_full = request.object.get("user_full");
+  		var email = user_full._email;
+  		
+
+  		Parse.Cloud.useMasterKey();
+
+  		var query = new Parse.Query(Parse.User);
+  		query.equalTo("user", user_full);
+  		query.find({
+    		success: function(user) {
+      			console.log(user._email);
+    		},
+    		error: function(error) {
+      			console.error("Error finding related comments " + error.code + ": " + error.message);
+    		}
+  		});
+  	}
 });
 
 Parse.Cloud.define("flagPhoto", function(request, response) {
