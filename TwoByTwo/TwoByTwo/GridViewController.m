@@ -126,26 +126,16 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self toggleLayout];
-}
-
-- (void)toggleLayout
-{
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
     }
     else {
-        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+//        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+        
+        CameraViewController *controller = [CameraViewController controller];
+        controller.object = self.objects[indexPath.row];
+        [self presentViewController:controller animated:YES completion:nil];
     }
-}
-
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(GridCell *)sender
-{
-    //    CameraViewController *controller = segue.destinationViewController;
-    //    controller.photo = sender.object;
 }
 
 @end

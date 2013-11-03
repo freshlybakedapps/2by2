@@ -39,7 +39,8 @@
     
     switch (type) {
 //        case FeedTypeGlobal:
-        case FeedTypeSingle:
+//        case FeedTypeSingle:
+        case FeedTypeYou:
         {
             FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
             controller.currentSection = type;

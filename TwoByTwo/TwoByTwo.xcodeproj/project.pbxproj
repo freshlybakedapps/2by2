@@ -234,7 +234,6 @@
 				1DCD412518083B88007A5D56 /* Login */,
 				7CF39E2117E00D3F003A859F /* Main */,
 				7C7657911825AEA40053483B /* Grid */,
-				7CF39E1F17E00D35003A859F /* Feed */,
 				7CF39E2017E00D3A003A859F /* Camera */,
 			);
 			name = Controllers;
@@ -289,12 +288,12 @@
 				7CF39DEE17E0070A003A859F /* AppDelegate.m */,
 				7C76578C182597930053483B /* Login.storyboard */,
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
+				7CF39DF617E0070A003A859F /* Images.xcassets */,
 				7CD9507C17E665AA00C70956 /* Controllers */,
-				7CD9507B17E6659E00C70956 /* Data Models */,
 				1D1B34F4181EAFA200E6F26A /* Reachability */,
 				7CD9507417E657BC00C70956 /* Categories */,
-				7CF39DF617E0070A003A859F /* Images.xcassets */,
 				7CF39DE517E0070A003A859F /* Supporting Files */,
+				7CF39E1F17E00D35003A859F /* (not in use) */,
 			);
 			path = TwoByTwo;
 			sourceTree = "<group>";
@@ -328,9 +327,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7CF39E1F17E00D35003A859F /* Feed */ = {
+		7CF39E1F17E00D35003A859F /* (not in use) */ = {
 			isa = PBXGroup;
 			children = (
+				7CD9507B17E6659E00C70956 /* Data Models */,
 				1D1B34EF181EA25600E6F26A /* FeedViewController.h */,
 				1D1B34EE181EA25600E6F26A /* FeedViewController.m */,
 				7CF39E1917E00792003A859F /* FeedCell.h */,
@@ -338,7 +338,7 @@
 				1D1B34F0181EA25600E6F26A /* CPFQueryCollectionViewController.h */,
 				1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */,
 			);
-			name = Feed;
+			name = "(not in use)";
 			sourceTree = "<group>";
 		};
 		7CF39E2017E00D3A003A859F /* Camera */ = {

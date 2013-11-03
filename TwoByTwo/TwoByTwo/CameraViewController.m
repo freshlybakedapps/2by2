@@ -38,6 +38,12 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
 @implementation CameraViewController
 
++ (instancetype)controller
+{
+    CameraViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    return controller;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -11,7 +11,11 @@
 
 
 @interface CameraViewController : UIViewController <CLLocationManagerDelegate>
+
 @property (nonatomic, weak) Photo *photo;
 @property (nonatomic, weak) PFObject *object;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+
++ (instancetype)controller;
+
 @end

@@ -20,6 +20,9 @@
 
 @implementation GridCell
 
+
+#pragma mark - Content
+
 - (PFFile *)file
 {
     NSString *state = [_object objectForKey:@"state"];
@@ -30,43 +33,68 @@
 
 - (void)setObject:(PFObject *)object
 {
-    if (_object != object) {
-        _object = object;
-        
-        PFUser *user = [_object objectForKey:@"user"];
-        PFUser *user_full = [_object objectForKey:@"user_full"];
-        NSString* username = user.username;
-        if (user_full) {
-            username = [username stringByAppendingFormat:@" / %@",[user_full username]];
+    _object = object;
+    
+    PFUser *user = [_object objectForKey:@"user"];
+    PFUser *user_full = [_object objectForKey:@"user_full"];
+    NSString* username = user.username;
+    if (user_full) {
+        username = [username stringByAppendingFormat:@" / %@",[user_full username]];
+    }
+    self.textLabel.text = username;
+    
+    self.imageView.image = nil;
+    [self.file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            UIImage *image = [UIImage imageWithData:data];
+            self.imageView.image = image;
         }
-        self.textLabel.text = username;
+        else {
+            NSLog(@"getDataInBackgroundWithBlock: %@", error);
+        }
+    }];
+    
+    [self checkWhichButtonToShow];
+}
 
+- (void)checkWhichButtonToShow
+{
+    NSString *state = [self.object objectForKey:@"state"];
+    PFUser *user = [self.object objectForKey:@"user"];
+    
+    if ([user.username isEqualToString:[PFUser currentUser].username]) {
         
-        [self.file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            if (!error) {
-                UIImage *image = [UIImage imageWithData:data];
-                self.imageView.image = image;
-            }
-            else {
-                NSLog(@"getDataInBackgroundWithBlock: %@", error);
-            }
-        }];
+        //you should not be able to flag your own photo
+        self.flagButton.hidden = YES;
+        
+        if ([state isEqualToString:@"full"]) {
+            //you should not be able to delete a photo that was double exposed.
+            self.deleteButton.hidden = YES;
+        }
+        else {
+            //if image is half exposed and it's your own photo, you should be able to delete it
+            self.deleteButton.hidden = NO;
+        }
+    }
+    else {
+        self.flagButton.hidden = NO;
+        self.deleteButton.hidden = YES;
     }
 }
 
-- (void)prepareForReuse
-{
-//    [self.file cancel]; // This crashes when scrolls. Why?
-    self.imageView.image = nil;
-    [super prepareForReuse];
-}
 
+#pragma mark - Layout
+
+// Without this, contentView's subviews won't be animated properly.
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
     [self layoutIfNeeded];
 
     self.textLabel.alpha = self.deleteButton.alpha = self.flagButton.alpha = (CGRectGetWidth(layoutAttributes.frame) > 100) ? 1.0 : 0.0;
 }
+
+
+#pragma mark - Actions
 
 - (IBAction)flagButtonTapped:(id)sender
 {
