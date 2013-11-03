@@ -7,7 +7,6 @@
 //
 
 #import "MainViewController.h"
-#import "FeedViewController.h"
 #import "GridViewController.h"
 
 
@@ -37,24 +36,9 @@
         [self.childViewController removeFromParentViewController];
     }
     
-    switch (type) {
-//        case FeedTypeGlobal:
-//        case FeedTypeSingle:
-        case FeedTypeYou:
-        {
-            FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
-            controller.currentSection = type;
-            self.childViewController = controller;
-            break;
-        }
-        default:
-        {
-            GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
-            controller.type = type;
-            self.childViewController = controller;
-            break;
-        }
-    }
+    GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+    controller.type = type;
+    self.childViewController = controller;
     
     [self addChildViewController:self.childViewController];
     self.childViewController.view.frame = self.view.bounds;

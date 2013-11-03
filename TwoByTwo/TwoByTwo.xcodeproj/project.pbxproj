@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */; };
-		1D1B34F2181EA25600E6F26A /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EE181EA25600E6F26A /* FeedViewController.m */; };
-		1D1B34F3181EA25600E6F26A /* CPFQueryCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */; };
 		1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34F6181EAFA200E6F26A /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1D4207C117E6AAC4008A7F98 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C017E6AAC4008A7F98 /* Parse.framework */; };
 		1D4207C317E6AB10008A7F98 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */; };
@@ -43,7 +41,6 @@
 		7CF39E0A17E0070B003A859F /* TwoByTwoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E0917E0070B003A859F /* TwoByTwoTests.m */; };
 		7CF39E1517E00775003A859F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1417E00775003A859F /* MainViewController.m */; };
 		7CF39E1817E00782003A859F /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1717E00782003A859F /* GridViewController.m */; };
-		7CF39E1B17E00792003A859F /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1A17E00792003A859F /* FeedCell.m */; };
 		7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39E1D17E00D30003A859F /* CameraViewController.m */; };
 		8AB5BC5834294D7CBF47B62A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 997CEE5E850E4BFC9549234B /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -474,9 +471,7 @@
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7C7657901825AE920053483B /* GridCell.m in Sources */,
-				7CF39E1B17E00792003A859F /* FeedCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
-				1D1B34F2181EA25600E6F26A /* FeedViewController.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
 				1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */,
@@ -484,7 +479,6 @@
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
 				7CF39E1817E00782003A859F /* GridViewController.m in Sources */,
-				1D1B34F3181EA25600E6F26A /* CPFQueryCollectionViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,
 			);

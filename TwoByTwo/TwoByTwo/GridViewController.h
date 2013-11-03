@@ -1,5 +1,5 @@
 //
-//  FeedViewController.h
+//  GridViewController.h
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 9/10/13.
