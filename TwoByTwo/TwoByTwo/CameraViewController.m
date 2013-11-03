@@ -323,7 +323,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     self.stillCamera = nil;
     [self.locationManager stopUpdatingLocation];
     self.object = nil;
-    self.photo = nil;
 }
 
 - (void) setPhotoState:(NSString*)state{

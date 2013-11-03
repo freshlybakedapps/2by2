@@ -27,12 +27,7 @@
 		7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578A1825962A0053483B /* UIWindow+Animation.m */; };
 		7C76578D182597930053483B /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C76578C182597930053483B /* Login.storyboard */; };
 		7C7657901825AE920053483B /* GridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578F1825AE920053483B /* GridCell.m */; };
-		7CCEC4DD17E66760002AC51C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4DC17E66760002AC51C /* DataManager.m */; };
-		7CCEC4E017E66C32002AC51C /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4DF17E66C32002AC51C /* Photo.m */; };
-		7CCEC4E317E66C32002AC51C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4E217E66C32002AC51C /* User.m */; };
-		7CCEC4E617E67030002AC51C /* NSManagedObject+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCEC4E517E67030002AC51C /* NSManagedObject+Utilities.m */; };
 		7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */; };
-		7CD9507A17E6659A00C70956 /* TwoByTwo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7CD9507817E6659A00C70956 /* TwoByTwo.xcdatamodeld */; };
 		7CF39DDF17E0070A003A859F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DDE17E0070A003A859F /* Foundation.framework */; };
 		7CF39DE117E0070A003A859F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE017E0070A003A859F /* CoreGraphics.framework */; };
 		7CF39DE317E0070A003A859F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE217E0070A003A859F /* UIKit.framework */; };
@@ -93,17 +88,8 @@
 		7C76578C182597930053483B /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		7C76578E1825AE920053483B /* GridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
 		7C76578F1825AE920053483B /* GridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridCell.m; sourceTree = "<group>"; };
-		7CCEC4DB17E66760002AC51C /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
-		7CCEC4DC17E66760002AC51C /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
-		7CCEC4DE17E66C32002AC51C /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
-		7CCEC4DF17E66C32002AC51C /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
-		7CCEC4E117E66C32002AC51C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		7CCEC4E217E66C32002AC51C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		7CCEC4E417E67030002AC51C /* NSManagedObject+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Utilities.h"; sourceTree = "<group>"; };
-		7CCEC4E517E67030002AC51C /* NSManagedObject+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Utilities.m"; sourceTree = "<group>"; };
 		7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TwoByTwo.h"; sourceTree = "<group>"; };
 		7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TwoByTwo.m"; sourceTree = "<group>"; };
-		7CD9507917E6659A00C70956 /* TwoByTwo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TwoByTwo.xcdatamodel; sourceTree = "<group>"; };
 		7CF39DDB17E0070A003A859F /* TwoByTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoByTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CF39DDE17E0070A003A859F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7CF39DE017E0070A003A859F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -212,22 +198,6 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		7CD9507B17E6659E00C70956 /* Data Models */ = {
-			isa = PBXGroup;
-			children = (
-				7CCEC4DB17E66760002AC51C /* DataManager.h */,
-				7CCEC4DC17E66760002AC51C /* DataManager.m */,
-				7CCEC4E417E67030002AC51C /* NSManagedObject+Utilities.h */,
-				7CCEC4E517E67030002AC51C /* NSManagedObject+Utilities.m */,
-				7CD9507817E6659A00C70956 /* TwoByTwo.xcdatamodeld */,
-				7CCEC4DE17E66C32002AC51C /* Photo.h */,
-				7CCEC4DF17E66C32002AC51C /* Photo.m */,
-				7CCEC4E117E66C32002AC51C /* User.h */,
-				7CCEC4E217E66C32002AC51C /* User.m */,
-			);
-			name = "Data Models";
-			sourceTree = "<group>";
-		};
 		7CD9507C17E665AA00C70956 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,7 +300,6 @@
 		7CF39E1F17E00D35003A859F /* (not in use) */ = {
 			isa = PBXGroup;
 			children = (
-				7CD9507B17E6659E00C70956 /* Data Models */,
 				1D1B34EF181EA25600E6F26A /* FeedViewController.h */,
 				1D1B34EE181EA25600E6F26A /* FeedViewController.m */,
 				7CF39E1917E00792003A859F /* FeedCell.h */,
@@ -503,19 +472,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
-				7CCEC4E317E66C32002AC51C /* User.m in Sources */,
-				7CD9507A17E6659A00C70956 /* TwoByTwo.xcdatamodeld in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7C7657901825AE920053483B /* GridCell.m in Sources */,
 				7CF39E1B17E00792003A859F /* FeedCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				1D1B34F2181EA25600E6F26A /* FeedViewController.m in Sources */,
-				7CCEC4E017E66C32002AC51C /* Photo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
-				7CCEC4E617E67030002AC51C /* NSManagedObject+Utilities.m in Sources */,
 				1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */,
-				7CCEC4DD17E66760002AC51C /* DataManager.m in Sources */,
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
@@ -765,19 +729,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		7CD9507817E6659A00C70956 /* TwoByTwo.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				7CD9507917E6659A00C70956 /* TwoByTwo.xcdatamodel */,
-			);
-			currentVersion = 7CD9507917E6659A00C70956 /* TwoByTwo.xcdatamodel */;
-			path = TwoByTwo.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 7CF39DD317E0070A003A859F /* Project object */;
 }

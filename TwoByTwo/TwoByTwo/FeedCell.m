@@ -23,14 +23,6 @@
 
 @implementation FeedCell
 
-- (void)setPhoto:(Photo *)photo
-{
-    _photo = photo;
-    
-    UIImage *image = [UIImage imageWithContentsOfFile:photo.photoPath];
-    self.imageView.image = image;
-}
-
 - (void)setObject:(PFObject *)object
 {
     _object = object;
