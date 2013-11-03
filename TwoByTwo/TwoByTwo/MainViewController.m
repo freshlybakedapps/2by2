@@ -21,7 +21,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self showControllerWithType:0];
+    //[PFUser logOut];
+
 }
 
 - (IBAction)segmentedControlValueChanged:(UISegmentedControl *)sender

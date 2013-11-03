@@ -29,13 +29,23 @@ Parse.Cloud.define("flagPhoto", function(request, response) {
 
     	var url = photo.get(theURL)._url;
 
+    	var flagCounter = photo.get("flag");
+    	if(flagCounter){
+    		flagCounter++;
+		}else{
+			flagCounter = 1;
+		}
+
+    	photo.set("flag", flagCounter);
+    	photo.save();
+
 
 
 
     	mandrill.sendEmail({
 		    message: {
 		      text: "url: "+ url,
-		      html: "Photo was flagged: ("+currentState+" state)<br><p>Photo id: "+objid+"</p><br><img src='"+ url + "'></img>",
+		      html: "Photo was flagged: ("+currentState+" state)<br><p>Photo id: "+objid+"</p><br><p>This photo was flagged "+flagCounter+" time(s)</p><br><img src='"+ url + "'></img>",
 		      subject: "2by2 - photo was flagged by user: "+ userWhoFlagged,
 		      from_email: "jtubert@gmail.com",
 		      from_name: "2by2 - Cloud Code",
@@ -172,6 +182,37 @@ Parse.Cloud.beforeSave("Photo", function(request, response) {
 });
 
 */
+
+Parse.Cloud.job("fixPhotoState", function(request, status) {
+  // Set up to modify user data
+  Parse.Cloud.useMasterKey();
+  var counter = 0;
+  // Query for all users
+  var Photo = Parse.Object.extend("Photo");
+  var query = new Parse.Query(Photo);
+  query.equalTo("state", "in-use");
+
+  var date = new Date();
+  
+  query.each(function(photo) {
+	var updatedAt = photo.updatedAt;
+	var diffInMilliseconds = date.getTime() - updatedAt.getTime();
+	var mins = (diffInMilliseconds/1000)/60;
+
+	if(mins > 5){
+		photo.set("state","half");
+		return photo.save();
+	} 	
+		
+		
+  }).then(function() {
+	// Set the job's success status
+	status.success("fixPhotoState completed successfully. ", counter);
+  }, function(error) {
+	// Set the job's error status
+	status.error("Uh oh, something went wrong. ", error);
+  });
+});
 
 Parse.Cloud.job("photosPerUser", function(request, status) {
   // Set up to modify user data
