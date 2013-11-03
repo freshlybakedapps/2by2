@@ -378,29 +378,18 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             [self performSelector:@selector(successfullyWithMessage:) withObject:@"Object saved succesfully" afterDelay:1];
         }];
     }else{
+        //NSLog(@"geopoint %@",geoPoint);
+        //NSLog(@"[PFUser currentUser] %@",[PFUser currentUser]);
         PFObject *photo = [PFObject objectWithClassName:@"Photo"];
         [photo setObject:[PFUser currentUser] forKey:@"user"];
         [photo setObject:geoPoint forKey:@"location_half"];
         [photo setObject:photoFile forKey:@"image_half"];
         [photo setObject:@"half" forKey:@"state"];
-        [photo setObject:0 forKey:@"flag"];
-        /*
-        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [photoACL setPublicReadAccess:YES];        
-        [photoACL setPublicWriteAccess:YES];
-        photo.ACL = photoACL;
-         */
+        //[photo setObject:0 forKey:@"flag"];
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             [self performSelector:@selector(successfullyWithMessage:) withObject:@"Object saved succesfully" afterDelay:1];
         }];
-
     }
-    
-    
-    
-    // photos are public, but may only be modified by the user who uploaded them
-    
-    
     return YES;
 }
 
