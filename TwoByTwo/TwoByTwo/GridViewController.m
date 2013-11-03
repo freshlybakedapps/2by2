@@ -81,7 +81,7 @@
     }
     
     [query orderByDescending:@"updatedAt"];
-    [query setCachePolicy:kPFCachePolicyNetworkOnly];
+    [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 
@@ -93,7 +93,7 @@
             [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
         
-        [self.collectionView reloadData];
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
     }];
 }
 
@@ -120,8 +120,17 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self toggleLayout];
+}
+
+- (void)toggleLayout
+{
+    __weak typeof(self) weakSelf = self;
+    
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
-        [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
+        [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES completion:^(BOOL finished) {            
+//            [weakSelf.collectionView.visibleCells makeObjectsPerformSelector:@selector(updateTextLabel)];
+        }];
     }
     else {
         [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];

@@ -265,22 +265,35 @@
                                     <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nXV-aL-agp">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nXV-aL-agp">
                                             <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWR-Vu-PCe">
+                                            <rect key="frame" x="10" y="46" width="57" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="nXV-aL-agp" secondAttribute="trailing" id="0u3-hC-RYL"/>
-                                    <constraint firstItem="nXV-aL-agp" firstAttribute="top" secondItem="4N0-zW-y9F" secondAttribute="top" id="Rer-Qv-SVe"/>
-                                    <constraint firstItem="nXV-aL-agp" firstAttribute="leading" secondItem="4N0-zW-y9F" secondAttribute="leading" id="TyZ-WG-WO8"/>
-                                    <constraint firstAttribute="bottom" secondItem="nXV-aL-agp" secondAttribute="bottom" id="Yn6-cZ-QUM"/>
+                                    <constraint firstItem="ZWR-Vu-PCe" firstAttribute="leading" secondItem="4N0-zW-y9F" secondAttribute="leading" constant="10" id="DXa-wf-upx"/>
+                                    <constraint firstItem="nXV-aL-agp" firstAttribute="top" secondItem="4N0-zW-y9F" secondAttribute="top" id="Hqu-6u-cus"/>
+                                    <constraint firstItem="nXV-aL-agp" firstAttribute="leading" secondItem="4N0-zW-y9F" secondAttribute="leading" id="ZRF-mi-pbf"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZWR-Vu-PCe" secondAttribute="bottom" constant="10" id="gwo-58-NrP"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZWR-Vu-PCe" secondAttribute="trailing" constant="10" id="nyt-To-MgA"/>
+                                    <constraint firstAttribute="bottom" secondItem="nXV-aL-agp" secondAttribute="bottom" id="oan-LL-nMo"/>
+                                    <constraint firstItem="ZWR-Vu-PCe" firstAttribute="top" secondItem="4N0-zW-y9F" secondAttribute="top" constant="46" id="wxX-kl-fk5"/>
+                                    <constraint firstAttribute="trailing" secondItem="nXV-aL-agp" secondAttribute="trailing" id="zyh-BB-O9I"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="nXV-aL-agp" id="dpc-Or-yzW"/>
+                                    <outlet property="textLabel" destination="ZWR-Vu-PCe" id="x3C-hK-ZSQ"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

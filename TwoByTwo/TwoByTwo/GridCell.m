@@ -11,6 +11,7 @@
 
 @interface GridCell ()
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UILabel *textLabel;
 @property (nonatomic, readonly) PFFile *file;
 @end
 
@@ -47,6 +48,16 @@
 //    [self.file cancel]; // This crashes when scrolls. Why?
     self.imageView.image = nil;
     [super prepareForReuse];
+}
+
+- (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
+{
+    [self layoutIfNeeded];
+}
+
+- (void)updateTextLabel
+{
+    self.textLabel.alpha = !self.textLabel.alpha;
 }
 
 @end
