@@ -252,46 +252,87 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="qn5-sS-Ii6">
-                            <size key="itemSize" width="77" height="77"/>
+                            <size key="itemSize" width="300" height="300"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="3" minY="3" maxX="3" maxY="3"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GridCell" id="4N0-zW-y9F" customClass="GridCell">
-                                <rect key="frame" x="3" y="3" width="77" height="77"/>
+                                <rect key="frame" x="10" y="3" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nXV-aL-agp">
-                                            <rect key="frame" x="0.0" y="0.0" width="77" height="77"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWR-Vu-PCe">
-                                            <rect key="frame" x="10" y="46" width="57" height="21"/>
+                                            <rect key="frame" x="20" y="259" width="260" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cM-oH-5QJ">
+                                            <rect key="frame" x="20" y="209" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="9wx-CO-m5L"/>
+                                                <constraint firstAttribute="height" constant="40" id="WbC-Q3-DaM"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="X">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="deleteButtonTapped:" destination="4N0-zW-y9F" eventType="touchUpInside" id="k6h-yC-Gaj"/>
+                                                <action selector="deletePhoto:" destination="rSS-zt-7dK" eventType="touchUpInside" id="eb9-kn-XMo"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ep-Ff-Hae">
+                                            <rect key="frame" x="240" y="209" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="IEF-D5-lcU"/>
+                                                <constraint firstAttribute="height" constant="40" id="MX1-1G-hSH"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="flag">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="flagButtonTapped:" destination="4N0-zW-y9F" eventType="touchUpInside" id="evj-6t-R8I"/>
+                                                <action selector="flagPhoto:" destination="rSS-zt-7dK" eventType="touchUpInside" id="Zx5-Lk-Y97"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="ZWR-Vu-PCe" firstAttribute="leading" secondItem="4N0-zW-y9F" secondAttribute="leading" constant="10" id="DXa-wf-upx"/>
+                                    <constraint firstItem="ZWR-Vu-PCe" firstAttribute="top" secondItem="8Ep-Ff-Hae" secondAttribute="bottom" constant="10" id="72S-8Q-bNI"/>
+                                    <constraint firstItem="ZWR-Vu-PCe" firstAttribute="leading" secondItem="4N0-zW-y9F" secondAttribute="leading" constant="20" id="DXa-wf-upx"/>
                                     <constraint firstItem="nXV-aL-agp" firstAttribute="top" secondItem="4N0-zW-y9F" secondAttribute="top" id="Hqu-6u-cus"/>
+                                    <constraint firstItem="ZWR-Vu-PCe" firstAttribute="top" secondItem="0cM-oH-5QJ" secondAttribute="bottom" constant="10" id="ITd-hj-MFh"/>
+                                    <constraint firstItem="0cM-oH-5QJ" firstAttribute="leading" secondItem="4N0-zW-y9F" secondAttribute="leading" constant="20" id="LsC-Yh-z0b"/>
                                     <constraint firstItem="nXV-aL-agp" firstAttribute="leading" secondItem="4N0-zW-y9F" secondAttribute="leading" id="ZRF-mi-pbf"/>
-                                    <constraint firstAttribute="bottom" secondItem="ZWR-Vu-PCe" secondAttribute="bottom" constant="10" id="gwo-58-NrP"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZWR-Vu-PCe" secondAttribute="trailing" constant="10" id="nyt-To-MgA"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZWR-Vu-PCe" secondAttribute="bottom" constant="20" id="gwo-58-NrP"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZWR-Vu-PCe" secondAttribute="trailing" constant="20" id="nyt-To-MgA"/>
                                     <constraint firstAttribute="bottom" secondItem="nXV-aL-agp" secondAttribute="bottom" id="oan-LL-nMo"/>
-                                    <constraint firstItem="ZWR-Vu-PCe" firstAttribute="top" secondItem="4N0-zW-y9F" secondAttribute="top" constant="46" id="wxX-kl-fk5"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Ep-Ff-Hae" secondAttribute="trailing" constant="20" id="woX-bg-A7l"/>
                                     <constraint firstAttribute="trailing" secondItem="nXV-aL-agp" secondAttribute="trailing" id="zyh-BB-O9I"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="deleteButton" destination="0cM-oH-5QJ" id="t4j-1t-hRl"/>
+                                    <outlet property="flagButton" destination="8Ep-Ff-Hae" id="k9o-tG-S92"/>
                                     <outlet property="imageView" destination="nXV-aL-agp" id="dpc-Or-yzW"/>
                                     <outlet property="textLabel" destination="ZWR-Vu-PCe" id="x3C-hK-ZSQ"/>
                                 </connections>

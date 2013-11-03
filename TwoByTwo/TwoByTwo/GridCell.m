@@ -11,6 +11,8 @@
 
 @interface GridCell ()
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UIButton *deleteButton;
+@property (nonatomic, weak) IBOutlet UIButton *flagButton;
 @property (nonatomic, weak) IBOutlet UILabel *textLabel;
 @property (nonatomic, readonly) PFFile *file;
 @end
@@ -30,6 +32,15 @@
 {
     if (_object != object) {
         _object = object;
+        
+        PFUser *user = [_object objectForKey:@"user"];
+        PFUser *user_full = [_object objectForKey:@"user_full"];
+        NSString* username = user.username;
+        if (user_full) {
+            username = [username stringByAppendingFormat:@" / %@",[user_full username]];
+        }
+        self.textLabel.text = username;
+
         
         [self.file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             if (!error) {
@@ -55,9 +66,35 @@
     [self layoutIfNeeded];
 }
 
-- (void)updateTextLabel
+- (void)updateContent
 {
-    self.textLabel.alpha = !self.textLabel.alpha;
+    BOOL shouldShow = (CGRectGetWidth(self.frame) > 100);
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.textLabel.alpha = self.deleteButton.alpha = self.flagButton.alpha = (shouldShow) ? 1.0 : 0.0;
+    }];
+}
+
+- (IBAction)flagButtonTapped:(id)sender
+{
+    [PFCloud callFunctionInBackground:@"flagPhoto"
+                       withParameters:@{@"objectid":self.object.objectId, @"userWhoFlagged":[PFUser currentUser].username}
+                                block:^(NSString *result, NSError *error) {
+                                    if (!error) {
+                                        [UIAlertView showAlertViewWithTitle:@"Flag" message:@"Thanks for flagging this image." cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
+                                    }
+                                }];
+}
+
+- (IBAction)deleteButtonTapped:(id)sender
+{
+    [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            [self.object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
+            }];
+        }
+    }];
 }
 
 @end

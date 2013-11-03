@@ -24,15 +24,21 @@
 {
     [super viewDidLoad];
     
-    self.gridLayout = (id)self.collectionView.collectionViewLayout;
-    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    layout.itemSize = CGSizeMake(300, 300);
-    layout.minimumInteritemSpacing = 10;
-    layout.minimumLineSpacing = 10;
-    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    self.feedLayout = layout;
+    self.gridLayout = [UICollectionViewFlowLayout new];
+    self.gridLayout.itemSize = CGSizeMake(77, 77);
+    self.gridLayout.minimumInteritemSpacing = 2;
+    self.gridLayout.minimumLineSpacing = 2;
+    self.gridLayout.sectionInset = UIEdgeInsetsMake(3, 3, 3, 3);
+    self.gridLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
+    self.feedLayout = [UICollectionViewFlowLayout new];
+    self.feedLayout.itemSize = CGSizeMake(300, 300);
+    self.feedLayout.minimumInteritemSpacing = 10;
+    self.feedLayout.minimumLineSpacing = 10;
+    self.feedLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.feedLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    
+    self.collectionView.collectionViewLayout = self.gridLayout;
     [self performQuery];
 }
 
@@ -129,11 +135,13 @@
     
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES completion:^(BOOL finished) {            
-//            [weakSelf.collectionView.visibleCells makeObjectsPerformSelector:@selector(updateTextLabel)];
+            [weakSelf.collectionView.visibleCells makeObjectsPerformSelector:@selector(updateContent)];
         }];
     }
     else {
-        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES completion:^(BOOL finished) {
+            [weakSelf.collectionView.visibleCells makeObjectsPerformSelector:@selector(updateContent)];
+        }];
     }
 }
 
