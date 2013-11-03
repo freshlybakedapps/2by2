@@ -114,51 +114,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         [self.stillCamera addTarget:self.filter];
         [self.stillCamera startCameraCapture];
     }
-    
-    /*
-    if (self.object) {
-        [self setPhotoState:@"in-use"];
-        
-        self.filter = [[GPUImageLightenBlendFilter alloc] init];
-        [self.filter addTarget:self.liveView];
-        
-        
-        NSString *state = [self.object objectForKey:@"state"];
-        NSString *fileName;
-        if([state isEqualToString:@"full"]){
-            fileName = @"image_full";
-        }else{
-            fileName = @"image_half";
-        }
-        
-        PFFile *file = [self.object objectForKey:fileName];
-        
-        //NSLog(@"url: %@",[file url]);
-        NSURL *imageURL = [NSURL URLWithString:[file url]];
-        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-        UIImage *image = [UIImage imageWithData:imageData];
-        
-        self.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-        [self.sourcePicture processImage];
-        [self.sourcePicture addTarget:self.filter];
-        
-    }
-    else {       
-        self.filter = [[GPUImageGammaFilter alloc] init];
-        [self.filter addTarget:self.liveView];
-    }
-    
-     
-     
-    self.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
-    self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
-    [self.stillCamera addTarget:self.filter];
-    [self.stillCamera startCameraCapture];
-     */
 }
-
-
-
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -422,29 +378,18 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             [self performSelector:@selector(successfullyWithMessage:) withObject:@"Object saved succesfully" afterDelay:1];
         }];
     }else{
+        //NSLog(@"geopoint %@",geoPoint);
+        //NSLog(@"[PFUser currentUser] %@",[PFUser currentUser]);
         PFObject *photo = [PFObject objectWithClassName:@"Photo"];
         [photo setObject:[PFUser currentUser] forKey:@"user"];
         [photo setObject:geoPoint forKey:@"location_half"];
         [photo setObject:photoFile forKey:@"image_half"];
         [photo setObject:@"half" forKey:@"state"];
-        [photo setObject:0 forKey:@"flag"];
-        /*
-        PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [photoACL setPublicReadAccess:YES];        
-        [photoACL setPublicWriteAccess:YES];
-        photo.ACL = photoACL;
-         */
+        //[photo setObject:0 forKey:@"flag"];
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             [self performSelector:@selector(successfullyWithMessage:) withObject:@"Object saved succesfully" afterDelay:1];
         }];
-
     }
-    
-    
-    
-    // photos are public, but may only be modified by the user who uploaded them
-    
-    
     return YES;
 }
 

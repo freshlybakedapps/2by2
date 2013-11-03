@@ -4,8 +4,61 @@ var mandrill = require('mandrill');
 
 mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
 
-Parse.Cloud.define("hello", function(request, response) {
-  response.success("Hello Parse world!");
+Parse.Cloud.afterSave("Photo", function(request,response) {
+  	var state = request.object.get("state");
+  	
+
+  	
+
+  	if(state == "full"){
+  		var user_full = request.object.get("user_full");
+  		var user = request.object.get("user");
+  		
+  		var url = request.object.get("image_full")._url;
+
+  		console.log(url);
+
+  		Parse.Cloud.useMasterKey();
+
+  		var query = new Parse.Query(Parse.User);
+  		
+  		
+  		query.get(user.id, {
+		    success: function(user) {
+		    	var email = user.get("email");
+		    	var username = user.get("username");
+
+		    	mandrill.sendEmail({
+				    message: {
+				      text: "url: "+url,
+				      html: "Your photo was just double exposed. <br><img src='"+ url + "'></img>",
+				      subject: "2by2 - your photo was double exposed",
+				      from_email: "jtubert@gmail.com",
+				      from_name: "2by2 - Cloud Code",
+				      to: [
+				        {
+				          email: "jtubert@gmail.com",
+				          name: "John Tubert"
+				        },
+				        {
+				          email: email,
+				          name: username
+				        }
+				      ]
+				    },
+				    async: true
+				  }, {
+				    //success: function(httpResponse) { response.success("Email sent!"); },
+				    //error: function(httpResponse) { response.error("Uh oh, something went wrong"); }
+				  });
+			
+			},
+	    	error: function(error) {
+	      		console.error("Got an error " + error.code + " : " + error.message);
+	      		response.error(error);
+	    	}
+	  	});
+	}
 });
 
 Parse.Cloud.define("flagPhoto", function(request, response) {
