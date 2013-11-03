@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface UIImage (Resize)
-- (UIImage*)scaleToSize:(CGSize)size;
+
+- (UIImage *)scaleToSize:(CGSize)size contentMode:(UIViewContentMode)contentMode interpolationQuality:(CGInterpolationQuality)quality;
+
 @end
