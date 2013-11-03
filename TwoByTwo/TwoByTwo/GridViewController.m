@@ -131,17 +131,11 @@
 
 - (void)toggleLayout
 {
-    __weak typeof(self) weakSelf = self;
-    
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
-        [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES completion:^(BOOL finished) {            
-            [weakSelf.collectionView.visibleCells makeObjectsPerformSelector:@selector(updateContent)];
-        }];
+        [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
     }
     else {
-        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES completion:^(BOOL finished) {
-            [weakSelf.collectionView.visibleCells makeObjectsPerformSelector:@selector(updateContent)];
-        }];
+        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
     }
 }
 

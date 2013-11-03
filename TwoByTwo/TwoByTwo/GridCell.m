@@ -64,15 +64,8 @@
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
     [self layoutIfNeeded];
-}
 
-- (void)updateContent
-{
-    BOOL shouldShow = (CGRectGetWidth(self.frame) > 100);
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.textLabel.alpha = self.deleteButton.alpha = self.flagButton.alpha = (shouldShow) ? 1.0 : 0.0;
-    }];
+    self.textLabel.alpha = self.deleteButton.alpha = self.flagButton.alpha = (CGRectGetWidth(layoutAttributes.frame) > 100) ? 1.0 : 0.0;
 }
 
 - (IBAction)flagButtonTapped:(id)sender
