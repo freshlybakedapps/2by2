@@ -12,6 +12,8 @@
 
 
 @interface GridViewController ()
+@property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
+@property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
 @property (nonatomic, strong) NSArray *objects;
 @end
 
@@ -21,14 +23,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.gridLayout = (id)self.collectionView.collectionViewLayout;
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.itemSize = CGSizeMake(300, 300);
+    layout.minimumInteritemSpacing = 10;
+    layout.minimumLineSpacing = 10;
+    layout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    self.feedLayout = layout;
+    
     [self performQuery];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(GridCell *)sender
+- (void)didMoveToParentViewController:(UIViewController *)parent
 {
-//    CameraViewController *controller = segue.destinationViewController;
-//    controller.photo = sender.object;
+    /*
+     Source: 
+     http://stackoverflow.com/questions/19038949/content-falls-beneath-navigation-bar-when-embedded-in-custom-container-view-cont
+     */
+
+    if (parent) {
+        CGFloat top = parent.topLayoutGuide.length;
+        CGFloat bottom = parent.bottomLayoutGuide.length;
+        
+        if (self.collectionView.contentInset.top != top) {
+            UIEdgeInsets newInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
+            self.collectionView.contentInset = newInsets;
+            self.collectionView.scrollIndicatorInsets = newInsets;
+        }
+    }
 }
+
+
+#pragma mark - Query
 
 - (void)performQuery
 {
@@ -53,7 +81,7 @@
     }
     
     [query orderByDescending:@"updatedAt"];
-    [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    [query setCachePolicy:kPFCachePolicyNetworkOnly];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 
@@ -88,6 +116,25 @@
     PFObject *object = self.objects[indexPath.row];
     cell.object = object;
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.collectionView.collectionViewLayout == self.gridLayout) {
+        [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
+    }
+    else {
+        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+    }
+}
+
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(GridCell *)sender
+{
+    //    CameraViewController *controller = segue.destinationViewController;
+    //    controller.photo = sender.object;
 }
 
 @end

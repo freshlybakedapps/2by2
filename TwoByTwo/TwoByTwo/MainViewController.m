@@ -21,8 +21,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[PFUser logOut];
-
+    [self showControllerWithType:0];
 }
 
 - (IBAction)segmentedControlValueChanged:(UISegmentedControl *)sender
@@ -39,7 +38,7 @@
     }
     
     switch (type) {
-        case FeedTypeGlobal:
+//        case FeedTypeGlobal:
         case FeedTypeSingle:
         {
             FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];

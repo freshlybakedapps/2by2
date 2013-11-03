@@ -11,36 +11,42 @@
 
 @interface GridCell ()
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, readonly) PFFile *file;
 @end
 
 
 @implementation GridCell
 
-- (void)setObject:(PFObject *)object
+- (PFFile *)file
 {
-    _object = object;
-    
     NSString *state = [_object objectForKey:@"state"];
     NSString *fileName = ([state isEqualToString:@"full"]) ? @"image_full" : @"image_half";
     PFFile *file = [_object objectForKey:fileName];
-    
-    PFUser *user = [_object objectForKey:@"user"];
-    NSString* username = user.username;
-    
-    PFUser *user_full = [_object objectForKey:@"user_full"];
-    if (user_full) {
-        username = [username stringByAppendingFormat:@" / %@",[user_full username]];
+    return file;
+}
+
+- (void)setObject:(PFObject *)object
+{
+    if (_object != object) {
+        _object = object;
+        
+        [self.file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:data];
+                self.imageView.image = image;
+            }
+            else {
+                NSLog(@"getDataInBackgroundWithBlock: %@", error);
+            }
+        }];
     }
-    
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        if (!error) {
-            UIImage *image = [UIImage imageWithData:data];
-            self.imageView.image = image;
-        }
-        else {
-            NSLog(@"getDataInBackgroundWithBlock: %@", error);
-        }
-    }];
+}
+
+- (void)prepareForReuse
+{
+//    [self.file cancel]; // This crashes when scrolls. Why?
+    self.imageView.image = nil;
+    [super prepareForReuse];
 }
 
 @end
