@@ -98,13 +98,19 @@
 
 - (IBAction)flagButtonTapped:(id)sender
 {
-    [PFCloud callFunctionInBackground:@"flagPhoto"
-                       withParameters:@{@"objectid":self.object.objectId, @"userWhoFlagged":[PFUser currentUser].username}
-                                block:^(NSString *result, NSError *error) {
-                                    if (!error) {
-                                        [UIAlertView showAlertViewWithTitle:@"Flag" message:@"Thanks for flagging this image." cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
-                                    }
-                                }];
+    [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to flag this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            [PFCloud callFunctionInBackground:@"flagPhoto"
+                               withParameters:@{@"objectid":self.object.objectId, @"userWhoFlagged":[PFUser currentUser].username}
+                                        block:^(NSString *result, NSError *error) {
+                                            if (!error) {
+                                                NSLog(@"Thanks for flagging this image.");
+                                                //[UIAlertView showAlertViewWithTitle:@"Flag" message:@"Thanks for flagging this image." cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
+                                            }
+                                        }];
+
+        }
+    }];
 }
 
 - (IBAction)deleteButtonTapped:(id)sender

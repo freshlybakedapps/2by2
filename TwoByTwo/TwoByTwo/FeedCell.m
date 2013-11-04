@@ -93,31 +93,43 @@
 }
 
 -(IBAction)flagPhoto:(id)sender{
-    [PFCloud callFunctionInBackground:@"flagPhoto"
-                       withParameters:@{@"objectid":[_object objectId],@"userWhoFlagged":[[PFUser currentUser] username]}
-                                block:^(NSString *result, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"flag photo result: %@", result);
-                                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Flag" message:@"Thanks for flagging this image." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-                                        [alert show];
-                                    }
-                                }];
+    UIAlertView * confirmAlert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Are you sure you want to flag this photo?" delegate:self cancelButtonTitle:@"CANCEL" otherButtonTitles:@"OK",nil];
+    confirmAlert.tag = 1;
+    [confirmAlert show];
+    
+    
+    
 }
 
 -(IBAction)deletePhoto:(id)sender{
     UIAlertView * confirmAlert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" delegate:self cancelButtonTitle:@"CANCEL" otherButtonTitles:@"OK",nil];
+    confirmAlert.tag = 2;
     [confirmAlert show];
 }
 
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex != [alertView cancelButtonIndex])
-    {
-        [_object deleteInBackgroundWithBlock:^(BOOL b, NSError *error){
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
-        }];
-    }	
+    switch (alertView.tag) {
+        case 1:
+            [PFCloud callFunctionInBackground:@"flagPhoto"
+                               withParameters:@{@"objectid":[_object objectId],@"userWhoFlagged":[[PFUser currentUser] username]}
+                                        block:^(NSString *result, NSError *error) {
+                                            if (!error) {
+                                                NSLog(@"flag photo result: %@", result);
+                                            }
+                                        }];
+            break;
+        case 2:
+            if (buttonIndex != [alertView cancelButtonIndex])
+            {
+                [_object deleteInBackgroundWithBlock:^(BOOL b, NSError *error){
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
+                }];
+            }	
+
+            break;
+    }
 }
 
 

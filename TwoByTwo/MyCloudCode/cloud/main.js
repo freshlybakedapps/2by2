@@ -35,11 +35,7 @@ Parse.Cloud.afterSave("Photo", function(request,response) {
 				      subject: "2by2 - your photo was double exposed",
 				      from_email: "jtubert@gmail.com",
 				      from_name: "2by2 - Cloud Code",
-				      to: [
-				        {
-				          email: "jtubert@gmail.com",
-				          name: "John Tubert"
-				        },
+				      to: [				        
 				        {
 				          email: email,
 				          name: username
