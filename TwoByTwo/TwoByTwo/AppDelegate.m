@@ -27,6 +27,11 @@
     // ****************************************************************************
     [TestFlight takeOff:@"d2f2ed31-a333-476b-b821-aa259759a131"];
     
+    if (application.applicationIconBadgeNumber != 0) {
+        application.applicationIconBadgeNumber = 0;
+        [[PFInstallation currentInstallation] saveEventually];
+    }
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
@@ -36,9 +41,65 @@
     else {
         [self showLoginViewController];
     }
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+     UIRemoteNotificationTypeAlert|
+     UIRemoteNotificationTypeSound];
+    
+    [self handlePush:launchOptions];
+
 
     return YES;
 }
+
+- (void)handlePush:(NSDictionary *)launchOptions {
+    // If the app was launched in response to a push notification, we'll handle the payload here
+    NSDictionary *remoteNotificationPayload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteNotificationPayload) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:@"the app was launched in response to a push notification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+        [alert show];
+    }
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
+    [PFPush storeDeviceToken:newDeviceToken];
+    // Subscribe to the global broadcast channel.
+    [PFPush subscribeToChannelInBackground:@""];
+    
+    if (application.applicationIconBadgeNumber != 0) {
+        application.applicationIconBadgeNumber = 0;
+    }
+    
+    [[PFInstallation currentInstallation] addUniqueObject:@"" forKey:@"channel"];
+    if ([PFUser currentUser]) {
+        // Make sure they are subscribed to their private push channel
+        NSString *privateChannelName = [[PFUser currentUser] objectId];
+        
+        
+        //NSLog(@"Subscribing user to %@", privateChannelName);
+        
+        if (privateChannelName && privateChannelName.length > 0) {
+            NSLog(@"Subscribing user to %@", privateChannelName);
+            [[PFInstallation currentInstallation] addUniqueObject:privateChannelName forKey:@"channels"];
+        }
+    }
+    [[PFInstallation currentInstallation] saveEventually];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+	if ([error code] != 3010) { // 3010 is for the iPhone Simulator
+        NSLog(@"Application failed to register for push notifications: %@", error);
+	}
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:@"didReceiveRemoteNotification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+    [alert show];
+    
+}
+
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     /*

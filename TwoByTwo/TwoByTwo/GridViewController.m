@@ -67,12 +67,16 @@
 - (void)performQuery
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
-    [query includeKey:@"user"];
-    [query includeKey:@"user_full"];
+    
+    //on FeedTypeYou we want to show all photos you started or finished
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(user==%@) OR (user_full==%@)",[PFUser currentUser],[PFUser currentUser]];
+    
     
     switch (self.type) {
         case FeedTypeYou:
-            [query whereKey:@"user" equalTo:[PFUser currentUser]];
+            
+            query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
+            
             break;
             
         case FeedTypeSingle:
@@ -86,6 +90,8 @@
             break;
     }
     
+    [query includeKey:@"user"];
+    [query includeKey:@"user_full"];
     [query orderByDescending:@"updatedAt"];
     [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
     
@@ -132,9 +138,11 @@
     else {
 //        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
         
-        CameraViewController *controller = [CameraViewController controller];
-        controller.object = self.objects[indexPath.row];
-        [self presentViewController:controller animated:YES completion:nil];
+        if(self.type == FeedTypeSingle){
+            CameraViewController *controller = [CameraViewController controller];
+            controller.object = self.objects[indexPath.row];
+            [self presentViewController:controller animated:YES completion:nil];
+        }
     }
 }
 

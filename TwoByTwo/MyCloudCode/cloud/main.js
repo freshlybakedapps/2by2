@@ -13,15 +13,36 @@ Parse.Cloud.afterSave("Photo", function(request,response) {
   	if(state == "full"){
   		var user_full = request.object.get("user_full");
   		var user = request.object.get("user");
-  		
   		var url = request.object.get("image_full")._url;
+  		//console.log(url);
+		Parse.Cloud.useMasterKey();
 
-  		console.log(url);
+		
+		var pushQuery = new Parse.Query(Parse.Installation);
+		pushQuery.equalTo('deviceType', 'ios');
+		pushQuery.equalTo('channels', user.id);
 
-  		Parse.Cloud.useMasterKey();
 
-  		var query = new Parse.Query(Parse.User);
+		//console.log("user.objectId: "+user.id);
+
+		Parse.Push.send({
+			where: pushQuery, // Set our Installation query
+			data: {
+				alert: "Your photo was overexposed! "+ url
+			}
+			}, {
+			success: function() {
+				// Push was successful
+			},
+			error: function(error) {
+				throw "Got an error " + error.code + " : " + error.message;
+			}
+		});
+
+
   		
+
+  		var query = new Parse.Query(Parse.User);  		
   		
   		query.get(user.id, {
 		    success: function(user) {
@@ -56,6 +77,8 @@ Parse.Cloud.afterSave("Photo", function(request,response) {
 	  	});
 	}
 });
+
+
 
 Parse.Cloud.define("flagPhoto", function(request, response) {
   var query = new Parse.Query("Photo");
