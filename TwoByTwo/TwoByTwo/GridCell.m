@@ -7,10 +7,12 @@
 //
 
 #import "GridCell.h"
+#import <MapKit/MapKit.h>
 
 
 @interface GridCell ()
-@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *deleteButton;
 @property (nonatomic, weak) IBOutlet UIButton *flagButton;
@@ -124,5 +126,49 @@
         }
     }];
 }
+
+- (IBAction)mapButtonTapped:(id)sender
+{
+    if (self.imageView.superview) {
+        [UIView transitionWithView:self.contentView
+                          duration:0.5
+                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:^{
+                            [self.contentView insertSubview:self.mapView belowSubview:self.imageView];
+                            [self.imageView removeFromSuperview];
+                        }
+                        completion:^(BOOL finished) {
+                            
+                        }];
+        [self.mapButton setTitle:@"Close" forState:UIControlStateNormal];
+    }
+    else {
+        [UIView transitionWithView:self.contentView
+                          duration:0.5
+                           options:UIViewAnimationOptionTransitionFlipFromRight
+                        animations:^{
+                            [self.contentView insertSubview:self.imageView belowSubview:self.mapView];
+                            [self.mapView removeFromSuperview];
+                            self.mapView = nil;
+                        }
+                        completion:^(BOOL finished) {
+                            
+                        }];
+        [self.mapButton setTitle:@"Map" forState:UIControlStateNormal];
+    }
+}
+
+
+#pragma mark - Map
+
+- (MKMapView *)mapView
+{
+    if (!_mapView) {
+        _mapView = [[MKMapView alloc] initWithFrame:self.contentView.bounds];
+        _mapView.userInteractionEnabled = NO;
+    }
+    return _mapView;
+}
+
 
 @end
