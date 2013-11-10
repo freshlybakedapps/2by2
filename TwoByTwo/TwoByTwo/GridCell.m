@@ -57,6 +57,8 @@
         }
     }];
     
+    self.object[@"showMap"] = @(NO);
+    [self showImageOrMapAnimated:NO];
     [self checkWhichButtonToShow];
 }
 
@@ -129,32 +131,66 @@
 
 - (IBAction)mapButtonTapped:(id)sender
 {
-    if (self.imageView.superview) {
+    BOOL showMap = [self.object[@"showMap"] boolValue];
+    self.object[@"showMap"] = @(!showMap);
+    [self showImageOrMapAnimated:YES];
+    
+//    if (!self.showingMap) {
+//        [UIView transitionWithView:self.contentView
+//                          duration:0.5
+//                           options:UIViewAnimationOptionTransitionFlipFromLeft
+//                        animations:^{
+//                            [self.contentView insertSubview:self.mapView belowSubview:self.imageView];
+//                            [self.imageView removeFromSuperview];
+//                        }
+//                        completion:^(BOOL finished) {
+//                            
+//                        }];
+//        [self.mapButton setTitle:@"Close" forState:UIControlStateNormal];
+//    }
+//    else {
+//        [UIView transitionWithView:self.contentView
+//                          duration:0.5
+//                           options:UIViewAnimationOptionTransitionFlipFromRight
+//                        animations:^{
+//                            [self.contentView insertSubview:self.imageView belowSubview:self.mapView];
+//                            [self.mapView removeFromSuperview];
+//                            self.mapView = nil;
+//                        }
+//                        completion:^(BOOL finished) {
+//                            
+//                        }];
+//        [self.mapButton setTitle:@"Map" forState:UIControlStateNormal];
+//    }
+}
+
+- (void)showImageOrMapAnimated:(BOOL)animated
+{
+    void (^action)(void) = ^{
+        if ([self.object[@"showMap"] boolValue]) {
+            [self.contentView insertSubview:self.mapView belowSubview:self.imageView];
+            [self.imageView removeFromSuperview];
+            [self.mapButton setTitle:@"Close" forState:UIControlStateNormal];
+        }
+        else {
+            if (!self.imageView.superview) {
+                [self.contentView insertSubview:self.imageView belowSubview:self.mapView];
+                [self.mapView removeFromSuperview];
+                self.mapView = nil;
+                [self.mapButton setTitle:@"Map" forState:UIControlStateNormal];
+            }
+        }
+    };
+    
+    if (animated) {
         [UIView transitionWithView:self.contentView
                           duration:0.5
-                           options:UIViewAnimationOptionTransitionFlipFromLeft
-                        animations:^{
-                            [self.contentView insertSubview:self.mapView belowSubview:self.imageView];
-                            [self.imageView removeFromSuperview];
-                        }
-                        completion:^(BOOL finished) {
-                            
-                        }];
-        [self.mapButton setTitle:@"Close" forState:UIControlStateNormal];
+                           options:([self.object[@"showMap"] boolValue]) ? UIViewAnimationOptionTransitionFlipFromRight : UIViewAnimationOptionTransitionFlipFromLeft
+                        animations:action
+                        completion:nil];
     }
     else {
-        [UIView transitionWithView:self.contentView
-                          duration:0.5
-                           options:UIViewAnimationOptionTransitionFlipFromRight
-                        animations:^{
-                            [self.contentView insertSubview:self.imageView belowSubview:self.mapView];
-                            [self.mapView removeFromSuperview];
-                            self.mapView = nil;
-                        }
-                        completion:^(BOOL finished) {
-                            
-                        }];
-        [self.mapButton setTitle:@"Map" forState:UIControlStateNormal];
+        action();
     }
 }
 
