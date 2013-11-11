@@ -135,10 +135,10 @@
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
     }
     else {
-        PFObject *object = self.objects[indexPath.row];
-        if ([object[@"showMap"] boolValue]) {
+        PFObject *photo = self.objects[indexPath.row];
+        if (photo.showMap) {
             GridCell *cell = (id)[collectionView cellForItemAtIndexPath:indexPath];
-            object[@"showMap"] = @(NO);
+            photo.showMap = NO;
             [cell showImageOrMapAnimated:YES];
         }
         else {
