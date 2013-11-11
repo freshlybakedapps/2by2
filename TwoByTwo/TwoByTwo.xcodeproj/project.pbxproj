@@ -28,7 +28,7 @@
 		7C7E2934183043D60036557E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7E2933183043D60036557E /* MapKit.framework */; };
 		7C7E2937183052120036557E /* UserAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E2936183052120036557E /* UserAnnotation.m */; };
 		7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293918305ACA0036557E /* MKMapView+Utilities.m */; };
-		7C7E293D18305EFE0036557E /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293C18305EFE0036557E /* Photo.m */; };
+		7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293F18306DD30036557E /* PFObject+Photo.m */; };
 		7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */; };
 		7CF39DDF17E0070A003A859F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DDE17E0070A003A859F /* Foundation.framework */; };
 		7CF39DE117E0070A003A859F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE017E0070A003A859F /* CoreGraphics.framework */; };
@@ -62,10 +62,6 @@
 /* Begin PBXFileReference section */
 		1D1B34EB181B203800E6F26A /* UIImage+UIImageResizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageResizing.h"; sourceTree = "<group>"; };
 		1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageResizing.m"; sourceTree = "<group>"; };
-		1D1B34EE181EA25600E6F26A /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
-		1D1B34EF181EA25600E6F26A /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
-		1D1B34F0181EA25600E6F26A /* CPFQueryCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPFQueryCollectionViewController.h; sourceTree = "<group>"; };
-		1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPFQueryCollectionViewController.m; sourceTree = "<group>"; };
 		1D1B34F5181EAFA200E6F26A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1D1B34F6181EAFA200E6F26A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1D4207C017E6AAC4008A7F98 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -94,8 +90,8 @@
 		7C7E2936183052120036557E /* UserAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAnnotation.m; sourceTree = "<group>"; };
 		7C7E293818305ACA0036557E /* MKMapView+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+Utilities.h"; sourceTree = "<group>"; };
 		7C7E293918305ACA0036557E /* MKMapView+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+Utilities.m"; sourceTree = "<group>"; };
-		7C7E293B18305EFE0036557E /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
-		7C7E293C18305EFE0036557E /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		7C7E293E18306DD30036557E /* PFObject+Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+Photo.h"; sourceTree = "<group>"; };
+		7C7E293F18306DD30036557E /* PFObject+Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Photo.m"; sourceTree = "<group>"; };
 		7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TwoByTwo.h"; sourceTree = "<group>"; };
 		7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TwoByTwo.m"; sourceTree = "<group>"; };
 		7CF39DDB17E0070A003A859F /* TwoByTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoByTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,8 +115,6 @@
 		7CF39E1417E00775003A859F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		7CF39E1617E00782003A859F /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
 		7CF39E1717E00782003A859F /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
-		7CF39E1917E00792003A859F /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
-		7CF39E1A17E00792003A859F /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCell.m; sourceTree = "<group>"; };
 		7CF39E1C17E00D30003A859F /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		7CF39E1D17E00D30003A859F /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		997CEE5E850E4BFC9549234B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,8 +184,6 @@
 				7C76578F1825AE920053483B /* GridCell.m */,
 				7C7E2935183052120036557E /* UserAnnotation.h */,
 				7C7E2936183052120036557E /* UserAnnotation.m */,
-				7C7E293B18305EFE0036557E /* Photo.h */,
-				7C7E293C18305EFE0036557E /* Photo.m */,
 			);
 			name = Grid;
 			sourceTree = "<group>";
@@ -209,6 +201,8 @@
 				1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */,
 				7C7E293818305ACA0036557E /* MKMapView+Utilities.h */,
 				7C7E293918305ACA0036557E /* MKMapView+Utilities.m */,
+				7C7E293E18306DD30036557E /* PFObject+Photo.h */,
+				7C7E293F18306DD30036557E /* PFObject+Photo.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -279,7 +273,6 @@
 				1D1B34F4181EAFA200E6F26A /* Reachability */,
 				7CD9507417E657BC00C70956 /* Categories */,
 				7CF39DE517E0070A003A859F /* Supporting Files */,
-				7CF39E1F17E00D35003A859F /* (not in use) */,
 			);
 			path = TwoByTwo;
 			sourceTree = "<group>";
@@ -311,19 +304,6 @@
 				7CF39E0617E0070B003A859F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7CF39E1F17E00D35003A859F /* (not in use) */ = {
-			isa = PBXGroup;
-			children = (
-				1D1B34EF181EA25600E6F26A /* FeedViewController.h */,
-				1D1B34EE181EA25600E6F26A /* FeedViewController.m */,
-				7CF39E1917E00792003A859F /* FeedCell.h */,
-				7CF39E1A17E00792003A859F /* FeedCell.m */,
-				1D1B34F0181EA25600E6F26A /* CPFQueryCollectionViewController.h */,
-				1D1B34F1181EA25600E6F26A /* CPFQueryCollectionViewController.m */,
-			);
-			name = "(not in use)";
 			sourceTree = "<group>";
 		};
 		7CF39E2017E00D3A003A859F /* Camera */ = {
@@ -487,6 +467,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */,
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
 				7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
@@ -499,7 +480,6 @@
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
-				7C7E293D18305EFE0036557E /* Photo.m in Sources */,
 				7CF39E1817E00782003A859F /* GridViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,

@@ -11,7 +11,7 @@
 
 @interface GridCell : UICollectionViewCell
 
-@property (nonatomic, weak) PFObject *object;
+@property (nonatomic, weak) PFObject *photo;
 
 - (void)showImageOrMapAnimated:(BOOL)animated;
 

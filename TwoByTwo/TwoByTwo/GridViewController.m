@@ -125,8 +125,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
-    PFObject *object = self.objects[indexPath.row];
-    cell.object = object;
+    cell.photo = self.objects[indexPath.row];
     return cell;
 }
 
@@ -138,14 +137,14 @@
     else {
         PFObject *object = self.objects[indexPath.row];
         if ([object[@"showMap"] boolValue]) {
-            GridCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+            GridCell *cell = (id)[collectionView cellForItemAtIndexPath:indexPath];
             object[@"showMap"] = @(NO);
             [cell showImageOrMapAnimated:YES];
         }
         else {
             if (self.type == FeedTypeSingle) {
                 CameraViewController *controller = [CameraViewController controller];
-                controller.object = self.objects[indexPath.row];
+                controller.photo = self.objects[indexPath.row];
                 [self presentViewController:controller animated:YES completion:nil];
             }
             else {

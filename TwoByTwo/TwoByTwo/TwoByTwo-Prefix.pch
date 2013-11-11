@@ -19,4 +19,5 @@
     #import "Flurry.h"
     #import "BlocksKit.h"
     #import <FacebookSDK/FacebookSDK.h>
+    #import "PFObject+Photo.h"
 #endif

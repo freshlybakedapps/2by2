@@ -55,23 +55,21 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
-    if (self.object) {
+    if (self.photo) {
 
         __weak typeof(self) weakSelf = self;
         
         //lets check again to make sure photo is not "in-use"
-        PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
-        [query includeKey:@"user_inuse"];
-        [query getObjectInBackgroundWithId:weakSelf.object.objectId block:^(PFObject *photo, NSError *error) {
+        PFQuery *query = [PFQuery queryWithClassName:PFPhotoKey];
+        [query includeKey:PFUserInUseKey];
+        [query getObjectInBackgroundWithId:weakSelf.photo.objectId block:^(PFObject *photo, NSError *error) {
 
-            NSString *state = [photo objectForKey:@"state"];
-            if ([state isEqualToString:@"half"]) {
+            if ([photo.state isEqualToString:@"half"]) {
 
                 [weakSelf setPhotoState:@"in-use" completion:^(BOOL succeeded, NSError *error) {
 
                     if (succeeded) {
-                        PFFile *file = [_object objectForKey:@"image_half"];
-                        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                        [photo.imageHalf getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                             if (!error) {
                                 weakSelf.filter = [[GPUImageLightenBlendFilter alloc] init];
                                 [weakSelf.filter addTarget:weakSelf.liveView];
@@ -98,8 +96,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 }];
             }
             else {
-                PFUser *user = [photo objectForKey:@"user_inuse"];
-                NSString *message = [NSString stringWithFormat:@"Sorry but this photo is in use by %@", user.username];
+                NSString *message = [NSString stringWithFormat:@"Sorry but this photo is in use by %@", photo.userInUse.username];
                 [UIAlertView showAlertViewWithTitle:@"Sorry" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
                     [weakSelf cleanup];
                     [weakSelf dismissViewControllerAnimated:YES completion:nil];
@@ -261,16 +258,16 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     self.filter = nil;
     self.sourcePicture = nil;
     self.stillCamera = nil;
-    self.object = nil;
+    self.photo = nil;
     [self.locationManager stopMonitoringSignificantLocationChanges];
 }
 
-- (void)setPhotoState:(NSString*)state completion:(PFBooleanResultBlock)completion
+- (void)setPhotoState:(NSString *)state completion:(PFBooleanResultBlock)completion
 {
-    if (self.object) {
-        [self.object setObject:state forKey:@"state"];
-        [self.object setObject:[PFUser currentUser] forKey:@"user_inuse"];
-        [self.object saveInBackgroundWithBlock:completion];
+    if (self.photo) {
+        self.photo.state = state;
+        self.photo.userInUse = [PFUser currentUser];
+        [self.photo saveInBackgroundWithBlock:completion];
     }
     else {
         completion(NO, nil);
@@ -310,19 +307,19 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             CLLocation *location = self.locationManager.location;
             PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
             
-            if (weakSelf.object) {
-                [weakSelf.object setObject:geoPoint forKey:@"location_full"];
-                [weakSelf.object setObject:photoFile forKey:@"image_full"];
-                [weakSelf.object setObject:[PFUser currentUser] forKey:@"user_full"];
-                [weakSelf.object setObject:@"full" forKey:@"state"];
-                [weakSelf.object saveInBackgroundWithBlock:backgroundTaskCompletion];
+            if (weakSelf.photo) {
+                weakSelf.photo.locationFull = geoPoint;
+                weakSelf.photo.imageFull = photoFile;
+                weakSelf.photo.userFull = [PFUser currentUser];
+                weakSelf.photo.state = @"full";
+                [weakSelf.photo saveInBackgroundWithBlock:backgroundTaskCompletion];
             }
             else {
                 PFObject *photo = [PFObject objectWithClassName:@"Photo"];
-                [photo setObject:[PFUser currentUser] forKey:@"user"];
-                [photo setObject:geoPoint forKey:@"location_half"];
-                [photo setObject:photoFile forKey:@"image_half"];
-                [photo setObject:@"half" forKey:@"state"];
+                photo.locationHalf = geoPoint;
+                photo.imageHalf = photoFile;
+                photo.user = [PFUser currentUser];
+                photo.state = @"half";
                 [photo saveInBackgroundWithBlock:backgroundTaskCompletion];
             }
         }

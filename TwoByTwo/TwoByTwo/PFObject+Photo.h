@@ -1,5 +1,5 @@
 //
-//  Photo.h
+//  PFObject+Photo.h
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 11/10/13.
@@ -8,6 +8,7 @@
 
 #import <Parse/Parse.h>
 
+extern NSString * const PFPhotoKey;
 extern NSString * const PFImageFullKey;
 extern NSString * const PFImageHalfKey;
 extern NSString * const PFLocationFullKey;
@@ -19,18 +20,16 @@ extern NSString * const PFUserHalfKey;
 extern NSString * const PFUserInUseKey;
 
 
+@interface PFObject (Photo)
 
-@interface Photo : PFObject
-
-@property PFFile *imageFull;
-@property PFFile *imageHalf;
-@property PFGeoPoint *locationFull;
-@property PFGeoPoint *locationHalf;
-@property NSString *state;
-@property PFUser *user;
-@property PFUser *userFull;
-@property PFUser *userHalf;
-@property PFUser *userInUse;
+@property (nonatomic, weak) PFFile *imageFull;
+@property (nonatomic, weak) PFFile *imageHalf;
+@property (nonatomic, weak) PFGeoPoint *locationFull;
+@property (nonatomic, weak) PFGeoPoint *locationHalf;
+@property (nonatomic, weak) NSString *state;
+@property (nonatomic, weak) PFUser *user;
+@property (nonatomic, weak) PFUser *userFull;
+@property (nonatomic, weak) PFUser *userInUse;
 
 @property (nonatomic) BOOL showMap;
 

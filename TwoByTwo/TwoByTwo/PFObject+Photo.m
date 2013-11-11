@@ -1,13 +1,14 @@
 //
-//  Photo.m
+//  PFObject+Photo.m
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 11/10/13.
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "Photo.h"
+#import "PFObject+Photo.h"
 
+NSString * const PFPhotoKey         = @"photo";
 NSString * const PFImageFullKey     = @"image_full";
 NSString * const PFImageHalfKey     = @"image_half";
 NSString * const PFLocationFullKey  = @"location_full";
@@ -15,14 +16,12 @@ NSString * const PFLocationHalfKey  = @"location_half";
 NSString * const PFStateKey         = @"state";
 NSString * const PFUserKey          = @"user";
 NSString * const PFUserFullKey      = @"user_full";
-NSString * const PFUserHalfKey      = @"user_half";
 NSString * const PFUserInUseKey     = @"user_inuse";
 
+static NSString * const kShowMap    = @"show_map";
 
-@implementation Photo
 
-@synthesize showMap;
-
+@implementation PFObject (Photo)
 
 - (PFFile *)imageFull
 {
@@ -94,16 +93,6 @@ NSString * const PFUserInUseKey     = @"user_inuse";
     self[PFUserFullKey] = userFull;
 }
 
-- (PFUser *)userHalf
-{
-    return self[PFUserHalfKey];
-}
-
-- (void)setUserHalf:(PFUser *)userHalf
-{
-    self[PFUserHalfKey] = userHalf;
-}
-
 - (PFUser *)userInUse
 {
     return self[PFUserInUseKey];
@@ -112,6 +101,16 @@ NSString * const PFUserInUseKey     = @"user_inuse";
 - (void)setUserInUse:(PFUser *)userInUse
 {
     self[PFUserInUseKey] = userInUse;
+}
+
+- (BOOL)showMap
+{
+    return [self[kShowMap] boolValue];
+}
+
+- (void)setShowMap:(BOOL)showMap
+{
+    self[kShowMap] = @(showMap);
 }
 
 @end
