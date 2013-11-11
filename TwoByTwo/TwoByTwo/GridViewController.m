@@ -136,13 +136,21 @@
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
     }
     else {
-        if (self.type == FeedTypeSingle) {
-            CameraViewController *controller = [CameraViewController controller];
-            controller.object = self.objects[indexPath.row];
-            [self presentViewController:controller animated:YES completion:nil];
+        PFObject *object = self.objects[indexPath.row];
+        if ([object[@"showMap"] boolValue]) {
+            GridCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+            object[@"showMap"] = @(NO);
+            [cell showImageOrMapAnimated:YES];
         }
         else {
-            [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+            if (self.type == FeedTypeSingle) {
+                CameraViewController *controller = [CameraViewController controller];
+                controller.object = self.objects[indexPath.row];
+                [self presentViewController:controller animated:YES completion:nil];
+            }
+            else {
+                [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+            }
         }
     }
 }

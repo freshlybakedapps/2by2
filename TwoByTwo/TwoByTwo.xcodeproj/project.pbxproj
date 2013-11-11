@@ -26,6 +26,9 @@
 		7C76578D182597930053483B /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C76578C182597930053483B /* Login.storyboard */; };
 		7C7657901825AE920053483B /* GridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578F1825AE920053483B /* GridCell.m */; };
 		7C7E2934183043D60036557E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7E2933183043D60036557E /* MapKit.framework */; };
+		7C7E2937183052120036557E /* UserAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E2936183052120036557E /* UserAnnotation.m */; };
+		7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293918305ACA0036557E /* MKMapView+Utilities.m */; };
+		7C7E293D18305EFE0036557E /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293C18305EFE0036557E /* Photo.m */; };
 		7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */; };
 		7CF39DDF17E0070A003A859F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DDE17E0070A003A859F /* Foundation.framework */; };
 		7CF39DE117E0070A003A859F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE017E0070A003A859F /* CoreGraphics.framework */; };
@@ -87,6 +90,12 @@
 		7C76578E1825AE920053483B /* GridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
 		7C76578F1825AE920053483B /* GridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridCell.m; sourceTree = "<group>"; };
 		7C7E2933183043D60036557E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7C7E2935183052120036557E /* UserAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAnnotation.h; sourceTree = "<group>"; };
+		7C7E2936183052120036557E /* UserAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAnnotation.m; sourceTree = "<group>"; };
+		7C7E293818305ACA0036557E /* MKMapView+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+Utilities.h"; sourceTree = "<group>"; };
+		7C7E293918305ACA0036557E /* MKMapView+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+Utilities.m"; sourceTree = "<group>"; };
+		7C7E293B18305EFE0036557E /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		7C7E293C18305EFE0036557E /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TwoByTwo.h"; sourceTree = "<group>"; };
 		7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TwoByTwo.m"; sourceTree = "<group>"; };
 		7CF39DDB17E0070A003A859F /* TwoByTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoByTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +188,10 @@
 				7CF39E1717E00782003A859F /* GridViewController.m */,
 				7C76578E1825AE920053483B /* GridCell.h */,
 				7C76578F1825AE920053483B /* GridCell.m */,
+				7C7E2935183052120036557E /* UserAnnotation.h */,
+				7C7E2936183052120036557E /* UserAnnotation.m */,
+				7C7E293B18305EFE0036557E /* Photo.h */,
+				7C7E293C18305EFE0036557E /* Photo.m */,
 			);
 			name = Grid;
 			sourceTree = "<group>";
@@ -194,6 +207,8 @@
 				7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */,
 				1D1B34EB181B203800E6F26A /* UIImage+UIImageResizing.h */,
 				1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */,
+				7C7E293818305ACA0036557E /* MKMapView+Utilities.h */,
+				7C7E293918305ACA0036557E /* MKMapView+Utilities.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -473,15 +488,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
+				7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7C7657901825AE920053483B /* GridCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
 				1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */,
+				7C7E2937183052120036557E /* UserAnnotation.m in Sources */,
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
+				7C7E293D18305EFE0036557E /* Photo.m in Sources */,
 				7CF39E1817E00782003A859F /* GridViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,

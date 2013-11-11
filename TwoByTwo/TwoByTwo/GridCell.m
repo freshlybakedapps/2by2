@@ -8,9 +8,11 @@
 
 #import "GridCell.h"
 #import <MapKit/MapKit.h>
+#import "UserAnnotation.h"
+#import "MKMapView+Utilities.h"
 
 
-@interface GridCell ()
+@interface GridCell () <MKMapViewDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
@@ -134,34 +136,6 @@
     BOOL showMap = [self.object[@"showMap"] boolValue];
     self.object[@"showMap"] = @(!showMap);
     [self showImageOrMapAnimated:YES];
-    
-//    if (!self.showingMap) {
-//        [UIView transitionWithView:self.contentView
-//                          duration:0.5
-//                           options:UIViewAnimationOptionTransitionFlipFromLeft
-//                        animations:^{
-//                            [self.contentView insertSubview:self.mapView belowSubview:self.imageView];
-//                            [self.imageView removeFromSuperview];
-//                        }
-//                        completion:^(BOOL finished) {
-//                            
-//                        }];
-//        [self.mapButton setTitle:@"Close" forState:UIControlStateNormal];
-//    }
-//    else {
-//        [UIView transitionWithView:self.contentView
-//                          duration:0.5
-//                           options:UIViewAnimationOptionTransitionFlipFromRight
-//                        animations:^{
-//                            [self.contentView insertSubview:self.imageView belowSubview:self.mapView];
-//                            [self.mapView removeFromSuperview];
-//                            self.mapView = nil;
-//                        }
-//                        completion:^(BOOL finished) {
-//                            
-//                        }];
-//        [self.mapButton setTitle:@"Map" forState:UIControlStateNormal];
-//    }
 }
 
 - (void)showImageOrMapAnimated:(BOOL)animated
@@ -202,9 +176,40 @@
     if (!_mapView) {
         _mapView = [[MKMapView alloc] initWithFrame:self.contentView.bounds];
         _mapView.userInteractionEnabled = NO;
+        _mapView.delegate = self;
+        
+        [self addAnnotations];
     }
     return _mapView;
 }
 
+- (void)addAnnotations
+{
+    PFGeoPoint *half = self.object[@"location_half"];
+    if (half) {
+        PFUser *user = self.object[@"user_half"];
+        UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:half user:user];
+        [self.mapView addAnnotation:annotation];
+    }
+    
+    PFGeoPoint *full = self.object[@"location_full"];
+    if (full) {
+        PFUser *user = self.object[@"user_full"];
+        UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:full user:user];
+        [self.mapView addAnnotation:annotation];
+    }
+    
+    [self.mapView zoomToFitAnnotationsAnimated:NO minimumSpan:MKCoordinateSpanMake(0.3, 0.3)];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
+{
+    MKPinAnnotationView *pin = (id)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
+    if (!pin) {
+        pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
+    }
+    pin.annotation = annotation;
+    return pin;
+}
 
 @end

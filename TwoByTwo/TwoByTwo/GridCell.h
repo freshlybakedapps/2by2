@@ -13,4 +13,6 @@
 
 @property (nonatomic, weak) PFObject *object;
 
+- (void)showImageOrMapAnimated:(BOOL)animated;
+
 @end
