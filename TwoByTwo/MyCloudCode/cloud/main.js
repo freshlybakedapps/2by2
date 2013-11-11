@@ -48,8 +48,11 @@ Parse.Cloud.afterSave("Photo", function(request,response) {
 		    success: function(user) {
 		    	var email = user.get("email");
 		    	var username = user.get("username");
+		    	var emailAlerts = user.get("emailAlerts");		    	
 
-		    	mandrill.sendEmail({
+		    	if(emailAlerts == true){
+		    		console.log("emailAlerts - user opt-in");
+		    		mandrill.sendEmail({
 				    message: {
 				      text: "url: "+url,
 				      html: "Your photo was just double exposed. <br><img src='"+ url + "'></img>",
@@ -68,6 +71,11 @@ Parse.Cloud.afterSave("Photo", function(request,response) {
 				    //success: function(httpResponse) { response.success("Email sent!"); },
 				    //error: function(httpResponse) { response.error("Uh oh, something went wrong"); }
 				  });
+		    	}else{
+		    		console.log("emailAlerts - user doesn't want to receive email alerts");
+		    	}
+
+		    	
 			
 			},
 	    	error: function(error) {
