@@ -8,7 +8,7 @@
 
 #import "PFObject+Photo.h"
 
-NSString * const PFPhotoKey         = @"photo";
+NSString * const PFPhotoKey         = @"Photo";
 NSString * const PFImageFullKey     = @"image_full";
 NSString * const PFImageHalfKey     = @"image_half";
 NSString * const PFLocationFullKey  = @"location_full";

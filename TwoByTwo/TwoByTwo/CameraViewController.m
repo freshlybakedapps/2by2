@@ -63,43 +63,67 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         PFQuery *query = [PFQuery queryWithClassName:PFPhotoKey];
         [query includeKey:PFUserInUseKey];
         [query getObjectInBackgroundWithId:weakSelf.photo.objectId block:^(PFObject *photo, NSError *error) {
-
-            if ([photo.state isEqualToString:@"half"]) {
-
-                [weakSelf setPhotoState:@"in-use" completion:^(BOOL succeeded, NSError *error) {
-
-                    if (succeeded) {
-                        [photo.imageHalf getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                            if (!error) {
-                                weakSelf.filter = [[GPUImageLightenBlendFilter alloc] init];
-                                [weakSelf.filter addTarget:weakSelf.liveView];
-                                
-                                UIImage *image = [UIImage imageWithData:data];
-                                weakSelf.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
-                                [weakSelf.sourcePicture processImage];
-                                [weakSelf.sourcePicture addTarget:weakSelf.filter];
-                                
-                                weakSelf.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
-                                weakSelf.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
-                                [weakSelf.stillCamera addTarget:weakSelf.filter];
-                                [weakSelf.stillCamera startCameraCapture];
+            if(!error){
+                if ([photo.state isEqualToString:@"half"]) {
+                    
+                    [weakSelf setPhotoState:@"in-use" completion:^(BOOL succeeded, NSError *error) {
+                        
+                        if (succeeded) {
+                            [photo.imageHalf getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                                if (!error) {
+                                    weakSelf.filter = [[GPUImageLightenBlendFilter alloc] init];
+                                    [weakSelf.filter addTarget:weakSelf.liveView];
+                                    
+                                    UIImage *image = [UIImage imageWithData:data];
+                                    weakSelf.sourcePicture = [[GPUImagePicture alloc] initWithImage:image smoothlyScaleOutput:YES];
+                                    [weakSelf.sourcePicture processImage];
+                                    [weakSelf.sourcePicture addTarget:weakSelf.filter];
+                                    
+                                    weakSelf.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
+                                    weakSelf.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+                                    [weakSelf.stillCamera addTarget:weakSelf.filter];
+                                    [weakSelf.stillCamera startCameraCapture];
+                                }
+                                else {
+                                    NSLog(@"getDataInBackgroundWithBlock: %@", error);
+                                }
+                            }];
+                        }
+                        else {
+                            NSLog(@"setPhotoState: %@", error);
+                            [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
+                        }
+                    }];
+                }
+                else {
+                    NSString *message = [NSString stringWithFormat:@"Sorry but this photo is in use by %@", photo.userInUse.username];
+                    [UIAlertView showAlertViewWithTitle:@"Sorry" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                        
+                        [weakSelf setPhotoState:@"half" completion:^(BOOL succeeded, NSError *error) {
+                            
+                            if (!succeeded) {
+                                NSLog(@"setPhotoState: %@", error);
+                                [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
                             }
-                            else {
-                                NSLog(@"getDataInBackgroundWithBlock: %@", error);
-                            }
+                            
+                            [weakSelf cleanup];
+                            [weakSelf dismissViewControllerAnimated:YES completion:nil];
                         }];
-                    }
-                    else {
-                        NSLog(@"setPhotoState: %@", error);
-                        [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
-                    }
-                }];
-            }
-            else {
-                NSString *message = [NSString stringWithFormat:@"Sorry but this photo is in use by %@", photo.userInUse.username];
+                    }];
+                }
+            }else{
+                NSString *message = [NSString stringWithFormat:@"Sorry there was an error: %@", error];
                 [UIAlertView showAlertViewWithTitle:@"Sorry" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                    [weakSelf cleanup];
-                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                    
+                    [weakSelf setPhotoState:@"half" completion:^(BOOL succeeded, NSError *error) {
+                        if (!succeeded) {
+                            NSLog(@"setPhotoState: %@", error);
+                            [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
+                        }
+                        
+                        [weakSelf cleanup];
+                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                    }];
                 }];
             }
         }];
@@ -183,12 +207,13 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     switch (self.state) {
         case CameraViewStateTakePhoto:
         {
-            [self cleanup];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            __weak typeof(self) weakSelf = self;
             [self setPhotoState:@"half" completion:^(BOOL succeeded, NSError *error) {
                 if (!succeeded) {
-                    NSLog(@"setPhotoState: %@", error);
+                    NSLog(@"CameraViewStateTakePhoto setPhotoState: %@", error);
                 }
+                [weakSelf cleanup];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }];
         }
             break;
