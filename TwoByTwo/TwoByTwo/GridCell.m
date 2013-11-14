@@ -19,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *deleteButton;
 @property (nonatomic, weak) IBOutlet UIButton *flagButton;
 @property (nonatomic, weak) IBOutlet UILabel *textLabel;
+@property (nonatomic, weak) IBOutlet UIButton *likes;
 @end
 
 
@@ -36,6 +37,11 @@
         username = [username stringByAppendingFormat:@" / %@", photo.userFull.username];
     }
     self.textLabel.text = username;
+    
+    
+    NSArray *likesArray = photo.likes;
+    int result = [likesArray count];
+    [self.likes setTitle:[NSString stringWithFormat:@"%d", result] forState:UIControlStateNormal];
     
     self.imageView.image = nil;
     PFFile *file = ([self.photo.state isEqualToString:@"full"]) ? self.photo.imageFull : self.photo.imageHalf;
@@ -84,11 +90,23 @@
 {
     [self layoutIfNeeded];
 
-    self.textLabel.alpha = self.deleteButton.alpha = self.flagButton.alpha = self.mapButton.alpha = (CGRectGetWidth(layoutAttributes.frame) > 100) ? 1.0 : 0.0;
+    self.likes.alpha = self.textLabel.alpha = self.deleteButton.alpha = self.flagButton.alpha = self.mapButton.alpha = (CGRectGetWidth(layoutAttributes.frame) > 100) ? 1.0 : 0.0;
 }
 
 
 #pragma mark - Actions
+
+- (IBAction)likeButtonTapped:(id)sender{
+    [PFCloud callFunctionInBackground:@"likePhoto"
+                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoLiked":[PFUser currentUser].objectId}
+                                block:^(NSNumber *result, NSError *error) {
+                                    if (!error) {
+                                        NSLog(@"The photo was sucessfully liked: %@", result);
+                                        [self.likes setTitle:[result stringValue] forState:UIControlStateNormal];
+                                    }
+                                }];
+
+}
 
 - (IBAction)flagButtonTapped:(id)sender
 {

@@ -18,6 +18,7 @@ extern NSString * const PFUserKey;
 extern NSString * const PFUserFullKey;
 extern NSString * const PFUserHalfKey;
 extern NSString * const PFUserInUseKey;
+extern NSString * const PFLikesKey;
 
 
 @interface PFObject (Photo)
@@ -30,6 +31,7 @@ extern NSString * const PFUserInUseKey;
 @property (nonatomic, weak) PFUser *user;
 @property (nonatomic, weak) PFUser *userFull;
 @property (nonatomic, weak) PFUser *userInUse;
+@property (nonatomic, weak) NSArray *likes;
 
 @property (nonatomic) BOOL showMap;
 

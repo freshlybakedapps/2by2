@@ -330,6 +330,23 @@
                                                 <action selector="mapButtonTapped:" destination="4N0-zW-y9F" eventType="touchUpInside" id="rJA-gW-xES"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c47-lU-beZ">
+                                            <rect key="frame" x="20" y="20" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="EGP-Yg-uX8"/>
+                                                <constraint firstAttribute="width" constant="40" id="ZSa-Hz-1XC"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="0">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="likeButtonTapped:" destination="4N0-zW-y9F" eventType="touchUpInside" id="BYo-o7-57O"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -353,6 +370,7 @@
                                     <outlet property="deleteButton" destination="0cM-oH-5QJ" id="t4j-1t-hRl"/>
                                     <outlet property="flagButton" destination="8Ep-Ff-Hae" id="k9o-tG-S92"/>
                                     <outlet property="imageView" destination="nXV-aL-agp" id="dpc-Or-yzW"/>
+                                    <outlet property="likes" destination="c47-lU-beZ" id="KRE-4N-ATf"/>
                                     <outlet property="mapButton" destination="meB-Ap-ikg" id="8F7-Yx-BDg"/>
                                     <outlet property="textLabel" destination="ZWR-Vu-PCe" id="x3C-hK-ZSQ"/>
                                 </connections>

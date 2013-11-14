@@ -17,11 +17,22 @@ NSString * const PFStateKey         = @"state";
 NSString * const PFUserKey          = @"user";
 NSString * const PFUserFullKey      = @"user_full";
 NSString * const PFUserInUseKey     = @"user_inuse";
+NSString * const PFLikesKey         = @"likes";
 
 static NSString * const kShowMap    = @"show_map";
 
 
 @implementation PFObject (Photo)
+
+- (NSArray *)likes
+{
+    return self[PFLikesKey];
+}
+
+- (void)setLikes:(NSArray *)likes
+{
+    self[PFLikesKey] = likes;
+}
 
 - (PFFile *)imageFull
 {
