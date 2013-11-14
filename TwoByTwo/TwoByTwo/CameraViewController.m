@@ -258,6 +258,22 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 weakSelf.bottomButton.progress = (float)percentDone / 100;
             } completion:^(BOOL succeeded, NSError *error) {
                 weakSelf.state = CameraViewStateDone;
+                
+                if(weakSelf.photo){
+                    [PFCloud callFunctionInBackground:@"notifyUser"
+                                       withParameters:@{@"user_full":weakSelf.photo.userFull,@"user":weakSelf.photo.user,@"url":weakSelf.photo.imageFull.url}
+                                                block:^(NSNumber *result, NSError *error) {
+                                                    if (!error) {
+                                                        NSLog(@"The user was notified sucessfully: %@", result);
+                                                        
+                                                    }else{
+                                                        NSLog(@"error: %@", error);
+                                                    }
+                                                }];
+                }
+             
+
+                
             }];
         }
             break;
@@ -338,6 +354,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 weakSelf.photo.userFull = [PFUser currentUser];
                 weakSelf.photo.state = @"full";
                 [weakSelf.photo saveInBackgroundWithBlock:backgroundTaskCompletion];
+                
             }
             else {
                 PFObject *photo = [PFObject objectWithClassName:@"Photo"];
@@ -347,6 +364,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 photo.state = @"half";
                 [photo saveInBackgroundWithBlock:backgroundTaskCompletion];
             }
+            
+            
         }
         else {
             backgroundTaskCompletion(NO, error);

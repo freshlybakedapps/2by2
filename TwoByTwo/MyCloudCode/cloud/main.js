@@ -4,23 +4,32 @@ var mandrill = require('mandrill');
 
 mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
 
-Parse.Cloud.afterSave("Photo", function(request,response) {
-  	var state = request.object.get("state");
-  	
+//Parse.Cloud.afterSave("Photo", function(request,response) {
+Parse.Cloud.define("notifyUser", function(request, response) {
+  	//var state = request.object.get("state");
+    
+    var state = "full";
 
+    
+      
   	
+    if(state == "full"){
+  		//var user_full = request.object.get("user_full");
+  		//var user = request.object.get("user");
+  		//var url = request.object.get("image_full")._url;
+      var user_full = request.params.user_full;
+      var user = request.params.user;
+      var url = request.params.url;
 
-  	if(state == "full"){
-  		var user_full = request.object.get("user_full");
-  		var user = request.object.get("user");
-  		var url = request.object.get("image_full")._url;
-  		//console.log(url);
-		Parse.Cloud.useMasterKey();
+      console.log(url);
+		  
+      Parse.Cloud.useMasterKey();
 
 		
-		var pushQuery = new Parse.Query(Parse.Installation);
-		pushQuery.equalTo('deviceType', 'ios');
-		pushQuery.equalTo('channels', user.id);
+		  var pushQuery = new Parse.Query(Parse.Installation);
+		  pushQuery.equalTo('deviceType', 'ios');
+		  pushQuery.equalTo('channels', user.id); //'SREzPjOawD');
+      
 
 
 		//console.log("user.objectId: "+user.id);
@@ -45,6 +54,7 @@ Parse.Cloud.afterSave("Photo", function(request,response) {
   		var query = new Parse.Query(Parse.User);  		
   		
   		query.get(user.id, {
+      
 		    success: function(user) {
 		    	var email = user.get("email");
 		    	var username = user.get("username");
@@ -61,15 +71,15 @@ Parse.Cloud.afterSave("Photo", function(request,response) {
 				      from_name: "2by2 - Cloud Code",
 				      to: [				        
 				        {
-				          email: email,
+				          email: email, //"jtubert@gmail.com",
 				          name: username
 				        }
 				      ]
 				    },
 				    async: true
 				  }, {
-				    //success: function(httpResponse) { response.success("Email sent!"); },
-				    //error: function(httpResponse) { response.error("Uh oh, something went wrong"); }
+				    success: function(httpResponse) { response.success("Email sent!"); },
+				    error: function(httpResponse) { response.error("Uh oh, something went wrong"); }
 				  });
 		    	}else{
 		    		console.log("emailAlerts - user doesn't want to receive email alerts");
@@ -110,17 +120,11 @@ Parse.Cloud.define("likePhoto", function(request, response) {
     		};
 
     		if(!didUserLikedPhoto){
-    			//photo.addUnique("likes", userWhoLiked);
     			likesArray.push(userWhoLiked);
-    			
     			likesCounter++;	
     		}else{
-    			
-    			
     			likesCounter--;	
     		}
-
-    		
     	}else{
     		likesArray = new Array();
     		likesArray.push(userWhoLiked);
@@ -129,7 +133,7 @@ Parse.Cloud.define("likePhoto", function(request, response) {
 
     	//console.log(likesArray);
     	photo.set("likes",likesArray);
-    	photo.save();
+    	photo.save({likingPhoto:"yes"});
     	response.success(likesCounter); 
 	},    
     error: function(error) {
