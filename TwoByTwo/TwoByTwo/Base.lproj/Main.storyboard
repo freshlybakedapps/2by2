@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -60,14 +60,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="krG-4B-tnX">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Ilh-fn-X3d">
-                            <rect key="frame" x="20" y="7" width="280" height="31"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Ilh-fn-X3d" customClass="IconSegmentedControl">
+                            <rect key="frame" x="20" y="7" width="280" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="You"/>
-                                <segment title="Single"/>
-                                <segment title="Global"/>
+                                <segment title="" image="icon-single"/>
+                                <segment title="" image="icon-double"/>
+                                <segment title="" image="icon-follwing"/>
+                                <segment title="" image="icon-you"/>
                             </segments>
+                            <color key="tintColor" red="0.55294117647058827" green="0.55294117647058827" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="segmentedControlValueChanged:" destination="kXQ-kM-6nA" eventType="valueChanged" id="q0j-3g-jkf"/>
                             </connections>
@@ -391,6 +393,10 @@
         <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
+        <image name="icon-double" width="30" height="30"/>
+        <image name="icon-follwing" width="30" height="30"/>
+        <image name="icon-single" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
     </resources>
     <color key="tintColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -399,6 +405,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="g2R-CL-5Du"/>
+        <segue reference="rQK-3z-u2A"/>
     </inferredMetricsTieBreakers>
 </document>

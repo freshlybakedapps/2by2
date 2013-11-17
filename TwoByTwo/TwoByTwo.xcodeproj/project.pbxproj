@@ -20,6 +20,7 @@
 		1D4207D317E6AB78008A7F98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */; };
 		1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D74B5701809A681005A4937 /* StoreKit.framework */; };
 		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
+		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
 		7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578A1825962A0053483B /* UIWindow+Animation.m */; };
@@ -76,6 +77,8 @@
 		1D74B5701809A681005A4937 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1DCD412618083BA2007A5D56 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1DCD412718083BA2007A5D56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		7C16CF3B1839738B007EA62D /* IconSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconSegmentedControl.h; sourceTree = "<group>"; };
+		7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconSegmentedControl.m; sourceTree = "<group>"; };
 		7C73FFC117E62EB50055C57C /* ProgressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressButton.h; sourceTree = "<group>"; };
 		7C73FFC217E62EB50055C57C /* ProgressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressButton.m; sourceTree = "<group>"; };
 		7C73FFC417E637C50055C57C /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
@@ -322,6 +325,8 @@
 			children = (
 				7CF39E1317E00775003A859F /* MainViewController.h */,
 				7CF39E1417E00775003A859F /* MainViewController.m */,
+				7C16CF3B1839738B007EA62D /* IconSegmentedControl.h */,
+				7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -472,6 +477,7 @@
 				7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7C7657901825AE920053483B /* GridCell.m in Sources */,
+				7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
