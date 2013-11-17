@@ -178,6 +178,26 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		7C16CF3E18397839007EA62D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7C73FFC117E62EB50055C57C /* ProgressButton.h */,
+				7C73FFC217E62EB50055C57C /* ProgressButton.m */,
+				7C16CF3B1839738B007EA62D /* IconSegmentedControl.h */,
+				7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		7C16CF3F18397854007EA62D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7C7E2935183052120036557E /* UserAnnotation.h */,
+				7C7E2936183052120036557E /* UserAnnotation.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		7C7657911825AEA40053483B /* Grid */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,8 +205,6 @@
 				7CF39E1717E00782003A859F /* GridViewController.m */,
 				7C76578E1825AE920053483B /* GridCell.h */,
 				7C76578F1825AE920053483B /* GridCell.m */,
-				7C7E2935183052120036557E /* UserAnnotation.h */,
-				7C7E2936183052120036557E /* UserAnnotation.m */,
 			);
 			name = Grid;
 			sourceTree = "<group>";
@@ -273,6 +291,8 @@
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
 				7CF39DF617E0070A003A859F /* Images.xcassets */,
 				7CD9507C17E665AA00C70956 /* Controllers */,
+				7C16CF3E18397839007EA62D /* Views */,
+				7C16CF3F18397854007EA62D /* Models */,
 				1D1B34F4181EAFA200E6F26A /* Reachability */,
 				7CD9507417E657BC00C70956 /* Categories */,
 				7CF39DE517E0070A003A859F /* Supporting Files */,
@@ -314,8 +334,6 @@
 			children = (
 				7CF39E1C17E00D30003A859F /* CameraViewController.h */,
 				7CF39E1D17E00D30003A859F /* CameraViewController.m */,
-				7C73FFC117E62EB50055C57C /* ProgressButton.h */,
-				7C73FFC217E62EB50055C57C /* ProgressButton.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -325,8 +343,6 @@
 			children = (
 				7CF39E1317E00775003A859F /* MainViewController.h */,
 				7CF39E1417E00775003A859F /* MainViewController.m */,
-				7C16CF3B1839738B007EA62D /* IconSegmentedControl.h */,
-				7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -628,7 +644,7 @@
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "TwoByTwo/TwoByTwo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -653,7 +669,7 @@
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "TwoByTwo/TwoByTwo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
