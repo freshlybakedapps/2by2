@@ -97,6 +97,7 @@
 #pragma mark - Actions
 
 - (IBAction)likeButtonTapped:(id)sender{
+    
     [PFCloud callFunctionInBackground:@"likePhoto"
                        withParameters:@{@"objectid":self.photo.objectId, @"userWhoLiked":[PFUser currentUser].objectId}
                                 block:^(NSNumber *result, NSError *error) {
@@ -105,6 +106,16 @@
                                         [self.likes setTitle:[result stringValue] forState:UIControlStateNormal];
                                     }
                                 }];
+    
+    /*
+    [PFCloud callFunctionInBackground:@"getFacebookFriends"
+                       withParameters:@{@"user":[PFUser currentUser]}
+                                block:^(NSArray *result, NSError *error) {
+                                    if (!error) {
+                                        NSLog(@"Facebook friends: %@", result);
+                                    }
+                                }];
+     */
 
 }
 

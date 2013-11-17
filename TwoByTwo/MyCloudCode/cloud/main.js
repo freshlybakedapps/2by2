@@ -4,6 +4,60 @@ var mandrill = require('mandrill');
 
 mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
 
+
+Parse.Cloud.define("getFacebookFriends", function(request, response){
+  Parse.Cloud.useMasterKey();
+  var query = new Parse.Query(Parse.User);
+  var user = request.params.user;
+  var items = [];
+
+  var twoByTwoUsers = [];
+
+  var userQuery = new Parse.Query(Parse.User);
+  userQuery.each(function(u) {
+    twoByTwoUsers.push(u.get("username"));
+  });       
+  
+  query.get(user.id, {
+    success: function(user) {
+      var email = user.get("email");
+      var username = user.get("username");
+      Parse.Cloud.httpRequest({
+        url:'https://graph.facebook.com/me/friends?access_token='+user.get('authData').facebook.access_token,
+        success:function(httpResponse){
+          
+          //console.log(user.get('authData').facebook.access_token);
+          //response.success("getFacebookFriends: "+httpResponse.data.data.length);
+          var friends = httpResponse.data.data;
+
+          for (var i = friends.length - 1; i >= 0; i--) {
+            var n1 = friends[i].name;
+            for (var j = twoByTwoUsers.length - 1; j >= 0; j--) {
+              var n2 = twoByTwoUsers[j];
+              if(n1 == n2){
+                items.push(friends[i]);
+              }
+            };
+            
+          };
+          
+          
+
+          response.success(items); 
+        },
+        error:function(httpResponse){
+          response.error(httpResponse);
+        }
+      });
+               
+    },
+    error: function(error) {
+        console.error("Got an error " + error.code + " : " + error.message);
+        response.error(error);
+    }
+  });
+});
+
 //Parse.Cloud.afterSave("Photo", function(request,response) {
 Parse.Cloud.define("notifyUser", function(request, response) {
   	//var state = request.object.get("state");
