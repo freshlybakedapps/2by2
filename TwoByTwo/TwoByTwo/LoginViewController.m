@@ -54,11 +54,13 @@
                 if (!error) {
                     NSString *name = result[@"name"];
                     NSString *email = result[@"email"];
+                    NSString *username = result[@"username"];
                     
                     //NSLog(@"email %@", email);
                     
                     [PFUser currentUser].email = email;
-                    [PFUser currentUser].username = name;
+                    [PFUser currentUser].username = username;
+                    [PFUser currentUser][@"fullName"] = name;
                     [[PFUser currentUser] saveInBackground];
                     [Flurry setUserID:name];
                     [[AppDelegate delegate] showMainViewController];

@@ -1,9 +1,43 @@
 //https://www.parse.com/docs/cloud_modules_guide#images
 var Image = require("parse-image");
 var mandrill = require('mandrill');
-
 mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
 
+Parse.Cloud.define("isUsernameUnique", function(request, response){
+  
+  
+  var isUsernameUnique = "true";
+
+  var usernameToCheck = request.params.username;
+  
+  Parse.Cloud.useMasterKey();
+  var query = new Parse.Query(Parse.User);
+  query.each(function(u) {
+    var username = u.get("username");
+
+    if(username == usernameToCheck){
+      isUsernameUnique = "false";
+      return;
+    }
+      
+
+    
+  }).then(function() {
+    // Set the job's success status
+    response.success(isUsernameUnique);
+  }, function(error) {
+    // Set the job's error status
+    response.error("Uh oh, something went wrong. ", error);
+  });
+
+      
+
+  
+});
+
+Parse.Cloud.define("findFriendsFromContacts", function(request, response){
+  response.success("findFriendsFromContacts"); 
+});
 
 Parse.Cloud.define("getFacebookFriends", function(request, response){
   Parse.Cloud.useMasterKey();

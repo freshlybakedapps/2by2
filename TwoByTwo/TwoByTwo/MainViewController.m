@@ -20,6 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //[PFUser logOut];
     [self showControllerWithType:0];
 }
 

@@ -115,6 +115,15 @@
                                         NSLog(@"Facebook friends: %@", result);
                                     }
                                 }];
+     
+    
+    [PFCloud callFunctionInBackground:@"isUsernameUnique"
+                       withParameters:@{@"username":@"jtubert"}
+                                block:^(NSString *result, NSError *error) {
+                                    if (!error) {
+                                        NSLog(@"isUsernameUnique: %@", result);
+                                    }
+                                }];
      */
 
 }
