@@ -122,54 +122,24 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (self.collectionView.collectionViewLayout == self.gridLayout) {
-//        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallGridCell" forIndexPath:indexPath];
-//        UIImageView *imageView = (id)[cell viewWithTag:10];
-//        
-//        PFObject *photo = self.objects[indexPath.row];
-//        PFFile *file = ([photo.state isEqualToString:@"full"]) ? photo.imageFull : photo.imageHalf;
-//        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-//            if (!error) {
-//                UIImage *image = [UIImage imageWithData:data];
-//                imageView.image = image;
-//            }
-//            else {
-//                NSLog(@"getDataInBackgroundWithBlock: %@", error);
-//            }
-//        }];
-//
-//        return cell;
-//    }
-//    else {
-        GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
-        cell.photo = self.objects[indexPath.row];
-        return cell;
-//    }
+    GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
+    cell.photo = self.objects[indexPath.row];
+    return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
-//        [collectionView reloadItemsAtIndexPaths:[collectionView indexPathsForVisibleItems]];
     }
     else {
-        PFObject *photo = self.objects[indexPath.row];
-        if (photo.showMap) {
-            GridCell *cell = (id)[collectionView cellForItemAtIndexPath:indexPath];
-            photo.showMap = NO;
-            [cell showImageOrMapAnimated:YES];
+        if (self.type == FeedTypeSingle) {
+            CameraViewController *controller = [CameraViewController controller];
+            controller.photo = self.objects[indexPath.row];
+            [self presentViewController:controller animated:YES completion:nil];
         }
         else {
-            if (self.type == FeedTypeSingle) {
-                CameraViewController *controller = [CameraViewController controller];
-                controller.photo = self.objects[indexPath.row];
-                [self presentViewController:controller animated:YES completion:nil];
-            }
-            else {
-                [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
-//                [collectionView reloadItemsAtIndexPaths:[collectionView indexPathsForVisibleItems]];
-            }
+            [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
         }
     }
 }

@@ -85,6 +85,10 @@
         self.headerView.alpha = self.footerView.alpha = 1.0;
     }
     else {
+        if (self.photo.showMap) {
+            self.photo.showMap = NO;
+            [self showImageOrMapAnimated:YES];
+        }
         self.headerView.alpha = self.footerView.alpha = 0.0;
     }
 }
@@ -184,22 +188,16 @@
 {
     void (^action)(void) = ^{
         if (self.photo.showMap) {
-            [self.contentView insertSubview:self.mapView belowSubview:self.imageView];
-            [self.imageView removeFromSuperview];
-            [self.mapButton setTitle:@"Close" forState:UIControlStateNormal];
+            [self.imageView addSubview:self.mapView];
         }
         else {
-            if (!self.imageView.superview) {
-                [self.contentView insertSubview:self.imageView belowSubview:self.mapView];
-                [self.mapView removeFromSuperview];
-                self.mapView = nil;
-                [self.mapButton setTitle:@"Map" forState:UIControlStateNormal];
-            }
+            [self.mapView removeFromSuperview];
+            self.mapView = nil;
         }
     };
     
     if (animated) {
-        [UIView transitionWithView:self.contentView
+        [UIView transitionWithView:self.imageView
                           duration:0.5
                            options:(self.photo.showMap) ? UIViewAnimationOptionTransitionFlipFromRight : UIViewAnimationOptionTransitionFlipFromLeft
                         animations:action
@@ -216,7 +214,7 @@
 - (MKMapView *)mapView
 {
     if (!_mapView) {
-        _mapView = [[MKMapView alloc] initWithFrame:self.contentView.bounds];
+        _mapView = [[MKMapView alloc] initWithFrame:self.imageView.bounds];
         _mapView.userInteractionEnabled = NO;
         _mapView.delegate = self;
         

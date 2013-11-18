@@ -186,18 +186,19 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amin" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7N4-Qn-SvN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                                    <rect key="frame" x="4" y="0.0" width="292" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                                    <color key="textColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="7N4-Qn-SvN" firstAttribute="top" secondItem="b3l-eF-rug" secondAttribute="top" id="5Kq-4V-czX"/>
                                                 <constraint firstAttribute="bottom" secondItem="7N4-Qn-SvN" secondAttribute="bottom" id="Fgk-UD-k0l"/>
-                                                <constraint firstItem="7N4-Qn-SvN" firstAttribute="leading" secondItem="b3l-eF-rug" secondAttribute="leading" id="ZG1-4k-MgB"/>
-                                                <constraint firstAttribute="trailing" secondItem="7N4-Qn-SvN" secondAttribute="trailing" id="g8E-FY-Mio"/>
+                                                <constraint firstItem="7N4-Qn-SvN" firstAttribute="leading" secondItem="b3l-eF-rug" secondAttribute="leading" constant="4" id="ZG1-4k-MgB"/>
+                                                <constraint firstAttribute="trailing" secondItem="7N4-Qn-SvN" secondAttribute="trailing" constant="4" id="g8E-FY-Mio"/>
                                                 <constraint firstAttribute="height" constant="30" id="hK6-Am-Hy2"/>
                                             </constraints>
                                         </view>
@@ -213,10 +214,12 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="100" image="icon-like-off">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="selected" image="icon-like-on"/>
+                                                    <state key="selected" image="icon-like-on">
+                                                        <color key="titleColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="likeButtonTapped:" destination="GOB-Y4-cAB" eventType="touchUpInside" id="NLa-H1-lGP"/>
                                                     </connections>
@@ -249,7 +252,7 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="G7n-JO-Zjx" firstAttribute="leading" secondItem="piT-wP-Xpg" secondAttribute="leading" id="D59-q6-D9K"/>
                                                 <constraint firstAttribute="bottom" secondItem="lbf-vx-RiF" secondAttribute="bottom" id="H67-EZ-2Fl"/>
@@ -266,7 +269,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="So9-Wd-MPa" firstAttribute="top" secondItem="GOB-Y4-cAB" secondAttribute="top" id="2Bv-Og-IDn"/>
                                     <constraint firstAttribute="trailing" secondItem="piT-wP-Xpg" secondAttribute="trailing" id="5eS-Zq-2r5"/>
@@ -361,7 +364,6 @@ IHNob3Qgb3ZlciB0aGVtLiA
         </scene>
     </scenes>
     <resources>
-        <image name="button-close" width="44" height="44"/>
         <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
