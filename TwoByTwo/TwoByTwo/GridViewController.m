@@ -32,7 +32,7 @@
     self.gridLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     self.feedLayout = [UICollectionViewFlowLayout new];
-    self.feedLayout.itemSize = CGSizeMake(300, 300);
+    self.feedLayout.itemSize = CGSizeMake(300, 370);
     self.feedLayout.minimumInteritemSpacing = 10;
     self.feedLayout.minimumLineSpacing = 10;
     self.feedLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
@@ -68,15 +68,13 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     
-    //on FeedTypeYou we want to show all photos you started or finished
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(user==%@) OR (user_full==%@)",[PFUser currentUser],[PFUser currentUser]];
-    
-    
     switch (self.type) {
         case FeedTypeYou:
-            
+        {
+            //on FeedTypeYou we want to show all photos you started or finished
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", [PFUser currentUser], [PFUser currentUser]];
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
-            
+        }
             break;
             
         case FeedTypeSingle:
@@ -124,15 +122,36 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
-    cell.photo = self.objects[indexPath.row];
-    return cell;
+//    if (self.collectionView.collectionViewLayout == self.gridLayout) {
+//        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallGridCell" forIndexPath:indexPath];
+//        UIImageView *imageView = (id)[cell viewWithTag:10];
+//        
+//        PFObject *photo = self.objects[indexPath.row];
+//        PFFile *file = ([photo.state isEqualToString:@"full"]) ? photo.imageFull : photo.imageHalf;
+//        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//            if (!error) {
+//                UIImage *image = [UIImage imageWithData:data];
+//                imageView.image = image;
+//            }
+//            else {
+//                NSLog(@"getDataInBackgroundWithBlock: %@", error);
+//            }
+//        }];
+//
+//        return cell;
+//    }
+//    else {
+        GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
+        cell.photo = self.objects[indexPath.row];
+        return cell;
+//    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
+//        [collectionView reloadItemsAtIndexPaths:[collectionView indexPathsForVisibleItems]];
     }
     else {
         PFObject *photo = self.objects[indexPath.row];
@@ -149,9 +168,25 @@
             }
             else {
                 [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+//                [collectionView reloadItemsAtIndexPaths:[collectionView indexPathsForVisibleItems]];
             }
         }
     }
+}
+
+
+#pragma mark - Collection View Header
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+{
+    return CGSizeMake(0, 80);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
+    
+    return headerView;
 }
 
 @end

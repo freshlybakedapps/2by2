@@ -15,16 +15,16 @@
 @interface GridCell () <MKMapViewDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
-@property (nonatomic, weak) IBOutlet UIButton *mapButton;
-@property (nonatomic, weak) IBOutlet UIButton *deleteButton;
-@property (nonatomic, weak) IBOutlet UIButton *flagButton;
+@property (nonatomic, weak) IBOutlet UIView *headerView;
+@property (nonatomic, weak) IBOutlet UIView *footerView;
 @property (nonatomic, weak) IBOutlet UILabel *textLabel;
-@property (nonatomic, weak) IBOutlet UIButton *likes;
+@property (nonatomic, weak) IBOutlet UIButton *likeButton;
+@property (nonatomic, weak) IBOutlet UIButton *mapButton;
+@property (nonatomic, weak) IBOutlet UIButton *toolButton;
 @end
 
 
 @implementation GridCell
-
 
 #pragma mark - Content
 
@@ -32,6 +32,8 @@
 {
     _photo = photo;
     
+    
+    // Name(s)
     NSString* username = photo.user.username;
     if (photo.userFull) {
         username = [username stringByAppendingFormat:@" / %@", photo.userFull.username];
@@ -39,10 +41,7 @@
     self.textLabel.text = username;
     
     
-    NSArray *likesArray = photo.likes;
-    int result = [likesArray count];
-    [self.likes setTitle:[NSString stringWithFormat:@"%d", result] forState:UIControlStateNormal];
-    
+    // Image
     self.imageView.image = nil;
     PFFile *file = ([self.photo.state isEqualToString:@"full"]) ? self.photo.imageFull : self.photo.imageHalf;
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -55,31 +54,23 @@
         }
     }];
     
-    photo.showMap = NO;
-    [self showImageOrMapAnimated:NO];
-    [self checkWhichButtonToShow];
-}
+    
+    // Likes
+    [self updateLikeButton];
+    
 
-- (void)checkWhichButtonToShow
-{
-    if ([self.photo.user.username isEqualToString:[PFUser currentUser].username]) {
-        
-        //you should not be able to flag your own photo
-        self.flagButton.hidden = YES;
-        
-        if ([self.photo.state isEqualToString:@"full"]) {
-            //you should not be able to delete a photo that was double exposed.
-            self.deleteButton.hidden = YES;
-        }
-        else {
-            //if image is half exposed and it's your own photo, you should be able to delete it
-            self.deleteButton.hidden = NO;
-        }
+    // Flag or Delte
+    if (photo.canDelete) {
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-delete"] forState:UIControlStateNormal];
     }
     else {
-        self.flagButton.hidden = NO;
-        self.deleteButton.hidden = YES;
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-delete"] forState:UIControlStateNormal];
     }
+
+
+    // Map
+    photo.showMap = NO;
+    [self showImageOrMapAnimated:NO];
 }
 
 
@@ -89,21 +80,43 @@
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
     [self layoutIfNeeded];
-
-    self.likes.alpha = self.textLabel.alpha = self.deleteButton.alpha = self.flagButton.alpha = self.mapButton.alpha = (CGRectGetWidth(layoutAttributes.frame) > 100) ? 1.0 : 0.0;
+    
+    if (CGRectGetWidth(layoutAttributes.frame) > 100) {
+        self.headerView.alpha = self.footerView.alpha = 1.0;
+    }
+    else {
+        self.headerView.alpha = self.footerView.alpha = 0.0;
+    }
 }
 
 
 #pragma mark - Actions
 
-- (IBAction)likeButtonTapped:(id)sender{
+- (IBAction)likeButtonTapped:(id)sender
+{
+    NSArray *oldLikes = self.photo.likes;
+    NSMutableArray *newLikes = [self.photo.likes mutableCopy];
+    
+    if (self.photo.likedByMe) {
+        [newLikes removeObject:[PFUser currentUser].objectId];
+    }
+    else {
+        [newLikes addObject:[PFUser currentUser].objectId];
+    }
+    self.photo.likes = newLikes;
+    [self updateLikeButton];
     
     [PFCloud callFunctionInBackground:@"likePhoto"
                        withParameters:@{@"objectid":self.photo.objectId, @"userWhoLiked":[PFUser currentUser].objectId}
                                 block:^(NSNumber *result, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"The photo was sucessfully liked: %@", result);
-                                        [self.likes setTitle:[result stringValue] forState:UIControlStateNormal];
+                                    
+                                    if (error) {
+                                        NSLog(@"like photo: %@", error);
+                                        [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
+                                        
+                                        // Revert likes
+                                        self.photo.likes = oldLikes;
+                                        [self updateLikeButton];
                                     }
                                 }];
     
@@ -128,32 +141,37 @@
 
 }
 
-- (IBAction)flagButtonTapped:(id)sender
+- (void)updateLikeButton
 {
-    [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to flag this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex != alertView.cancelButtonIndex) {
-            [PFCloud callFunctionInBackground:@"flagPhoto"
-                               withParameters:@{@"objectid":self.photo.objectId, @"userWhoFlagged":[PFUser currentUser].username}
-                                        block:^(NSString *result, NSError *error) {
-                                            if (!error) {
-                                                NSLog(@"Thanks for flagging this image.");
-                                                //[UIAlertView showAlertViewWithTitle:@"Flag" message:@"Thanks for flagging this image." cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
-                                            }
-                                        }];
-
-        }
-    }];
+    self.likeButton.selected = self.photo.likedByMe;
+    [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.photo.likes.count] forState:UIControlStateNormal];
 }
 
-- (IBAction)deleteButtonTapped:(id)sender
+- (IBAction)toolButtonTapped:(id)sender
 {
-    [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        if (buttonIndex != alertView.cancelButtonIndex) {
-            [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
-            }];
-        }
-    }];
+    if (self.photo.canDelete) {
+        [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex != alertView.cancelButtonIndex) {
+                [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
+                }];
+            }
+        }];
+    }
+    else {
+        [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to flag this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex != alertView.cancelButtonIndex) {
+                [PFCloud callFunctionInBackground:@"flagPhoto"
+                                   withParameters:@{@"objectid":self.photo.objectId, @"userWhoFlagged":[PFUser currentUser].username}
+                                            block:^(NSString *result, NSError *error) {
+                                                if (error) {
+                                                    NSLog(@"Failed to flag: %@", error);
+                                                }
+                                            }];
+                
+            }
+        }];
+    }
 }
 
 - (IBAction)mapButtonTapped:(id)sender

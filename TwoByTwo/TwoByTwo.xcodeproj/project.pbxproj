@@ -21,6 +21,7 @@
 		1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D74B5701809A681005A4937 /* StoreKit.framework */; };
 		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
 		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
+		7C16CF421839853B007EA62D /* GridHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF411839853B007EA62D /* GridHeaderView.m */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
 		7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578A1825962A0053483B /* UIWindow+Animation.m */; };
@@ -79,6 +80,8 @@
 		1DCD412718083BA2007A5D56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		7C16CF3B1839738B007EA62D /* IconSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconSegmentedControl.h; sourceTree = "<group>"; };
 		7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconSegmentedControl.m; sourceTree = "<group>"; };
+		7C16CF401839853B007EA62D /* GridHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridHeaderView.h; sourceTree = "<group>"; };
+		7C16CF411839853B007EA62D /* GridHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridHeaderView.m; sourceTree = "<group>"; };
 		7C73FFC117E62EB50055C57C /* ProgressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressButton.h; sourceTree = "<group>"; };
 		7C73FFC217E62EB50055C57C /* ProgressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressButton.m; sourceTree = "<group>"; };
 		7C73FFC417E637C50055C57C /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				7CF39E1717E00782003A859F /* GridViewController.m */,
 				7C76578E1825AE920053483B /* GridCell.h */,
 				7C76578F1825AE920053483B /* GridCell.m */,
+				7C16CF401839853B007EA62D /* GridHeaderView.h */,
+				7C16CF411839853B007EA62D /* GridHeaderView.m */,
 			);
 			name = Grid;
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 				7C7E2937183052120036557E /* UserAnnotation.m in Sources */,
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
+				7C16CF421839853B007EA62D /* GridHeaderView.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
 				7CF39E1817E00782003A859F /* GridViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,

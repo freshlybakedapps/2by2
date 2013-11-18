@@ -124,4 +124,15 @@ static NSString * const kShowMap    = @"show_map";
     self[kShowMap] = @(showMap);
 }
 
+- (BOOL)canDelete
+{
+    // You can only delete your own photo that is not double-exposed yet.
+    return ([self.user isEqual:[PFUser currentUser]] && [self.state isEqualToString:@"full"]);
+}
+
+- (BOOL)likedByMe
+{
+    return ([self.likes containsObject:[PFUser currentUser].objectId]);
+}
+
 @end

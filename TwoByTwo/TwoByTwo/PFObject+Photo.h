@@ -34,5 +34,7 @@ extern NSString * const PFLikesKey;
 @property (nonatomic, weak) NSArray *likes;
 
 @property (nonatomic) BOOL showMap;
+@property (nonatomic, readonly) BOOL canDelete;
+@property (nonatomic, readonly) BOOL likedByMe;
 
 @end

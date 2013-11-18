@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSUInteger, FeedType) {
-    FeedTypeYou = 0,
-    FeedTypeSingle,
+    FeedTypeSingle = 0,
     FeedTypeGlobal,
+    FeedTypeFollowing,
+    FeedTypeYou,
 };
 
 
