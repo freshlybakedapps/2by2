@@ -114,28 +114,9 @@ Parse.Cloud.define("notifyUser", function(request, response) {
       Parse.Cloud.useMasterKey();
 
 		
-		  var pushQuery = new Parse.Query(Parse.Installation);
-		  pushQuery.equalTo('deviceType', 'ios');
-		  pushQuery.equalTo('channels', user.id); //'SREzPjOawD');
-      
+		  
 
-
-		//console.log("user.objectId: "+user.id);
-
-		Parse.Push.send({
-			where: pushQuery, // Set our Installation query
-			data: {
-				alert: "Your photo was overexposed! "+ url
-			}
-			}, {
-			success: function() {
-				// Push was successful
-			},
-			error: function(error) {
-				throw "Got an error " + error.code + " : " + error.message;
-			}
-		});
-
+		
 
   		
 
@@ -146,7 +127,33 @@ Parse.Cloud.define("notifyUser", function(request, response) {
 		    success: function(user) {
 		    	var email = user.get("email");
 		    	var username = user.get("username");
-		    	var emailAlerts = user.get("emailAlerts");		    	
+		    	var emailAlerts = user.get("emailAlerts");
+          var pushAlerts = user.get("pushAlerts");
+
+          var pushQuery = new Parse.Query(Parse.Installation);
+          pushQuery.equalTo('deviceType', 'ios');
+          pushQuery.equalTo('channels', 'SREzPjOawD');//user.id);
+
+             
+          if(pushAlerts == true){
+            //console.log("user.objectId: "+user.id);
+            Parse.Push.send({
+              where: pushQuery, // Set our Installation query
+              data: {
+                alert: "Your photo was overexposed! "+ url
+              }
+              }, {
+              success: function() {
+                // Push was successful
+              },
+              error: function(error) {
+                throw "Got an error " + error.code + " : " + error.message;
+              }
+            });
+
+          }
+      
+   		    	
 
 		    	if(emailAlerts == true){
 		    		console.log("emailAlerts - user opt-in");
