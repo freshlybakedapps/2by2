@@ -1,0 +1,22 @@
+.button {
+  display: inline-block;
+  width: 210px;
+  height: 24px;
+  padding: 18px 21px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../images/facebookButton.png);
+  box-shadow: none;
+  -webkit-transition: all 200ms ease;
+  -o-transition: all 200ms ease;
+  transition: all 200ms ease;
+  font-family: Montserrat, sans-serif;
+  color: white;
+  font-size: 22px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: none;
+}
+.button:hover.facebook:hover {
+  background-image: url(../images/facebookButtonOver.png);
+}

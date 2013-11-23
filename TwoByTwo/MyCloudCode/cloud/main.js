@@ -35,31 +35,92 @@ Parse.Cloud.define("isUsernameUnique", function(request, response){
   
 });
 
+
+
 Parse.Cloud.define("findFriendsFromContacts", function(request, response){
   response.success("findFriendsFromContacts"); 
 });
+
+Parse.Cloud.define("unFollow", function(request, response){
+
+});
+
+Parse.Cloud.define("follow", function(request, response){
+  var userID = request.params.userID;
+  var followingUserID = request.params.followingUserID;  
+  
+  var followQuery = new Parse.Query("Followers");
+  followQuery.equalTo("userID", userID);
+  followQuery.equalTo("followingUserID", followingUserID);
+
+  followQuery.find({
+  success: function(arr) {
+    console.log(arr.length);
+    if(arr.length < 1){
+      var Followers = Parse.Object.extend("Followers");
+      var followers = new Followers();
+      followers.set("userID", userID);
+      followers.set("followingUserID", followingUserID);
+
+      followers.save(null, {
+        success: function(follower) {      
+          response.success(true);
+        },
+        error: function(follower, error) {      
+          response.error('Failed to create new object, with error code: ' + error.description);
+        }
+      });
+    }else{
+      arr[0].destroy({
+          success:function() {
+               response.success(false);
+          },
+          error:function(error) {
+               response.error('Could not delete object.');
+          }
+     });
+      
+    }
+  },
+
+  error: function(error) {
+    response.error(error.description);
+  }
+});
+});//follow function
+    
 
 Parse.Cloud.define("getFacebookFriends", function(request, response){
   Parse.Cloud.useMasterKey();
   var query = new Parse.Query(Parse.User);
   var user = request.params.user;
   var items = [];
+  var followers = [];
 
   var twoByTwoUsers = [];
 
   var userQuery = new Parse.Query(Parse.User);
   userQuery.each(function(u) {
-    twoByTwoUsers.push(u.get("username"));
-  });       
+    var obj = {username:u.get("fullName"),id:u.id};
+    twoByTwoUsers.push(obj);
+  });
+
+  var followQuery = new Parse.Query("Followers");
+  followQuery.equalTo("userID", user);
+  followQuery.each(function(f) {
+    followers.push(f.get("followingUserID"));
+  });
+
+            
   
-  query.get(user.id, {
+  query.get(user, {
     success: function(user) {
       var email = user.get("email");
       var username = user.get("username");
       Parse.Cloud.httpRequest({
         url:'https://graph.facebook.com/me/friends?access_token='+user.get('authData').facebook.access_token,
         success:function(httpResponse){
-          
+          var followersStr = followers.join();
           //console.log(user.get('authData').facebook.access_token);
           //response.success("getFacebookFriends: "+httpResponse.data.data.length);
           var friends = httpResponse.data.data;
@@ -67,15 +128,19 @@ Parse.Cloud.define("getFacebookFriends", function(request, response){
           for (var i = friends.length - 1; i >= 0; i--) {
             var n1 = friends[i].name;
             for (var j = twoByTwoUsers.length - 1; j >= 0; j--) {
-              var n2 = twoByTwoUsers[j];
+              var n2 = twoByTwoUsers[j].username;
               if(n1 == n2){
-                items.push(friends[i]);
+                var following = false;
+                if(followersStr.indexOf(twoByTwoUsers[j].id) != -1){
+                  following = true;
+                }
+
+                var obj ={name:friends[i].name,parseID:twoByTwoUsers[j].id,facebookID:friends[i].id,following:following};
+                items.push(obj);
               }
             };
             
-          };
-          
-          
+          };  
 
           response.success(items); 
         },
@@ -426,9 +491,9 @@ Parse.Cloud.job("fixPhotoState", function(request, status) {
   var date = new Date();
   
   query.each(function(photo) {
-	var updatedAt = photo.updatedAt;
-	var diffInMilliseconds = date.getTime() - updatedAt.getTime();
-	var mins = (diffInMilliseconds/1000)/60;
+	 var updatedAt = photo.updatedAt;
+	 var diffInMilliseconds = date.getTime() - updatedAt.getTime();
+	 var mins = (diffInMilliseconds/1000)/60;
 
 	if(mins > 5){
 		photo.set("state","half");

@@ -1,40 +1,23 @@
-<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:v="urn:schemas-microsoft-com:vml">
-  <head>
-    <title>Maps</title>
-
-    <style>
-      html, body, .map {
-        height: 300px;
-        width: 300px;
-        margin: 0px;
-        padding: 0px
-      }
-
-      .image { 
-   		position: relative; 
-   		width: 100%; /* for IE 6 */
-	  }
-
-
-
-      .caption {
-      	background-color: red;
-      	position: absolute; 
-   		top: 0px; 
-   		left: 0px; 
-   		width: 100%; 
-      }
-    </style>
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  	<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>
-    <!--script src=" http://maps.google.com/?file=api&amp;v=2&amp;key=AIzaSyBzczCMOKIhbQS018MytDXwBnQR7pFSmso" type="text/javascript"></script-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzczCMOKIhbQS018MytDXwBnQR7pFSmso&v=3.exp&sensor=false"></script>
-    
-    <script type="text/javascript" src="main.js"></script>    
-  </head>
-  <body>
-  	
-  </body>
+<!DOCTYPE html>
+<html>
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="description" content="">		
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta property="og:title" content="2by2"/>
+		<meta property="og:image" content="http://sketchio.jtubert.com/images/320x480iPhone.png"/>
+		<meta property="og:site_name" content="2by2 app"/>
+		<meta property="og:description" content="2by2 check it out"/>
+    	<title>2by2</title> 
+    	<link rel="stylesheet" type="text/css" href="css/index.css">   
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>	
+		<script type="text/javascript" src="js/index.js"></script>	
+	</head>
+	<body>
+		<div id="fb-root"></div>
+		<a id="signin" class="button facebook" href="#" target="_self"></a>
+		<a href="#"><p class="logout">logout</p></a>
+		<div id="friends"></div> 
+	</body>
 </html>
-
