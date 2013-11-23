@@ -259,9 +259,11 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             } completion:^(BOOL succeeded, NSError *error) {
                 weakSelf.state = CameraViewStateDone;
                 
+                NSString *location = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationFull.latitude,weakSelf.photo.locationFull.longitude];
+                
                 if(weakSelf.photo){
                     [PFCloud callFunctionInBackground:@"notifyUser"
-                                       withParameters:@{@"user_full":weakSelf.photo.userFull,@"user":weakSelf.photo.user,@"url":weakSelf.photo.imageFull.url}
+                                       withParameters:@{@"user_full_username":weakSelf.photo.userFull.username,@"user":weakSelf.photo.user,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
                                                 block:^(NSNumber *result, NSError *error) {
                                                     if (!error) {
                                                         NSLog(@"The user was notified sucessfully: %@", result);

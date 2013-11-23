@@ -93,6 +93,16 @@ $(function () {
                 };
 
                 $(".follow").click(function(e){
+                    Parse.Cloud.run('reverseGeocoding', { latlng: "40.71449017670348,-73.84379533474319"}, {
+                      success: function(response) {
+                        console.log(response);
+                      },
+                      error: function(error) {
+                        
+                      }
+                    });
+
+
                     console.log($(this).attr('data'));
                     var that = $(this);
                     Parse.Cloud.run('follow', { userID: u.id, followingUserID:$(this).attr('data') }, {

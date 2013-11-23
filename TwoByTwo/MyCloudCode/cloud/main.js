@@ -41,9 +41,6 @@ Parse.Cloud.define("findFriendsFromContacts", function(request, response){
   response.success("findFriendsFromContacts"); 
 });
 
-Parse.Cloud.define("unFollow", function(request, response){
-
-});
 
 Parse.Cloud.define("follow", function(request, response){
   var userID = request.params.userID;
@@ -88,7 +85,9 @@ Parse.Cloud.define("follow", function(request, response){
   }
 });
 });//follow function
-    
+  
+
+
 
 Parse.Cloud.define("getFacebookFriends", function(request, response){
   Parse.Cloud.useMasterKey();
@@ -111,7 +110,7 @@ Parse.Cloud.define("getFacebookFriends", function(request, response){
     followers.push(f.get("followingUserID"));
   });
 
-            
+    //   
   
   query.get(user, {
     success: function(user) {
@@ -157,6 +156,24 @@ Parse.Cloud.define("getFacebookFriends", function(request, response){
   });
 });
 
+Parse.Cloud.define("reverseGeocoding", function(request, response){
+
+  var latlng = request.params.latlng;
+
+  //48.77615073,9.16416465
+
+  Parse.Cloud.httpRequest({
+        url:'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+latlng,
+        success:function(httpResponse){
+          response.success(httpResponse.data.results[0].address_components[4].long_name); 
+        },
+        error:function(httpResponse){
+          response.error(httpResponse);
+        }
+      });  
+});
+
+
 //Parse.Cloud.afterSave("Photo", function(request,response) {
 Parse.Cloud.define("notifyUser", function(request, response) {
   	//var state = request.object.get("state");
@@ -170,22 +187,33 @@ Parse.Cloud.define("notifyUser", function(request, response) {
   		//var user_full = request.object.get("user_full");
   		//var user = request.object.get("user");
   		//var url = request.object.get("image_full")._url;
-      var user_full = request.params.user_full;
+      var user_full_username = request.params.user_full_username;
       var user = request.params.user;
       var url = request.params.url;
+
+
+      var latlng = request.params.locationFull;
+      var city = "{no location}";
+      var state = "{no location}";
+
+      Parse.Cloud.httpRequest({
+        url:'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+latlng,
+        success:function(httpResponse){
+          city = httpResponse.data.results[0].address_components[4].long_name; 
+          state = httpResponse.data.results[0].address_components[5].long_name; 
+        },
+        error:function(httpResponse){
+          //response.error(httpResponse);
+          city = "{no location}";
+        }
+      });  
+
 
       console.log(url);
 		  
       Parse.Cloud.useMasterKey();
 
-		
-		  
-
-		
-
-  		
-
-  		var query = new Parse.Query(Parse.User);  		
+		  var query = new Parse.Query(Parse.User);  		
   		
   		query.get(user.id, {
       
@@ -205,7 +233,7 @@ Parse.Cloud.define("notifyUser", function(request, response) {
             Parse.Push.send({
               where: pushQuery, // Set our Installation query
               data: {
-                alert: "Your photo was overexposed! "+ url
+                alert: "Hey "+username+", your photo was overexposed by "+ user_full_username + " in " + city + ", " + state
               }
               }, {
               success: function() {
