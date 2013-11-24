@@ -58,14 +58,21 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     if (self.photo) {
 
         __weak typeof(self) weakSelf = self;
+        void (^showErrorAndDismiss)(NSError *, NSString *) = ^(NSError *error, NSString *message) {
+            if (!message) message = error.localizedDescription;
+            [UIAlertView showAlertViewWithTitle:@"Error" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                [weakSelf cleanup];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            }];
+        };
         
-        //lets check again to make sure photo is not "in-use"
+        // Check again to make sure photo is not "in-use"
         PFQuery *query = [PFQuery queryWithClassName:PFPhotoKey];
         [query includeKey:PFUserInUseKey];
         [query getObjectInBackgroundWithId:weakSelf.photo.objectId block:^(PFObject *photo, NSError *error) {
-            if(!error){
+            if(!error) {
                 if ([photo.state isEqualToString:@"half"]) {
-                    
+                    // Set state to 'in-use'
                     [weakSelf setPhotoState:@"in-use" completion:^(BOOL succeeded, NSError *error) {
                         
                         if (succeeded) {
@@ -85,46 +92,26 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                                     [weakSelf.stillCamera startCameraCapture];
                                 }
                                 else {
-                                    NSLog(@"getDataInBackgroundWithBlock: %@", error);
+                                    NSLog(@"get image error: %@", error);
+                                    showErrorAndDismiss(error, nil);
                                 }
                             }];
                         }
                         else {
-                            NSLog(@"setPhotoState: %@", error);
-                            [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
+                            NSLog(@"set photo state error: %@", error);
+                            showErrorAndDismiss(error, nil);
                         }
                     }];
                 }
                 else {
+                    // Photo is already in use
                     NSString *message = [NSString stringWithFormat:@"Sorry but this photo is in use by %@", photo.userInUse.username];
-                    [UIAlertView showAlertViewWithTitle:@"Sorry" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                        
-                        [weakSelf setPhotoState:@"half" completion:^(BOOL succeeded, NSError *error) {
-                            
-                            if (!succeeded) {
-                                NSLog(@"setPhotoState: %@", error);
-                                [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
-                            }
-                            
-                            [weakSelf cleanup];
-                            [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                        }];
-                    }];
+                    showErrorAndDismiss(error, message);
                 }
-            }else{
-                NSString *message = [NSString stringWithFormat:@"Sorry there was an error: %@", error];
-                [UIAlertView showAlertViewWithTitle:@"Sorry" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                    
-                    [weakSelf setPhotoState:@"half" completion:^(BOOL succeeded, NSError *error) {
-                        if (!succeeded) {
-                            NSLog(@"setPhotoState: %@", error);
-                            [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
-                        }
-                        
-                        [weakSelf cleanup];
-                        [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                    }];
-                }];
+            }
+            else {
+                NSLog(@"get photo state error: %@", error);
+                showErrorAndDismiss(error, nil);
             }
         }];
     }
@@ -137,6 +124,11 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         [self.stillCamera addTarget:self.filter];
         [self.stillCamera startCameraCapture];
     }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 
@@ -162,6 +154,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         case CameraViewStateTakePhoto:
             self.liveView.hidden = NO;
             self.previewView.hidden = YES;
+            self.topButton.hidden = NO;
             [self.topButton setImage:[UIImage imageNamed:@"button-close"] forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-shutter-black"] forState:UIControlStateNormal];
             break;
@@ -169,6 +162,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         case CameraViewStateReadyToUpload:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
+            self.topButton.hidden = NO;
             [self.topButton setImage:[UIImage imageNamed:@"button-back"] forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-upload"] forState:UIControlStateNormal];
             break;
@@ -176,7 +170,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         case CameraViewStateUploading:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
-            [self.topButton setImage:[UIImage imageNamed:@"button-back"] forState:UIControlStateNormal];
+            self.topButton.hidden = YES;
             [self.bottomButton setImage:nil forState:UIControlStateNormal];
             self.bottomButton.outerColor = [UIColor appBlackishColor];
             self.bottomButton.innerColor = [UIColor appBlackishColor];
@@ -190,7 +184,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         case CameraViewStateDone:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
-            [self.topButton setImage:nil forState:UIControlStateNormal];
+            self.topButton.hidden = YES;
             [self.bottomButton setImage:[UIImage imageNamed:@"button-done"] forState:UIControlStateNormal];
             break;
             
@@ -224,12 +218,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             break;
             
         case CameraViewStateUploading:
-            NSLog(@"CameraViewStateUploading");
-            self.state = CameraViewStateReadyToUpload;
-            break;
-            
         case CameraViewStateDone:
-            NSLog(@"CameraViewStateDone");
         default:
             break;
     }
@@ -257,7 +246,16 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             [self uploadImage:self.previewView.image progress:^(int percentDone) {
                 weakSelf.bottomButton.progress = (float)percentDone / 100;
             } completion:^(BOOL succeeded, NSError *error) {
+                
                 weakSelf.state = CameraViewStateDone;
+                
+                // Dismiss automatically after 0.5 second
+                double delayInSeconds = 0.5;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [weakSelf cleanup];
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                });
                 
                 NSString *location = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationFull.latitude,weakSelf.photo.locationFull.longitude];
                 
