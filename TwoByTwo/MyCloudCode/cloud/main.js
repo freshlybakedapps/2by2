@@ -156,6 +156,7 @@ Parse.Cloud.define("getFacebookFriends", function(request, response){
   });
 });
 
+/*
 Parse.Cloud.define("reverseGeocoding", function(request, response){
 
   var latlng = request.params.latlng;
@@ -172,7 +173,7 @@ Parse.Cloud.define("reverseGeocoding", function(request, response){
         }
       });  
 });
-
+*/
 
 //Parse.Cloud.afterSave("Photo", function(request,response) {
 Parse.Cloud.define("notifyUser", function(request, response) {
@@ -225,7 +226,7 @@ Parse.Cloud.define("notifyUser", function(request, response) {
 
           var pushQuery = new Parse.Query(Parse.Installation);
           pushQuery.equalTo('deviceType', 'ios');
-          pushQuery.equalTo('channels', 'SREzPjOawD');//user.id);
+          pushQuery.equalTo('channels', user.id);//'SREzPjOawD');//
 
              
           if(pushAlerts == true){
@@ -253,8 +254,8 @@ Parse.Cloud.define("notifyUser", function(request, response) {
 		    		mandrill.sendEmail({
 				    message: {
 				      text: "url: "+url,
-				      html: "Your photo was just double exposed. <br><img src='"+ url + "'></img>",
-				      subject: "2by2 - your photo was double exposed",
+				      html: "Hey "+username+", your photo was overexposed by "+ user_full_username + " in " + city + ", " + state + "<br><img src='"+ url + "'></img>",
+				      subject: "2by2 - your photo was double exposed by "+ user_full_username,
 				      from_email: "jtubert@gmail.com",
 				      from_name: "2by2 - Cloud Code",
 				      to: [				        
@@ -571,3 +572,147 @@ Parse.Cloud.job("photosPerUser", function(request, status) {
 	status.error("Uh oh, something went wrong. ", error);
   });
 });
+
+
+Parse.Cloud.job("weeklyDigestEmail", function(request, status) {
+  // Set up to modify user data
+  Parse.Cloud.useMasterKey();
+  
+  // Query for all users
+  var query = new Parse.Query(Parse.User);
+  //query.include("email");
+  //query.include("fullName");
+
+  query.find({
+    success: function(userArr) {
+      for (var i = userArr.length - 1; i >= 0; i--) {
+        var Photo = Parse.Object.extend("Photo");
+        
+        var user = userArr[i];
+        
+        /*
+        var userQuery = new Parse.Query(Photo);
+        userQuery.equalTo("user", user);
+
+        var userFullQuery = new Parse.Query(Photo);
+        userFullQuery.equalTo("user_full", user);
+        
+        var photoquery = Parse.Query.or(userQuery, userFullQuery);
+        photoquery.include("user");
+        photoquery.include("user_full");
+        */
+
+        var photoquery = new Parse.Query(Photo);
+        photoquery.equalTo("user", user);
+        photoquery.include("user");
+        photoquery.include("likes");
+        //photoquery.include("location_half");
+        //photoquery.include("location_full");
+
+        
+        var today = new Date();
+        var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+        photoquery.greaterThan('updatedAt', lastWeek);
+
+        
+        
+        photoquery.find({
+          success: function(arr) {
+            
+            var totalLikes = 0;
+
+            if(arr.length > 0){
+                
+                /*
+                for (var j = arr.length - 1; j >= 0; j--) {
+                  var photo = arr[j];
+                  var likesArr = photo.get("likes");
+                  if(likesArr && likesArr.length){
+                    totalLikes += likesArr.length;
+                  }
+
+                };
+                */
+
+
+                var user = arr[0].get("user");
+                var fullName = user.get("fullName");
+                var email = user.get("email"); 
+
+                if(email == "jtubert@hotmail.com"){
+
+                var msg = "Hi "+fullName+", this is your quick 2by2 digest, this week: <br><br>";
+                /*
+                msg += "You took "+arr.length+" photos<br>";
+                msg += "XX of your photos were double exposed from: New York, New York., Atlanta., Brooklyn, New York., etc.<br>";
+                msg += "Your photos got "+totalLikes+" likes.<br>";
+                msg += "You had XX new followers.<br><br>";
+                msg += "Thanks, the 2by2 team.<br>";
+                msg += "Check out our blog.<br>";
+                msg += "Tell a friend about 2by2<br><br>";
+                msg += "PS: To stop receiving this email, turn weekly notification email off, in the app settings page.";
+                */
+
+
+                mandrill.sendEmail({
+                  message: {
+                    text: "msg",
+                    html: ""+msg,
+                    subject: "Your 2by2 weekly digest",
+                    from_email: "jtubert@gmail.com",
+                    from_name: "2by2",
+                    to: [               
+                      {
+                        email: email,//"jtubert@gmail.com",
+                        name: fullName
+                      }
+                    ]
+                  },
+                  async: true
+                }, {
+                  success: function(httpResponse) {console.log("Email sent! "+email);},
+                  error: function(httpResponse) { console.log("Email not sent, something went wrong");}
+                });
+
+              }
+
+            }
+              
+            
+            
+            
+          },
+
+          error: function(error) {
+            if(i == -1){
+              status.error(error.description);
+            }
+          }
+        }).then(function() {
+          // Set the job's success status
+            if(i == -1){
+              status.success("weeklyDigestEmail completed successfully. ");
+            }
+            
+          }, function(error) {
+          // Set the job's error status
+            if(i == -1){
+              status.error("Uh oh, something went wrong. ", error);
+            }
+          });
+        
+      };
+
+     // status.success("weeklyDigestEmail completed successfully. ");
+
+      
+    },
+    error: function(error) {
+      status.error(error);
+    }
+  });
+
+
+  
+});
+

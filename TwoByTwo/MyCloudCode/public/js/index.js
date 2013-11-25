@@ -93,6 +93,7 @@ $(function () {
                 };
 
                 $(".follow").click(function(e){
+                    /*
                     Parse.Cloud.run('reverseGeocoding', { latlng: "40.71449017670348,-73.84379533474319"}, {
                       success: function(response) {
                         console.log(response);
@@ -101,7 +102,7 @@ $(function () {
                         
                       }
                     });
-
+                    */
 
                     console.log($(this).attr('data'));
                     var that = $(this);
