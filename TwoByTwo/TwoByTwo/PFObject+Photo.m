@@ -31,6 +31,7 @@ static NSString * const kShowMap    = @"show_map";
 
 - (void)setLikes:(NSArray *)likes
 {
+    
     self[PFLikesKey] = likes;
 }
 
