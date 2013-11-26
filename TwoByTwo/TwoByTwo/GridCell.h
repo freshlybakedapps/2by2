@@ -12,7 +12,7 @@
 @interface GridCell : UICollectionViewCell
 
 @property (nonatomic, weak) PFObject *photo;
-@property (nonatomic, weak) NSMutableArray* nLikes;
+@property (nonatomic, strong) NSMutableArray* nLikes;
 
 - (void)showImageOrMapAnimated:(BOOL)animated;
 

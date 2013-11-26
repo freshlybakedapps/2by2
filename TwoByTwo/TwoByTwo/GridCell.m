@@ -99,7 +99,11 @@
 - (IBAction)likeButtonTapped:(id)sender
 {
     NSArray *oldLikes = self.photo.likes;
-    self.nLikes = [NSMutableArray arrayWithArray:self.photo.likes];
+    if(self.photo.likes){
+        self.nLikes = [NSMutableArray arrayWithArray:self.photo.likes];
+    }else{
+        self.nLikes = [NSMutableArray new];
+    }
     
     if (self.photo.likedByMe) {
         [self.nLikes removeObject:[PFUser currentUser].objectId];
