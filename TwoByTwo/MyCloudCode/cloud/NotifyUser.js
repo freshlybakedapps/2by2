@@ -1,3 +1,6 @@
+var mandrill = require('mandrill');
+mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
+
 exports.main = function(request, response){
 	//var state = request.object.get("state");
     

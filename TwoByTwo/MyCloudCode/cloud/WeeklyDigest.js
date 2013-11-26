@@ -1,11 +1,15 @@
 var mandrill = require('mandrill');
 mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
 
-function weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers){
+function weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations){
   var msg = "Hi "+fullName+", here is the quick scoop, this week: <br><br>";  
   
+  if(arr.length != 0){
+    msg += "You took "+arr.length+" photos<br>";  
+  }
+
   if(fullPhotos != 0){
-    msg += fullPhotos + " of your photos were double exposed.<br>";
+    msg += fullPhotos + " of your photos were double exposed from "+locations.join("., ")+".<br>";
   }
   
   if(totalLikes != 0){
@@ -16,19 +20,16 @@ function weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers){
     msg += "You had "+followers.length+" new followers.<br>";
   }
 
-  if(arr.length != 0){
-    msg += "You took "+arr.length+" photos<br>";  
-  }
+  
 
   if(fullPhotos == 0 && totalLikes == 0 && followers.length == 0 && arr.length == 0){
     msg += "What? no new activity?<br>";
     msg += "How about you take a new photo right now and show 'em how is done!<br>";
   }  
   
-  
-  
   msg += "<br>Thanks, the 2by2 team.<br>";  
-  msg += "<a href='mailTo:2by2app@gmail.com'>Tell a friend about 2by2</a><br><br>";
+  //msg += "<a href='mailTo:2by2app@gmail.com'>Tell a friend about 2by2</a><br><br>";
+  msg += '<A HREF="mailto:?subject=Invitation to join 2by2&body=Hey, 2by2 Is a fun and easy to make unexpected double exposure photos with friends (or with total strangers.) %0DHere is a link to download the app, it is totally free:%0D http://2by2.parseapp.com">Tell a friend about 2by2</A><br><br>'
   
   msg += "PS: To stop receiving this email, turn weekly notification email off, in the app settings page.";
 
@@ -148,19 +149,21 @@ exports.main = function(request, status) {
                       if(state == "full"){
                         fullPhotos++;
                       }
-                      var location_full = photo.get("location_full");
-                      if(location_full){
-                        locations.pushUnique(location_full.latitude + "," + location_full.longitude);
+                      var location_full_str = photo.get("location_full_str");
+                      if(location_full_str){
+                        locations.pushUnique(location_full_str);
                       }
                     };                    
-                }     
+                }
+                
 
                 //if(email == "jtubert@hotmail.com"){
-                  console.log(locations.length);
+                  //console.log(locations.length);
 
-                  var msg = weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers);
+                  var msg = weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations);
                   sendMail(arr,msg,fullName,email);
-                //}   
+                //}
+                
               
             }, function(error) {
               // Set the job's error status
