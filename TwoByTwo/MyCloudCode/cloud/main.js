@@ -205,7 +205,7 @@ Parse.Cloud.beforeSave("Photo", function(request, response) {
       text: "url: "+ theUrl,
       html: "Photo saved: ("+currentState+")<img src='"+ url + "'></img>",
       subject: "2by2 - User took a photo",
-      from_email: "jtubert@gmail.com",
+      from_email: "2by2app@gmail.com",
       from_name: "2by2 - Cloud Code",
       to: [
         {

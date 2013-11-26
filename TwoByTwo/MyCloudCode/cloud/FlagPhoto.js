@@ -40,7 +40,7 @@ exports.main = function(request, response){
 		      text: "url: "+ url,
 		      html: "Photo was flagged: ("+currentState+" state)<br><p>Photo id: "+objid+"</p><br><p>This photo was flagged "+flagCounter+" time(s)</p><br><img src='"+ url + "'></img>",
 		      subject: "2by2 - photo was flagged by user: "+ userWhoFlagged,
-		      from_email: "jtubert@gmail.com",
+		      from_email: "2by2app@gmail.com",
 		      from_name: "2by2 - Cloud Code",
 		      to: [
 		        {
@@ -48,8 +48,8 @@ exports.main = function(request, response){
 		          name: "John Tubert"
 		        },
 		        {
-		          email: "amin@amintorres.com",
-		          name: "Amin Torres"
+		          email: "2by2app@gmail.com",
+		          name: "2by2 email box"
 		        }
 		      ]
 		    },

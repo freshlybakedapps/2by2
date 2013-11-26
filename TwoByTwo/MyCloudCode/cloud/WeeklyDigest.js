@@ -2,14 +2,34 @@ var mandrill = require('mandrill');
 mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
 
 function weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers){
-  var msg = "Hi "+fullName+", this is your quick 2by2 digest, this week: <br><br>";  
-  msg += "You took "+arr.length+" photos<br>";  
-  msg += fullPhotos + " of your photos were double exposed.<br>";
-  msg += "Your photos got "+totalLikes+" likes.<br>";
-  msg += "You had "+followers.length+" new followers.<br><br>";
-  msg += "Thanks, the 2by2 team.<br>";
-  msg += "Check out our blog.<br>";
-  msg += "Tell a friend about 2by2<br><br>";
+  var msg = "Hi "+fullName+", here is the quick scoop, this week: <br><br>";  
+  
+  if(fullPhotos != 0){
+    msg += fullPhotos + " of your photos were double exposed.<br>";
+  }
+  
+  if(totalLikes != 0){
+    msg += "Your photos got "+totalLikes+" likes.<br>";
+  }
+
+  if(followers.length != 0){
+    msg += "You had "+followers.length+" new followers.<br>";
+  }
+
+  if(arr.length != 0){
+    msg += "You took "+arr.length+" photos<br>";  
+  }
+
+  if(fullPhotos == 0 && totalLikes == 0 && followers.length == 0 && arr.length == 0){
+    msg += "What? no new activity?<br>";
+    msg += "How about you take a new photo right now and show 'em how is done!<br>";
+  }  
+  
+  
+  
+  msg += "<br>Thanks, the 2by2 team.<br>";  
+  msg += "<a href='mailTo:2by2app@gmail.com'>Tell a friend about 2by2</a><br><br>";
+  
   msg += "PS: To stop receiving this email, turn weekly notification email off, in the app settings page.";
 
   return msg;

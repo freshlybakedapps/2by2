@@ -78,7 +78,7 @@ exports.main = function(request, response){
 				      text: "url: "+url,
 				      html: "Hey "+username+", your photo was overexposed by "+ user_full_username + " in " + city + ", " + state + "<br><img src='"+ url + "'></img>",
 				      subject: "2by2 - your photo was double exposed by "+ user_full_username,
-				      from_email: "jtubert@gmail.com",
+				      from_email: "2by2app@gmail.com",
 				      from_name: "2by2 - Cloud Code",
 				      to: [				        
 				        {

@@ -99,15 +99,15 @@
 - (IBAction)likeButtonTapped:(id)sender
 {
     NSArray *oldLikes = self.photo.likes;
-    NSMutableArray *newLikes = [self.photo.likes mutableCopy];
+    self.nLikes = [NSMutableArray arrayWithArray:self.photo.likes];
     
     if (self.photo.likedByMe) {
-        [newLikes removeObject:[PFUser currentUser].objectId];
+        [self.nLikes removeObject:[PFUser currentUser].objectId];
     }
     else {
-        [newLikes addObject:[PFUser currentUser].objectId];
+        [self.nLikes addObject:[PFUser currentUser].objectId];
     }
-    self.photo.likes = newLikes;
+    self.photo.likes = self.nLikes;
     [self updateLikeButton];
     
     [PFCloud callFunctionInBackground:@"likePhoto"
