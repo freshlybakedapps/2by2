@@ -19,18 +19,25 @@ exports.main = function(request, response){
 
 
       var latlng = request.params.locationFull;
-      var city = "{no location}";
-      var state = "{no location}";
+      var city = "";
+      var state = "";
 
       Parse.Cloud.httpRequest({
         url:'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+latlng,
         success:function(httpResponse){
-          city = httpResponse.data.results[0].address_components[4].long_name; 
-          state = httpResponse.data.results[0].address_components[5].long_name; 
+          if(httpResponse.data.results[0] && httpResponse.data.results[0].address_components[4]){
+            city = httpResponse.data.results[0].address_components[4].long_name; 
+          }
+          if(httpResponse.data.results[0] && httpResponse.data.results[0].address_components[5]){
+            state = httpResponse.data.results[0].address_components[5].long_name;
+          }
+          
+           
         },
         error:function(httpResponse){
           //response.error(httpResponse);
-          city = "{no location}";
+          city = "";
+          state = "";
         }
       });  
 
@@ -53,13 +60,21 @@ exports.main = function(request, response){
           pushQuery.equalTo('deviceType', 'ios');
           pushQuery.equalTo('channels', user.id);//'SREzPjOawD');//
 
+          var locationInfo = "";
+
+          if(city != "" && state != ""){
+            locationInfo = " in " + city + ", " + state;
+          }
+
+          var msg = "Hey "+username+", your photo was overexposed by "+ user_full_username + locationInfo;
+
              
           if(pushAlerts == true){
             //console.log("user.objectId: "+user.id);
             Parse.Push.send({
               where: pushQuery, // Set our Installation query
               data: {
-                alert: "Hey "+username+", your photo was overexposed by "+ user_full_username + " in " + city + ", " + state
+                alert: msg
               }
               }, {
               success: function() {
@@ -78,8 +93,8 @@ exports.main = function(request, response){
 		    		console.log("emailAlerts - user opt-in");
 		    		mandrill.sendEmail({
 				    message: {
-				      text: "url: "+url,
-				      html: "Hey "+username+", your photo was overexposed by "+ user_full_username + " in " + city + ", " + state + "<br><img src='"+ url + "'></img>",
+				      text: msg,
+				      html: msg + "<br><img src='"+ url + "'></img>",
 				      subject: "2by2 - your photo was double exposed by "+ user_full_username,
 				      from_email: "2by2app@gmail.com",
 				      from_name: "2by2 - Cloud Code",

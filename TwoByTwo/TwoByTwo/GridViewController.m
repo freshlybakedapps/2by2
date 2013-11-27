@@ -9,6 +9,7 @@
 #import "GridViewController.h"
 #import "GridCell.h"
 #import "CameraViewController.h"
+#import "GridHeaderView.h"
 
 
 @interface GridViewController ()
@@ -41,6 +42,8 @@
     self.collectionView.collectionViewLayout = self.gridLayout;
     [self performQuery];
 }
+
+
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
@@ -154,7 +157,8 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
+    GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
+    headerView.controller = self;
     
     return headerView;
 }

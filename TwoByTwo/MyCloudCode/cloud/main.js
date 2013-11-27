@@ -1,8 +1,6 @@
-//https://www.parse.com/docs/cloud_modules_guide#images
-var Image = require("parse-image");
-var mandrill = require('mandrill');
-mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
-
+///////////////////////////////////////////////////////////////////
+//SERVICES
+///////////////////////////////////////////////////////////////////
 
 var IsUsernameUnique = require('cloud/IsUsernameUnique.js');
 Parse.Cloud.define("isUsernameUnique", function(request, response){  
@@ -34,15 +32,18 @@ Parse.Cloud.define("notifyUser", function(request, response) {
     NotifyUser.main(request, response);
 });
 
+///////////////////////////////////////////////////////////////////
+//CRON JOBS
+///////////////////////////////////////////////////////////////////
+
 var WeeklyDigest = require('cloud/WeeklyDigest.js');
 Parse.Cloud.job("weeklyDigestEmail", function(request, status) {
   //if sunday
   if(new Date().getDay() == 0){
     WeeklyDigest.main(request, status);
   }else{
-    status.success("Today is not Sunday");
-  }
- 
+    status.success("Only run this on Sundays and today is not Sunday");
+  } 
 });
 
 var FixPhotoState = require('cloud/FixPhotoState.js');
