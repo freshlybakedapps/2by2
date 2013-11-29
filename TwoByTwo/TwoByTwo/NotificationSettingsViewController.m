@@ -42,22 +42,29 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
     //self.clearsSelectionOnViewWillAppear = NO;
     
     
-    self.emailSection = [NSMutableArray new];
-    self.pushSection = [NSMutableArray new];
-    self.digestSection = [NSMutableArray new];
     
-    [self.emailSection addObject:@"Overexposes my photo"];
-    [self.emailSection addObject:@"Likes my photo"];
-    [self.emailSection addObject:@"Follows me"];
-    
-    [self.pushSection addObject:@"Overexposes my photo"];
-    [self.pushSection addObject:@"Likes my photo"];
-    [self.pushSection addObject:@"Follows me"];
-    
-    [self.digestSection addObject:@"Weekly digest"];
-    
-    
-    [self addFooter];
+    //get user info again
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        self.emailSection = [NSMutableArray new];
+        self.pushSection = [NSMutableArray new];
+        self.digestSection = [NSMutableArray new];
+        
+        [self.emailSection addObject:@"Overexposes my photo"];
+        [self.emailSection addObject:@"Likes my photo"];
+        [self.emailSection addObject:@"Follows me"];
+        
+        [self.pushSection addObject:@"Overexposes my photo"];
+        [self.pushSection addObject:@"Likes my photo"];
+        [self.pushSection addObject:@"Follows me"];
+        
+        [self.digestSection addObject:@"Weekly digest"];
+        
+        
+        [self addFooter];
+        
+        [self.tableView reloadData];
+
+    }];
     
 }
 
@@ -119,6 +126,8 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
             [[[UIAlertView alloc] initWithTitle:@"Save changes" message:@"All changes have been saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning

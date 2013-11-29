@@ -53,8 +53,8 @@ exports.main = function(request, response){
 		    success: function(user) {
 		    	var email = user.get("email");
 		    	var username = user.get("username");
-		    	var emailAlerts = user.get("emailAlerts");
-          var pushAlerts = user.get("pushAlerts");
+		    	var overexposeEmailAlert = user.get("overexposeEmailAlert");
+          var overexposePushAlert = user.get("overexposePushAlert");
 
           var pushQuery = new Parse.Query(Parse.Installation);
           pushQuery.equalTo('deviceType', 'ios');
@@ -69,7 +69,7 @@ exports.main = function(request, response){
           var msg = "Hey "+username+", your photo was overexposed by "+ user_full_username + locationInfo;
 
              
-          if(pushAlerts == true){
+          if(overexposePushAlert == true){
             //console.log("user.objectId: "+user.id);
             Parse.Push.send({
               where: pushQuery, // Set our Installation query
@@ -89,7 +89,7 @@ exports.main = function(request, response){
       
    		    	
 
-		    	if(emailAlerts == true){
+		    	if(overexposeEmailAlert == true){
 		    		console.log("emailAlerts - user opt-in");
 		    		mandrill.sendEmail({
 				    message: {
