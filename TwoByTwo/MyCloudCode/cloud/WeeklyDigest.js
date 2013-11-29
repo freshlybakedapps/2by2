@@ -1,5 +1,4 @@
-var mandrill = require('mandrill');
-mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
+var Notifications = require('cloud/Notifications.js');
 
 function weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations){
   var msg = "Hi "+fullName+", here is the quick scoop, this week: <br><br>";  
@@ -34,28 +33,6 @@ function weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations){
   msg += "PS: To stop receiving this email, turn weekly notification email off, in the app settings page.";
 
   return msg;
-}
-
-function sendMail(arr,msg,fullName,email){
-  mandrill.sendEmail({
-  message: {
-    text: "You took "+arr.length+" photos this week",
-    html: ""+msg,
-    subject: "2by2 weekly digest",
-    from_email: "2by2app@gmail.com",
-    from_name: "2by2",
-    to: [               
-      {
-        email: email,//"jtubert@gmail.com",//
-        name: fullName
-      }
-    ]
-  },
-  async: true
-}, {
-  success: function(httpResponse) {console.log("Email sent! "+email);},
-  error: function(httpResponse) { console.log("Email not sent, something went wrong");}
-});
 }
 
 Array.prototype.pushUnique = function (item){
@@ -159,9 +136,12 @@ exports.main = function(request, status) {
 
                 //if(email == "jtubert@hotmail.com"){
                   //console.log(locations.length);
+                  var msg = "You took "+arr.length+" photos this week";
+                  var htmlMsg = weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations);
+                  var subject = "2by2 weekly digest";
+                  Notifications.sendMail(msg,htmlMsg,subject,fullName,email); 
 
-                  var msg = weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations);
-                  sendMail(arr,msg,fullName,email);
+                  
                 //}
                 
               

@@ -1,3 +1,5 @@
+var Notifications = require('cloud/Notifications.js');
+
 exports.main = function(request, response){
   var userID = request.params.userID;
   var followingUserID = request.params.followingUserID;  
@@ -16,14 +18,44 @@ exports.main = function(request, response){
       followers.set("followingUserID", followingUserID);
 
       followers.save(null, {
-        success: function(follower) {      
-          response.success(true);
+        success: function(follower) {
+          
+          Parse.Cloud.useMasterKey();
+          
+          var query = new Parse.Query(Parse.User);      
+          query.get(followingUserID, {
+            success: function(user) {
+              var email = user.get("email");
+              var username = user.get("username");
+              var followsEmailAlert = user.get("followsEmailAlert");
+              var followsPushAlert = user.get("followsPushAlert");
+              var msg = "hi "+username+", you have a new follower.";
+              var subject = "2by2 - new follower";
+
+              if(followsPushAlert == true){
+                Notifications.sendPush(user.id,msg);
+              }
+
+              if(followsEmailAlert == true){
+                Notifications.sendMail(msg,msg,subject, username,email);
+              }
+
+              response.success(true);
+            },
+            error: function(error) {
+              console.error("Got an error " + error.code + " : " + error.message);
+              //response.error(error);
+            }
+          });
+
+          
         },
         error: function(follower, error) {      
           response.error('Failed to create new object, with error code: ' + error.description);
         }
       });
     }else{
+      //unfollow
       arr[0].destroy({
           success:function() {
                response.success(false);

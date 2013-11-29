@@ -1,6 +1,8 @@
 //https://www.parse.com/docs/cloud_modules_guide#images
 var Image = require("parse-image");
 
+var Notifications = require('cloud/Notifications.js');
+
 exports.main = function(request, response){
 	var photo = request.object;
 
@@ -73,34 +75,17 @@ exports.main = function(request, response){
     //photo.save();
  
   }).then(function(result) {
-  	var url = cropped.url();	
-  	
-  	mandrill.sendEmail({
-    message: {
-      text: "url: "+ theUrl,
-      html: "Photo saved: ("+currentState+")<img src='"+ url + "'></img>",
-      subject: "2by2 - User took a photo",
-      from_email: "2by2app@gmail.com",
-      from_name: "2by2 - Cloud Code",
-      to: [
-        {
-          email: "jtubert@gmail.com",
-          name: "John Tubert"
-        },
-        {
-          email: "amin@amintorres.com",
-          name: "Amin Torres"
-        }
-      ]
-    },
-    async: true
-  }, {
-    success: function(httpResponse) { response.success("Email sent!"); },
-    error: function(httpResponse) { response.error("Uh oh, something went wrong"); }
-  });
-	
+  	var url = cropped.url();
 
-    response.success();
+    
+    var msg = "Photo saved: ("+currentState+")<img src='"+ url + "'></img>";
+    var subject = "2by2 - User took a photo";
+    var username = "2by2 email box";
+    var email = "2by2app@gmail.com";
+    Notifications.sendMail(msg,msg,subject,username,email);
+    response.success("email sent!");
+
+
   }, function(error) {
     response.error(error);
   });

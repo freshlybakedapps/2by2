@@ -1,5 +1,4 @@
-var mandrill = require('mandrill');
-mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
+var Notifications = require('cloud/Notifications.js');
 
 exports.main = function(request, response){
   var query = new Parse.Query("Photo");
@@ -16,8 +15,8 @@ exports.main = function(request, response){
         var user = photo.get("user");
         
 
-        var overexposeEmailAlert = user.get("overexposeEmailAlert");
-        var overexposePushAlert = user.get("overexposePushAlert");
+        var likesEmailAlert = user.get("likesEmailAlert");
+        var likesPushAlert = user.get("likesPushAlert");
         var username = user.get("username");
         var email = user.get("email");
 
@@ -67,121 +66,45 @@ exports.main = function(request, response){
         //if user liked a photo, this service is unlikning the photo so we should only send notifications if liking the photo
         if(!didUserLikedPhoto){
             var msg = "One of your photos was liked!";
+            var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
+            var subject = "2by2 - photo was liked";
 
 
             //don't send a notification if I am liking my own photo
             if(userWhoLiked != user.id){
-                if(overexposePushAlert == true){
-                    var pushQuery = new Parse.Query(Parse.Installation);
-                    pushQuery.equalTo('deviceType', 'ios');
-                    pushQuery.equalTo('channels', user.id);//'SREzPjOawD');//
-
-                    //console.log("user.objectId: "+user.id);
-                    Parse.Push.send({
-                      where: pushQuery, // Set our Installation query
-                      data: {
-                        alert: msg 
-                      }
-                      }, {
-                      success: function() {
-                        // Push was successful
-                      },
-                      error: function(error) {
-                        throw "Got an error " + error.code + " : " + error.message;
-                      }
-                    });
-
+                if(likesPushAlert == true){
+                    Notifications.sendPush(user.id,msg);
                 }
 
-              if(overexposeEmailAlert == true){
-                    mandrill.sendEmail({
-                    message: {
-                      text: msg,
-                      html: msg + "<br><img src='"+ url + "'></img>",
-                      subject: "2by2 - photo was liked",
-                      from_email: "2by2app@gmail.com",
-                      from_name: "2by2",
-                      to: [                     
-                        {
-                          email: email, //"jtubert@gmail.com",
-                          name: username
-                        }
-                      ]
-                    },
-                    async: true
-                  }, {
-                    success: function(httpResponse) { console.log("Email sent!"); },
-                    error: function(httpResponse) { console.log("Uh oh, something went wrong"); }
-                  });
-                }else{
-                    console.log("emailAlerts - user doesn't want to receive email alerts");
+                if(likesEmailAlert == true){
+                    Notifications.sendMail(msg,htmlMsg,subject, username,email);
                 }
             }
 
-            
-
-              if(state == "full"){
+            if(state == "full"){
                 var user_full = photo.get("user_full");
                 var overexposeEmailAlert_full = user_full.get("overexposeEmailAlert");
                 var overexposePushAlert_full = user_full.get("overexposePushAlert");
                 var username_full = user_full.get("username");
                 var email_full = user_full.get("email");
+                var msg = "One of your double exposed photos was liked!";
+                var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
+                var subject = "2by2 - photo was liked";
 
                 if(userWhoLiked != user_full.id){
                     if(overexposePushAlert_full == true){
-                        var pushQuery = new Parse.Query(Parse.Installation);
-                        pushQuery.equalTo('deviceType', 'ios');
-                        pushQuery.equalTo('channels', user_full.id);//'SREzPjOawD');//
+                        Notifications.sendPush(user_full.id,msg);
+                    }
 
-                        Parse.Push.send({
-                          where: pushQuery, // Set our Installation query
-                          data: {
-                            alert: "One of your double exposed photos was liked!"
-                          }
-                          }, {
-                          success: function() {
-                            // Push was successful
-                          },
-                          error: function(error) {
-                            throw "Got an error " + error.code + " : " + error.message;
-                          }
-                        });
-
-                      }
-
-                      if(overexposeEmailAlert_full == true){
-                            mandrill.sendEmail({
-                            message: {
-                              text: msg,
-                              html: msg + "<br><img src='"+ url + "'></img>",
-                              subject: "2by2 - photo was liked",
-                              from_email: "2by2app@gmail.com",
-                              from_name: "2by2",
-                              to: [                     
-                                {
-                                  email: email_full, //"jtubert@gmail.com",
-                                  name: username_full
-                                }
-                              ]
-                            },
-                            async: true
-                          }, {
-                            success: function(httpResponse) { console.log("Email sent!"); },
-                            error: function(httpResponse) { console.log("Uh oh, something went wrong"); }
-                          });
-                        }else{
-                            console.log("emailAlerts - user doesn't want to receive email alerts");
-                        }
+                    if(overexposeEmailAlert_full == true){
+                        Notifications.sendMail(msg,htmlMsg,subject, username,email);
                     }
                 }
 
             }
-
-        
-
-
-
-    	response.success(likesCounter); 
+        }
+            
+            response.success(likesCounter); 
 
 
 	},    
