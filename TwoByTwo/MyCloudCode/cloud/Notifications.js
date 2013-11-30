@@ -13,7 +13,7 @@ exports.sendMail = function(msg,htmlMsg,subject,username,email){
           from_name: "2by2",
           to: [                     
             {
-              email: "jtubert@gmail.com",//email, //
+              email: email, //"jtubert@gmail.com",//
               name: username
             }
           ]

@@ -320,7 +320,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVQ-BT-R73">
-                                    <rect key="frame" x="201" y="25" width="57" height="30"/>
+                                    <rect key="frame" x="206" y="25" width="57" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Settings">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -329,8 +329,8 @@
                                         <action selector="showEverythingElse:" destination="6di-5r-UX8" eventType="touchUpInside" id="J5e-WJ-ybm"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="204" translatesAutoresizingMaskIntoConstraints="NO" id="Vgn-bh-Vkc">
-                                    <rect key="frame" x="10" y="10" width="204" height="60"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="183" translatesAutoresizingMaskIntoConstraints="NO" id="Vgn-bh-Vkc">
+                                    <rect key="frame" x="10" y="10" width="183" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <string key="text" base64-UTF8="YES">
 VGhlc2UgcGhvdG9zIGFyZSB3YWl0aW5nIGZvciBhIGZpbmFsIGV4cG9zdXJlIGJlZm9yZSB0aGV5IGdv
@@ -351,7 +351,6 @@ IHNob3Qgb3ZlciB0aGVtLiA
                             </subviews>
                             <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="eCS-bs-toH" firstAttribute="leading" secondItem="Vgn-bh-Vkc" secondAttribute="trailing" id="1IM-O7-4Ou"/>
                                 <constraint firstItem="Vgn-bh-Vkc" firstAttribute="top" secondItem="6di-5r-UX8" secondAttribute="top" constant="10" id="L23-yR-c9A"/>
                                 <constraint firstAttribute="bottom" secondItem="Vgn-bh-Vkc" secondAttribute="bottom" constant="10" id="an3-0P-Pxk"/>
                                 <constraint firstItem="Vgn-bh-Vkc" firstAttribute="leading" secondItem="6di-5r-UX8" secondAttribute="leading" constant="10" id="bA0-v7-RPb"/>
@@ -443,6 +442,7 @@ IHNob3Qgb3ZlciB0aGVtLiA
         </scene>
     </scenes>
     <resources>
+        <image name="button-close" width="44" height="44"/>
         <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>

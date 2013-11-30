@@ -10,14 +10,23 @@
 #import "GridHeaderView.h"
 
 typedef NS_ENUM(NSUInteger, SwitchNum) {
-    SwitchNumEmail0 = 1000,
-    SwitchNumEmail1 = 1001,
-    SwitchNumEmail2 = 1002,
-    SwitchNumPush0 = 1100,
-    SwitchNumPush1 = 1101,
-    SwitchNumPush2 = 1102,
-    SwitchNumDigest = 1200,
+    alert_email_overexposed = 1000,
+    alert_email_likes = 1001,
+    alert_email_follow = 1002,
+    alert_push_overexposed = 1100,
+    alert_push_likes = 1101,
+    alert_push_follow = 1102,
+    digest_email = 1200,
 };
+
+NSString * const ALERT_EMAIL_OVEREXPOSED = @"overexposeEmailAlert";
+NSString * const ALERT_EMAIL_LIKES = @"likesEmailAlert";
+NSString * const ALERT_EMAIL_FOLLOW = @"followsEmailAlert";
+NSString * const ALERT_PUSH_OVEREXPOSED = @"overexposePushAlert";
+NSString * const ALERT_PUSH_LIKES = @"likesPushAlert";
+NSString * const ALERT_PUSH_FOLLOW = @"followsPushAlert";
+NSString * const DIGEST_EMAIL = @"digestEmailAlert";
+
 
 
 @interface NotificationSettingsViewController ()
@@ -60,7 +69,7 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
         [self.digestSection addObject:@"Weekly digest"];
         
         
-        [self addFooter];
+        //[self addFooter];
         
         [self.tableView reloadData];
 
@@ -68,7 +77,7 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
     
 }
 
-
+/*
 - (void) addFooter{
     UIView* footerView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 320, 100)];
     
@@ -89,6 +98,7 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
     [self.tableView setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
     //[self.tableView setContentInset:(UIEdgeInsetsMake(0, 0, -500, 0))];
 }
+*/
 
 - (BOOL) switchStateOn:(NSInteger)num{
     UISwitch *s = (UISwitch*)[self.view viewWithTag:num];
@@ -100,6 +110,7 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
     }
 }
 
+/*
 - (void) save{
     BOOL email0 = [self switchStateOn:SwitchNumEmail0];
     BOOL email1 = [self switchStateOn:SwitchNumEmail1];
@@ -129,6 +140,7 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
     
     
 }
+*/
 
 - (void)didReceiveMemoryWarning
 {
@@ -186,16 +198,55 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
     return sectionName;
 }
 
-/*
-- (void)updateSwitchAtIndexPath:(UISwitch *)aswitch{
-    if(aswitch.isOn){
-        NSLog(@"%ld is on", (long)aswitch.tag);
-    }else{
-        NSLog(@"%ld is off", (long)aswitch.tag);
-    }
-}
-*/
 
+- (void)updateSwitchAtIndexPath:(UISwitch *)aswitch{
+    
+    int n;
+    
+    if(aswitch.isOn){
+        n = 1;
+    }else{
+        n = 0;
+    }
+    
+    switch (aswitch.tag) {
+        case alert_email_overexposed:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_EMAIL_OVEREXPOSED];
+            break;
+        case alert_email_likes:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_EMAIL_LIKES];
+            break;
+        case alert_email_follow:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_EMAIL_FOLLOW];
+            break;
+        case alert_push_overexposed:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_PUSH_OVEREXPOSED];
+            break;
+        case alert_push_likes:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_PUSH_LIKES];
+            break;
+        case alert_push_follow:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_PUSH_FOLLOW];
+            break;
+        case digest_email:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:DIGEST_EMAIL];
+            break;
+        default:
+            break;
+    }
+
+    
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if(!succeeded){
+            NSLog(@"error: %@",error.description);
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }else{
+            NSLog(@"succeeded saving preferences");
+            //[[[UIAlertView alloc] initWithTitle:@"Save changes" message:@"All changes have been saved." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
+
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -209,39 +260,53 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
     
     //Switch it on or off depending on what's coming back from server
     switch (switchview.tag) {
-        case SwitchNumEmail0:
-            if([PFUser currentUser][@"overexposeEmailAlert"] == [NSNumber numberWithBool:1]){
+        case alert_email_overexposed:
+            if([PFUser currentUser][ALERT_EMAIL_OVEREXPOSED] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
             }
             break;
-        case SwitchNumEmail1:
-            if([PFUser currentUser][@"likesEmailAlert"] == [NSNumber numberWithBool:1]){
+        case alert_email_likes:
+            if([PFUser currentUser][ALERT_EMAIL_LIKES] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
             }
             break;
-        case SwitchNumEmail2:
-            if([PFUser currentUser][@"followsEmailAlert"] == [NSNumber numberWithBool:1]){
+        case alert_email_follow:
+            if([PFUser currentUser][ALERT_EMAIL_FOLLOW] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
             }
             break;
-        case SwitchNumPush0:
-            if([PFUser currentUser][@"overexposePushAlert"] == [NSNumber numberWithBool:1]){
+        case alert_push_overexposed:
+            if([PFUser currentUser][ALERT_PUSH_OVEREXPOSED] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
             }
             break;
-        case SwitchNumPush1:
-            if([PFUser currentUser][@"likesPushAlert"] == [NSNumber numberWithBool:1]){
+        case alert_push_likes:
+            if([PFUser currentUser][ALERT_PUSH_LIKES] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
             }
             break;
-        case SwitchNumPush2:
-            if([PFUser currentUser][@"followsPushAlert"] == [NSNumber numberWithBool:1]){
+        case alert_push_follow:
+            if([PFUser currentUser][ALERT_PUSH_FOLLOW] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
             }
             break;
-        case SwitchNumDigest:
-            if([PFUser currentUser][@"digestEmailAlert"] == [NSNumber numberWithBool:1]){
+        case digest_email:
+            if([PFUser currentUser][DIGEST_EMAIL] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
             }
             break;
             
@@ -249,7 +314,7 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
             break;
     }
     
-    //[switchview addTarget:self action:@selector(updateSwitchAtIndexPath:) forControlEvents:UIControlEventTouchUpInside];
+    [switchview addTarget:self action:@selector(updateSwitchAtIndexPath:) forControlEvents:UIControlEventTouchUpInside];
     
     
     switch (indexPath.section)
