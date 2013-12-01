@@ -8,6 +8,8 @@
 
 #import "EverythingElseViewController.h"
 #import "NotificationSettingsViewController.h"
+#import "AboutViewController.h"
+#import "FindInviteFriendsViewController.h"
 
 @interface EverythingElseViewController ()
 
@@ -80,24 +82,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NotificationSettingsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NotificationSettingsViewController"];
-    
-    
-    switch (indexPath.row) {
-        case 0:
-            NSLog(@"About 2by2: Not yet implemented");
-            break;
-        case 1:            
-            [self.navigationController pushViewController:controller animated:YES];
-            break;
-        case 2:
-            NSLog(@"Find & Invite friends: Not yet implemented");
-            break;
-            
-        default:
-            break;
+    if(indexPath.row == 0){
+        AboutViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutViewController"];
+        [self.navigationController pushViewController:controller animated:YES];
+    }else if(indexPath.row == 1){
+        NotificationSettingsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NotificationSettingsViewController"];
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    }else if(indexPath.row == 2){
+        FindInviteFriendsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FindInviteFriendsViewController"];
+        [self.navigationController pushViewController:controller animated:YES];
     }
-    
 }
 
 @end
