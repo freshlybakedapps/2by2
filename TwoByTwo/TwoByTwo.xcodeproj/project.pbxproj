@@ -26,6 +26,9 @@
 		1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C804184A6B29002626C8 /* FindFacebookFriendsViewController.m */; };
 		1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */; };
 		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
+		1DD9715D184BF663001D35CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD9715B184BF663001D35CA /* AddressBook.framework */; };
+		1DD9715E184BF663001D35CA /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD9715C184BF663001D35CA /* AddressBookUI.framework */; };
+		1DD97162184C065D001D35CA /* FindContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD97161184C065D001D35CA /* FindContactsViewController.m */; };
 		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
 		7C16CF421839853B007EA62D /* GridHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF411839853B007EA62D /* GridHeaderView.m */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
@@ -96,6 +99,10 @@
 		1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFacebookFriendCell.m; sourceTree = "<group>"; };
 		1DCD412618083BA2007A5D56 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1DCD412718083BA2007A5D56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		1DD9715B184BF663001D35CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		1DD9715C184BF663001D35CA /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		1DD97160184C065D001D35CA /* FindContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindContactsViewController.h; sourceTree = "<group>"; };
+		1DD97161184C065D001D35CA /* FindContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindContactsViewController.m; sourceTree = "<group>"; };
 		7C16CF3B1839738B007EA62D /* IconSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconSegmentedControl.h; sourceTree = "<group>"; };
 		7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconSegmentedControl.m; sourceTree = "<group>"; };
 		7C16CF401839853B007EA62D /* GridHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridHeaderView.h; sourceTree = "<group>"; };
@@ -150,6 +157,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DD9715D184BF663001D35CA /* AddressBook.framework in Frameworks */,
+				1DD9715E184BF663001D35CA /* AddressBookUI.framework in Frameworks */,
 				7C7E2934183043D60036557E /* MapKit.framework in Frameworks */,
 				1D4207D317E6AB78008A7F98 /* SystemConfiguration.framework in Frameworks */,
 				1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */,
@@ -223,6 +232,7 @@
 		1DB0C7FE184A65C2002626C8 /* Find & Invite Friends */ = {
 			isa = PBXGroup;
 			children = (
+				1DD9715F184BF68D001D35CA /* Find Contact Friends */,
 				1DB0C802184A6B05002626C8 /* Find Facebook friends */,
 				1DB0C7FF184A65F6002626C8 /* FindInviteFriendsViewController.h */,
 				1DB0C800184A65F6002626C8 /* FindInviteFriendsViewController.m */,
@@ -248,6 +258,15 @@
 				1DCD412618083BA2007A5D56 /* LoginViewController.m */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		1DD9715F184BF68D001D35CA /* Find Contact Friends */ = {
+			isa = PBXGroup;
+			children = (
+				1DD97160184C065D001D35CA /* FindContactsViewController.h */,
+				1DD97161184C065D001D35CA /* FindContactsViewController.m */,
+			);
+			name = "Find Contact Friends";
 			sourceTree = "<group>";
 		};
 		7C16CF3E18397839007EA62D /* Views */ = {
@@ -337,6 +356,8 @@
 		7CF39DDD17E0070A003A859F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1DD9715B184BF663001D35CA /* AddressBook.framework */,
+				1DD9715C184BF663001D35CA /* AddressBookUI.framework */,
 				7C7E2933183043D60036557E /* MapKit.framework */,
 				1D74B5701809A681005A4937 /* StoreKit.framework */,
 				1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */,
@@ -582,6 +603,7 @@
 				1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */,
 				1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */,
 				7C16CF421839853B007EA62D /* GridHeaderView.m in Sources */,
+				1DD97162184C065D001D35CA /* FindContactsViewController.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
 				7CF39E1817E00782003A859F /* GridViewController.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,

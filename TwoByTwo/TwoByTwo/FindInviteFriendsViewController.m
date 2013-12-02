@@ -8,6 +8,8 @@
 
 #import "FindInviteFriendsViewController.h"
 #import "FindFacebookFriendsViewController.h"
+#import "FindContactsViewController.h"
+
 
 @interface FindInviteFriendsViewController ()
 
@@ -65,7 +67,15 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
+    //if odd rows color them grey
+    if((indexPath.row % 2) != 0){
+        cell.backgroundColor = [[UIColor alloc] initWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1.0f];
+    }
+    
     cell.textLabel.text = [self.sections objectAtIndex:indexPath.row];
+    
+    cell.textLabel.textColor = [UIColor grayColor];
+    
     return cell;
 }
 
@@ -75,11 +85,13 @@
         FindFacebookFriendsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FindFacebookFriendsViewController"];
         [self.navigationController pushViewController:controller animated:YES];
     }else if(indexPath.row == 1){
-        NSLog(@"No yet implemented");
+        FindContactsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FindContactsViewController"];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if(indexPath.row == 2){
         NSLog(@"No yet implemented");
     }
 }
+
 
 
 

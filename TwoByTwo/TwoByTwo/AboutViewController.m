@@ -64,6 +64,13 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
+    //if odd rows color them grey
+    if((indexPath.row % 2) != 0){
+        cell.backgroundColor = [[UIColor alloc] initWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1.0f];
+    }
+    
+    cell.textLabel.textColor = [UIColor grayColor];
+    
     cell.textLabel.text = [self.sections objectAtIndex:indexPath.row];
     return cell;
 

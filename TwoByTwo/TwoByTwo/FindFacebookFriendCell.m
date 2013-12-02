@@ -56,7 +56,7 @@
     }
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button addTarget:self action:@selector(follow) forControlEvents:UIControlEventTouchDown];
+    [button addTarget:self action:@selector(follow:) forControlEvents:UIControlEventTouchDown];
     [button setTitle:title forState:UIControlStateNormal];
     button.frame = CGRectMake(0.0, 0.0, 90.0, 40.0);
     self.accessoryView = button;
@@ -65,8 +65,25 @@
     
 }
 
-- (void) follow{
-    NSLog(@"follow");
+- (void) follow:(UIButton*)b {
+    b.enabled = NO;
+    [PFCloud callFunctionInBackground:@"follow"
+                       withParameters:@{@"userID":[PFUser currentUser].objectId,@"followingUserID":self.data[@"parseID"]}
+                                block:^(NSNumber *result, NSError *error) {
+                                    
+                                    b.enabled = YES;
+                                    
+                                    if (!error) {
+                                        NSLog(@"Follow: %@", result);
+                                        if(result == 0){
+                                            [b setTitle:@"Follow" forState:UIControlStateNormal];
+                                        }else{
+                                            [b setTitle:@"Unfollow" forState:UIControlStateNormal];
+                                        }
+                                        
+                                    }
+                                }];
+
 }
 
 - (void) addMaskToBounds:(CGRect) maskBounds

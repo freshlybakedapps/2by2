@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title = @"Facebook";
     [self loadFriends];
 }
 
@@ -83,8 +84,12 @@
     
     cell.data = [self.friends objectAtIndex:indexPath.row];
     
+    //if odd rows color them grey
+    if((indexPath.row % 2) != 0){
+        cell.backgroundColor = [[UIColor alloc] initWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1.0f];
+    }
     
-    
+    cell.textLabel.textColor = [UIColor grayColor];
     
     return cell;
 }
