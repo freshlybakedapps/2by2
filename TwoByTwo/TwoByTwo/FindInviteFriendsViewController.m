@@ -11,6 +11,7 @@
 #import "FindContactsViewController.h"
 
 
+
 @interface FindInviteFriendsViewController ()
 
 @end
@@ -88,11 +89,84 @@
         FindContactsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FindContactsViewController"];
         [self.navigationController pushViewController:controller animated:YES];
     }else if(indexPath.row == 2){
-        NSLog(@"No yet implemented");
+        
+        //http://agilewarrior.wordpress.com/2012/02/01/how-to-access-the-address-book-ios/
+        
+        ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+        picker.peoplePickerDelegate = self;
+        
+        [self presentViewController:picker animated:YES completion:^{
+            //
+        }];
     }
 }
 
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier{
+    return NO;
+}
 
+- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
+    [self dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
+}
 
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)aPerson {
+    
+    ABMultiValueRef fnameProperty = ABRecordCopyValue(aPerson, kABPersonFirstNameProperty);
+    ABMultiValueRef lnameProperty = ABRecordCopyValue(aPerson, kABPersonLastNameProperty);
+    ABMultiValueRef emailProperty = ABRecordCopyValue(aPerson, kABPersonEmailProperty);
+    
+    NSArray *emailArray = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(emailProperty);
+    
+    NSString* name;
+    NSString* email;
+    
+    if (fnameProperty != nil) {
+        name = [NSString stringWithFormat:@"%@", fnameProperty];
+    }
+    if (lnameProperty != nil) {
+        name = [name stringByAppendingString:[NSString stringWithFormat:@" %@", lnameProperty]];
+    }
+    
+    
+    if ([emailArray count] > 0) {
+        email = [NSString stringWithFormat:@"%@", [emailArray objectAtIndex:0]];
+        
+        
+    }
+
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        if(email){
+            [self sendEmail:email];
+        }else{
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry that contact didn't contain any email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
+    
+    return NO;
+}
+
+-(void)sendEmail:(NSString*)email {
+    if([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
+        mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
+        
+        [mailCont setSubject:@"Check out my photos on 2by2"];
+        [mailCont setToRecipients:[NSArray arrayWithObject:email]];
+        [mailCont setMessageBody:@"I am inviting you yo check out my photos on 2by2. <a href='http://2by2.parseapp.com'>Download the app, it's tottally free!</a>" isHTML:YES];
+        
+        [self presentViewController:mailCont animated:YES completion:nil];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
