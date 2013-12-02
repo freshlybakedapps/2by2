@@ -59,60 +59,65 @@
     CFArrayRef allContacts = ABAddressBookCopyArrayOfAllPeople(allPeople);
     CFIndex numberOfContacts  = ABAddressBookGetPersonCount(allPeople);
     
-    NSLog(@"numberOfContacts------------------------------------%ld",numberOfContacts);
+    //NSLog(@"numberOfContacts------------------------------------%ld",numberOfContacts);
     
     
     for(int i = 0; i < numberOfContacts; i++){
-        NSMutableDictionary *dic = [NSMutableDictionary new];
-        NSString* name = @"";
+        //NSMutableDictionary *dic = [NSMutableDictionary new];
+        //NSString* name = @"";
         NSString* email = @"";
         
         ABRecordRef aPerson = CFArrayGetValueAtIndex(allContacts, i);
-        ABMultiValueRef fnameProperty = ABRecordCopyValue(aPerson, kABPersonFirstNameProperty);
-        ABMultiValueRef lnameProperty = ABRecordCopyValue(aPerson, kABPersonLastNameProperty);
+        //ABMultiValueRef fnameProperty = ABRecordCopyValue(aPerson, kABPersonFirstNameProperty);
+        //ABMultiValueRef lnameProperty = ABRecordCopyValue(aPerson, kABPersonLastNameProperty);
         
         ABMultiValueRef emailProperty = ABRecordCopyValue(aPerson, kABPersonEmailProperty);
         
         NSArray *emailArray = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(emailProperty);
         
+        /*
         if (fnameProperty != nil) {
             name = [NSString stringWithFormat:@"%@", fnameProperty];
         }
         if (lnameProperty != nil) {
             name = [name stringByAppendingString:[NSString stringWithFormat:@" %@", lnameProperty]];
         }
+        */
         
         
         if ([emailArray count] > 0) {
-            /*
+            
              if ([emailArray count] > 1) {
-             for (int i = 0; i < [emailArray count]; i++) {
-             email = [email stringByAppendingString:[NSString stringWithFormat:@"%@\n", [emailArray objectAtIndex:i]]];
-             }
+                 for (int i = 0; i < [emailArray count]; i++) {
+                     email = [email stringByAppendingString:[NSString stringWithFormat:@"%@\n", [emailArray objectAtIndex:i]]];
+                 }
              }else {
-             email = [NSString stringWithFormat:@"%@", [emailArray objectAtIndex:0]];
+                 email = [NSString stringWithFormat:@"%@", [emailArray objectAtIndex:0]];
              }
-             */
-            email = [NSString stringWithFormat:@"%@", [emailArray objectAtIndex:0]];
             
-            
-            [dic setObject:name forKey:@"name"];
-            [dic setObject:email forKey:@"email"];
-            [arr addObject:dic];
+            //only add unique email addresses
+            if (![arr containsObject:email]){
+                [arr addObject:email];
+            }
         }
         
     }
+    
     
     [PFCloud callFunctionInBackground:@"getContactFriends"
                        withParameters:@{@"contacts":arr,@"userID":[PFUser currentUser].objectId}
                                 block:^(NSArray *result, NSError *error) {
                                     if (!error) {
-                                        NSLog(@"friends: %@", result);
+                                        //NSLog(@"friends: %@", result);
                                         self.friends = result;
                                         [self.tableView reloadData];
 
                                     }
                                 }];
+    
+    NSString* msg = [NSString stringWithFormat:@"You have %ld unique email addresses out of %ld contacts...please wait",(unsigned long)arr.count,numberOfContacts];
+    
+    [[[UIAlertView alloc] initWithTitle:@"Info" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
 
 

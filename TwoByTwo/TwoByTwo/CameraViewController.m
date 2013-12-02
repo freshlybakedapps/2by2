@@ -260,6 +260,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 NSString *location = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationFull.latitude,weakSelf.photo.locationFull.longitude];
                 
                 if(weakSelf.photo){
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
+                    
                     [PFCloud callFunctionInBackground:@"notifyUser"
                                        withParameters:@{@"user_full_username":weakSelf.photo.userFull.username,@"user":weakSelf.photo.user,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
                                                 block:^(NSNumber *result, NSError *error) {

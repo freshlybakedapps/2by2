@@ -111,6 +111,8 @@ exports.main = function(request, status) {
 
             var followQuery = new Parse.Query("Followers");
             followQuery.equalTo("userID", _user.id);
+            followQuery.greaterThan('updatedAt', lastWeek);
+            
             followQuery.each(function(f) {            
               followers.push("f");           
             }).then(function() {

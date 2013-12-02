@@ -130,7 +130,8 @@ static NSString * const kShowMap    = @"show_map";
 - (BOOL)canDelete
 {
     // You can only delete your own photo that is not double-exposed yet.
-    return ([self.user isEqual:[PFUser currentUser]] && [self.state isEqualToString:@"full"]);
+    //NSLog(@"user: %@ %@",self.user,[PFUser currentUser]);
+    return ([self.user.username isEqualToString:[PFUser currentUser].username] && [self.state isEqualToString:@"half"]);
 }
 
 - (BOOL)likedByMe

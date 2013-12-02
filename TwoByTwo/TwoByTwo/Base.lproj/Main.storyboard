@@ -427,6 +427,34 @@ IHNob3Qgb3ZlciB0aGVtLiA
             </objects>
             <point key="canvasLocation" x="2541" y="812"/>
         </scene>
+        <!--Web View Controller-->
+        <scene sceneID="gqY-1N-ZUF">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" id="AKt-A0-46O" customClass="WebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u1n-Ur-Q98"/>
+                        <viewControllerLayoutGuide type="bottom" id="P0j-Bx-hsT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rFS-ae-MGu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bfo-xC-2VM">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="webview" destination="Bfo-xC-2VM" id="b8X-Iy-ZEn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W2Q-DD-QRf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3087" y="812"/>
+        </scene>
         <!--Find Invite Friends View Controller-->
         <scene sceneID="xKJ-FK-ekY">
             <objects>
@@ -503,7 +531,7 @@ IHNob3Qgb3ZlciB0aGVtLiA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rQ2-yo-TRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3079" y="-177"/>
+            <point key="canvasLocation" x="3087" y="-549"/>
         </scene>
         <!--Everything Else View Controller - Root View Controller-->
         <scene sceneID="sye-TC-H4Q">
@@ -581,7 +609,7 @@ IHNob3Qgb3ZlciB0aGVtLiA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="21S-Pa-jv5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3095" y="503"/>
+            <point key="canvasLocation" x="3087" y="139"/>
         </scene>
     </scenes>
     <resources>

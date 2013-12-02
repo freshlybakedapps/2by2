@@ -64,7 +64,7 @@
         [self.toolButton setImage:[UIImage imageNamed:@"icon-delete"] forState:UIControlStateNormal];
     }
     else {
-        [self.toolButton setImage:[UIImage imageNamed:@"icon-delete"] forState:UIControlStateNormal];
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-flag-on"] forState:UIControlStateNormal];
     }
 
 

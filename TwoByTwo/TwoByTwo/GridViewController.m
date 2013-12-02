@@ -25,6 +25,8 @@
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performQuery) name:@"reloadImagesTable" object:nil];
+    
     self.gridLayout = [UICollectionViewFlowLayout new];
     self.gridLayout.itemSize = CGSizeMake(77, 77);
     self.gridLayout.minimumInteritemSpacing = 2;
@@ -65,6 +67,8 @@
 }
 
 
+
+
 #pragma mark - Query
 
 - (void)performQuery
@@ -100,6 +104,9 @@
 
         if (!error) {
             self.objects = objects;
+            
+            //why does this message show twice??
+            NSLog(@"count %lu",(unsigned long)objects.count);
         }
         else {
             self.objects = @[];
