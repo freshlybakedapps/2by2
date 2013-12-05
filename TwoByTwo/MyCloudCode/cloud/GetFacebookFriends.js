@@ -9,7 +9,7 @@ exports.main = function(request, response){
 
   var userQuery = new Parse.Query(Parse.User);
   userQuery.each(function(u) {
-    var obj = {username:u.get("fullName"),id:u.id};
+    var obj = {fullName:u.get("fullName"),id:u.id};
     twoByTwoUsers.push(obj);
   });
 
@@ -36,7 +36,7 @@ exports.main = function(request, response){
           for (var i = friends.length - 1; i >= 0; i--) {
             var n1 = friends[i].name;
             for (var j = twoByTwoUsers.length - 1; j >= 0; j--) {
-              var n2 = twoByTwoUsers[j].username;
+              var n2 = twoByTwoUsers[j].fullName;
               if(n1 == n2){
                 var following = false;
                 if(followersStr.indexOf(twoByTwoUsers[j].id) != -1){

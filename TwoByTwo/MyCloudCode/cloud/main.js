@@ -17,6 +17,11 @@ Parse.Cloud.define("getFacebookFriends", function(request, response){
   GetFacebookFriends.main(request, response);
 });
 
+var NewUserRegistered = require('cloud/NewUserRegistered.js');
+Parse.Cloud.define("newUserRegistered", function(request, response){
+  NewUserRegistered.main(request, response);
+});
+
 var GetContactFriends = require('cloud/GetContactFriends.js');
 Parse.Cloud.define("getContactFriends", function(request, response){
   GetContactFriends.main(request, response);

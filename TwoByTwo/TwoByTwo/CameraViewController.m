@@ -137,6 +137,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     NSLog(@"locationManager: %@", locations);
+    //[AppDelegate delegate].currentLocation = locations[0];
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

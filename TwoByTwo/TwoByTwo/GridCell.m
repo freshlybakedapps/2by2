@@ -115,7 +115,7 @@
     [self updateLikeButton];
     
     [PFCloud callFunctionInBackground:@"likePhoto"
-                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoLiked":[PFUser currentUser].objectId}
+                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoLiked":[PFUser currentUser], @"userWhoLikedUsername":[PFUser currentUser].username}
                                 block:^(NSNumber *result, NSError *error) {
                                     
                                     if (error) {

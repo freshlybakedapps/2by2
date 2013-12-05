@@ -7,9 +7,12 @@ exports.main = function(request, response){
 
   var objid = request.params.objectid;
   var userWhoLiked = request.params.userWhoLiked;
+  var userWhoLikedUsername = request.params.userWhoLikedUsername;
 
   query.get(objid, {
-    success: function(photo) {    	
+    success: function(photo) { 
+
+        console.log(userWhoLikedUsername);   	
     	var likesArray = photo.get("likes");
         var state = photo.get("state");
         var user = photo.get("user");
@@ -40,7 +43,7 @@ exports.main = function(request, response){
     		
     		
     		for (var i = likesCounter - 1; i >= 0; i--) {
-    			if(likesArray[i] == userWhoLiked){
+    			if(likesArray[i] == userWhoLiked.id){
     				didUserLikedPhoto = true;
     				likesArray.splice(i, 1);
     				break;
@@ -48,14 +51,14 @@ exports.main = function(request, response){
     		};
 
     		if(!didUserLikedPhoto){
-    			likesArray.push(userWhoLiked);
+    			likesArray.push(userWhoLiked.id);
     			likesCounter++;	
     		}else{
     			likesCounter--;	
     		}
     	}else{
     		likesArray = new Array();
-    		likesArray.push(userWhoLiked);
+    		likesArray.push(userWhoLiked.id);
     		likesCounter++;	
     	}
 
@@ -65,13 +68,16 @@ exports.main = function(request, response){
 
         //if user liked a photo, this service is unlikning the photo so we should only send notifications if liking the photo
         if(!didUserLikedPhoto){
-            var msg = "One of your photos was liked!";
+
+            //Amin T just liked your photo.
+
+            var msg = userWhoLikedUsername+ " just liked your photo." ;
             var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
             var subject = "2by2 - photo was liked";
 
 
             //don't send a notification if I am liking my own photo
-            if(userWhoLiked != user.id){
+            if(userWhoLiked.id != user.id){
                 if(likesPushAlert == true){
                     Notifications.sendPush(user.id,msg);
                 }
@@ -87,11 +93,11 @@ exports.main = function(request, response){
                 var overexposePushAlert_full = user_full.get("overexposePushAlert");
                 var username_full = user_full.get("username");
                 var email_full = user_full.get("email");
-                var msg = "One of your double exposed photos was liked!";
+                var msg = userWhoLikedUsername + " just liked your double exposed photo.";
                 var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
                 var subject = "2by2 - photo was liked";
 
-                if(userWhoLiked != user_full.id){
+                if(userWhoLiked.id != user_full.id){
                     if(overexposePushAlert_full == true){
                         Notifications.sendPush(user_full.id,msg);
                     }

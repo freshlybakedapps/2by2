@@ -50,7 +50,7 @@
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
     /*
-     Source: 
+     Source:
      http://stackoverflow.com/questions/19038949/content-falls-beneath-navigation-bar-when-embedded-in-custom-container-view-cont
      */
 

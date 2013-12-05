@@ -42,6 +42,8 @@
         else {
             if (user.isNew) {
                 NSLog(@"User with facebook signed up and logged in!");
+                
+                //
             }
             else {
                 NSLog(@"User with facebook logged in!");
@@ -56,7 +58,19 @@
                     NSString *email = result[@"email"];
                     NSString *username = result[@"username"];
                     
-                    //NSLog(@"email %@", email);
+                    if(user.isNew){
+                        [PFCloud callFunctionInBackground:@"newUserRegistered"
+                                           withParameters:@{@"userID":[PFUser currentUser].objectId,@"username":username}
+                                                    block:^(NSString *result, NSError *error) {
+                                                        if (!error) {
+                                                            NSLog(@"newUserRegistered: %@", result);
+                                                        }
+                                                    }];
+                        
+                    }
+
+                    
+                    NSLog(@"email %@", email);
                     
                     [PFUser currentUser].email = email;
                     [PFUser currentUser].username = username;
@@ -64,7 +78,8 @@
                     [[PFUser currentUser] saveInBackground];
                     [Flurry setUserID:name];
                     [[AppDelegate delegate] showMainViewController];
-                }
+                    
+                                    }
                 else {
                     NSLog(@"Something went wrong: %@", error);
                     [[[UIAlertView alloc] initWithTitle:@"Something went wrong" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
