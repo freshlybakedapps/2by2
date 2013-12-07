@@ -10,6 +10,8 @@
 #import "NotificationSettingsViewController.h"
 #import "AboutViewController.h"
 #import "FindInviteFriendsViewController.h"
+#import "AppDelegate.h"
+
 
 @interface EverythingElseViewController ()
 
@@ -45,6 +47,7 @@
     [self.sections addObject:@"About 2by2"];
     [self.sections addObject:@"Notification settings"];
     [self.sections addObject:@"Find & Invite friends"];
+    [self.sections addObject:@"logout"];
     
 }
 
@@ -71,16 +74,44 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
     }
     
     //if odd rows color them grey
     if((indexPath.row % 2) != 0){
         cell.backgroundColor = [[UIColor alloc] initWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1.0f];
     }
-    cell.textLabel.textColor = [UIColor grayColor];
-    cell.textLabel.text = [self.sections objectAtIndex:indexPath.row];
+
+    
+    NSString* str = [self.sections objectAtIndex:indexPath.row];
+    
+    if([str isEqualToString:@"logout"]){
+        UIButton *logoutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [logoutButton addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchDown];
+        [logoutButton setTitle:@"Log out (But comeback soon)" forState:UIControlStateNormal];
+        [logoutButton setTintColor:[UIColor whiteColor]];
+        logoutButton.frame = CGRectMake(10.0, 0.0, 300.0, 40.0);
+        cell.backgroundColor = [[UIColor alloc] initWithRed:255/255.0f green:51/255.0f blue:102/255.0f alpha:1.0f];
+
+        [cell.contentView addSubview:logoutButton];
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.textColor = [UIColor grayColor];
+        cell.textLabel.text = str;
+    }
+    
+    
     return cell;
+}
+
+- (void) logOut{
+    [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to logout?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            [PFUser logOut];
+            [[AppDelegate delegate] showLoginViewController];
+        }
+    }];
+   
 }
 
 #pragma mark - Table view delegate
