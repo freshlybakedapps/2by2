@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "Reachability.h"
 #import "UIWindow+Animation.h"
+#import "Crittercism.h"
 
 
 @implementation AppDelegate
@@ -19,6 +20,7 @@
 {
     // Override point for customization after application launch.
     [Flurry startSession:@"4YTN2NG6MYJDVT9F6P7M"];
+    [Crittercism enableWithAppID: @"52a0a4f04002054d18000001"];
     /// ****************************************************************************
     [Parse setApplicationId:@"6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg" clientKey:@"CdsYZN5y9Tuum2IlHhvipft0rWItCON6JoXeqYJL"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];

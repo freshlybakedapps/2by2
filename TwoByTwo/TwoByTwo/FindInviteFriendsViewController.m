@@ -120,11 +120,15 @@
     ABMultiValueRef fnameProperty = ABRecordCopyValue(aPerson, kABPersonFirstNameProperty);
     ABMultiValueRef lnameProperty = ABRecordCopyValue(aPerson, kABPersonLastNameProperty);
     ABMultiValueRef emailProperty = ABRecordCopyValue(aPerson, kABPersonEmailProperty);
+    ABMultiValueRef phoneProperty = ABRecordCopyValue(aPerson, kABPersonPhoneProperty);
     
     NSArray *emailArray = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(emailProperty);
     
+    NSArray *phoneArray = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(phoneProperty);
+    
     NSString* name;
     NSString* email;
+    NSString* phone;
     
     if (fnameProperty != nil) {
         name = [NSString stringWithFormat:@"%@", fnameProperty];
@@ -132,18 +136,31 @@
     if (lnameProperty != nil) {
         name = [name stringByAppendingString:[NSString stringWithFormat:@" %@", lnameProperty]];
     }
-    
-    
     if ([emailArray count] > 0) {
         email = [NSString stringWithFormat:@"%@", [emailArray objectAtIndex:0]];
-        
-        
     }
-
+    if ([phoneArray count] > 0) {
+        phone = [NSString stringWithFormat:@"%@", [phoneArray objectAtIndex:0]];
+    }
+    
+    NSString *msg = [NSString stringWithFormat:@"Inviting %@ to 2by2",name];
     
     [self dismissViewControllerAnimated:YES completion:^{
-        if(email){
+        if(email && phone){
+            UIAlertView *alert = [UIAlertView alertViewWithTitle:nil message:msg];
+            [alert setCancelButtonWithTitle:@"BY EMAIL" handler:^{
+                [self sendEmail:email];
+            }];
+            [alert setCancelButtonWithTitle:@"BY TEXT" handler:^{
+                [self sendSMS:msg recipientList:@[phone]];
+            }];
+            [alert show];
+            
+            
+        }else if(email){
             [self sendEmail:email];
+        }else if(phone){
+            [self sendSMS:msg recipientList:@[phone]];
         }else{
             [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry that contact didn't contain any email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
@@ -162,6 +179,31 @@
         [mailCont setMessageBody:@"I am inviting you yo check out my photos on 2by2. <a href='http://2by2.parseapp.com'>Download the app, it's tottally free!</a>" isHTML:YES];
         
         [self presentViewController:mailCont animated:YES completion:nil];
+    }
+}
+
+- (void)sendSMS:(NSString *)bodyOfMessage recipientList:(NSArray *)recipients
+{
+    MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+    if([MFMessageComposeViewController canSendText])
+    {
+        controller.body = bodyOfMessage;
+        controller.recipients = recipients;
+        controller.messageComposeDelegate = self;
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    
+    if (result == MessageComposeResultCancelled){
+        NSLog(@"Message cancelled");
+    }else if (result == MessageComposeResultSent){
+            NSLog(@"Message sent");
+    }else{
+        NSLog(@"Message failed");
     }
 }
 

@@ -27,10 +27,10 @@ exports.sendMail = function(msg,htmlMsg,subject,username,email){
 
 exports.sendPush = function(userID,msg){
 	var pushQuery = new Parse.Query(Parse.Installation);
-    pushQuery.equalTo('deviceType', 'ios');
-    pushQuery.equalTo('channels', userID);//'SREzPjOawD');//
+  pushQuery.equalTo('deviceType', 'ios');
+  pushQuery.equalTo('channels', userID);//'SREzPjOawD');//
 
-    //console.log("user.objectId: "+user.id);
+    console.log("user.objectId: "+userID);
     Parse.Push.send({
       where: pushQuery, // Set our Installation query
       data: {
@@ -38,10 +38,10 @@ exports.sendPush = function(userID,msg){
       }
       }, {
       success: function() {
-        // Push was successful
+        console.log("success: '"+msg+"' was sent!");
       },
       error: function(error) {
-        throw "Got an error " + error.code + " : " + error.message;
+        console.log("Got an error " + error.code + " : " + error.message);
       }
     });
 }
