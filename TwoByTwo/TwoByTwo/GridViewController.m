@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
 @property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
 @property (nonatomic, strong) NSArray *objects;
+@property (nonatomic, strong) NSMutableArray *followers;
+
 @end
 
 
@@ -42,10 +44,29 @@
     self.feedLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     self.collectionView.collectionViewLayout = self.gridLayout;
-    [self performQuery];
+    [self getFollowers];
 }
 
+- (void) getFollowers{
+    PFQuery *followQuery = [PFQuery queryWithClassName:@"Followers"];
+    [followQuery whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
+    [followQuery selectKeys:@[@"followingUserID"]];
+    
+    [followQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.followers = [NSMutableArray new];
+            for (int i=0; i < objects.count; i++) {
+                NSString *objid = objects[i][@"followingUserID"];
+                [self.followers addObject:[PFUser objectWithoutDataWithObjectId:objid]];
+            }
+            [self performQuery];
+        }
+        else {
+            NSLog(@"Followers error");
+        }
+    }];
 
+}
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
@@ -88,7 +109,17 @@
             [query whereKey:@"state" equalTo:@"half"];
             [query whereKey:@"user" notEqualTo:[PFUser currentUser]];
             break;
+        case FeedTypeFollowing:
+        {
+            PFQuery *userQuery = [PFQuery queryWithClassName:@"Photo"];
+            [userQuery whereKey:@"user" containedIn:self.followers];
             
+            PFQuery *userFullQuery = [PFQuery queryWithClassName:@"Photo"];
+            [userFullQuery whereKey:@"user_full" containedIn:self.followers];
+            
+            query = [PFQuery orQueryWithSubqueries:@[userQuery,userFullQuery]];
+        }
+            break;
         case FeedTypeGlobal:
         default:
             [query whereKey:@"state" equalTo:@"full"];
@@ -98,7 +129,8 @@
     [query includeKey:@"user"];
     [query includeKey:@"user_full"];
     [query orderByDescending:@"updatedAt"];
-    [query setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
+    //[query clearAllCachedResults];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 
