@@ -12,5 +12,9 @@
 @interface GridViewController : UICollectionViewController
 
 @property (nonatomic) FeedType type;
+@property (nonatomic, strong) NSArray *objects;
+@property (nonatomic, strong) NSMutableArray *followers;
+
+@property (nonatomic, strong) NSString *facebookId;
 
 @end

@@ -14,6 +14,9 @@
 @property (nonatomic, weak) PFObject *photo;
 @property (nonatomic, strong) NSMutableArray* nLikes;
 
+@property (nonatomic, weak) UIButton *userButton;
+@property (nonatomic, weak) UIButton *userFullButton;
+
 - (void)showImageOrMapAnimated:(BOOL)animated;
 
 @end

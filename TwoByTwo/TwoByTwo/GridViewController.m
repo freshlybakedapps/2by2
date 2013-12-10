@@ -15,8 +15,8 @@
 @interface GridViewController ()
 @property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
 @property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
-@property (nonatomic, strong) NSArray *objects;
-@property (nonatomic, strong) NSMutableArray *followers;
+
+
 
 @end
 
@@ -129,6 +129,7 @@
     [query includeKey:@"user"];
     [query includeKey:@"user_full"];
     [query orderByDescending:@"updatedAt"];
+    query.limit=1000;
     [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     //[query clearAllCachedResults];
     
@@ -191,15 +192,36 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return CGSizeMake(0, 80);
+    switch (self.type) {
+        case FeedTypeYou:
+            return CGSizeMake(0, 175);
+            break;
+            
+        case FeedTypeSingle:
+            return CGSizeMake(0, 0);
+            break;
+        case FeedTypeFollowing:
+            return CGSizeMake(0, 0);
+            break;
+        case FeedTypeGlobal:
+        default:
+           return CGSizeMake(0, 0);
+    }
+    
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
-    headerView.controller = self;
+    if(self.type == FeedTypeYou && kind == UICollectionElementKindSectionHeader){
+        GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
+        headerView.controller = self;
+        [headerView render];       
+        
+        return headerView;
+    }
     
-    return headerView;
+    return nil;
+    
 }
 
 @end

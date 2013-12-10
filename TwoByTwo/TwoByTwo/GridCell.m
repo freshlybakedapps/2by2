@@ -17,7 +17,6 @@
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIView *headerView;
 @property (nonatomic, weak) IBOutlet UIView *footerView;
-@property (nonatomic, weak) IBOutlet UILabel *textLabel;
 @property (nonatomic, weak) IBOutlet UIButton *likeButton;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
@@ -33,13 +32,8 @@
     _photo = photo;
     
     
-    // Name(s)
-    NSString* username = photo.user.username;
-    if (photo.userFull) {
-        username = [username stringByAppendingFormat:@" / %@", photo.userFull.username];
-    }
-    self.textLabel.text = username;
     
+    [self addPhotographerNames];
     
     // Image
     self.imageView.image = nil;
@@ -71,6 +65,50 @@
     // Map
     photo.showMap = NO;
     [self showImageOrMapAnimated:NO];
+}
+
+- (void) addPhotographerNames{
+    
+    if(self.userButton == nil){
+        self.userButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.userButton addTarget:self action:@selector(goToUserProfile) forControlEvents:UIControlEventTouchDown];
+        
+        
+        
+        self.userButton.frame = CGRectMake(0.0, 0.0, 150.0, 40.0);
+        [self.userButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        
+        [self.headerView addSubview:self.userButton];
+    }
+    
+    NSString* username = [NSString stringWithFormat:@"%@",_photo.user.username];
+    [self.userButton setTitle:username forState:UIControlStateNormal];
+    [self.userButton sizeToFit];
+    
+    
+    if (_photo.userFull) {
+        if(self.userFullButton == nil){
+            self.userFullButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [self.userFullButton addTarget:self action:@selector(goToUserProfile) forControlEvents:UIControlEventTouchDown];
+            
+            self.userFullButton.frame = CGRectMake(self.userButton.frame.size.width+20, 0.0, 150.0, 40.0);
+            [self.userFullButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            [self.headerView addSubview:self.userFullButton];
+        }
+        
+        //set the aligment on the first user
+        [self.userButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        
+        
+        [self.userFullButton setTitle:_photo.userFull.username forState:UIControlStateNormal];
+        [self.userFullButton sizeToFit];
+        
+    }
+
+}
+
+- (void) goToUserProfile{
+    NSLog(@"goToUserProfile");
 }
 
 

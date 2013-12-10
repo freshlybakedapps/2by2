@@ -16,6 +16,10 @@ typedef NS_ENUM(NSUInteger, FeedType) {
 };
 
 
+
 @interface MainViewController : UIViewController
+
+@property (nonatomic, weak) IBOutlet UISegmentedControl *segControl;
+@property (nonatomic, strong) UILabel *label;
 
 @end
