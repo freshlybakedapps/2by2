@@ -7,6 +7,9 @@
 //
 
 #import "FindFacebookFriendCell.h"
+#import "NSString+MD5.h"
+#import "UIImageView+Network.h"
+#import "UIImageView+CircleMask.h"
 
 @implementation FindFacebookFriendCell
 
@@ -34,15 +37,12 @@
     //https://developers.facebook.com/docs/reference/api/using-pictures/#sizes
     NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",data[@"facebookID"]];
     NSURL *imageURL = [NSURL URLWithString:url];
-    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    
-    self.imageView.image = [UIImage imageWithData:imageData];
-    
-    self.imageView.frame = CGRectMake(5, 15, 35, 35);
     
     
+    self.imageView.frame = CGRectMake(5, 15, 35, 35);   
+    [self.imageView loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
     
-    [self addMaskToBounds:CGRectMake(5, 15, 35, 35)];
+    [self.imageView addMaskToBounds:CGRectMake(5, 15, 35, 35)];
     
     self.textLabel.text = data[@"name"];
     
@@ -86,18 +86,7 @@
 
 }
 
-- (void) addMaskToBounds:(CGRect) maskBounds
-{
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    
-    CGPathRef maskPath = CGPathCreateWithEllipseInRect(maskBounds, NULL);
-    maskLayer.bounds = maskBounds;
-    [maskLayer setPath:maskPath];
-    [maskLayer setFillColor:[[UIColor blackColor] CGColor]];
-    maskLayer.position = CGPointMake(maskBounds.size.width/2, maskBounds.size.height/2);
-    
-    [self.imageView.layer setMask:maskLayer];
-}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

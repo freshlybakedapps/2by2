@@ -10,6 +10,10 @@
 #import <MapKit/MapKit.h>
 #import "UserAnnotation.h"
 #import "MKMapView+Utilities.h"
+#import "UIImageView+Network.h"
+#import "NSString+MD5.h"
+#import "UIImageView+CircleMask.h"
+#import "FriendProfileViewController.h"
 
 
 @interface GridCell () <MKMapViewDelegate>
@@ -68,18 +72,29 @@
 }
 
 - (void) addPhotographerNames{
-    
     if(self.userButton == nil){
         self.userButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.userButton addTarget:self action:@selector(goToUserProfile) forControlEvents:UIControlEventTouchDown];
-        
-        
-        
-        self.userButton.frame = CGRectMake(0.0, 0.0, 150.0, 40.0);
-        [self.userButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-        
+        [self.userButton addTarget:self action:@selector(goToUserProfile:) forControlEvents:UIControlEventTouchDown];
+        self.userButton.frame = CGRectMake(35.0, 0.0, 150.0, 40.0);
+        [self.userButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];        
         [self.headerView addSubview:self.userButton];
+        
+        self.userPhoto = [UIImageView new];
+        [self.headerView addSubview:self.userPhoto];
+        
     }
+    
+    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",_photo.user[@"facebookId"]];
+    NSURL *imageURL = [NSURL URLWithString:url];
+    //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    
+    //self.userPhoto.image = [UIImage imageWithData:imageData];
+    self.userPhoto.frame = CGRectMake(0, 0, 30, 30);
+    [self.userPhoto addMaskToBounds:CGRectMake(0, 0, 25, 25)];
+    
+    
+    [self.userPhoto loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
+    
     
     NSString* username = [NSString stringWithFormat:@"%@",_photo.user.username];
     [self.userButton setTitle:username forState:UIControlStateNormal];
@@ -89,26 +104,56 @@
     if (_photo.userFull) {
         if(self.userFullButton == nil){
             self.userFullButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            [self.userFullButton addTarget:self action:@selector(goToUserProfile) forControlEvents:UIControlEventTouchDown];
+            [self.userFullButton addTarget:self action:@selector(goToUserProfile:) forControlEvents:UIControlEventTouchDown];
             
-            self.userFullButton.frame = CGRectMake(self.userButton.frame.size.width+20, 0.0, 150.0, 40.0);
+            
             [self.userFullButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
             [self.headerView addSubview:self.userFullButton];
+            
+            self.userFullPhoto = [UIImageView new];
+            [self.headerView addSubview:self.userFullPhoto];
         }
         
-        //set the aligment on the first user
-        [self.userButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-        
-        
+        self.userFullButton.frame = CGRectMake(self.userButton.frame.size.width+self.userButton.frame.origin.x+40, 0.0, 150.0, 40.0);
         [self.userFullButton setTitle:_photo.userFull.username forState:UIControlStateNormal];
         [self.userFullButton sizeToFit];
         
+        NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",_photo.userFull[@"facebookId"]];
+        NSURL *imageURL = [NSURL URLWithString:url];
+        //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        
+        //self.userFullPhoto.image = [UIImage imageWithData:imageData];
+        self.userFullPhoto.frame = CGRectMake(self.userButton.frame.size.width+self.userButton.frame.origin.x+5, 0, 30, 30);
+        [self.userFullPhoto addMaskToBounds:CGRectMake(0, 0, 25, 25)];
+
+        [self.userFullPhoto loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
+        
+    }else{
+        [self.userFullButton setTitle:@"" forState:UIControlStateNormal];
+        self.userFullPhoto.image = nil;
     }
 
 }
 
-- (void) goToUserProfile{
-    NSLog(@"goToUserProfile");
+- (void) goToUserProfile:(id)sender {
+    NSString* userID;
+    NSString* friendName;
+    
+    if(sender == self.userButton){
+        userID = _photo.user.objectId;
+        friendName = _photo.user.username;
+    }else{
+        userID = _photo.userFull.objectId;
+        friendName = _photo.userFull.username;
+    }
+    
+    UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FriendProfileViewController"];
+    
+    FriendProfileViewController * fvc = (FriendProfileViewController*)controller.topViewController;
+    
+    fvc.friend = [PFUser objectWithoutDataWithObjectId:userID];
+    fvc.friendName = friendName;
+    [self.controller presentViewController:controller animated:YES completion:nil];
 }
 
 

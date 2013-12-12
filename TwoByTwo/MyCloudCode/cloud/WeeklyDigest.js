@@ -58,7 +58,7 @@ exports.main = function(request, status) {
     success: function(userArr) {
       for (var i = 0; i < userArr.length; i++) {
         
-        
+        console.log(userArr[i].get('username')+": "+userArr[i].get('authData').facebook.id);
         /*
         var userQuery = new Parse.Query(Photo);
         userQuery.equalTo("user", user);
@@ -141,7 +141,7 @@ exports.main = function(request, status) {
                   var msg = "You took "+arr.length+" photos this week";
                   var htmlMsg = weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations);
                   var subject = "2by2 weekly digest";
-                  Notifications.sendMail(msg,htmlMsg,subject,fullName,email); 
+                  //Notifications.sendMail(msg,htmlMsg,subject,fullName,email); 
 
                   
                 //}

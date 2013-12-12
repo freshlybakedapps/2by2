@@ -9,50 +9,95 @@
 #import "GridHeaderView.h"
 #import "EverythingElseViewController.h"
 #import "EditProfileViewController.h"
+#import "NSString+MD5.h"
+#import "UIImageView+Network.h"
+#import "UIImageView+CircleMask.h"
+
 
 
 @implementation GridHeaderView
 
 - (void)render{    
-    self.nameLabel.text = [PFUser currentUser][@"fullName"];
-    self.usernameLabel.text = [PFUser currentUser].username;
-    self.emailLabel.text = [PFUser currentUser][@"email"];
-    self.numPhotosLabel.text = [NSString stringWithFormat:@"%lu Photos",(unsigned long)self.controller.objects.count];
+    if(self.friend){
+        //if friend, need to load all data from the server
+        [self.friend fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            [self loadForUser:self.friend];
+        }];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [button addTarget:self action:@selector(follow:) forControlEvents:UIControlEventTouchDown];
+        [button setTitle:@"Follow" forState:UIControlStateNormal];
+        button.frame = CGRectMake(200.0, 20.0, 90.0, 40.0);
+        [self addSubview:button];
+        
+        
+    }else{
+        [self loadForUser:[PFUser currentUser]];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button addTarget:self action:@selector(showEverythingElse) forControlEvents:UIControlEventTouchDown];
+        [button setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"more_active"] forState:UIControlStateSelected];
+        button.frame = CGRectMake(270.0,20.0, 26.0, 26.0);
+        [self addSubview:button];
+
+    }
+}
+
+- (void) loadForUser:(PFUser*) user{
+    self.nameLabel.text = user[@"fullName"];
+    self.usernameLabel.text = user.username;
+    self.emailLabel.text = user[@"email"];
+    
+    
+    self.numPhotosLabel.text = @"Loading..";
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", user, user];
+    PFQuery *query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        self.numPhotosLabel.text = [NSString stringWithFormat:@"%d Photos",number];
+    }];
+    
+    
     self.followingLabel.text = [NSString stringWithFormat:@"%lu Following",(unsigned long)self.controller.followers.count];
     self.followersLabel.text = [NSString stringWithFormat:@"%lu followers",(unsigned long)self.controller.followers.count];
     self.bioTextview.text = [PFUser currentUser][@"bio"];
     
-    //let's make sure we only nake this request once
-    if(self.controller.facebookId == nil){
-        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-            if (!error) {
-                self.controller.facebookId = [result objectForKey:@"id"];
-            }
-        }];
-    }
     
-    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",self.controller.facebookId];
+    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",user[@"facebookId"]];
     NSURL *imageURL = [NSURL URLWithString:url];
-    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    self.photo.image = [UIImage imageWithData:imageData];
+    //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    //self.photo.image = [UIImage imageWithData:imageData];
     self.photo.frame = CGRectMake(20, 0, 100, 100);
-    [self addMaskToBounds:CGRectMake(0, 0, 75, 75)];
+    [self.photo loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
+    [self.photo addMaskToBounds:CGRectMake(0, 0, 75, 75)];
 }
 
-- (void) addMaskToBounds:(CGRect) maskBounds
-{
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+- (void) follow:(UIButton*)b {
+    b.enabled = NO;
+    [PFCloud callFunctionInBackground:@"follow"
+                       withParameters:@{@"userID":[PFUser currentUser].objectId,@"followingUserID":self.friend.objectId}
+                                block:^(NSNumber *result, NSError *error) {
+                                    
+                                    b.enabled = YES;
+                                    
+                                    if (!error) {
+                                        NSLog(@"Follow: %@", result);
+                                        if(result == 0){
+                                            [b setTitle:@"Follow" forState:UIControlStateNormal];
+                                        }else{
+                                            [b setTitle:@"Unfollow" forState:UIControlStateNormal];
+                                        }
+                                        
+                                    }
+                                }];
     
-    CGPathRef maskPath = CGPathCreateWithEllipseInRect(maskBounds, NULL);
-    maskLayer.bounds = maskBounds;
-    [maskLayer setPath:maskPath];
-    [maskLayer setFillColor:[[UIColor blackColor] CGColor]];
-    maskLayer.position = CGPointMake(maskBounds.size.width/2, maskBounds.size.height/2);
-    
-    [self.photo.layer setMask:maskLayer];
 }
 
-- (IBAction)showEverythingElse:(id)sender{
+
+
+
+- (void)showEverythingElse{
     EverythingElseViewController *controller = [EverythingElseViewController controller];    
     [self.controller presentViewController:controller animated:YES completion:nil];
 }

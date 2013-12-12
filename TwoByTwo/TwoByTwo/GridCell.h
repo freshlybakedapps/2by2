@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GridViewController.h"
 
 
 @interface GridCell : UICollectionViewCell
@@ -16,6 +17,10 @@
 
 @property (nonatomic, weak) UIButton *userButton;
 @property (nonatomic, weak) UIButton *userFullButton;
+@property (nonatomic, strong) UIImageView *userPhoto;
+@property (nonatomic, strong) UIImageView *userFullPhoto;
+
+@property (nonatomic, strong) GridViewController *controller;
 
 - (void)showImageOrMapAnimated:(BOOL)animated;
 

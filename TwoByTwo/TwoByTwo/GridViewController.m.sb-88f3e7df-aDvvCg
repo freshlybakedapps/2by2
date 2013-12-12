@@ -15,8 +15,6 @@
 @interface GridViewController ()
 @property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
 @property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
-@property (nonatomic, strong) NSNumber* currentSkipCount;
-@property (nonatomic, strong) NSNumber* queryLimit;
 
 
 
@@ -29,11 +27,7 @@
 {
     [super viewDidLoad];
     
-   
-    
-    self.currentSkipCount = 0;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performQuery) name:@"reloadImagesTable" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performQuery:) name:@"reloadImagesTable" object:nil];
     
     self.gridLayout = [UICollectionViewFlowLayout new];
     self.gridLayout.itemSize = CGSizeMake(77, 77);
@@ -50,7 +44,6 @@
     self.feedLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     self.collectionView.collectionViewLayout = self.gridLayout;
-    
     [self getFollowers];
 }
 
@@ -66,7 +59,7 @@
                 NSString *objid = objects[i][@"followingUserID"];
                 [self.followers addObject:[PFUser objectWithoutDataWithObjectId:objid]];
             }
-            [self performQuery];
+            [self performQuery:0];
         }
         else {
             NSLog(@"Followers error");
@@ -99,7 +92,7 @@
 
 #pragma mark - Query
 
-- (void)performQuery
+- (void)performQuery:(int)skip
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     
@@ -127,45 +120,30 @@
             query = [PFQuery orQueryWithSubqueries:@[userQuery,userFullQuery]];
         }
             break;
-        case FeedTypeFriend:
-        {            
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", self.friend, self.friend];
-            query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
-        }
-            break;
         case FeedTypeGlobal:
         default:
             [query whereKey:@"state" equalTo:@"full"];
             break;
     }
     
-    
-    query.skip = [self.currentSkipCount intValue];
-    
-    
+    query.skip = skip;
     [query includeKey:@"user"];
     [query includeKey:@"user_full"];
-    [query orderByDescending:@"createdAt"];
+    [query orderByDescending:@"updatedAt"];
     query.limit=20;
     [query setCachePolicy:kPFCachePolicyNetworkElseCache];
     //[query clearAllCachedResults];
     
-    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
 
         if (!error) {
-            if(self.objects.count > 0){
-                [self.objects addObjectsFromArray:objects];
-            }else{
-               self.objects = [(NSArray*)objects mutableCopy];
-            }
-            
+            self.objects = objects;
             
             //why does this message show twice??
-            NSLog(@"count %lu",(unsigned long)self.objects.count);
+            NSLog(@"count %lu",(unsigned long)objects.count);
         }
         else {
-            self.objects = nil;
+            self.objects = @[];
             [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
         
@@ -189,18 +167,18 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==self.objects.count-1 && self.objects.count > 19){
-        self.currentSkipCount = @(self.currentSkipCount.intValue + 20);
-        [self performQuery];
+    if(indexPath.row==self.objects.count-1){
+        [self loadMorePhotos];
     }
     
     GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
     cell.photo = self.objects[indexPath.row];
-    cell.controller = self;
     return cell;
 }
 
-
+- (void) loadMorePhotos{
+    
+}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -225,7 +203,6 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     switch (self.type) {
-        case FeedTypeFriend:
         case FeedTypeYou:
             return CGSizeMake(0, 175);
             break;
@@ -249,13 +226,6 @@
         GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
         headerView.controller = self;
         [headerView render];       
-        
-        return headerView;
-    }else if(self.type == FeedTypeFriend && kind == UICollectionElementKindSectionHeader){
-        GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
-        headerView.controller = self;
-        headerView.friend = self.friend;
-        [headerView render];
         
         return headerView;
     }

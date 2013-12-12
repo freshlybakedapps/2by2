@@ -71,7 +71,7 @@
 
                     
                     NSLog(@"email %@", email);
-                    
+                    [PFUser currentUser][@"facebookId"] = result[@"id"];
                     [PFUser currentUser].email = email;
                     [PFUser currentUser].username = username;
                     [PFUser currentUser][@"fullName"] = name;

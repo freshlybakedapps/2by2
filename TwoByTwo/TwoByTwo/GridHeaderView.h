@@ -22,9 +22,8 @@
 @property (nonatomic, weak) IBOutlet UIImageView *photo;
 
 @property (nonatomic, weak) GridViewController* controller;
+@property (nonatomic, strong) PFUser *friend;
 
-
-- (IBAction)showEverythingElse:(id)sender;
 
 - (void)render;
 

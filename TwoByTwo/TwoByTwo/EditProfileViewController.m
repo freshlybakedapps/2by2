@@ -7,6 +7,9 @@
 //
 
 #import "EditProfileViewController.h"
+#import "NSString+MD5.h"
+#import "UIImageView+Network.h"
+#import "UIImageView+CircleMask.h"
 
 @interface EditProfileViewController ()
 
@@ -30,7 +33,6 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"xxx");
     [textField resignFirstResponder];
     return NO;
 }
@@ -74,36 +76,15 @@
     self.bio.delegate = self;
     
     
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-         if (!error) {
-             NSString *facebookId = [result objectForKey:@"id"];
-             NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",facebookId];
-             NSURL *imageURL = [NSURL URLWithString:url];
-             NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-             self.photo.image = [UIImage imageWithData:imageData];
-             self.photo.frame = CGRectMake(25, 88, 100, 100);
-             [self addMaskToBounds:CGRectMake(0, 0, 90, 90)];
-         }
-     }];
+    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",[PFUser currentUser][@"facebookId"]];
+    NSURL *imageURL = [NSURL URLWithString:url];
+    //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    //self.photo.image = [UIImage imageWithData:imageData];
+    self.photo.frame = CGRectMake(25, 88, 100, 100);
+    [self.photo loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
+    [self.photo addMaskToBounds:CGRectMake(0, 0, 90, 90)];
 }
 
-
-
-
-
-
-- (void) addMaskToBounds:(CGRect) maskBounds
-{
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    
-    CGPathRef maskPath = CGPathCreateWithEllipseInRect(maskBounds, NULL);
-    maskLayer.bounds = maskBounds;
-    [maskLayer setPath:maskPath];
-    [maskLayer setFillColor:[[UIColor blackColor] CGColor]];
-    maskLayer.position = CGPointMake(maskBounds.size.width/2, maskBounds.size.height/2);
-    
-    [self.photo.layer setMask:maskLayer];
-}
 
 -(void)close:(id)sender
 {
