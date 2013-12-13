@@ -139,37 +139,52 @@
             break;
     }
     
-    
-    query.skip = [self.currentSkipCount intValue];
-    
-    
     [query includeKey:@"user"];
     [query includeKey:@"user_full"];
     [query orderByDescending:@"createdAt"];
-    query.limit=20;
-    [query setCachePolicy:kPFCachePolicyNetworkElseCache];
-    //[query clearAllCachedResults];
     
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-
-        if (!error) {
-            if(self.objects.count > 0){
-                [self.objects addObjectsFromArray:objects];
-            }else{
-               self.objects = [(NSArray*)objects mutableCopy];
-            }
-            
-            
-            //why does this message show twice??
-            NSLog(@"count %lu",(unsigned long)self.objects.count);
-        }
-        else {
-            self.objects = nil;
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        self.totalObjects = [NSNumber numberWithInt:number];
         
-        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        query.limit=20;
+        query.skip = [self.currentSkipCount intValue];
+        [query setCachePolicy:kPFCachePolicyNetworkElseCache];
+        //[query clearAllCachedResults];
+        
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            
+            if (!error) {
+                
+                if(self.objects.count > 0){
+                    //[self.objects addObjectsFromArray:objects];
+                    @try {
+                        [self.collectionView performBatchUpdates:^{
+                            int resultsSize = [self.objects count];
+                            [self.objects addObjectsFromArray:objects];
+                            NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
+                            for (int i = resultsSize; i < resultsSize + objects.count; i++)
+                            {
+                                [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                            }
+                            [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+                        } completion:nil];
+                        
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"%@",exception.description);
+                    }
+
+                }else{
+                    self.objects = [(NSArray*)objects mutableCopy];
+                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+                }
+                    
+            }else {
+                self.objects = nil;
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
+        }];
     }];
 }
 
@@ -189,7 +204,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==self.objects.count-1 && self.objects.count > 19){
+    if(indexPath.row==self.objects.count-1 && self.objects.count < [self.totalObjects intValue]){
         self.currentSkipCount = @(self.currentSkipCount.intValue + 20);
         [self performQuery];
     }
@@ -240,7 +255,6 @@
         default:
            return CGSizeMake(0, 0);
     }
-    
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -248,20 +262,17 @@
     if(self.type == FeedTypeYou && kind == UICollectionElementKindSectionHeader){
         GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
         headerView.controller = self;
-        [headerView render];       
-        
+        [headerView render];
         return headerView;
     }else if(self.type == FeedTypeFriend && kind == UICollectionElementKindSectionHeader){
         GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
         headerView.controller = self;
         headerView.friend = self.friend;
         [headerView render];
-        
         return headerView;
     }
     
     return nil;
-    
 }
 
 @end

@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) NSString *facebookId;
 
+@property (nonatomic, strong) NSNumber* totalObjects;
 
 
 @end

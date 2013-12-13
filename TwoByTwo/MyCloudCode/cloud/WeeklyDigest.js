@@ -141,7 +141,7 @@ exports.main = function(request, status) {
                   var msg = "You took "+arr.length+" photos this week";
                   var htmlMsg = weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations);
                   var subject = "2by2 weekly digest";
-                  //Notifications.sendMail(msg,htmlMsg,subject,fullName,email); 
+                  Notifications.sendMail(msg,htmlMsg,subject,fullName,email); 
 
                   
                 //}

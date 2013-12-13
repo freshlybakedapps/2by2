@@ -23,34 +23,35 @@
         [self.friend fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
             [self loadForUser:self.friend];
         }];
-        
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [button addTarget:self action:@selector(follow:) forControlEvents:UIControlEventTouchDown];
-        [button setTitle:@"Follow" forState:UIControlStateNormal];
-        button.frame = CGRectMake(200.0, 20.0, 90.0, 40.0);
-        [self addSubview:button];
-        
-        
     }else{
-        [self loadForUser:[PFUser currentUser]];
-        
+        [self loadForUser:[PFUser currentUser]];       
+    }
+}
+
+- (void) loadForUser:(PFUser*) user{
+    if(user == [PFUser currentUser]){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button addTarget:self action:@selector(showEverythingElse) forControlEvents:UIControlEventTouchDown];
         [button setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"more_active"] forState:UIControlStateSelected];
         button.frame = CGRectMake(270.0,20.0, 26.0, 26.0);
         [self addSubview:button];
-
+    }else{
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [button addTarget:self action:@selector(follow:) forControlEvents:UIControlEventTouchDown];
+        [button setTitle:@"Follow" forState:UIControlStateNormal];
+        button.frame = CGRectMake(200.0, 20.0, 90.0, 40.0);
+        [self addSubview:button];
     }
-}
-
-- (void) loadForUser:(PFUser*) user{
+    
     self.nameLabel.text = user[@"fullName"];
     self.usernameLabel.text = user.username;
     self.emailLabel.text = user[@"email"];
     
     
     self.numPhotosLabel.text = @"Loading..";
+    self.followingLabel.text = @"Loading..";
+    self.followersLabel.text = @"Loading..";
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", user, user];
     PFQuery *query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
@@ -58,21 +59,35 @@
         self.numPhotosLabel.text = [NSString stringWithFormat:@"%d Photos",number];
     }];
     
+    PFQuery *followingQuery = [PFQuery queryWithClassName:@"Followers"];
+    [followingQuery whereKey:@"userID" equalTo:user.objectId];
+    [followingQuery selectKeys:@[@"followingUserID"]];
     
-    self.followingLabel.text = [NSString stringWithFormat:@"%lu Following",(unsigned long)self.controller.followers.count];
-    self.followersLabel.text = [NSString stringWithFormat:@"%lu followers",(unsigned long)self.controller.followers.count];
-    self.bioTextview.text = [PFUser currentUser][@"bio"];
+    [followingQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        self.followingLabel.text = [NSString stringWithFormat:@"%lu Following",(unsigned long)number];
+    }];
+    
+    PFQuery *followQuery = [PFQuery queryWithClassName:@"Followers"];
+    [followQuery whereKey:@"followingUserID" equalTo:user.objectId];
+    
+    [followQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        self.followersLabel.text = [NSString stringWithFormat:@"%lu Followers",(unsigned long)number];
+    }];
+    
+    
+    self.bioTextview.text = user[@"bio"];
     
     
     NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",user[@"facebookId"]];
     NSURL *imageURL = [NSURL URLWithString:url];
-    //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    //self.photo.image = [UIImage imageWithData:imageData];
     self.photo.frame = CGRectMake(20, 0, 100, 100);
     [self.photo loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
     [self.photo addMaskToBounds:CGRectMake(0, 0, 75, 75)];
 }
 
+
+
+//TODO: grab original value
 - (void) follow:(UIButton*)b {
     b.enabled = NO;
     [PFCloud callFunctionInBackground:@"follow"
