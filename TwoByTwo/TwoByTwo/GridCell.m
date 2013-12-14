@@ -211,25 +211,15 @@
                                     }
                                 }];
     
-    /*
-    [PFCloud callFunctionInBackground:@"getFacebookFriends"
-                       withParameters:@{@"user":[PFUser currentUser]}
-                                block:^(NSArray *result, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"Facebook friends: %@", result);
-                                    }
-                                }];
-     
     
-    [PFCloud callFunctionInBackground:@"isUsernameUnique"
-                       withParameters:@{@"username":@"jtubert"}
-                                block:^(NSString *result, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"isUsernameUnique: %@", result);
-                                    }
-                                }];
-     */
-
+    NSDictionary *dimensions = @{
+                                 @"photoID": self.photo.objectId,
+                                 @"userWhoLiked": [PFUser currentUser].username,
+                                 @"likeCount": [NSNumber numberWithInt:self.photo.likes.count],
+                                 };
+    
+    [PFAnalytics trackEvent:@"like_or_unlike" dimensions:dimensions];
+    
 }
 
 - (void)updateLikeButton
@@ -263,6 +253,20 @@
             }
         }];
     }
+    
+    NSString* flag_or_delete = @"flag";
+    
+    if (self.photo.canDelete) {
+        flag_or_delete = @"delete";
+    }
+    
+    NSDictionary *dimensions = @{
+                                 @"photoID": self.photo.objectId,
+                                 @"user": [PFUser currentUser].username,
+                                 @"flag_or_delete": flag_or_delete,
+                                 };
+    
+    [PFAnalytics trackEvent:@"flag_or_delete_photo" dimensions:dimensions];
 }
 
 - (IBAction)mapButtonTapped:(id)sender

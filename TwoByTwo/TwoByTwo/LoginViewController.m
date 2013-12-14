@@ -76,10 +76,19 @@
                     [PFUser currentUser].username = username;
                     [PFUser currentUser][@"fullName"] = name;
                     [[PFUser currentUser] saveInBackground];
-                    [Flurry setUserID:name];
+                    
+                    NSDictionary *dimensions = @{
+                                                 @"username": username,
+                                                 @"fullName": name,
+                                                 @"facebookId": result[@"id"]
+                                                 };
+                    
+                    [PFAnalytics trackEvent:@"new_user" dimensions:dimensions];
+                    
+                    
                     [[AppDelegate delegate] showMainViewController];
                     
-                                    }
+                }
                 else {
                     NSLog(@"Something went wrong: %@", error);
                     [[[UIAlertView alloc] initWithTitle:@"Something went wrong" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];

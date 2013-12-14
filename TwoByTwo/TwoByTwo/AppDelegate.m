@@ -18,8 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    [Flurry startSession:@"4YTN2NG6MYJDVT9F6P7M"];
+    
     [Crittercism enableWithAppID: @"52a0a4f04002054d18000001"];
     /// ****************************************************************************
     [Parse setApplicationId:@"6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg" clientKey:@"CdsYZN5y9Tuum2IlHhvipft0rWItCON6JoXeqYJL"];
@@ -32,6 +31,19 @@
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
         [[PFInstallation currentInstallation] saveEventually];
+    }
+    
+    if (application.applicationState != UIApplicationStateBackground) {
+        // Track an app open here if we launch with a push, unless
+        // "content_available" was used to trigger a background push (introduced
+        // in iOS 7). In that case, we skip tracking here to avoid double
+        // counting the app-open.
+        BOOL preBackgroundPush = ![application respondsToSelector:@selector(backgroundRefreshStatus)];
+        BOOL oldPushHandlerOnly = ![self respondsToSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)];
+        BOOL noPushPayload = ![launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (preBackgroundPush || oldPushHandlerOnly || noPushPayload) {
+            [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+        }
     }
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -53,6 +65,8 @@
 
     return YES;
 }
+
+
 
 - (void)handlePush:(NSDictionary *)launchOptions {
     // If the app was launched in response to a push notification, we'll handle the payload here
@@ -97,9 +111,16 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
     
+    if (application.applicationState == UIApplicationStateInactive) {
+        // The application was just brought from the background to the foreground,
+        // so we consider the app as having been "opened by a push notification."
+        [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    }
+
+    /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:@"didReceiveRemoteNotification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
     [alert show];
-    
+    */
 }
 
 
