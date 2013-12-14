@@ -68,25 +68,6 @@ exports.main = function(request, response){
 
         //if user liked a photo, this service is unlikning the photo so we should only send notifications if liking the photo
         if(!didUserLikedPhoto){
-
-            //Amin T just liked your photo.
-
-            var msg = userWhoLikedUsername+ " just liked your photo." ;
-            var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
-            var subject = "2by2 - photo was liked";
-
-
-            //don't send a notification if I am liking my own photo
-            if(userWhoLiked.id != user.id){
-                if(likesPushAlert == true){
-                    Notifications.sendPush(user.id,msg);
-                }
-
-                if(likesEmailAlert == true){
-                    Notifications.sendMail(msg,htmlMsg,subject, username,email);
-                }
-            }
-
             if(state == "full"){
                 var user_full = photo.get("user_full");
                 var overexposeEmailAlert_full = user_full.get("overexposeEmailAlert");
@@ -97,7 +78,7 @@ exports.main = function(request, response){
                 var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
                 var subject = "2by2 - photo was liked";
 
-                if(userWhoLiked.id != user_full.id){
+                if(userWhoLiked.id != user_full.id && userWhoLiked.id != user.id){
                     if(overexposePushAlert_full == true){
                         Notifications.sendPush(user_full.id,msg);
                     }
@@ -107,6 +88,23 @@ exports.main = function(request, response){
                     }
                 }
 
+            }else{
+                //Amin T just liked your photo.
+
+                var msg = userWhoLikedUsername+ " just liked your photo." ;
+                var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
+                var subject = "2by2 - photo was liked";
+
+                //don't send a notification if I am liking my own photo
+                if(userWhoLiked.id != user.id){
+                    if(likesPushAlert == true){
+                        Notifications.sendPush(user.id,msg);
+                    }
+
+                    if(likesEmailAlert == true){
+                        Notifications.sendMail(msg,htmlMsg,subject, username,email);
+                    }
+                }
             }
         }
             

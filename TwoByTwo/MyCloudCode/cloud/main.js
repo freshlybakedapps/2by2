@@ -47,6 +47,11 @@ Parse.Cloud.define("getFacebookId", function(request, response) {
     GetFacebookId.main(request, response);
 });
 
+var LastPhotoURL = require('cloud/LastPhotoURL.js');
+Parse.Cloud.define("lastPhotoURL", function(request, response) {
+    LastPhotoURL.main(request, response);
+});
+
 
 ///////////////////////////////////////////////////////////////////
 //CRON JOBS
@@ -54,8 +59,8 @@ Parse.Cloud.define("getFacebookId", function(request, response) {
 
 var WeeklyDigest = require('cloud/WeeklyDigest.js');
 Parse.Cloud.job("weeklyDigestEmail", function(request, status) {
-  //if sunday
-  if(new Date().getDay() == 0){
+  //if Monday
+  if(new Date().getDay() == 1){
     WeeklyDigest.main(request, status);
   }else{
     status.success("Only run this on Sundays and today is not Sunday");

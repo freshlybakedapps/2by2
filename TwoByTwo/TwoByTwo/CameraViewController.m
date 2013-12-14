@@ -26,6 +26,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 @property (nonatomic, weak) IBOutlet GPUImageView *liveView;
 @property (nonatomic, weak) IBOutlet UIImageView *previewView;
 @property (nonatomic, weak) IBOutlet UIButton *topButton;
+@property (nonatomic, weak) IBOutlet UIButton *rotateCameraButton;
 @property (nonatomic, weak) IBOutlet ProgressButton *bottomButton;
 @property (nonatomic, strong) GPUImageStillCamera *stillCamera;
 @property (nonatomic, strong) GPUImageFilter *filter;
@@ -89,6 +90,12 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                                     weakSelf.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
                                     weakSelf.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
                                     [weakSelf.stillCamera addTarget:weakSelf.filter];
+                                    
+                                    //[weakSelf.stillCamera rotateCamera];
+                                    
+                                    
+                                    
+                                    
                                     [weakSelf.stillCamera startCameraCapture];
                                 }
                                 else {
@@ -197,6 +204,11 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
 
 #pragma mark - Actions
+
+- (IBAction)rotateCamera:(id)sender
+{
+    [self.stillCamera rotateCamera];
+}
 
 - (IBAction)topButtonTapped:(id)sender
 {

@@ -113,8 +113,8 @@
                                     <action selector="bottomButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="aAH-Ag-qwL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9">
-                                <rect key="frame" x="138" y="40" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9">
+                                <rect key="frame" x="20" y="41" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="button-close">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -123,18 +123,27 @@
                                     <action selector="topButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="e47-BW-WZh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJz-kY-2FM">
+                                <rect key="frame" x="274" y="50" width="26" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" image="selfieDown">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="rotateCamera:" destination="vVh-uF-8fn" eventType="touchUpInside" id="gND-h2-4Wv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.24313725490196078" green="0.24313725490196078" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sAS-9Y-mbp" firstAttribute="top" secondItem="mLB-bE-VZL" secondAttribute="bottom" constant="20" id="0dZ-3F-V5J"/>
-                            <constraint firstAttribute="centerX" secondItem="nKa-8F-6M9" secondAttribute="centerX" id="2nS-U3-VTF"/>
                             <constraint firstAttribute="centerX" secondItem="mLB-bE-VZL" secondAttribute="centerX" id="5ym-jJ-i1C"/>
                             <constraint firstAttribute="centerY" secondItem="b3r-Er-iE6" secondAttribute="centerY" id="P5j-PS-gor"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="bottom" secondItem="b3r-Er-iE6" secondAttribute="bottom" id="iOR-w2-bQH"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="leading" secondItem="b3r-Er-iE6" secondAttribute="leading" id="kSd-Un-j2r"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="trailing" secondItem="b3r-Er-iE6" secondAttribute="trailing" id="m6X-b7-MY0"/>
                             <constraint firstAttribute="centerX" secondItem="b3r-Er-iE6" secondAttribute="centerX" id="oat-dr-DyB"/>
-                            <constraint firstItem="nKa-8F-6M9" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="20" id="v2v-dM-7U0"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="top" secondItem="b3r-Er-iE6" secondAttribute="top" id="vtf-y4-CcO"/>
                         </constraints>
                     </view>
@@ -142,6 +151,7 @@
                         <outlet property="bottomButton" destination="mLB-bE-VZL" id="4jj-ua-c8O"/>
                         <outlet property="liveView" destination="b3r-Er-iE6" id="jAU-Mt-Ivj"/>
                         <outlet property="previewView" destination="vZe-BE-PZL" id="QVN-C0-i41"/>
+                        <outlet property="rotateCameraButton" destination="TJz-kY-2FM" id="2G6-0l-1C9"/>
                         <outlet property="topButton" destination="nKa-8F-6M9" id="pW2-Zc-L20"/>
                     </connections>
                 </viewController>
@@ -738,6 +748,7 @@
         <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
+        <image name="button-shutter-green" width="70" height="70"/>
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
@@ -747,6 +758,7 @@
         <image name="icon-location" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
+        <image name="selfieDown" width="26" height="26"/>
     </resources>
     <color key="tintColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
