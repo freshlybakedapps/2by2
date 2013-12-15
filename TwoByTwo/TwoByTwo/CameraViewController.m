@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 @property (nonatomic, weak) IBOutlet UIImageView *previewView;
 @property (nonatomic, weak) IBOutlet UIButton *topButton;
 @property (nonatomic, weak) IBOutlet UIButton *rotateCameraButton;
+@property (nonatomic, weak) IBOutlet UIButton *blendModeButton;
 @property (nonatomic, weak) IBOutlet ProgressButton *bottomButton;
 @property (nonatomic, strong) GPUImageStillCamera *stillCamera;
 @property (nonatomic, strong) GPUImageFilter *filter;
@@ -57,6 +58,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
     if (self.photo) {
+        
+        self.blendModeButton.hidden = NO;
 
         __weak typeof(self) weakSelf = self;
         void (^showErrorAndDismiss)(NSError *, NSString *) = ^(NSError *error, NSString *message) {
@@ -90,12 +93,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                                     weakSelf.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
                                     weakSelf.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
                                     [weakSelf.stillCamera addTarget:weakSelf.filter];
-                                    
-                                    //[weakSelf.stillCamera rotateCamera];
-                                    
-                                    
-                                    
-                                    
                                     [weakSelf.stillCamera startCameraCapture];
                                 }
                                 else {
@@ -123,6 +120,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         }];
     }
     else {
+        self.blendModeButton.hidden = YES;
+
         self.filter = [[GPUImageGammaFilter alloc] init];
         [self.filter addTarget:self.liveView];
         
@@ -305,6 +304,52 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         default:
             break;
     }
+}
+
+- (IBAction)blendModeButtonTapped:(id)sender
+{
+    //Refernce:
+    // Quartz 2D Programming Guide -> Bitmap Images and Image Masks -> Using Blend Modes with Images
+    // https://developer.apple.com/library/ios/documentation/graphicsimaging/conceptual/drawingwithquartz2d/dq_images/dq_images.html
+    // https://github.com/BradLarson/GPUImage
+    
+    NSArray *blendModes = @[
+                            [GPUImageMultiplyBlendFilter class],
+                            [GPUImageScreenBlendFilter class],
+                            [GPUImageOverlayBlendFilter class],
+                            [GPUImageLightenBlendFilter class],
+                            [GPUImageDarkenBlendFilter class],
+                            [GPUImageColorDodgeBlendFilter class],
+                            [GPUImageColorBurnBlendFilter class],
+                            [GPUImageSoftLightBlendFilter class],
+                            [GPUImageHardLightBlendFilter class],
+                            [GPUImageDifferenceBlendFilter class],
+                            [GPUImageExclusionBlendFilter class],
+
+                            [GPUImageAddBlendFilter class],
+                            [GPUImageSubtractBlendFilter class],
+                            [GPUImageDivideBlendFilter class],
+                            [GPUImageAlphaBlendFilter class],
+                            [GPUImageLinearBurnBlendFilter class],
+                            ];
+    
+    NSUInteger current = [blendModes indexOfObject:[self.filter class]];
+    NSUInteger next = (current + 1) % blendModes.count;
+    Class nextMode = blendModes[next];
+    
+    NSString *name = NSStringFromClass(nextMode);
+    name = [name stringByReplacingOccurrencesOfString:@"GPUImage" withString:@""];
+    name = [name stringByReplacingOccurrencesOfString:@"BlendFilter" withString:@""];
+    [self.blendModeButton setTitle:name forState:UIControlStateNormal];
+
+    [self.filter removeTarget:self.liveView];
+    [self.sourcePicture removeTarget:self.filter];
+    [self.stillCamera removeTarget:self.filter];
+
+    self.filter = [[nextMode alloc] init];
+    [self.filter addTarget:self.liveView];
+    [self.sourcePicture addTarget:self.filter];
+    [self.stillCamera addTarget:self.filter];
 }
 
 

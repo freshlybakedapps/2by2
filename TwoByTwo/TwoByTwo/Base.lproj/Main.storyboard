@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -113,9 +113,13 @@
                                     <action selector="bottomButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="aAH-Ag-qwL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9">
-                                <rect key="frame" x="20" y="41" width="44" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9">
+                                <rect key="frame" x="20" y="40" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="0Jg-SS-v6E"/>
+                                    <constraint firstAttribute="width" constant="44" id="mqt-Wl-O1F"/>
+                                </constraints>
                                 <state key="normal" image="button-close">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -123,9 +127,13 @@
                                     <action selector="topButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="e47-BW-WZh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJz-kY-2FM">
-                                <rect key="frame" x="274" y="50" width="26" height="26"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJz-kY-2FM">
+                                <rect key="frame" x="266" y="40" width="44" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="Rxr-Lt-IPG"/>
+                                    <constraint firstAttribute="height" constant="44" id="xOO-eE-CWU"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="selfieDown">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -134,20 +142,43 @@
                                     <action selector="rotateCamera:" destination="vVh-uF-8fn" eventType="touchUpInside" id="gND-h2-4Wv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9K-pF-qD7">
+                                <rect key="frame" x="210" y="484" width="100" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="YRu-5F-m20"/>
+                                    <constraint firstAttribute="width" constant="100" id="bZU-xz-coe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="Lighten">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="blendModeButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="7Pg-ZV-2tI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.24313725490196078" green="0.24313725490196078" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sAS-9Y-mbp" firstAttribute="top" secondItem="mLB-bE-VZL" secondAttribute="bottom" constant="20" id="0dZ-3F-V5J"/>
+                            <constraint firstItem="sAS-9Y-mbp" firstAttribute="top" secondItem="Y9K-pF-qD7" secondAttribute="bottom" constant="20" id="4ck-cY-cQP"/>
                             <constraint firstAttribute="centerX" secondItem="mLB-bE-VZL" secondAttribute="centerX" id="5ym-jJ-i1C"/>
+                            <constraint firstItem="TJz-kY-2FM" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="20" id="NUq-ys-J0b"/>
+                            <constraint firstItem="nKa-8F-6M9" firstAttribute="leading" secondItem="qK4-2w-Del" secondAttribute="leading" constant="20" id="O7J-ev-8Ze"/>
                             <constraint firstAttribute="centerY" secondItem="b3r-Er-iE6" secondAttribute="centerY" id="P5j-PS-gor"/>
+                            <constraint firstAttribute="trailing" secondItem="Y9K-pF-qD7" secondAttribute="trailing" constant="10" id="W9Q-Kq-aVU"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="bottom" secondItem="b3r-Er-iE6" secondAttribute="bottom" id="iOR-w2-bQH"/>
+                            <constraint firstItem="nKa-8F-6M9" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="20" id="jcY-Al-Drj"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="leading" secondItem="b3r-Er-iE6" secondAttribute="leading" id="kSd-Un-j2r"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="trailing" secondItem="b3r-Er-iE6" secondAttribute="trailing" id="m6X-b7-MY0"/>
                             <constraint firstAttribute="centerX" secondItem="b3r-Er-iE6" secondAttribute="centerX" id="oat-dr-DyB"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="top" secondItem="b3r-Er-iE6" secondAttribute="top" id="vtf-y4-CcO"/>
+                            <constraint firstAttribute="trailing" secondItem="TJz-kY-2FM" secondAttribute="trailing" constant="10" id="xCv-8p-lJq"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blendModeButton" destination="Y9K-pF-qD7" id="FFM-TM-hlB"/>
                         <outlet property="bottomButton" destination="mLB-bE-VZL" id="4jj-ua-c8O"/>
                         <outlet property="liveView" destination="b3r-Er-iE6" id="jAU-Mt-Ivj"/>
                         <outlet property="previewView" destination="vZe-BE-PZL" id="QVN-C0-i41"/>
