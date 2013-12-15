@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */; };
 		1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34F6181EAFA200E6F26A /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1D4207C117E6AAC4008A7F98 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C017E6AAC4008A7F98 /* Parse.framework */; };
 		1D4207C317E6AB10008A7F98 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */; };
 		1D4207C517E6AB1E008A7F98 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */; };
 		1D4207C717E6AB2D008A7F98 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */; };
@@ -26,8 +25,6 @@
 		1D7B9F861858C7600065C907 /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F831858C7600065C907 /* FTWCache.m */; };
 		1D7B9F871858C7600065C907 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F851858C7600065C907 /* NSString+MD5.m */; };
 		1D7B9F8A1858D2060065C907 /* UIImageView+CircleMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F891858D2060065C907 /* UIImageView+CircleMask.m */; };
-		1D9ADD041850E14D0075A3DA /* dsym_upload.sh in Resources */ = {isa = PBXBuildFile; fileRef = 1D9ADD021850E14D0075A3DA /* dsym_upload.sh */; };
-		1D9ADD051850E14D0075A3DA /* libCrittercism_v4_1_2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9ADD031850E14D0075A3DA /* libCrittercism_v4_1_2.a */; };
 		1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */; };
 		1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7F818467EF1002626C8 /* NotificationSettingsViewController.m */; };
 		1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7FC184A636A002626C8 /* AboutViewController.m */; };
@@ -88,7 +85,6 @@
 		1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageResizing.m"; sourceTree = "<group>"; };
 		1D1B34F5181EAFA200E6F26A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1D1B34F6181EAFA200E6F26A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		1D4207C017E6AAC4008A7F98 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -112,11 +108,6 @@
 		1D7B9F851858C7600065C907 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		1D7B9F881858D2060065C907 /* UIImageView+CircleMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CircleMask.h"; sourceTree = "<group>"; };
 		1D7B9F891858D2060065C907 /* UIImageView+CircleMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CircleMask.m"; sourceTree = "<group>"; };
-		1D9ADCFF1850E14D0075A3DA /* CRFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRFilter.h; sourceTree = "<group>"; };
-		1D9ADD001850E14D0075A3DA /* Crittercism.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crittercism.h; sourceTree = "<group>"; };
-		1D9ADD011850E14D0075A3DA /* CrittercismDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrittercismDelegate.h; sourceTree = "<group>"; };
-		1D9ADD021850E14D0075A3DA /* dsym_upload.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = dsym_upload.sh; sourceTree = "<group>"; };
-		1D9ADD031850E14D0075A3DA /* libCrittercism_v4_1_2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCrittercism_v4_1_2.a; sourceTree = "<group>"; };
 		1DB0C7AF18464DED002626C8 /* EverythingElseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverythingElseViewController.h; sourceTree = "<group>"; };
 		1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverythingElseViewController.m; sourceTree = "<group>"; };
 		1DB0C7F718467EF1002626C8 /* NotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationSettingsViewController.h; sourceTree = "<group>"; };
@@ -200,7 +191,6 @@
 				1D4207D317E6AB78008A7F98 /* SystemConfiguration.framework in Frameworks */,
 				1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */,
 				1D4207CF17E6AB62008A7F98 /* Security.framework in Frameworks */,
-				1D9ADD051850E14D0075A3DA /* libCrittercism_v4_1_2.a in Frameworks */,
 				1D4207CD17E6AB59008A7F98 /* QuartzCore.framework in Frameworks */,
 				1D4207CB17E6AB4F008A7F98 /* MobileCoreServices.framework in Frameworks */,
 				1D4207C917E6AB42008A7F98 /* libz.1.1.3.dylib in Frameworks */,
@@ -211,7 +201,6 @@
 				7CF39DE317E0070A003A859F /* UIKit.framework in Frameworks */,
 				7CF39DDF17E0070A003A859F /* Foundation.framework in Frameworks */,
 				8AB5BC5834294D7CBF47B62A /* libPods.a in Frameworks */,
-				1D4207C117E6AAC4008A7F98 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,18 +253,6 @@
 				1D7B9F851858C7600065C907 /* NSString+MD5.m */,
 			);
 			path = FTWCache;
-			sourceTree = "<group>";
-		};
-		1D9ADCFE1850E14D0075A3DA /* CrittercismSDK */ = {
-			isa = PBXGroup;
-			children = (
-				1D9ADCFF1850E14D0075A3DA /* CRFilter.h */,
-				1D9ADD001850E14D0075A3DA /* Crittercism.h */,
-				1D9ADD011850E14D0075A3DA /* CrittercismDelegate.h */,
-				1D9ADD021850E14D0075A3DA /* dsym_upload.sh */,
-				1D9ADD031850E14D0075A3DA /* libCrittercism_v4_1_2.a */,
-			);
-			path = CrittercismSDK;
 			sourceTree = "<group>";
 		};
 		1DB0C7AE18464DB1002626C8 /* EverythingElse */ = {
@@ -435,7 +412,6 @@
 		7CF39DD217E0070A003A859F = {
 			isa = PBXGroup;
 			children = (
-				1D9ADCFE1850E14D0075A3DA /* CrittercismSDK */,
 				7CF39DE417E0070A003A859F /* TwoByTwo */,
 				7CF39E0317E0070B003A859F /* TwoByTwoTests */,
 				7CF39DDD17E0070A003A859F /* Frameworks */,
@@ -468,7 +444,6 @@
 				1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */,
 				1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */,
 				1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */,
-				1D4207C017E6AAC4008A7F98 /* Parse.framework */,
 				7CF39DDE17E0070A003A859F /* Foundation.framework */,
 				7CF39DE017E0070A003A859F /* CoreGraphics.framework */,
 				7CF39DE217E0070A003A859F /* UIKit.framework */,
@@ -631,7 +606,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D9ADD041850E14D0075A3DA /* dsym_upload.sh in Resources */,
 				1DD9716A184CCDD9001D35CA /* Terms.html in Resources */,
 				7C76578D182597930053483B /* Login.storyboard in Resources */,
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
@@ -854,19 +828,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "TwoByTwo/TwoByTwo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SYSTEM_APPS_DIR)/MAMP/htdocs/2by2/2by2/TwoByTwo/CrittercismSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s";
@@ -882,19 +851,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "TwoByTwo/TwoByTwo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SYSTEM_APPS_DIR)/MAMP/htdocs/2by2/2by2/TwoByTwo/CrittercismSDK",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s";

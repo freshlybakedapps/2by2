@@ -50,8 +50,9 @@
         dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
         //dispatch_release(sema);
     }
-    else{
-        allPeople = ABAddressBookCreate();
+    else {
+        CFErrorRef error = NULL;
+        allPeople = ABAddressBookCreateWithOptions(NULL, &error);
     }
     
     
