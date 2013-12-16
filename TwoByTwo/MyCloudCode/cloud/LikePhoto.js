@@ -1,12 +1,15 @@
 var Notifications = require('cloud/Notifications.js');
 
 exports.main = function(request, response){
+
+    console.log("likePhoto was called");   
+
   var query = new Parse.Query("Photo");
   query.include("user");
   query.include("user_full");
 
   var objid = request.params.objectid;
-  var userWhoLiked = request.params.userWhoLiked;
+  var userWhoLikedID = request.params.userWhoLikedID;
   var userWhoLikedUsername = request.params.userWhoLikedUsername;
 
   query.get(objid, {
@@ -43,7 +46,7 @@ exports.main = function(request, response){
     		
     		
     		for (var i = likesCounter - 1; i >= 0; i--) {
-    			if(likesArray[i] == userWhoLiked.id){
+    			if(likesArray[i] == userWhoLikedID){
     				didUserLikedPhoto = true;
     				likesArray.splice(i, 1);
     				break;
@@ -51,18 +54,18 @@ exports.main = function(request, response){
     		};
 
     		if(!didUserLikedPhoto){
-    			likesArray.push(userWhoLiked.id);
+    			likesArray.push(userWhoLikedID);
     			likesCounter++;	
     		}else{
     			likesCounter--;	
     		}
     	}else{
     		likesArray = new Array();
-    		likesArray.push(userWhoLiked.id);
+    		likesArray.push(userWhoLikedID);
     		likesCounter++;	
     	}
 
-    	//console.log(likesArray);
+    	console.log(likesArray);
     	photo.set("likes",likesArray);
     	photo.save({likingPhoto:"yes"});
 
@@ -78,7 +81,7 @@ exports.main = function(request, response){
                 var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
                 var subject = "2by2 - photo was liked";
 
-                if(userWhoLiked.id != user_full.id && userWhoLiked.id != user.id){
+                if(userWhoLikedID != user_full.id && userWhoLikedID != user.id){
                     if(overexposePushAlert_full == true){
                         Notifications.sendPush(user_full.id,msg);
                     }
@@ -96,7 +99,7 @@ exports.main = function(request, response){
                 var subject = "2by2 - photo was liked";
 
                 //don't send a notification if I am liking my own photo
-                if(userWhoLiked.id != user.id){
+                if(userWhoLikedID != user.id){
                     if(likesPushAlert == true){
                         Notifications.sendPush(user.id,msg);
                     }
@@ -108,12 +111,14 @@ exports.main = function(request, response){
             }
         }
             
+            
+
             response.success(likesCounter); 
 
 
 	},    
     error: function(error) {
-      console.error("Got an error " + error.code + " : " + error.message);
+      //console.error("Got an error " + error.code + " : " + error.message);
       response.error(error);
     }
   });

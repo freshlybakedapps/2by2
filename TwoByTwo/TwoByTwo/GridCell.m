@@ -197,28 +197,50 @@
     self.photo.likes = self.nLikes;
     [self updateLikeButton];
     
-    [PFCloud callFunctionInBackground:@"likePhoto"
-                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoLiked":[PFUser currentUser], @"userWhoLikedUsername":[PFUser currentUser].username}
-                                block:^(NSNumber *result, NSError *error) {
-                                    
-                                    if (error) {
-                                        NSLog(@"like photo: %@", error);
-                                        [UIAlertView showAlertViewWithTitle:@"Error" message:error.localizedDescription cancelButtonTitle:@"OK" otherButtonTitles:nil handler:nil];
+    
+    @try {
+        __weak typeof(self) weakSelf = self;
+        
+        PFUser* user = [PFUser currentUser];
+        
+        NSDictionary* params = @{@"objectid":self.photo.objectId, @"userWhoLikedID":user.objectId, @"userWhoLikedUsername":user.username};
+        
+        [PFCloud callFunctionInBackground:@"likePhoto"
+                           withParameters:params
+                                    block:^(NSNumber *result, NSError *error) {
                                         
-                                        // Revert likes
-                                        self.photo.likes = oldLikes;
-                                        [self updateLikeButton];
-                                    }
-                                }];
+                                        if (error) {
+                                            NSLog(@"like photo: %@", error);
+                                            
+                                            
+                                            // Revert likes
+                                            weakSelf.photo.likes = oldLikes;
+                                            [weakSelf updateLikeButton];
+                                        }else{
+                                            NSLog(@"Like successfull");
+                                        }
+                                    }];
+
+    }
+    @catch (NSException *exception) {
+        NSLog(@"error %@", exception.description);
+    }
     
     
-    NSDictionary *dimensions = @{
-                                 @"photoID": self.photo.objectId,
-                                 @"userWhoLiked": [PFUser currentUser].username,
-                                 @"likeCount": [NSNumber numberWithInt:self.photo.likes.count],
-                                 };
+    @try {
+        NSDictionary *dimensions = @{
+                                     @"photoID": self.photo.objectId,
+                                     @"userWhoLiked": [PFUser currentUser].username,
+                                     @"likeCount": [NSString stringWithFormat:@"%lu",(unsigned long)self.photo.likes.count],
+                                     };
+        
+        [PFAnalytics trackEvent:@"like_or_unlike" dimensions:dimensions];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"like_or_unlike error: %@",exception.description);
+    }
     
-    [PFAnalytics trackEvent:@"like_or_unlike" dimensions:dimensions];
+    
     
 }
 

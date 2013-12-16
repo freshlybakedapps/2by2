@@ -275,17 +275,28 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 if(weakSelf.photo){
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
                     
-                    [PFCloud callFunctionInBackground:@"notifyUser"
-                                       withParameters:@{@"user_full_username":weakSelf.photo.userFull.username,@"user":weakSelf.photo.user,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
-                                                block:^(NSNumber *result, NSError *error) {
-                                                    if (!error) {
-                                                        NSLog(@"The user was notified sucessfully: %@", result);
-                                                        
-                                                    }else{
-                                                        NSLog(@"error: %@", error);
-                                                    }
-                                                }];
-                }
+                    @try {
+                        [PFCloud callFunctionInBackground:@"notifyUser"
+                                           withParameters:@{@"user_full_username":weakSelf.photo.userFull.username,@"user":weakSelf.photo.user,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
+                                                    block:^(NSNumber *result, NSError *error) {
+                                                        if (!error) {
+                                                            NSLog(@"The user was notified sucessfully: %@", result);
+                                                            
+                                                        }else{
+                                                            NSLog(@"error: %@", error);
+                                                        }
+                                                    }];
+
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"notifyUser error: %@",exception.description);
+                        [UIAlertView showAlertViewWithTitle:@"Error" message:exception.description cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                            
+                        }];
+                    }
+                    
+                    
+                                    }
              
 
                 
