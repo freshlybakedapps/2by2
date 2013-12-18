@@ -80,9 +80,9 @@
     NSURL *imageURL = [NSURL URLWithString:url];
     //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
     //self.photo.image = [UIImage imageWithData:imageData];
-    self.photo.frame = CGRectMake(25, 88, 100, 100);
+    self.photo.frame = CGRectMake(20, 88, 100, 100);
     [self.photo loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
-    [self.photo addMaskToBounds:CGRectMake(0, 0, 90, 90)];
+    [self.photo addMaskToBounds:CGRectMake(0, 0, 72, 72)];
 }
 
 

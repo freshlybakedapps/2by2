@@ -22,6 +22,7 @@
 @property (nonatomic, weak) IBOutlet UIView *headerView;
 @property (nonatomic, weak) IBOutlet UIView *footerView;
 @property (nonatomic, weak) IBOutlet UIButton *likeButton;
+@property (nonatomic, weak) IBOutlet UILabel *filterLabel;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
 @end
@@ -35,6 +36,11 @@
 {
     _photo = photo;
     
+    if(photo[@"filter"]){
+        self.filterLabel.text = photo[@"filter"];
+    }else{
+        self.filterLabel.text = @"";
+    }
     
     
     [self addPhotographerNames];

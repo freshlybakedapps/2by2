@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, FeedType) {
     FeedTypeFollowing,
     FeedTypeYou,
     FeedTypeFriend,
+    FeedTypePDP,
 };
 
 

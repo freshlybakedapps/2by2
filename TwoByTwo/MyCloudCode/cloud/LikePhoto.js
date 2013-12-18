@@ -1,9 +1,6 @@
 var Notifications = require('cloud/Notifications.js');
 
 exports.main = function(request, response){
-
-    console.log("likePhoto was called");   
-
   var query = new Parse.Query("Photo");
   query.include("user");
   query.include("user_full");
@@ -15,7 +12,7 @@ exports.main = function(request, response){
   query.get(objid, {
     success: function(photo) { 
 
-        console.log(userWhoLikedUsername);   	
+        //console.log(userWhoLikedUsername);   	
     	var likesArray = photo.get("likes");
         var state = photo.get("state");
         var user = photo.get("user");

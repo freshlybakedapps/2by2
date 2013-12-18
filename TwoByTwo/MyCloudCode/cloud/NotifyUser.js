@@ -7,8 +7,9 @@ exports.main = function(request, response){
   		//var user = request.object.get("user");
   		//var url = request.object.get("image_full")._url;
       var user_full_username = request.params.user_full_username;
-      var user = request.params.user;
+      var userID = request.params.userID;
       var url = request.params.url;
+      var photoID = request.params.photoID;
       
       var latlng = request.params.locationFull;
       var city = "";
@@ -40,7 +41,7 @@ exports.main = function(request, response){
 
 		  var query = new Parse.Query(Parse.User);  		
   		
-  		query.get(user.id, {
+  		query.get(userID, {
       
 		    success: function(user) {
 		    	var email = user.get("email");
@@ -60,7 +61,7 @@ exports.main = function(request, response){
 
              
           if(overexposePushAlert == true){
-            Notifications.sendPush(user.id,msg);
+            Notifications.sendPush(user.id,msg,photoID);
           }
           
           if(overexposeEmailAlert == true){

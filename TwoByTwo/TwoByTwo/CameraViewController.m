@@ -277,7 +277,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                     
                     @try {
                         [PFCloud callFunctionInBackground:@"notifyUser"
-                                           withParameters:@{@"user_full_username":weakSelf.photo.userFull.username,@"user":weakSelf.photo.user,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
+                                           withParameters:@{@"photoID":weakSelf.photo.objectId,@"user_full_username":weakSelf.photo.userFull.username,@"userID":weakSelf.photo.user.objectId,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
                                                     block:^(NSNumber *result, NSError *error) {
                                                         if (!error) {
                                                             NSLog(@"The user was notified sucessfully: %@", result);
@@ -425,6 +425,15 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 weakSelf.photo.imageFull = photoFile;
                 weakSelf.photo.userFull = [PFUser currentUser];
                 weakSelf.photo.state = @"full";
+                
+                NSString *name = NSStringFromClass([self.filter class]);
+                name = [name stringByReplacingOccurrencesOfString:@"GPUImage" withString:@""];
+                name = [name stringByReplacingOccurrencesOfString:@"BlendFilter" withString:@""];
+                
+                //store the filter we are using
+                weakSelf.photo[@"filter"] = name;       
+                
+                
                 [weakSelf.photo saveInBackgroundWithBlock:backgroundTaskCompletion];
                 
             }

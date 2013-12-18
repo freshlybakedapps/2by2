@@ -25,7 +25,7 @@ exports.sendMail = function(msg,htmlMsg,subject,username,email){
       });
 }
 
-exports.sendPush = function(userID,msg){
+exports.sendPush = function(userID,msg,photoID){
 	var pushQuery = new Parse.Query(Parse.Installation);
   pushQuery.equalTo('deviceType', 'ios');
   pushQuery.equalTo('channels', userID);//'SREzPjOawD');//
@@ -34,7 +34,8 @@ exports.sendPush = function(userID,msg){
     Parse.Push.send({
       where: pushQuery, // Set our Installation query
       data: {
-        alert: msg 
+        alert: msg,
+        p: photoID 
       }
       }, {
       success: function() {

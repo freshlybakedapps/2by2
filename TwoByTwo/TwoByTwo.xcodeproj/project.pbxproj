@@ -20,6 +20,7 @@
 		1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A81091854433D007227BB /* EditProfileViewController.m */; };
 		1D4A811618563D55007227BB /* MainNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A811518563D55007227BB /* MainNavBar.m */; };
 		1D542E2318592B0600AD0DED /* FriendProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D542E2218592B0600AD0DED /* FriendProfileViewController.m */; };
+		1D5AC88D1860C83B00751A4F /* PDPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AC88C1860C83B00751A4F /* PDPViewController.m */; };
 		1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D74B5701809A681005A4937 /* StoreKit.framework */; };
 		1D7B9F801858C3640065C907 /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F7F1858C3640065C907 /* UIImageView+Network.m */; };
 		1D7B9F861858C7600065C907 /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F831858C7600065C907 /* FTWCache.m */; };
@@ -99,6 +100,8 @@
 		1D4A811518563D55007227BB /* MainNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNavBar.m; sourceTree = "<group>"; };
 		1D542E2118592B0600AD0DED /* FriendProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendProfileViewController.h; sourceTree = "<group>"; };
 		1D542E2218592B0600AD0DED /* FriendProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendProfileViewController.m; sourceTree = "<group>"; };
+		1D5AC88B1860C83B00751A4F /* PDPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPViewController.h; sourceTree = "<group>"; };
+		1D5AC88C1860C83B00751A4F /* PDPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPViewController.m; sourceTree = "<group>"; };
 		1D74B5701809A681005A4937 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1D7B9F7E1858C3640065C907 /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
 		1D7B9F7F1858C3640065C907 /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
@@ -242,6 +245,15 @@
 				1D542E2218592B0600AD0DED /* FriendProfileViewController.m */,
 			);
 			name = FriendProfile;
+			sourceTree = "<group>";
+		};
+		1D5AC88A1860C82C00751A4F /* PDP */ = {
+			isa = PBXGroup;
+			children = (
+				1D5AC88B1860C83B00751A4F /* PDPViewController.h */,
+				1D5AC88C1860C83B00751A4F /* PDPViewController.m */,
+			);
+			name = PDP;
 			sourceTree = "<group>";
 		};
 		1D7B9F811858C7600065C907 /* FTWCache */ = {
@@ -398,6 +410,7 @@
 		7CD9507C17E665AA00C70956 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1D5AC88A1860C82C00751A4F /* PDP */,
 				1D542E2018592AD000AD0DED /* FriendProfile */,
 				1D4A81071854431B007227BB /* EditProfile */,
 				1DB0C7AE18464DB1002626C8 /* EverythingElse */,
@@ -675,6 +688,7 @@
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
+				1D5AC88D1860C83B00751A4F /* PDPViewController.m in Sources */,
 				1DB0C801184A65F6002626C8 /* FindInviteFriendsViewController.m in Sources */,
 				1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */,
 				7C7E2937183052120036557E /* UserAnnotation.m in Sources */,

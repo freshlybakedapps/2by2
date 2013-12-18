@@ -28,8 +28,7 @@ Parse.Cloud.define("getContactFriends", function(request, response){
 });
 
 var LikePhoto = require('cloud/LikePhoto.js');
-Parse.Cloud.define("likePhoto", function(request, response) {
-  console.log("xxxxxx");
+Parse.Cloud.define("likePhoto", function(request, response) {  
   LikePhoto.main(request, response);
 });
 

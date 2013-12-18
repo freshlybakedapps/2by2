@@ -32,6 +32,7 @@
    
     
     self.currentSkipCount = 0;
+    self.limit = [NSNumber numberWithInt:20];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performQuery) name:@"reloadImagesTable" object:nil];
     
@@ -133,6 +134,11 @@
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
         }
             break;
+        case FeedTypePDP:
+            self.collectionView.collectionViewLayout = self.feedLayout;
+            self.limit = [NSNumber numberWithInt:1];
+            [query whereKey:@"objectId" equalTo:self.photoID];
+            break;
         case FeedTypeGlobal:
         default:
             [query whereKey:@"state" equalTo:@"full"];
@@ -147,7 +153,7 @@
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         self.totalObjects = [NSNumber numberWithInt:number];
         
-        query.limit=20;
+        query.limit= [self.limit intValue];
         query.skip = [self.currentSkipCount intValue];
         [query setCachePolicy:kPFCachePolicyNetworkElseCache];
         //[query clearAllCachedResults];

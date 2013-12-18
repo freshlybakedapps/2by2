@@ -10,6 +10,7 @@
 #import "Reachability.h"
 #import "UIWindow+Animation.h"
 #import "Crittercism.h"
+#import "PDPViewController.h"
 
 
 @implementation AppDelegate
@@ -71,9 +72,18 @@
 - (void)handlePush:(NSDictionary *)launchOptions {
     // If the app was launched in response to a push notification, we'll handle the payload here
     NSDictionary *remoteNotificationPayload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    
     if (remoteNotificationPayload) {
+        /*
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:@"the app was launched in response to a push notification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
         [alert show];
+        */
+        
+        NSString *photoId = [remoteNotificationPayload objectForKey:@"p"];
+        
+        
+        [self showPDP:photoId];
+        
     }
 }
 
@@ -116,6 +126,11 @@
         // so we consider the app as having been "opened by a push notification."
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
+    
+    NSString *photoId = [userInfo objectForKey:@"p"];    
+    [self showPDP:photoId];
+    
+
 
     /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification" message:@"didReceiveRemoteNotification" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
@@ -156,6 +171,13 @@
 
 
 #pragma mark - Root View Controller
+
+- (void) showPDP:(NSString*) photoID{
+    UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PDPViewController"];
+    PDPViewController * pdp = (PDPViewController*)controller.topViewController;
+    pdp.photoID = photoID;
+    [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
+}
 
 - (void)showLoginViewController
 {

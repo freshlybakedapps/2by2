@@ -16,6 +16,9 @@
 @property (nonatomic, strong) NSMutableArray *objects;
 @property (nonatomic, strong) NSMutableArray *followers;
 @property (nonatomic, strong) PFUser *friend;
+@property (nonatomic, strong) NSNumber *limit;
+
+@property (nonatomic, strong) NSString *photoID;
 
 @property (nonatomic, strong) NSString *facebookId;
 
