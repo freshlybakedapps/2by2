@@ -14,6 +14,7 @@
 #import "NSString+MD5.h"
 #import "UIImageView+CircleMask.h"
 #import "FriendProfileViewController.h"
+#import "CommentsViewController.h"
 
 
 @interface GridCell () <MKMapViewDelegate>
@@ -22,6 +23,7 @@
 @property (nonatomic, weak) IBOutlet UIView *headerView;
 @property (nonatomic, weak) IBOutlet UIView *footerView;
 @property (nonatomic, weak) IBOutlet UIButton *likeButton;
+@property (nonatomic, weak) IBOutlet UIButton *commentButton;
 @property (nonatomic, weak) IBOutlet UILabel *filterLabel;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
@@ -41,6 +43,9 @@
     }else{
         self.filterLabel.text = @"";
     }
+    
+    //TODO: add the actual number of comments from the server
+    self.commentButton.titleLabel.text = @"0";
     
     
     [self addPhotographerNames];
@@ -76,6 +81,8 @@
     photo.showMap = NO;
     [self showImageOrMapAnimated:NO];
 }
+
+
 
 - (void) addPhotographerNames{
     if(self.userButton == nil){
@@ -184,6 +191,17 @@
 
 
 #pragma mark - Actions
+
+- (IBAction)commentButtonTapped:(id)sender
+{
+    UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
+    
+    CommentsViewController * cvc = (CommentsViewController*)controller.topViewController;
+    cvc.commentID = self.photo.objectId;
+    
+    
+    [self.controller presentViewController:controller animated:YES completion:nil];
+}
 
 - (IBAction)likeButtonTapped:(id)sender
 {

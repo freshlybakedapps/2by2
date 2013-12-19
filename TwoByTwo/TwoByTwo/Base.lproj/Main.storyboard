@@ -246,6 +246,24 @@
                                                         <action selector="likeButtonTapped:" destination="GOB-Y4-cAB" eventType="touchUpInside" id="NLa-H1-lGP"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xso-if-6To" userLabel="Comment Button - 100">
+                                                    <rect key="frame" x="56" y="0.0" width="100" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="Cg4-Nc-eCb"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <state key="normal" image="comment">
+                                                        <color key="titleColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="icon-like-on">
+                                                        <color key="titleColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="commentButtonTapped:" destination="GOB-Y4-cAB" eventType="touchUpInside" id="bQF-tg-u8v"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wc1-tq-jFR">
                                                     <rect key="frame" x="210" y="0.0" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -273,8 +291,8 @@
                                                         <action selector="toolButtonTapped:" destination="GOB-Y4-cAB" eventType="touchUpInside" id="0Lg-6J-zPC"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U10-dz-hnh">
-                                                    <rect key="frame" x="67" y="9" width="144" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U10-dz-hnh">
+                                                    <rect key="frame" x="115" y="9" width="96" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -312,6 +330,7 @@
                                     <constraint firstAttribute="bottom" secondItem="piT-wP-Xpg" secondAttribute="bottom" id="ycR-iN-rgW"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="commentButton" destination="Xso-if-6To" id="Ji7-Po-Xcn"/>
                                     <outlet property="filterLabel" destination="U10-dz-hnh" id="ZyL-vW-5cd"/>
                                     <outlet property="footerView" destination="piT-wP-Xpg" id="0Cx-wB-Ygn"/>
                                     <outlet property="headerView" destination="b3l-eF-rug" id="yYB-eq-zSE"/>
@@ -589,7 +608,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uRb-vT-1Dz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1187" y="2236"/>
+            <point key="canvasLocation" x="1167" y="1780"/>
         </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="1kb-hL-6pV">
@@ -685,7 +704,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8U-1D-MEh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1661" y="2234"/>
+            <point key="canvasLocation" x="1641" y="1778"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="E7J-ot-WN7">
+            <objects>
+                <navigationController storyboardIdentifier="CommentsViewController" definesPresentationContext="YES" id="s20-xQ-lI1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uSZ-Nu-3F2">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="5uv-R1-MUi" kind="relationship" relationship="rootViewController" id="IpF-i4-VkW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WHE-jE-oS4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1167" y="2472"/>
+        </scene>
+        <!--Comments View Controller-->
+        <scene sceneID="CMy-xK-JrJ">
+            <objects>
+                <viewController id="5uv-R1-MUi" customClass="CommentsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="S5O-55-m4U"/>
+                        <viewControllerLayoutGuide type="bottom" id="8i0-19-gHI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="m2R-9v-Oh7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4tc-C9-bSm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cfK-xO-DjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1643" y="2476"/>
         </scene>
         <!--Find Invite Friends View Controller-->
         <scene sceneID="xKJ-FK-ekY">
@@ -850,11 +903,14 @@
         <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
+        <image name="button-shutter-green" width="70" height="70"/>
+        <image name="comment" width="24" height="26"/>
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-follwing" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
+        <image name="icon-like-on" width="30" height="30"/>
         <image name="icon-like-on" width="30" height="30"/>
         <image name="icon-location" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>

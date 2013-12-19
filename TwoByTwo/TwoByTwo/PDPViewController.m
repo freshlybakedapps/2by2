@@ -44,7 +44,7 @@
     
     
     
-    self.navigationItem.title = @"PDP";
+    self.navigationItem.title = @"Notification";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
                                                                              style:UIBarButtonItemStyleBordered
                                                                             target:self

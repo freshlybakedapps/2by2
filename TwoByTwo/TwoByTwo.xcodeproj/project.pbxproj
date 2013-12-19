@@ -21,6 +21,7 @@
 		1D4A811618563D55007227BB /* MainNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A811518563D55007227BB /* MainNavBar.m */; };
 		1D542E2318592B0600AD0DED /* FriendProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D542E2218592B0600AD0DED /* FriendProfileViewController.m */; };
 		1D5AC88D1860C83B00751A4F /* PDPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5AC88C1860C83B00751A4F /* PDPViewController.m */; };
+		1D6FAC3F18626A1A00E14C76 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6FAC3E18626A1A00E14C76 /* DAKeyboardControl.m */; };
 		1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D74B5701809A681005A4937 /* StoreKit.framework */; };
 		1D7B9F801858C3640065C907 /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F7F1858C3640065C907 /* UIImageView+Network.m */; };
 		1D7B9F861858C7600065C907 /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F831858C7600065C907 /* FTWCache.m */; };
@@ -32,6 +33,7 @@
 		1DB0C801184A65F6002626C8 /* FindInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C800184A65F6002626C8 /* FindInviteFriendsViewController.m */; };
 		1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C804184A6B29002626C8 /* FindFacebookFriendsViewController.m */; };
 		1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */; };
+		1DB27B171862533800E5C083 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB27B161862533800E5C083 /* CommentsViewController.m */; };
 		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
 		1DD9715D184BF663001D35CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD9715B184BF663001D35CA /* AddressBook.framework */; };
 		1DD9715E184BF663001D35CA /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD9715C184BF663001D35CA /* AddressBookUI.framework */; };
@@ -102,6 +104,8 @@
 		1D542E2218592B0600AD0DED /* FriendProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendProfileViewController.m; sourceTree = "<group>"; };
 		1D5AC88B1860C83B00751A4F /* PDPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPViewController.h; sourceTree = "<group>"; };
 		1D5AC88C1860C83B00751A4F /* PDPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPViewController.m; sourceTree = "<group>"; };
+		1D6FAC3D18626A1A00E14C76 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
+		1D6FAC3E18626A1A00E14C76 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		1D74B5701809A681005A4937 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1D7B9F7E1858C3640065C907 /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
 		1D7B9F7F1858C3640065C907 /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
@@ -123,6 +127,8 @@
 		1DB0C804184A6B29002626C8 /* FindFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFacebookFriendsViewController.m; sourceTree = "<group>"; };
 		1DB0C806184A8D0B002626C8 /* FindFacebookFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindFacebookFriendCell.h; sourceTree = "<group>"; };
 		1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFacebookFriendCell.m; sourceTree = "<group>"; };
+		1DB27B151862533800E5C083 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		1DB27B161862533800E5C083 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		1DCD412618083BA2007A5D56 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1DCD412718083BA2007A5D56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1DD9715B184BF663001D35CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -256,6 +262,15 @@
 			name = PDP;
 			sourceTree = "<group>";
 		};
+		1D6FAC3C18626A1A00E14C76 /* DAKeyboardControl */ = {
+			isa = PBXGroup;
+			children = (
+				1D6FAC3D18626A1A00E14C76 /* DAKeyboardControl.h */,
+				1D6FAC3E18626A1A00E14C76 /* DAKeyboardControl.m */,
+			);
+			path = DAKeyboardControl;
+			sourceTree = "<group>";
+		};
 		1D7B9F811858C7600065C907 /* FTWCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +335,16 @@
 				1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */,
 			);
 			name = "Find Facebook friends";
+			sourceTree = "<group>";
+		};
+		1DB27B111862525D00E5C083 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				1D6FAC3C18626A1A00E14C76 /* DAKeyboardControl */,
+				1DB27B151862533800E5C083 /* CommentsViewController.h */,
+				1DB27B161862533800E5C083 /* CommentsViewController.m */,
+			);
+			name = Comments;
 			sourceTree = "<group>";
 		};
 		1DCD412518083B88007A5D56 /* Login */ = {
@@ -410,6 +435,7 @@
 		7CD9507C17E665AA00C70956 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1DB27B111862525D00E5C083 /* Comments */,
 				1D5AC88A1860C82C00751A4F /* PDP */,
 				1D542E2018592AD000AD0DED /* FriendProfile */,
 				1D4A81071854431B007227BB /* EditProfile */,
@@ -678,6 +704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */,
+				1D6FAC3F18626A1A00E14C76 /* DAKeyboardControl.m in Sources */,
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
 				7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */,
 				1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */,
@@ -710,6 +737,7 @@
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */,
 				1D542E2318592B0600AD0DED /* FriendProfileViewController.m in Sources */,
+				1DB27B171862533800E5C083 /* CommentsViewController.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
