@@ -87,6 +87,8 @@
     
     __weak typeof(self) weakSelf = self;
     
+    //https://github.com/danielamitay/DAKeyboardControl
+    
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
         /*
          Try not to call "self" inside this block (retain cycle).
@@ -100,8 +102,13 @@
         toolBar.frame = toolBarFrame;
         
         CGRect tableViewFrame = weakSelf.tableView.frame;
-        tableViewFrame.size.height = toolBarFrame.origin.y;
+        tableViewFrame.size.height = toolBarFrame.origin.y - 80;
         weakSelf.tableView.frame = tableViewFrame;
+        
+        //NSLog(@"tableViewFrame %@",weakSelf.tableView);
+        
+        NSIndexPath* ipath = [NSIndexPath indexPathForRow: weakSelf.objects.count-1 inSection: 0];
+        [weakSelf.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
     }];
     
     [self performQuery];
@@ -112,7 +119,8 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
     [query whereKey:@"commentID" equalTo:self.commentID];
-    [query orderByDescending:@"createdAt"];
+    [query orderByAscending:@"createdAt"];
+    //[query setCachePolicy:kPFCachePolicyNetworkElseCache];
     
     __weak typeof(self) weakSelf = self;
     
@@ -121,10 +129,13 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error) {
-            NSLog(@"objects!!! %@",objects);
+            //NSLog(@"objects!!! %@",objects);
             if(objects.count > 0){
                 [weakSelf.objects addObjectsFromArray:objects];
                 [weakSelf.tableView reloadData];
+                
+                NSIndexPath* ipath = [NSIndexPath indexPathForRow: weakSelf.objects.count-1 inSection: 0];
+                [weakSelf.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
             }
             
         }
@@ -138,7 +149,7 @@
     UIButton *sendButton = (UIButton*)sender;
     sendButton.enabled = NO;
     
-    NSLog(@"%@",sendButton);
+    //NSLog(@"%@",sendButton);
     
     NSString *t = self.textField.text;
     NSString *u = [PFUser currentUser].username;
@@ -168,6 +179,9 @@
             
             [weakSelf.tableView insertRowsAtIndexPaths:arrayWithIndexPaths withRowAnimation:UITableViewRowAnimationRight];
             [weakSelf.tableView endUpdates];
+            
+            NSIndexPath* ipath = [NSIndexPath indexPathForRow: weakSelf.objects.count-1 inSection: 0];
+            [weakSelf.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
         }
         @catch (NSException *exception) {
             NSLog(@"%@",exception.description);
@@ -201,7 +215,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSLog(@"%lu",(unsigned long)self.objects.count);
+    //NSLog(@"%lu",(unsigned long)self.objects.count);
     
     
     return self.objects.count;
@@ -228,7 +242,7 @@
 //TODO: move this to a custom cell class
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"comment");
+    //NSLog(@"comment");
     
     
     static NSString *CellIdentifier = @"Cell";
@@ -243,7 +257,7 @@
     
     PFObject *comment = [self.objects objectAtIndex:indexPath.row];
     
-    NSLog(@"comment:  %@",comment);
+    //NSLog(@"comment:  %@",comment);
     
     cell.textLabel.text = comment[@"text"];
     cell.textLabel.font = [UIFont boldSystemFontOfSize:13];
