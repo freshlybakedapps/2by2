@@ -194,13 +194,19 @@
 
 - (IBAction)commentButtonTapped:(id)sender
 {
-    UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
+    @try {
+        UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
+        
+        CommentsViewController * cvc = (CommentsViewController*)controller.topViewController;
+        cvc.commentID = self.photo.objectId;
+        
+        
+        [self.controller presentViewController:controller animated:YES completion:nil];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"commentButtonTapped/exception: %@",exception.description);
+    }
     
-    CommentsViewController * cvc = (CommentsViewController*)controller.topViewController;
-    cvc.commentID = self.photo.objectId;
-    
-    
-    [self.controller presentViewController:controller animated:YES completion:nil];
 }
 
 - (IBAction)likeButtonTapped:(id)sender

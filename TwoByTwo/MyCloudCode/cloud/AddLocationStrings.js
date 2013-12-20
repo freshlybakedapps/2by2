@@ -18,13 +18,22 @@ exports.main = function(request, status){
         url:'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+location_full.latitude + "," + location_full.longitude
       }).then(function(httpResponse){
         locCounter++;
-        if(httpResponse.data.results[0]){          
-          //Queens, Queens, Forest Hills, 72nd Avenue, 103-0-103-98
+
+        //Queens, Queens, Forest Hills, 72nd Avenue, 103-0-103-98
           //New York, Manhattan, Hell's Kitchen, West 39th Street, 318
           //Kings, Brooklyn, Bushwick, Knickerbocker Avenue, 276
-          var str = httpResponse.data.results[0].address_components[2].long_name +", "+ httpResponse.data.results[0].address_components[5].short_name;
-          //console.log(str);
-          
+        var str;
+
+        if(httpResponse.data.results[0]){
+          if(httpResponse.data.results[0].address_components[2]){
+            str = httpResponse.data.results[0].address_components[2].long_name;
+          }
+
+          if(httpResponse.data.results[0].address_components[5]){
+            str += ", "+httpResponse.data.results[0].address_components[5].short_name;
+          }else if(httpResponse.data.results[0].address_components[3]){
+            str += ", "+httpResponse.data.results[0].address_components[3].short_name;
+          }
           photo.set("location_full_str", str);
           return photo.save();
         }else{
