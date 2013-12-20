@@ -82,6 +82,12 @@ Parse.Cloud.job("addLocationStrings", function(request, status) {
   AddLocationStrings.main(request, status);
 });
 
+var OnComment = require('cloud/OnComment.js');
+Parse.Cloud.afterSave("Comment", function(request, response) {
+  OnComment.main(request, response);
+});
+
+
 /*
 var CreateThumbnails = require('cloud/CreateThumbnails.js');
 Parse.Cloud.beforeSave("Photo", function(request, response) {

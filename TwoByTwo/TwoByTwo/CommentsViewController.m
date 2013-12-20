@@ -203,12 +203,14 @@
     NSString *u = [PFUser currentUser].username;
     NSString *c = self.commentID;
     NSString *fb = [PFUser currentUser][@"facebookId"];
+    NSString *userID = [PFUser currentUser].objectId;
     
     PFObject *comment = [PFObject objectWithClassName:@"Comment"];
     comment[@"text"] = t;
     comment[@"username"] = u;
     comment[@"commentID"] = c;
     comment[@"facebookId"] = fb;
+    comment[@"userID"] = userID;
     
     __weak typeof(self) weakSelf = self;
     
@@ -324,7 +326,7 @@
                     [weakSelf.objects removeObject:comment];
                     [weakSelf.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject: indexPath] withRowAnimation:UITableViewRowAnimationFade];
                     [weakSelf.tableView endUpdates];
-                }                
+                }
             }
             @catch (NSException *exception) {
                 NSLog(@"deleteRowsAtIndexPaths/exception: %@ / %@",indexPath, exception.description);
