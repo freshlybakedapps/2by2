@@ -197,6 +197,10 @@
     @try {
         UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
         
+        //UINavigationController *navController =(UINavigationController*)[[[[UIApplication sharedApplication]delegate] window] rootViewController];
+        
+        //NSLog(@"%@",navController);
+        
         CommentsViewController * cvc = (CommentsViewController*)controller.topViewController;
         cvc.commentID = self.photo.objectId;
         

@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - xxx-->
         <scene sceneID="ucj-BP-YsX">
             <objects>
-                <navigationController definesPresentationContext="YES" id="Obj-f5-spw" sceneMemberID="viewController">
+                <navigationController title="xxx" definesPresentationContext="YES" id="Obj-f5-spw" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dia-uB-aYJ" customClass="MainNavBar">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -50,7 +50,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="krG-4B-tnX">
-                        <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Ilh-fn-X3d" customClass="IconSegmentedControl">
                             <rect key="frame" x="20" y="7" width="280" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -59,6 +58,7 @@
                                 <segment title="" image="icon-double"/>
                                 <segment title="" image="icon-follwing"/>
                                 <segment title="" image="icon-you"/>
+                                <segment title="" image="notifications_Active"/>
                             </segments>
                             <connections>
                                 <action selector="segmentedControlValueChanged:" destination="kXQ-kM-6nA" eventType="valueChanged" id="q0j-3g-jkf"/>
@@ -381,13 +381,6 @@
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="emailAddress" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="doN-mC-4kl">
-                                    <rect key="frame" x="103" y="55" width="203" height="21"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="numPhotos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vl3-q6-3kx">
                                     <rect key="frame" x="103" y="73" width="203" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -424,7 +417,6 @@
                             <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <outlet property="bioTextview" destination="GPB-gl-05c" id="EQM-DT-Alm"/>
-                                <outlet property="emailLabel" destination="doN-mC-4kl" id="YY1-zX-KIB"/>
                                 <outlet property="followersLabel" destination="BLZ-Ro-Jri" id="u0U-GW-Rx7"/>
                                 <outlet property="followingLabel" destination="Beb-OW-kdz" id="S3S-lC-KRg"/>
                                 <outlet property="nameLabel" destination="aqz-xA-cmp" id="puV-yV-mlg"/>
@@ -533,6 +525,9 @@
                 <navigationController storyboardIdentifier="FriendProfileViewController" definesPresentationContext="YES" id="l9Y-RW-gpb" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qms-yf-36R">
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="GMr-1w-Llw" kind="relationship" relationship="rootViewController" id="1vF-us-0lx"/>
@@ -709,6 +704,7 @@
         <!--Navigation Controller-->
         <scene sceneID="E7J-ot-WN7">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WHE-jE-oS4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="CommentsViewController" definesPresentationContext="YES" id="s20-xQ-lI1" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uSZ-Nu-3F2">
                         <autoresizingMask key="autoresizingMask"/>
@@ -717,14 +713,13 @@
                         <segue destination="5uv-R1-MUi" kind="relationship" relationship="rootViewController" id="IpF-i4-VkW"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WHE-jE-oS4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1167" y="2472"/>
         </scene>
         <!--Comments View Controller-->
         <scene sceneID="CMy-xK-JrJ">
             <objects>
-                <viewController id="5uv-R1-MUi" customClass="CommentsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommentsViewController2" id="5uv-R1-MUi" customClass="CommentsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="S5O-55-m4U"/>
                         <viewControllerLayoutGuide type="bottom" id="8i0-19-gHI"/>
@@ -913,6 +908,7 @@
         <image name="icon-location" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
+        <image name="notifications_Active" width="26" height="26"/>
         <image name="selfieDown" width="26" height="26"/>
         <image name="username_bg" width="291" height="39"/>
     </resources>

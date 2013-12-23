@@ -79,13 +79,7 @@ exports.main = function(request, response){
                 var subject = "2by2 - photo was liked";
 
                 if(userWhoLikedID != user_full.id && userWhoLikedID != user.id){
-                    if(overexposePushAlert_full == true){
-                        Notifications.sendPush(user_full.id,msg);
-                    }
-
-                    if(overexposeEmailAlert_full == true){
-                        Notifications.sendMail(msg,htmlMsg,subject, username,email);
-                    }
+                    Notifications.sendNotifications(response,"like",user_full.id,msg,htmlMsg,subject,photo.id,"",userWhoLikedID,userWhoLikedUsername,msg);
                 }
 
             }else{
@@ -95,22 +89,18 @@ exports.main = function(request, response){
                 var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
                 var subject = "2by2 - photo was liked";
 
+                console.log(msg);
+
                 //don't send a notification if I am liking my own photo
                 if(userWhoLikedID != user.id){
-                    if(likesPushAlert == true){
-                        Notifications.sendPush(user.id,msg);
-                    }
-
-                    if(likesEmailAlert == true){
-                        Notifications.sendMail(msg,htmlMsg,subject, username,email);
-                    }
+                    Notifications.sendNotifications(response,"like",user.id,msg,htmlMsg,subject,photo.id,"",userWhoLikedID,userWhoLikedUsername,msg);
                 }
             }
         }
             
             
 
-            response.success(likesCounter); 
+            //response.success(likesCounter); 
 
 
 	},    

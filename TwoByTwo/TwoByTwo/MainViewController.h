@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, FeedType) {
     FeedTypeGlobal,
     FeedTypeFollowing,
     FeedTypeYou,
+    FeedTypeNotifications,
     FeedTypeFriend,
     FeedTypePDP,
 };
@@ -23,5 +24,6 @@ typedef NS_ENUM(NSUInteger, FeedType) {
 
 @property (nonatomic, weak) IBOutlet UISegmentedControl *segControl;
 @property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UIButton *button;
 
 @end

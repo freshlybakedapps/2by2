@@ -31,6 +31,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;self.navigationItem.title = @"Notification";
     
     self.navigationItem.title = @"Comments for this photo";
+    
+    self.navigationItem.hidesBackButton = NO;
+    
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
                                                                              style:UIBarButtonItemStyleBordered
                                                                             target:self
@@ -92,10 +96,8 @@
                                   58.0f,
                                   29.0f);
     
+    
     [sendButton addTarget:self action:@selector(send:) forControlEvents:UIControlEventTouchDown];
-
-    
-    
     [toolBar addSubview:sendButton];
     
     __weak typeof(self) weakSelf = self;
@@ -205,12 +207,26 @@
     NSString *fb = [PFUser currentUser][@"facebookId"];
     NSString *userID = [PFUser currentUser].objectId;
     
+    NSLog(@"%@ / %@ / %@ / %@ / %@",t,u,c,fb,userID);
+    
+    
+
+    
+    
     PFObject *comment = [PFObject objectWithClassName:@"Comment"];
-    comment[@"text"] = t;
-    comment[@"username"] = u;
-    comment[@"commentID"] = c;
-    comment[@"facebookId"] = fb;
-    comment[@"userID"] = userID;
+    
+    @try {
+        comment[@"text"] = t;
+        comment[@"username"] = u;
+        comment[@"commentID"] = c;
+        comment[@"facebookId"] = fb;
+        comment[@"userID"] = userID;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"send/exception: %@",exception.description);
+    }
+    
+    
     
     __weak typeof(self) weakSelf = self;
     

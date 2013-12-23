@@ -277,7 +277,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                     
                     @try {
                         [PFCloud callFunctionInBackground:@"notifyUser"
-                                           withParameters:@{@"photoID":weakSelf.photo.objectId,@"user_full_username":weakSelf.photo.userFull.username,@"userID":weakSelf.photo.user.objectId,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
+                                           withParameters:@{@"photoID":weakSelf.photo.objectId,@"user_full_username":weakSelf.photo.userFull.username,@"user_full_id":weakSelf.photo.userFull.objectId,@"userID":weakSelf.photo.user.objectId,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
                                                     block:^(NSNumber *result, NSError *error) {
                                                         if (!error) {
                                                             NSLog(@"The user was notified sucessfully: %@", result);

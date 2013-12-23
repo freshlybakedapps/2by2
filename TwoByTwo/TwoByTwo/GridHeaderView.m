@@ -46,7 +46,7 @@
     
     self.nameLabel.text = user[@"fullName"];
     self.usernameLabel.text = user.username;
-    self.emailLabel.text = user[@"email"];
+    //self.emailLabel.text = user[@"email"];
     
     
     self.numPhotosLabel.text = @"Loading..";

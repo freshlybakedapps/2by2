@@ -19,6 +19,7 @@
     return self;
 }
 
+
 - (CGSize)sizeThatFits:(CGSize)size {
     CGSize newSize = CGSizeMake(self.frame.size.width,100);
     return newSize;
@@ -30,7 +31,7 @@
         //NSLog(@"view: %@",view);
         if ([NSStringFromClass([view class]) rangeOfString:@"Segmented"].length != 0) {
             //NSLog(@"UISegmentedControl");
-            view.frame = CGRectMake(0.0, 20.0, view.frame.size.width, view.frame.size.height);
+            view.frame = CGRectMake(view.frame.origin.x, 20.0, view.frame.size.width, view.frame.size.height);
         }
     }
 }

@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "GridViewController.h"
 #import "EditProfileViewController.h"
+#import "NotificationsViewController.h"
 
 
 @interface MainViewController ()
@@ -22,6 +23,10 @@
 {
     [super viewDidLoad];
     [self showControllerWithType:0];
+    
+    self.navigationItem.title = @"xxx";
+    
+    
     
     
     
@@ -40,6 +45,7 @@
 
 - (void)showControllerWithType:(FeedType)type
 {
+    
     if(!self.label){
         self.label = [ [UILabel alloc ] initWithFrame:CGRectMake(20.0, 80.0, 320.0, 43.0) ];
         self.label.textColor = [UIColor grayColor];
@@ -48,12 +54,16 @@
     }
     
     if(type == FeedTypeYou){
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button addTarget:self action:@selector(editProfile) forControlEvents:UIControlEventTouchDown];
-        [button setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"edit_Down"] forState:UIControlStateSelected];
-        button.frame = CGRectMake(self.view.frame.size.width - (26+20), 80.0, 26.0, 26.0);
-        [self.navigationController.view addSubview:button];
+        if(!self.button){
+            self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+            [self.button addTarget:self action:@selector(editProfile) forControlEvents:UIControlEventTouchDown];
+            [self.button setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
+            [self.button setImage:[UIImage imageNamed:@"edit_Down"] forState:UIControlStateSelected];
+            self.button.frame = CGRectMake(self.view.frame.size.width - (26+20), 80.0, 26.0, 26.0);
+        }
+        [self.navigationController.view addSubview:self.button];
+    }else{
+        [self.button removeFromSuperview];
     }
     
     switch (type) {
@@ -70,9 +80,13 @@
             //NewNav_05.psd
             self.label.text = @"From People you follow";
             break;
+        case FeedTypeNotifications:
+            self.label.text = @"Notifications";
+            break;
         case FeedTypeGlobal:
             //NewNav_04.psd
             self.label.text = @"Public feed";
+            break;
         default:
             break;
     }
@@ -85,8 +99,20 @@
         [self.childViewController removeFromParentViewController];
     }
     
-    GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
-    controller.type = type;
+    id controller;
+    
+    if(type == FeedTypeNotifications){
+        controller = [[NotificationsViewController alloc] init];
+        NotificationsViewController* c = (NotificationsViewController*) controller;
+    }else{
+        controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+        
+        GridViewController* c = (GridViewController*) controller;
+        c.type = type;
+    }
+    
+    //GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+    //controller.type = type;
     self.childViewController = controller;
     
     [self addChildViewController:self.childViewController];

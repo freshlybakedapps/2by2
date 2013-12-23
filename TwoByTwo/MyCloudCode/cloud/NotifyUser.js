@@ -7,6 +7,7 @@ exports.main = function(request, response){
   		//var user = request.object.get("user");
   		//var url = request.object.get("image_full")._url;
       var user_full_username = request.params.user_full_username;
+      var user_full_id = request.params.user_full_id;
       var userID = request.params.userID;
       var url = request.params.url;
       var photoID = request.params.photoID;
@@ -46,10 +47,7 @@ exports.main = function(request, response){
 		    success: function(user) {
 		    	var email = user.get("email");
 		    	var username = user.get("username");
-		    	var overexposeEmailAlert = user.get("overexposeEmailAlert");
-          var overexposePushAlert = user.get("overexposePushAlert");
-
-          
+		    	
 
           var locationInfo = "";
 
@@ -58,19 +56,11 @@ exports.main = function(request, response){
           }
 
           var msg = "Hey "+username+", your photo was overexposed by "+ user_full_username + locationInfo;
+          var htmlMsg = msg+ "<br><img src='"+ url + "'></img>";
+          var subject = "2by2 - your photo was double exposed by "+ user_full_username;
 
-             
-          if(overexposePushAlert == true){
-            Notifications.sendPush(user.id,msg,photoID);
-          }
-          
-          if(overexposeEmailAlert == true){
-            var htmlMsg = msg+ "<br><img src='"+ url + "'></img>";
-            var subject = "2by2 - your photo was double exposed by "+ user_full_username;
 
-		    		Notifications.sendMail(msg,htmlMsg,subject, username,email);
-          }
-          response.success("email sent");
+          Notifications.sendNotifications(response,"overexposed",user.id,msg,htmlMsg,subject,photoID,locationInfo,user_full_id,user_full_username,msg);
         
         },
 	    	error: function(error) {

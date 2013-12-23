@@ -32,6 +32,9 @@ exports.main = function(request, response){
               var msg = "hi "+username+", you have a new follower.";
               var subject = "2by2 - new follower";
 
+              Notifications.sendNotifications(response,"follow",user.id,msg,msg,subject,"0","",userID,"",msg);
+
+              /*
               if(followsPushAlert == true){
                 Notifications.sendPush(user.id,msg);
               }
@@ -39,8 +42,8 @@ exports.main = function(request, response){
               if(followsEmailAlert == true){
                 Notifications.sendMail(msg,msg,subject, username,email);
               }
-
-              response.success(true);
+              */
+              //response.success(true);
             },
             error: function(error) {
               console.error("Got an error " + error.code + " : " + error.message);

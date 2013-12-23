@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A5F661867616E0086FE1C /* NotificationsViewController.m */; };
 		1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */; };
 		1D1B34F7181EAFA200E6F26A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34F6181EAFA200E6F26A /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1D4207C317E6AB10008A7F98 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */; };
@@ -84,6 +85,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D0A5F651867616E0086FE1C /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		1D0A5F661867616E0086FE1C /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		1D1B34EB181B203800E6F26A /* UIImage+UIImageResizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageResizing.h"; sourceTree = "<group>"; };
 		1D1B34EC181B203800E6F26A /* UIImage+UIImageResizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageResizing.m"; sourceTree = "<group>"; };
 		1D1B34F5181EAFA200E6F26A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -226,6 +229,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D0A5F6118675EFE0086FE1C /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				1D0A5F651867616E0086FE1C /* NotificationsViewController.h */,
+				1D0A5F661867616E0086FE1C /* NotificationsViewController.m */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
 		1D1B34F4181EAFA200E6F26A /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -435,6 +447,7 @@
 		7CD9507C17E665AA00C70956 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1D0A5F6118675EFE0086FE1C /* Notifications */,
 				1DB27B111862525D00E5C083 /* Comments */,
 				1D5AC88A1860C82C00751A4F /* PDP */,
 				1D542E2018592AD000AD0DED /* FriendProfile */,
@@ -710,6 +723,7 @@
 				1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */,
+				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,
 				7C7657901825AE920053483B /* GridCell.m in Sources */,
 				7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,

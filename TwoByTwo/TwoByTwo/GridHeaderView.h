@@ -14,7 +14,7 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *usernameLabel;
-@property (nonatomic, weak) IBOutlet UILabel *emailLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *emailLabel;
 @property (nonatomic, weak) IBOutlet UILabel *numPhotosLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followersLabel;

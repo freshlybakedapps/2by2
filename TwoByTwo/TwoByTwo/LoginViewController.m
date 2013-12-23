@@ -70,20 +70,43 @@
                     }
 
                     
-                    NSLog(@"email %@", email);
-                    [PFUser currentUser][@"facebookId"] = result[@"id"];
-                    [PFUser currentUser].email = email;
-                    [PFUser currentUser].username = username;
-                    [PFUser currentUser][@"fullName"] = name;
-                    [[PFUser currentUser] saveInBackground];
+                    @try {
+                        [PFUser currentUser][@"facebookId"] = result[@"id"];
+                        [PFUser currentUser].email = email;
+                        
+                        if(username){
+                           [PFUser currentUser].username = username;
+                        }else{
+                           [PFUser currentUser].username = name;
+                        }
+                        
+                        
+                        [PFUser currentUser][@"fullName"] = name;
+                        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if(error){
+                                NSLog(@"FB login %@",error.description);
+                            }
+                        }];
+
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"login/exception: %@",exception.description);
+                    }
                     
-                    NSDictionary *dimensions = @{
-                                                 @"username": username,
-                                                 @"fullName": name,
-                                                 @"facebookId": result[@"id"]
-                                                 };
+                    @try {
+                        NSDictionary *dimensions = @{                                                    
+                                                     @"fullName": name,
+                                                     @"facebookId": result[@"id"]
+                                                     };
+                        
+                        [PFAnalytics trackEvent:@"new_user" dimensions:dimensions];
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"new_user_PFAnalytics/exception: %@",exception.description);
+                    }
                     
-                    [PFAnalytics trackEvent:@"new_user" dimensions:dimensions];
+                    
+                    
                     
                     
                     [[AppDelegate delegate] showMainViewController];
