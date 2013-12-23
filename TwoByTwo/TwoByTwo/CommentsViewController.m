@@ -380,7 +380,7 @@
     cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
     cell.detailTextLabel.textColor = [UIColor grayColor];
     
-    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",comment[@"facebookId"]];
+    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",comment[@"facebookId"]];
     NSURL *imageURL = [NSURL URLWithString:url];
     
     

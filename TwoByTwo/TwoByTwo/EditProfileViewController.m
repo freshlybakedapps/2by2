@@ -76,7 +76,7 @@
     self.bio.delegate = self;
     
     
-    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",[PFUser currentUser][@"facebookId"]];
+    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",[PFUser currentUser][@"facebookId"]];
     NSURL *imageURL = [NSURL URLWithString:url];
     //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
     //self.photo.image = [UIImage imageWithData:imageData];

@@ -18,7 +18,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *numPhotosLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followersLabel;
-@property (nonatomic, weak) IBOutlet UITextView *bioTextview;
+@property (nonatomic, weak) IBOutlet UILabel *bioTextview;
 @property (nonatomic, weak) IBOutlet UIImageView *photo;
 
 @property (nonatomic, weak) GridViewController* controller;

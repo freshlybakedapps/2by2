@@ -43,6 +43,7 @@
 		1DD97169184CCDD9001D35CA /* contact.html in Resources */ = {isa = PBXBuildFile; fileRef = 1DD97166184CCDD9001D35CA /* contact.html */; };
 		1DD9716A184CCDD9001D35CA /* Terms.html in Resources */ = {isa = PBXBuildFile; fileRef = 1DD97167184CCDD9001D35CA /* Terms.html */; };
 		1DD9718A184CD290001D35CA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD97189184CD290001D35CA /* WebViewController.m */; };
+		1DDC01081868E3DF00292DA2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDC01071868E3DF00292DA2 /* Social.framework */; };
 		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
 		7C16CF421839853B007EA62D /* GridHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF411839853B007EA62D /* GridHeaderView.m */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
@@ -143,6 +144,7 @@
 		1DD97167184CCDD9001D35CA /* Terms.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Terms.html; sourceTree = "<group>"; };
 		1DD97188184CD290001D35CA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1DD97189184CD290001D35CA /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		1DDC01071868E3DF00292DA2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		7C16CF3B1839738B007EA62D /* IconSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconSegmentedControl.h; sourceTree = "<group>"; };
 		7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconSegmentedControl.m; sourceTree = "<group>"; };
 		7C16CF401839853B007EA62D /* GridHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridHeaderView.h; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DDC01081868E3DF00292DA2 /* Social.framework in Frameworks */,
 				1DD9715D184BF663001D35CA /* AddressBook.framework in Frameworks */,
 				1DD9715E184BF663001D35CA /* AddressBookUI.framework in Frameworks */,
 				7C7E2934183043D60036557E /* MapKit.framework in Frameworks */,
@@ -484,6 +487,7 @@
 		7CF39DDD17E0070A003A859F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1DDC01071868E3DF00292DA2 /* Social.framework */,
 				1DD9715B184BF663001D35CA /* AddressBook.framework */,
 				1DD9715C184BF663001D35CA /* AddressBookUI.framework */,
 				7C7E2933183043D60036557E /* MapKit.framework */,

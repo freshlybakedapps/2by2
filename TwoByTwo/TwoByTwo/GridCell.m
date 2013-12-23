@@ -97,7 +97,7 @@
         
     }
     
-    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",_photo.user[@"facebookId"]];
+    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",_photo.user[@"facebookId"]];
     NSURL *imageURL = [NSURL URLWithString:url];
     //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
     
@@ -131,7 +131,7 @@
         [self.userFullButton setTitle:_photo.userFull.username forState:UIControlStateNormal];
         [self.userFullButton sizeToFit];
         
-        NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",_photo.userFull[@"facebookId"]];
+        NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",_photo.userFull[@"facebookId"]];
         NSURL *imageURL = [NSURL URLWithString:url];
         //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
         

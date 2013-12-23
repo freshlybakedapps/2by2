@@ -55,6 +55,12 @@
     [self getFollowers];
 }
 
+- (void) scrollToTop{
+    NSLog(@"TOP");
+    [self.collectionView setContentOffset:CGPointZero animated:YES];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+}
+
 - (void) getFollowers{
     PFQuery *followQuery = [PFQuery queryWithClassName:@"Followers"];
     [followQuery whereKey:@"userID" equalTo:[PFUser currentUser].objectId];

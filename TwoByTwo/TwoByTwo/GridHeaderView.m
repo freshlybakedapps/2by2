@@ -74,11 +74,14 @@
         self.followersLabel.text = [NSString stringWithFormat:@"%lu Followers",(unsigned long)number];
     }];
     
-    
+    self.bioTextview.lineBreakMode = NSLineBreakByWordWrapping;
+    self.bioTextview.numberOfLines = 0;
     self.bioTextview.text = user[@"bio"];
+    [self.bioTextview sizeToFit];
     
     
-    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal",user[@"facebookId"]];
+    
+    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",user[@"facebookId"]];
     NSURL *imageURL = [NSURL URLWithString:url];
     self.photo.frame = CGRectMake(20, 0, 100, 100);
     [self.photo loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];

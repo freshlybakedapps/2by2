@@ -47,7 +47,7 @@
 - (void)performQuery
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
-    [query whereKey:@"notificationID" equalTo:@"YzWCzyVrKQ"];//[PFUser currentUser].objectId];
+    [query whereKey:@"notificationID" equalTo:[PFUser currentUser].objectId];
     [query orderByDescending:@"createdAt"];
     //[query setCachePolicy:kPFCachePolicyNetworkElseCache];
     
@@ -212,7 +212,7 @@
                                                attributes:@{NSFontAttributeName:cellFont}
                                                   context:nil];
         
-        return labelSize.size.height + 25;
+        return labelSize.size.height + 45;
         
     }else{
         return 60;
@@ -230,7 +230,7 @@
     PFObject *notification = [self.objects objectAtIndex:indexPath.row];
     NSString* photoID = notification[@"photoID"];
     NSString* byUserID = notification[@"byUserID"];
-    NSString* friendName = notification[@"byUsername"];
+    //NSString* friendName = notification[@"byUsername"];
     
     NSLog(@"photoID: %@",photoID);
     

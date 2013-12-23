@@ -28,10 +28,9 @@
     
     
     
-    
-    
     //self.segControl.frame = CGRectMake(0.0, 20.0, self.segControl.frame.size.width, self.segControl.frame.size.height);
 }
+
 
 - (IBAction)segmentedControlValueChanged:(UISegmentedControl *)sender
 {
@@ -45,6 +44,18 @@
 
 - (void)showControllerWithType:(FeedType)type
 {
+    
+    /*
+    if(self.childViewController != nil && self.currentFeedType == type && self.currentFeedType != FeedTypeNotifications){
+        
+        NSLog(@"showControllerWithType");
+        //GridViewController* c = (GridViewController*)self.childViewController;
+         //[c scrollToTop];
+     
+        //return;
+    }
+    */
+    
     
     if(!self.label){
         self.label = [ [UILabel alloc ] initWithFrame:CGRectMake(20.0, 80.0, 320.0, 43.0) ];
@@ -119,6 +130,8 @@
     self.childViewController.view.frame = self.view.bounds;
     [self.view insertSubview:self.childViewController.view atIndex:0];
     [self.childViewController didMoveToParentViewController:self];
+    
+    self.currentFeedType = type;
 }
 
 @end

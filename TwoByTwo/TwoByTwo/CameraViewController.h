@@ -12,6 +12,7 @@
 @interface CameraViewController : UIViewController <CLLocationManagerDelegate>
 
 @property (nonatomic, weak) PFObject *photo;
+@property (nonatomic) BOOL sharingFacebook;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 + (instancetype)controller;

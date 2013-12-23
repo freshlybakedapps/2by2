@@ -20,6 +20,9 @@ extern NSString * const ALERT_EMAIL_FOLLOW;
 extern NSString * const ALERT_PUSH_OVEREXPOSED;
 extern NSString * const ALERT_PUSH_LIKES;
 extern NSString * const ALERT_PUSH_FOLLOW;
+extern NSString * const ALERT_PUSH_COMMENTS;
+extern NSString * const ALERT_PUSH_COMMENTS;
+
 extern NSString * const DIGEST_EMAIL;
 
 

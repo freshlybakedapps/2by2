@@ -11,6 +11,7 @@
 #import "ProgressButton.h"
 #import "AppDelegate.h"
 #import "UIImage+UIImageResizing.h"
+#import <Social/Social.h>
 
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
@@ -28,6 +29,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 @property (nonatomic, weak) IBOutlet UIButton *topButton;
 @property (nonatomic, weak) IBOutlet UIButton *rotateCameraButton;
 @property (nonatomic, weak) IBOutlet UIButton *blendModeButton;
+@property (nonatomic, weak) IBOutlet UIButton *facebookButton;
 @property (nonatomic, weak) IBOutlet ProgressButton *bottomButton;
 @property (nonatomic, strong) GPUImageStillCamera *stillCamera;
 @property (nonatomic, strong) GPUImageFilter *filter;
@@ -54,6 +56,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     [self.locationManager startMonitoringSignificantLocationChanges];
     
     self.state = CameraViewStateTakePhoto;
+    
+    self.sharingFacebook = NO;
     
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
@@ -163,6 +167,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             self.liveView.hidden = NO;
             self.previewView.hidden = YES;
             self.topButton.hidden = NO;
+            self.rotateCameraButton.hidden = NO;
+            self.facebookButton.hidden = YES;
+            
             [self.topButton setImage:[UIImage imageNamed:@"button-close"] forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-shutter-black"] forState:UIControlStateNormal];
             break;
@@ -173,12 +180,16 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             self.topButton.hidden = NO;
             [self.topButton setImage:[UIImage imageNamed:@"button-back"] forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-upload"] forState:UIControlStateNormal];
+            self.rotateCameraButton.hidden = YES;
+            self.facebookButton.hidden = NO;
             break;
             
         case CameraViewStateUploading:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
             self.topButton.hidden = YES;
+            self.rotateCameraButton.hidden = YES;
+            self.facebookButton.hidden = NO;
             [self.bottomButton setImage:nil forState:UIControlStateNormal];
             self.bottomButton.outerColor = [UIColor appBlackishColor];
             self.bottomButton.innerColor = [UIColor appBlackishColor];
@@ -193,6 +204,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
             self.topButton.hidden = YES;
+            self.rotateCameraButton.hidden = YES;
+            self.facebookButton.hidden = NO;
             [self.bottomButton setImage:[UIImage imageNamed:@"button-done"] forState:UIControlStateNormal];
             break;
             
@@ -203,6 +216,65 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
 
 #pragma mark - Actions
+
+- (void)ShareFacebook
+{
+    SLComposeViewController *fbController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    {
+        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
+            
+            [fbController dismissViewControllerAnimated:YES completion:nil];
+            
+            switch(result){
+                case SLComposeViewControllerResultCancelled:
+                default:
+                {
+                    NSLog(@"Cancelled.....");
+                    // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs://"]];
+                    
+                }
+                    break;
+                case SLComposeViewControllerResultDone:
+                {
+                    NSLog(@"Posted....");
+                }
+                    break;
+            }};
+        
+        if(self.photo){
+            [fbController setInitialText:@"I just double exposed a photo with 2by2"];
+        }else{
+            [fbController setInitialText:@"Just took a photo with 2by2. Download the app and double exposed my image."];
+        }
+        
+        [fbController addImage:self.previewView.image];
+        
+        
+        [fbController setCompletionHandler:completionHandler];
+        
+        UINavigationController *navController =(UINavigationController*)[[[[UIApplication sharedApplication]delegate] window] rootViewController];
+        
+        [navController presentViewController:fbController animated:YES completion:nil];
+    }
+    else{
+        NSLog(@"sign in");
+    }
+}
+
+- (IBAction)facebookShare:(id)sender
+{
+    //NSLog(@"facebookShare");
+    if(self.sharingFacebook == NO){
+        [self.facebookButton setImage:[UIImage imageNamed:@"facebook_Active"] forState:UIControlStateNormal];
+        self.sharingFacebook = YES;
+        
+    }else{
+        [self.facebookButton setImage:[UIImage imageNamed:@"facebook"] forState:UIControlStateNormal];
+        self.sharingFacebook = NO;
+    }
+}
 
 - (IBAction)rotateCamera:(id)sender
 {
@@ -267,7 +339,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [weakSelf cleanup];
-                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                    [weakSelf dismissViewControllerAnimated:YES completion:^{
+                        [weakSelf ShareFacebook];
+                    }];
                 });
                 
                 NSString *location = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationFull.latitude,weakSelf.photo.locationFull.longitude];

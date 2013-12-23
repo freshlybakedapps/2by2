@@ -24,5 +24,7 @@
 
 @property (nonatomic, strong) NSNumber* totalObjects;
 
+- (void) scrollToTop;
+
 
 @end

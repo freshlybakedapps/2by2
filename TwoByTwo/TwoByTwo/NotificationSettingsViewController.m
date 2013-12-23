@@ -13,18 +13,24 @@ typedef NS_ENUM(NSUInteger, SwitchNum) {
     alert_email_overexposed = 1000,
     alert_email_likes = 1001,
     alert_email_follow = 1002,
+    alert_email_comments = 1003,
     alert_push_overexposed = 1100,
     alert_push_likes = 1101,
     alert_push_follow = 1102,
+    alert_push_comments = 1103,
     digest_email = 1200,
 };
 
 NSString * const ALERT_EMAIL_OVEREXPOSED = @"overexposeEmailAlert";
 NSString * const ALERT_EMAIL_LIKES = @"likesEmailAlert";
 NSString * const ALERT_EMAIL_FOLLOW = @"followsEmailAlert";
+NSString * const ALERT_EMAIL_COMMENTS = @"commentsEmailAlert";
+
 NSString * const ALERT_PUSH_OVEREXPOSED = @"overexposePushAlert";
 NSString * const ALERT_PUSH_LIKES = @"likesPushAlert";
 NSString * const ALERT_PUSH_FOLLOW = @"followsPushAlert";
+NSString * const ALERT_PUSH_COMMENTS = @"commentsPushAlert";
+
 NSString * const DIGEST_EMAIL = @"digestEmailAlert";
 
 
@@ -61,10 +67,12 @@ NSString * const DIGEST_EMAIL = @"digestEmailAlert";
         [self.emailSection addObject:@"Overexposes my photo"];
         [self.emailSection addObject:@"Likes my photo"];
         [self.emailSection addObject:@"Follows me"];
+        [self.emailSection addObject:@"Comments"];
         
         [self.pushSection addObject:@"Overexposes my photo"];
         [self.pushSection addObject:@"Likes my photo"];
         [self.pushSection addObject:@"Follows me"];
+        [self.pushSection addObject:@"Comments"];
         
         [self.digestSection addObject:@"Weekly digest"];
         
@@ -219,6 +227,9 @@ NSString * const DIGEST_EMAIL = @"digestEmailAlert";
         case alert_email_follow:
             [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_EMAIL_FOLLOW];
             break;
+        case alert_email_comments:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_EMAIL_COMMENTS];
+            break;
         case alert_push_overexposed:
             [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_PUSH_OVEREXPOSED];
             break;
@@ -227,6 +238,9 @@ NSString * const DIGEST_EMAIL = @"digestEmailAlert";
             break;
         case alert_push_follow:
             [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_PUSH_FOLLOW];
+            break;
+        case alert_push_comments:
+            [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:ALERT_PUSH_COMMENTS];
             break;
         case digest_email:
             [[PFUser currentUser] setObject:[NSNumber numberWithBool:n] forKey:DIGEST_EMAIL];
@@ -281,6 +295,13 @@ NSString * const DIGEST_EMAIL = @"digestEmailAlert";
                 [switchview setOn:NO];
             }
             break;
+        case alert_email_comments:
+            if([PFUser currentUser][ALERT_EMAIL_COMMENTS] == [NSNumber numberWithBool:1]){
+                [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
+            }
+            break;
         case alert_push_overexposed:
             if([PFUser currentUser][ALERT_PUSH_OVEREXPOSED] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
@@ -297,6 +318,13 @@ NSString * const DIGEST_EMAIL = @"digestEmailAlert";
             break;
         case alert_push_follow:
             if([PFUser currentUser][ALERT_PUSH_FOLLOW] == [NSNumber numberWithBool:1]){
+                [switchview setOn:YES];
+            }else{
+                [switchview setOn:NO];
+            }
+            break;
+        case alert_push_comments:
+            if([PFUser currentUser][ALERT_PUSH_COMMENTS] == [NSNumber numberWithBool:1]){
                 [switchview setOn:YES];
             }else{
                 [switchview setOn:NO];
