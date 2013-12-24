@@ -13,6 +13,7 @@
 
 @property (nonatomic, weak) PFObject *photo;
 @property (nonatomic) BOOL sharingFacebook;
+@property (nonatomic) BOOL m_postingInProgress;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 + (instancetype)controller;

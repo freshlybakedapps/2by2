@@ -219,48 +219,66 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
 - (void)ShareFacebook
 {
-    SLComposeViewController *fbController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
     
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound)
     {
-        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
-            
-            [fbController dismissViewControllerAnimated:YES completion:nil];
-            
-            switch(result){
-                case SLComposeViewControllerResultCancelled:
-                default:
-                {
-                    NSLog(@"Cancelled.....");
-                    // [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs://"]];
-                    
-                }
-                    break;
-                case SLComposeViewControllerResultDone:
-                {
-                    NSLog(@"Posted....");
-                }
-                    break;
-            }};
-        
-        if(self.photo){
-            [fbController setInitialText:@"I just double exposed a photo with 2by2"];
-        }else{
-            [fbController setInitialText:@"Just took a photo with 2by2. Download the app and double exposed my image."];
+        // No permissions found in session, ask for it
+        [FBSession.activeSession requestNewPublishPermissions: [NSArray arrayWithObject:@"publish_actions"]
+                                              defaultAudience: FBSessionDefaultAudienceFriends
+                                            completionHandler: ^(FBSession *session, NSError *error)
+         {
+             if (!error)
+             {
+                 // If permissions granted and not already posting then publish the story
+                 if (!self.m_postingInProgress)
+                 {
+                     [self postToWall];
+                 }
+             }
+         }];
+    }
+    else
+    {
+        // If permissions present and not already posting then publish the story
+        if (!self.m_postingInProgress)
+        {
+            [self postToWall];
         }
-        
-        [fbController addImage:self.previewView.image];
-        
-        
-        [fbController setCompletionHandler:completionHandler];
-        
-        UINavigationController *navController =(UINavigationController*)[[[[UIApplication sharedApplication]delegate] window] rootViewController];
-        
-        [navController presentViewController:fbController animated:YES completion:nil];
     }
-    else{
-        NSLog(@"sign in");
-    }
+    
+}
+
+- (void) postToWall{
+    
+    self.m_postingInProgress = YES;
+    
+    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    [params setObject:@"2by2 photo" forKey:@"message"];
+    [params setObject:UIImagePNGRepresentation(self.previewView.image) forKey:@"picture"];
+    
+    [FBRequestConnection startWithGraphPath:@"me/photos"
+                                 parameters:params
+                                 HTTPMethod:@"POST"
+                          completionHandler:^(FBRequestConnection *connection,
+                                              id result,
+                                              NSError *error)
+     {
+         if (error)
+         {
+             //showing an alert for failure
+             UIAlertView *alertView = [[UIAlertView alloc]
+                                       initWithTitle:@"Post Failed"
+                                       message:error.localizedDescription
+                                       delegate:nil
+                                       cancelButtonTitle:@"OK"
+                                       otherButtonTitles:nil];
+             [alertView show];
+         }else{
+             self.m_postingInProgress = NO;
+             NSLog(@"facebook post sucessfull %@",result);
+         }
+         
+     }];
 }
 
 - (IBAction)facebookShare:(id)sender
@@ -340,7 +358,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [weakSelf cleanup];
                     [weakSelf dismissViewControllerAnimated:YES completion:^{
-                        [weakSelf ShareFacebook];
+                        if(weakSelf.sharingFacebook == YES){
+                            [weakSelf ShareFacebook];
+                        }
                     }];
                 });
                 

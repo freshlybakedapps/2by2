@@ -260,24 +260,6 @@
                                                         <action selector="likeButtonTapped:" destination="GOB-Y4-cAB" eventType="touchUpInside" id="NLa-H1-lGP"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xso-if-6To" userLabel="Comment Button - 100">
-                                                    <rect key="frame" x="56" y="0.0" width="100" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="Cg4-Nc-eCb"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <state key="normal" image="comment">
-                                                        <color key="titleColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <state key="selected" image="icon-like-on">
-                                                        <color key="titleColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="commentButtonTapped:" destination="GOB-Y4-cAB" eventType="touchUpInside" id="bQF-tg-u8v"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wc1-tq-jFR">
                                                     <rect key="frame" x="210" y="0.0" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -312,6 +294,18 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ngy-FB-dLc">
+                                                    <rect key="frame" x="30" y="7" width="100" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <state key="normal" title="100" image="comment">
+                                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="commentButtonTapped:" destination="GOB-Y4-cAB" eventType="touchUpInside" id="VXA-Ut-V0V"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -344,7 +338,7 @@
                                     <constraint firstAttribute="bottom" secondItem="piT-wP-Xpg" secondAttribute="bottom" id="ycR-iN-rgW"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="commentButton" destination="Xso-if-6To" id="Ji7-Po-Xcn"/>
+                                    <outlet property="commentButton" destination="Ngy-FB-dLc" id="yyQ-0Q-mZ0"/>
                                     <outlet property="filterLabel" destination="U10-dz-hnh" id="ZyL-vW-5cd"/>
                                     <outlet property="footerView" destination="piT-wP-Xpg" id="0Cx-wB-Ygn"/>
                                     <outlet property="headerView" destination="b3l-eF-rug" id="yYB-eq-zSE"/>
@@ -911,6 +905,7 @@
         <image name="bio_bg" width="291" height="144"/>
         <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
+        <image name="button-shutter-green" width="70" height="70"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
         <image name="facebook" width="26" height="26"/>

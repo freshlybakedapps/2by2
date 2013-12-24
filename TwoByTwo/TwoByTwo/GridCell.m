@@ -44,8 +44,31 @@
         self.filterLabel.text = @"";
     }
     
-    //TODO: add the actual number of comments from the server
-    self.commentButton.titleLabel.text = @"0";
+     __weak typeof(self) weakSelf = self;
+    
+    //storing values on controller so we don't have to get them again
+    self.commentCount = [self.controller.commentCount objectForKey:self.photo.objectId];
+    if(!self.commentCount){
+        PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
+        [query whereKey:@"commentID" equalTo:self.photo.objectId];
+        [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            NSString* s = [NSString stringWithFormat:@"%d",number];
+            weakSelf.commentButton.titleLabel.text = s;
+            [weakSelf.commentButton setTitle:s forState:UIControlStateHighlighted];
+            [weakSelf.commentButton setTitle:s forState:UIControlStateSelected];
+            [weakSelf.commentButton setTitle:s forState:UIControlStateReserved];
+            [weakSelf.commentButton setTitle:s forState:UIControlStateDisabled];
+            [weakSelf.commentButton setTitle:s forState:UIControlStateApplication];
+            [weakSelf.commentButton setTitle:s forState:UIControlStateNormal];
+            [weakSelf.commentButton sizeToFit];
+        }];
+    }else{
+        self.commentButton.titleLabel.text = self.commentCount;
+        [self.commentButton setTitle:self.commentCount forState:UIControlStateHighlighted];
+        [self.commentButton setTitle:self.commentCount forState:UIControlStateSelected];
+    }
+    
+    
     
     
     [self addPhotographerNames];
@@ -194,6 +217,11 @@
 
 - (IBAction)commentButtonTapped:(id)sender
 {
+    
+    NSLog(@"commentCount: %@",self.commentButton.titleLabel.text);
+    [self.commentButton setTitle:self.commentButton.titleLabel.text forState:UIControlStateNormal];
+    
+    
     @try {
         UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
         

@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIImageView *userFullPhoto;
 
 @property (nonatomic, strong) GridViewController *controller;
+@property (nonatomic,strong) NSString* commentCount;
 
 - (void)showImageOrMapAnimated:(BOOL)animated;
 
