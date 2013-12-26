@@ -8,9 +8,10 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
   // - overexposed
   // - follow
   // - like
+  // - newUser
 
 
-  console.log("(sendNotifications) - "+notificationType+"    /   "+msg);
+  console.log("(sendNotifications) - "+notificationType+"    /   "+userID);
 
   Parse.Cloud.useMasterKey();
 
@@ -36,14 +37,19 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
       }else if(notificationType == "like"){
         userAllowsEmail = user.get("likesEmailAlert");
         userAllowsPush = user.get("likesPushAlert");
+      }else if(notificationType == "newUser"){
+        userAllowsEmail = true;
+        userAllowsPush = true;
       }
 
-      console.log("(sendNotifications/success) - "+notificationType+"    /   "+msg);
+      console.log("(sendNotifications/success) - "+notificationType+"    /   "+user.id + " / " + byUserID);
 
       //var digestEmailAlert = user.get("digestEmailAlert");
 
-      //This should always happen
-      addNotification(user.id,photoID,notificationType,byUserID,byUsername,locationString,content);
+      //This should always happen (unless is the same user)
+      if(user.id != byUserID){
+        addNotification(user.id,photoID,notificationType,byUserID,byUsername,locationString,content);
+      }
       
       if(userAllowsPush == true){
         sendPush(user.id,msg,photoID);
@@ -60,8 +66,8 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
     
     },
     error: function(error) {
-        console.error("Got an error " + error.message);
-        
+        console.log("Got an error " + error);
+
         if(response){
           response.error(error);
         }
@@ -138,47 +144,15 @@ function sendPush(userID,msg,photoID){
     });
 }
 
+exports.addNotification = function(notificationID,photoID,notificationType,byUserID,byUsername,locationString,content){
+  addNotification(notificationID,photoID,notificationType,byUserID,byUsername,locationString,content);
+}
+
 exports.sendMail = function(msg,htmlMsg,subject,username,email){
-	  mandrill.sendEmail({
-        message: {
-          text: msg,
-          html: htmlMsg,
-          subject: subject,
-          from_email: "2by2app@gmail.com",
-          from_name: "2by2",
-          to: [                     
-            {
-              email: email, //"jtubert@gmail.com",//
-              name: username
-            }
-          ]
-        },
-        async: true
-      }, {
-        success: function(httpResponse) { console.log("Email sent!"); },
-        error: function(httpResponse) { console.log("Uh oh, something went wrong"); }
-      });
+	  sendMail(msg,htmlMsg,subject,username,email);
 }
 
 exports.sendPush = function(userID,msg,photoID){
-	var pushQuery = new Parse.Query(Parse.Installation);
-  pushQuery.equalTo('deviceType', 'ios');
-  pushQuery.equalTo('channels', userID);//'SREzPjOawD');//
-
-    console.log("user.objectId: "+userID);
-    Parse.Push.send({
-      where: pushQuery, // Set our Installation query
-      data: {
-        alert: msg,
-        p: photoID 
-      }
-      }, {
-      success: function() {
-        console.log("success: '"+msg+"' was sent!");
-      },
-      error: function(error) {
-        console.log("Got an error " + error.code + " : " + error.message);
-      }
-    });
+	 sendPush(userID,msg,photoID);
 }
 

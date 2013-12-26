@@ -29,4 +29,6 @@ typedef NS_ENUM(NSUInteger, FeedType) {
 
 @property (nonatomic) FeedType currentFeedType;
 
++ (void) updateNotification:(int)n;
+
 @end

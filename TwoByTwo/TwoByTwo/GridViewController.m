@@ -10,6 +10,7 @@
 #import "GridCell.h"
 #import "CameraViewController.h"
 #import "GridHeaderView.h"
+#import "MainViewController.h"
 
 
 @interface GridViewController ()
@@ -53,6 +54,52 @@
     self.collectionView.collectionViewLayout = self.gridLayout;
     
     [self getFollowers];
+    @try {
+        if(self.type != FeedTypeNotifications){
+            [self checkNotifications];
+        }
+        
+    }
+    @catch (NSException *exception) {
+        NSLog(@"checkNotifications/exception %@",exception.description);
+    }
+    
+    
+}
+
+-(NSDate *) toLocalTime:(NSDate*)d
+{
+    NSTimeZone *tz = [NSTimeZone defaultTimeZone];
+    NSInteger seconds = [tz secondsFromGMTForDate: d];
+    return [NSDate dateWithTimeInterval: seconds sinceDate: d];
+}
+
+-(NSDate *) toGlobalTime:(NSDate*)d
+{
+    NSTimeZone *tz = [NSTimeZone defaultTimeZone];
+    NSInteger seconds = -[tz secondsFromGMTForDate: d];
+    return [NSDate dateWithTimeInterval: seconds sinceDate: d];
+}
+
+
+- (void) checkNotifications{
+    
+    //PFUser* object = [PFUser currentUser];
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
+        [query whereKey:@"notificationID" equalTo:object.objectId];
+        NSDate* d = (NSDate*)object[@"notificationWasAccessed"];
+        
+        NSLog(@"notificationWasAccessed: %@ %@ %@",object[@"notificationWasAccessed"],[NSDate new],[self toGlobalTime:d]);
+        
+        [query whereKey:@"createdAt" greaterThan:[self toGlobalTime:d]];
+        [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            NSLog(@"NUMBER: %d",number);
+            [MainViewController updateNotification:number];
+        }];
+    }];
+    
+    
 }
 
 - (void) scrollToTop{

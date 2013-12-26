@@ -9,6 +9,7 @@
 #import "NotificationsViewController.h"
 #import "PDPViewController.h"
 #import "FriendProfileViewController.h"
+#import "MainViewController.h"
 
 
 @interface NotificationsViewController ()
@@ -35,8 +36,24 @@
     
     
     [self.view addSubview:self.tableView];
+    
+    [MainViewController updateNotification:0];
+    
+    [PFUser currentUser][@"notificationWasAccessed"] = [self toLocalTime:[NSDate new]];
+    [[PFUser currentUser] saveEventually];
+    
     [self performQuery];
 }
+
+-(NSDate *) toLocalTime:(NSDate*)d
+{
+    NSTimeZone *tz = [NSTimeZone defaultTimeZone];
+    NSInteger seconds = [tz secondsFromGMTForDate: d];
+    return [NSDate dateWithTimeInterval: seconds sinceDate: d];
+}
+
+
+
 
 - (void) viewDidAppear:(BOOL)animated{
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
@@ -62,8 +79,8 @@
                 [weakSelf.tableView reloadData];
                 
                 @try {
-                    NSIndexPath* ipath = [NSIndexPath indexPathForRow: weakSelf.objects.count-1 inSection: 0];
-                    [weakSelf.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
+                    //NSIndexPath* ipath = [NSIndexPath indexPathForRow: weakSelf.objects.count-1 inSection: 0];
+                    //[weakSelf.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
                 }
                 @catch (NSException *exception) {
                     NSLog(@"performQuery/exception: %@",exception.description);
@@ -152,6 +169,7 @@
     // - overexposed
     // - follow
     // - like
+    // - newUser
     
     //NOTIFICATON PROPERTIES
     // - notificationID (same as user ID)
@@ -193,6 +211,8 @@
         s = [NSString stringWithFormat:@"You have a new follower"];
     }else if([notificationType isEqualToString:@"like"]){
         s = [NSString stringWithFormat:@"Your photo was liked by %@",notification[@"byUsername"]];
+    }else if([notificationType isEqualToString:@"newUser"]){
+        s = [NSString stringWithFormat:@"Your facebook friend %@ just joined 2by2",notification[@"byUsername"]];
     }
     
     return s;
@@ -216,6 +236,31 @@
         
     }else{
         return 60;
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    PFObject *notification = [self.objects objectAtIndex:indexPath.row];
+    __weak typeof(self) weakSelf = self;
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [notification deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            @try {
+                if(!error){
+                    [weakSelf.tableView beginUpdates];
+                    [weakSelf.objects removeObject:notification];
+                    [weakSelf.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject: indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [weakSelf.tableView endUpdates];
+                }
+            }
+            @catch (NSException *exception) {
+                NSLog(@"deleteRowsAtIndexPaths/exception: %@ / %@",indexPath, exception.description);
+            }
+        }];
     }
 }
 

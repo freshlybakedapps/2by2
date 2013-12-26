@@ -10,6 +10,7 @@
 #import "GridViewController.h"
 #import "EditProfileViewController.h"
 #import "NotificationsViewController.h"
+#import "MainNavBar.h"
 
 
 @interface MainViewController ()
@@ -23,12 +24,13 @@
 {
     [super viewDidLoad];
     [self showControllerWithType:0];
-    
-    self.navigationItem.title = @"xxx";
-    
-    
-    
     //self.segControl.frame = CGRectMake(0.0, 20.0, self.segControl.frame.size.width, self.segControl.frame.size.height);
+}
+
++ (void) updateNotification:(int)n{
+    UINavigationController *navController =(UINavigationController*)[[[[UIApplication sharedApplication]delegate] window] rootViewController];
+    MainNavBar *mnb = (MainNavBar*)navController.navigationBar;
+    [mnb updateNotification:n];
 }
 
 

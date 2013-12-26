@@ -47,14 +47,19 @@ exports.main = function(request, response){
                             //send email/notification to current user letting them know their friend just joined 2by2
                             var msg = _user.get("fullName") + ", "+ newRegisteredUser_username + " just joined 2by2!!";
                             console.log(msg);
-                            Notifications.sendPush(_user.id,msg);//
+
+                            //Notifications.sendNotifications(response,"newUser",_user.id,msg,msg,"subject","0","",userID,newRegisteredUser_username,msg);
+
+                            Notifications.addNotification(_user.id,"0","newUser",userID,newRegisteredUser_username,"",msg);
+
+                            //Notifications.sendPush(_user.id,msg);//
                             break;                            
                           }                         
                         };
 
                         if(index == indexOfLastPush){
                           //console.log("counter: "+counter+" / "+index+ " / " + indexOfLastPush);
-                          response.success("Total users: "+indexOfLastPush);
+                          //response.success("Total users: "+indexOfLastPush);
                         }                             
                       },
                       error:function(httpResponse){

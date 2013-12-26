@@ -10,4 +10,8 @@
 
 @interface MainNavBar : UINavigationBar
 
+@property (nonatomic, strong) UILabel* label;
+
+- (void) updateNotification:(int)n;
+
 @end

@@ -51,6 +51,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 {
     [super viewDidLoad];
     
+    
+
+    
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
     [self.locationManager startMonitoringSignificantLocationChanges];
@@ -248,13 +251,33 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     
 }
 
+//TODO: figure out why this doesn't work
+- (UIImage * ) addWatermark: (UIImage *) imageA{
+    
+    NSLog(@"addWatermark");
+    
+    UIImage* imageB = [UIImage imageNamed:@"addPhoto"];
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(imageA.size.width, imageA.size.height), YES, 0.0);
+    
+    [imageA drawAtPoint: CGPointMake(0,0)];
+    
+    [imageB drawAtPoint: CGPointMake(5,5)
+              blendMode: kCGBlendModeNormal
+                  alpha: 1];
+    
+    UIImage *answer = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return answer;
+}
+
 - (void) postToWall{
     
     self.m_postingInProgress = YES;
     
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"2by2 photo" forKey:@"message"];
-    [params setObject:UIImagePNGRepresentation(self.previewView.image) forKey:@"picture"];
+    [params setObject:@"photo" forKey:@"message"];
+    [params setObject:UIImagePNGRepresentation([self addWatermark:self.previewView.image]) forKey:@"picture"];
     
     [FBRequestConnection startWithGraphPath:@"me/photos"
                                  parameters:params
@@ -480,6 +503,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         completion(NO, nil);
     }
 }
+
+
 
 - (void)uploadImage:(UIImage *)image progress:(PFProgressBlock)progress completion:(PFBooleanResultBlock)completion
 {
