@@ -51,9 +51,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 {
     [super viewDidLoad];
     
-    
-
-    
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
     [self.locationManager startMonitoringSignificantLocationChanges];
@@ -128,7 +125,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     }
     else {
         self.blendModeButton.hidden = YES;
-
+        
         self.filter = [[GPUImageGammaFilter alloc] init];
         [self.filter addTarget:self.liveView];
         
@@ -136,6 +133,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
         [self.stillCamera addTarget:self.filter];
         [self.stillCamera startCameraCapture];
+
     }
     
     self.watermark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
@@ -368,13 +366,22 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     switch (self.state) {
         case CameraViewStateTakePhoto:
         {
-            [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
-                UIImage* smallImage = [processedImage scaleToSize:CGSizeMake(300, 300) contentMode:UIViewContentModeScaleAspectFill interpolationQuality:kCGInterpolationHigh];
-                weakSelf.previewView.image = smallImage;
-                weakSelf.state = CameraViewStateReadyToUpload;
-            }];
+            NSString *model = [[UIDevice currentDevice] model];
+            if (YES == [model isEqualToString:@"iPhone Simulator"]) {
+                //UIImage* smallImage = [UIImage imageNamed:@"logo"];
+                NSString* url = @"http://thecatapi.com/api/images/get?format=src&type=png&size=med";
+                UIImage *smallImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+                self.previewView.image = smallImage;
+                self.state = CameraViewStateReadyToUpload;
+            }else{
+                [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
+                    UIImage* smallImage = [processedImage scaleToSize:CGSizeMake(300, 300) contentMode:UIViewContentModeScaleAspectFill interpolationQuality:kCGInterpolationHigh];
+                    weakSelf.previewView.image = smallImage;
+                    weakSelf.state = CameraViewStateReadyToUpload;
+                }];
+            }
         }
-            break;
+        break;
             
         case CameraViewStateReadyToUpload:
         {
