@@ -15,6 +15,7 @@
 @property (nonatomic) BOOL sharingFacebook;
 @property (nonatomic) BOOL m_postingInProgress;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) UIImageView* watermark;
 
 + (instancetype)controller;
 

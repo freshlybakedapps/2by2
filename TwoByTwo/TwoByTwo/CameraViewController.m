@@ -137,6 +137,16 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         [self.stillCamera addTarget:self.filter];
         [self.stillCamera startCameraCapture];
     }
+    
+    self.watermark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    int x = self.previewView.frame.origin.x + self.previewView.frame.size.width - self.watermark.frame.size.width;
+    int y = self.previewView.frame.origin.y + self.previewView.frame.size.height - self.watermark.frame.size.height;
+    
+    self.watermark.frame = CGRectMake(x, y, self.watermark.frame.size.width, self.watermark.frame.size.height);
+    
+    self.watermark.hidden = YES;
+    
+    [self.view addSubview:self.watermark];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -220,7 +230,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
 #pragma mark - Actions
 
-- (void)ShareFacebook
+- (void)ShareFacebook:(BOOL)doubleExposed
 {
     
     if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound)
@@ -235,7 +245,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                  // If permissions granted and not already posting then publish the story
                  if (!self.m_postingInProgress)
                  {
-                     [self postToWall];
+                     [self postToWall:doubleExposed];
                  }
              }
          }];
@@ -245,39 +255,39 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         // If permissions present and not already posting then publish the story
         if (!self.m_postingInProgress)
         {
-            [self postToWall];
+            [self postToWall:doubleExposed];
         }
     }
     
 }
 
-//TODO: figure out why this doesn't work
-- (UIImage * ) addWatermark: (UIImage *) imageA{
-    
-    NSLog(@"addWatermark");
-    
-    UIImage* imageB = [UIImage imageNamed:@"addPhoto"];
-    
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(imageA.size.width, imageA.size.height), YES, 0.0);
-    
-    [imageA drawAtPoint: CGPointMake(0,0)];
-    
-    [imageB drawAtPoint: CGPointMake(5,5)
-              blendMode: kCGBlendModeNormal
-                  alpha: 1];
-    
-    UIImage *answer = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return answer;
+- (UIImage * ) addWatermark{
+    self.watermark.hidden = NO;
+    UIGraphicsBeginImageContextWithOptions(self.previewView.bounds.size, YES, 0.0f);
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(c, -self.previewView.frame.origin.x, -self.previewView.frame.origin.y);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+	UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+    self.watermark.hidden = YES;
+    return viewImage;
 }
 
-- (void) postToWall{
+- (void) postToWall:(BOOL)doubleExposed{
     
     self.m_postingInProgress = YES;
     
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    [params setObject:@"photo" forKey:@"message"];
-    [params setObject:UIImagePNGRepresentation([self addWatermark:self.previewView.image]) forKey:@"picture"];
+    
+    if(doubleExposed){
+        [params setObject:@"Photo was overexposed using new iphone app - 2by2" forKey:@"message"];
+    }else{
+        [params setObject:@"Photo taken with 2by2" forKey:@"message"];
+    }
+    
+    [params setObject:UIImageJPEGRepresentation([self addWatermark],1) forKey:@"picture"];
+    
+    
     
     [FBRequestConnection startWithGraphPath:@"me/photos"
                                  parameters:params
@@ -302,6 +312,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
          }
          
      }];
+    
 }
 
 - (IBAction)facebookShare:(id)sender
@@ -357,7 +368,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     switch (self.state) {
         case CameraViewStateTakePhoto:
         {
-            __weak typeof(self) weakSelf = self;
             [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
                 UIImage* smallImage = [processedImage scaleToSize:CGSizeMake(300, 300) contentMode:UIViewContentModeScaleAspectFill interpolationQuality:kCGInterpolationHigh];
                 weakSelf.previewView.image = smallImage;
@@ -368,6 +378,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             
         case CameraViewStateReadyToUpload:
         {
+            
             self.state = CameraViewStateUploading;
             [self uploadImage:self.previewView.image progress:^(int percentDone) {
                 weakSelf.bottomButton.progress = (float)percentDone / 100;
@@ -380,14 +391,24 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [weakSelf cleanup];
+                    
                     [weakSelf dismissViewControllerAnimated:YES completion:^{
-                        if(weakSelf.sharingFacebook == YES){
-                            [weakSelf ShareFacebook];
-                        }
+                       //
                     }];
                 });
                 
                 NSString *location = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationFull.latitude,weakSelf.photo.locationFull.longitude];
+                
+                if(weakSelf.sharingFacebook == YES){
+                    if(weakSelf.photo){
+                        [weakSelf ShareFacebook:YES];
+                    }else{
+                        [weakSelf ShareFacebook:NO];
+                    }
+                }
+                
+                
+
                 
                 if(weakSelf.photo){
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
@@ -412,11 +433,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                         }];
                     }
                     
-                    
-                                    }
-             
-
-                
+                }
             }];
         }
             break;
