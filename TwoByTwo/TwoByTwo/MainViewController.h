@@ -16,18 +16,10 @@ typedef NS_ENUM(NSUInteger, FeedType) {
     FeedTypeNotifications,
     FeedTypeFriend,
     FeedTypePDP,
-
 };
 
 
-
 @interface MainViewController : UIViewController
-
-@property (nonatomic, weak) IBOutlet UISegmentedControl *segControl;
-@property (nonatomic, strong) UILabel *label;
-@property (nonatomic, strong) UIButton *button;
-
-@property (nonatomic) FeedType currentFeedType;
 
 + (void) updateNotification:(int)n;
 

@@ -15,6 +15,9 @@
 
 @interface MainViewController ()
 @property (nonatomic, strong) UIViewController *childViewController;
+@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UIButton *button;
+@property (nonatomic) FeedType currentFeedType;
 @end
 
 
@@ -24,7 +27,6 @@
 {
     [super viewDidLoad];
     [self showControllerWithType:0];
-    //self.segControl.frame = CGRectMake(0.0, 20.0, self.segControl.frame.size.width, self.segControl.frame.size.height);
 }
 
 + (void) updateNotification:(int)n{
@@ -36,7 +38,14 @@
 
 - (IBAction)segmentedControlValueChanged:(UISegmentedControl *)sender
 {
-    [self showControllerWithType:sender.selectedSegmentIndex];
+    if (self.childViewController && self.currentFeedType == sender.selectedSegmentIndex) {
+        if ([self.childViewController isKindOfClass:[GridViewController class]]) {
+            [((GridViewController *)self.childViewController).collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+        }
+    }
+    else {
+        [self showControllerWithType:sender.selectedSegmentIndex];
+    }
 }
 
 - (void)editProfile{
@@ -46,19 +55,7 @@
 
 - (void)showControllerWithType:(FeedType)type
 {
-    
-    /*
-    if(self.childViewController != nil && self.currentFeedType == type && self.currentFeedType != FeedTypeNotifications){
-        
-        NSLog(@"showControllerWithType");
-        //GridViewController* c = (GridViewController*)self.childViewController;
-         //[c scrollToTop];
-     
-        //return;
-    }
-    */
-    
-    
+
     if(!self.label){
         self.label = [ [UILabel alloc ] initWithFrame:CGRectMake(20.0, 80.0, 320.0, 43.0) ];
         self.label.textColor = [UIColor grayColor];
