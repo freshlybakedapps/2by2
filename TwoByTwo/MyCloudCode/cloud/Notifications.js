@@ -9,6 +9,7 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
   // - follow
   // - like
   // - newUser
+  // - flag
 
 
   console.log("(sendNotifications) - "+notificationType+"    /   "+userID);

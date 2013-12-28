@@ -312,6 +312,33 @@
     [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.photo.likes.count] forState:UIControlStateNormal];
 }
 
+- (void) flagWithType:(FlagType)type{
+    NSString* typeString = @"";
+    switch (type) {
+        case FlagTypeInnapropiate:
+            typeString = @"FlagTypeInnapropiate";
+            break;
+        case FlagTypeScam:
+            typeString = @"FlagTypeScam";
+            break;
+        case FlagTypeSpam:
+            typeString = @"FlagTypeSpam";
+            break;
+        case FlagTypeStolen:
+            typeString = @"FlagTypeStolen";
+            break;
+        default:
+            break;
+    }
+    [PFCloud callFunctionInBackground:@"flagPhoto"
+                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoFlagged":[PFUser currentUser].username, @"type":typeString}
+                                block:^(NSString *result, NSError *error) {
+                                    if (error) {
+                                        NSLog(@"Failed to flag: %@", error);
+                                    }
+                                }];
+}
+
 - (IBAction)toolButtonTapped:(id)sender
 {
     if (self.photo.canDelete) {
@@ -324,18 +351,26 @@
         }];
     }
     else {
-        [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to flag this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex != alertView.cancelButtonIndex) {
-                [PFCloud callFunctionInBackground:@"flagPhoto"
-                                   withParameters:@{@"objectid":self.photo.objectId, @"userWhoFlagged":[PFUser currentUser].username}
-                                            block:^(NSString *result, NSError *error) {
-                                                if (error) {
-                                                    NSLog(@"Failed to flag: %@", error);
-                                                }
-                                            }];
-                
-            }
+        UIAlertView *alert = [UIAlertView alertViewWithTitle:@"Flagging photo" message:@"This photo..."];
+        [alert addButtonWithTitle:@"is innapropiate" handler:^{
+            [self flagWithType:FlagTypeInnapropiate];
         }];
+        [alert addButtonWithTitle:@"is spam" handler:^{
+            [self flagWithType:FlagTypeSpam];
+        }];
+        
+        [alert addButtonWithTitle:@"is scam" handler:^{
+            [self flagWithType:FlagTypeScam];
+        }];
+        
+        [alert addButtonWithTitle:@"diaplays stolen content" handler:^{
+            [self flagWithType:FlagTypeStolen];
+        }];
+        
+        [alert setCancelButtonWithTitle:@"CANCEL" handler:^{
+            
+        }];
+        [alert show];
     }
     
     NSString* flag_or_delete = @"flag";

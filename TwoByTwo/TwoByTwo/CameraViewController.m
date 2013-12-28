@@ -136,11 +136,21 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
     }
     
-    self.watermark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    
+    self.watermark = [ [UILabel alloc ] init];
+    if(self.photo){
+        self.watermark.text = [NSString stringWithFormat:@"%@/%@:2BY2",[self.photo.user.username uppercaseString],[[PFUser currentUser].username uppercaseString]];
+    }else{
+        self.watermark.text = [NSString stringWithFormat:@"%@:2BY2",[[PFUser currentUser].username uppercaseString]];
+    }
+    self.watermark.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(10.0)];
+    [self.watermark setTextAlignment:NSTextAlignmentCenter];
+    self.watermark.textColor = [UIColor whiteColor];
+    self.watermark.backgroundColor = [UIColor blackColor];
+    [self.watermark sizeToFit];
     int x = self.previewView.frame.origin.x + self.previewView.frame.size.width - self.watermark.frame.size.width;
     int y = self.previewView.frame.origin.y + self.previewView.frame.size.height - self.watermark.frame.size.height;
-    
-    self.watermark.frame = CGRectMake(x, y, self.watermark.frame.size.width, self.watermark.frame.size.height);
+    self.watermark.frame = CGRectMake(x-10, y, self.watermark.frame.size.width+10, self.watermark.frame.size.height);
     
     self.watermark.hidden = YES;
     

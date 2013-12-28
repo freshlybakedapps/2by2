@@ -170,6 +170,7 @@
     // - follow
     // - like
     // - newUser
+    // - flag
     
     //NOTIFICATON PROPERTIES
     // - notificationID (same as user ID)
@@ -213,6 +214,11 @@
         s = [NSString stringWithFormat:@"Your photo was liked by %@",notification[@"byUsername"]];
     }else if([notificationType isEqualToString:@"newUser"]){
         s = [NSString stringWithFormat:@"Your facebook friend %@ just joined 2by2",notification[@"byUsername"]];
+    }else if([notificationType isEqualToString:@"flag"]){
+        NSString *flagType = notification[@"content"];
+        flagType = [flagType stringByReplacingOccurrencesOfString:@"FlagType" withString:@""];
+        
+        s = [NSString stringWithFormat:@"Your photo was flagged as %@",flagType];
     }
     
     return s;

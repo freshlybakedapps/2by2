@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "GridViewController.h"
 
+typedef NS_ENUM(NSUInteger, FlagType) {
+    FlagTypeInnapropiate = 0,
+    FlagTypeSpam,
+    FlagTypeScam,
+    FlagTypeStolen,
+};
+
 
 @interface GridCell : UICollectionViewCell
 
