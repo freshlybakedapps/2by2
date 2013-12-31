@@ -13,11 +13,12 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-    #import "UIColor+TwoByTwo.h"
     #import <Parse/Parse.h>
     #import "TestFlight.h"
     #import "BlocksKit.h"
     #import "BlocksKit+UIKit.h"
     #import <FacebookSDK/FacebookSDK.h>
     #import "PFObject+Photo.h"
+    #import "UIColor+TwoByTwo.h"
+    #import "AppDelegate.h"
 #endif

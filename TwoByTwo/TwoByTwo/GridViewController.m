@@ -95,7 +95,7 @@
         [query whereKey:@"createdAt" greaterThan:[self toGlobalTime:d]];
         [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             NSLog(@"NUMBER: %d",number);
-            [MainViewController updateNotification:number];
+            [[AppDelegate delegate].mainNavigationBar updateNotificationCount:number];
         }];
     }];
     

@@ -37,7 +37,7 @@
     
     [self.view addSubview:self.tableView];
     
-    [MainViewController updateNotification:0];
+    [[AppDelegate delegate].mainNavigationBar updateNotificationCount:0];
     
     [PFUser currentUser][@"notificationWasAccessed"] = [self toLocalTime:[NSDate new]];
     [[PFUser currentUser] saveEventually];

@@ -10,13 +10,11 @@
 #import "GridViewController.h"
 #import "EditProfileViewController.h"
 #import "NotificationsViewController.h"
-#import "MainNavBar.h"
+#import "MainNavigationBar.h"
 
 
 @interface MainViewController ()
 @property (nonatomic, strong) UIViewController *childViewController;
-@property (nonatomic, strong) UILabel *label;
-@property (nonatomic, strong) UIButton *button;
 @property (nonatomic) FeedType currentFeedType;
 @end
 
@@ -26,21 +24,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self showControllerWithType:0];
+    
+    MainNavigationBar *navBar = [AppDelegate delegate].mainNavigationBar;
+    [navBar.actionButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-+ (void) updateNotification:(int)n{
-    UINavigationController *navController =(UINavigationController*)[[[[UIApplication sharedApplication]delegate] window] rootViewController];
-    MainNavBar *mnb = (MainNavBar*)navController.navigationBar;
-    [mnb updateNotification:n];
-}
 
+#pragma mark - IBAction
 
 - (IBAction)segmentedControlValueChanged:(UISegmentedControl *)sender
 {
     if (self.childViewController && self.currentFeedType == sender.selectedSegmentIndex) {
         if ([self.childViewController isKindOfClass:[GridViewController class]]) {
-            [((GridViewController *)self.childViewController).collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+            GridViewController *controller = (id)self.childViewController;
+            [controller.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
         }
     }
     else {
@@ -48,82 +47,67 @@
     }
 }
 
-- (void)editProfile{
-    EditProfileViewController *controller = [EditProfileViewController controller];
-    [self presentViewController:controller animated:YES completion:nil];
+- (IBAction)actionButtonTapped:(id)sender
+{
+    if (self.currentFeedType == FeedTypeYou) {
+        EditProfileViewController *controller = [EditProfileViewController controller];
+        [self presentViewController:controller animated:YES completion:nil];
+    }
 }
 
 - (void)showControllerWithType:(FeedType)type
 {
-
-    if(!self.label){
-        self.label = [ [UILabel alloc ] initWithFrame:CGRectMake(20.0, 80.0, 320.0, 43.0) ];
-        self.label.textColor = [UIColor grayColor];
-        //self.label.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(36.0)];
-        [self.navigationController.view addSubview:self.label];
-    }
+    // Update Navigation Bar
     
-    if(type == FeedTypeYou){
-        if(!self.button){
-            self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [self.button addTarget:self action:@selector(editProfile) forControlEvents:UIControlEventTouchDown];
-            [self.button setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
-            [self.button setImage:[UIImage imageNamed:@"edit_Down"] forState:UIControlStateSelected];
-            self.button.frame = CGRectMake(self.view.frame.size.width - (26+20), 80.0, 26.0, 26.0);
-        }
-        [self.navigationController.view addSubview:self.button];
-    }else{
-        [self.button removeFromSuperview];
-    }
-    
+    MainNavigationBar *navBar = [AppDelegate delegate].mainNavigationBar;
     switch (type) {
-        case FeedTypeYou:
-            //NewNav_06.psd
-            self.label.text = [PFUser currentUser][@"fullName"];
-            break;
         case FeedTypeSingle:
-            //NewNav_03.psd
-            self.label.text = @"Single exposure shots";
-            //These photos are waiting for a final exposure before they go to the public feed. Tap on any of these  to expose a second shot over them
+            navBar.textLabel.text = @"Single exposure shots";
+            navBar.actionButton.hidden = YES;
             break;
-        case FeedTypeFollowing:
-            //NewNav_05.psd
-            self.label.text = @"From People you follow";
-            break;
-        case FeedTypeNotifications:
-            self.label.text = @"Notifications";
-            break;
+            
         case FeedTypeGlobal:
-            //NewNav_04.psd
-            self.label.text = @"Public feed";
+            navBar.textLabel.text = @"Public feed";
+            navBar.actionButton.hidden = YES;
             break;
+
+        case FeedTypeFollowing:
+            navBar.textLabel.text = @"From People you follow";
+            navBar.actionButton.hidden = YES;
+            break;
+            
+        case FeedTypeYou:
+            navBar.textLabel.text = [PFUser currentUser][@"fullName"];
+            navBar.actionButton.hidden = NO;
+            [navBar.actionButton setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
+            [navBar.actionButton setImage:[UIImage imageNamed:@"edit_Down"] forState:UIControlStateHighlighted];
+            break;
+
+        case FeedTypeNotifications:
+            navBar.textLabel.text = @"Notifications";
+            navBar.actionButton.hidden = YES;
+            break;
+
         default:
             break;
     }
+    
+    
+    // Show Child Controller
 
-    
-    
     if (self.childViewController) {
         [self.childViewController willMoveToParentViewController:nil];
         [self.childViewController.view removeFromSuperview];
         [self.childViewController removeFromParentViewController];
     }
     
-    id controller;
-    
-    if(type == FeedTypeNotifications){
-        controller = [[NotificationsViewController alloc] init];
-        NotificationsViewController* c = (NotificationsViewController*) controller;
-    }else{
-        controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
-        
-        GridViewController* c = (GridViewController*) controller;
-        c.type = type;
+    if (type == FeedTypeNotifications) {
+        self.childViewController = [[NotificationsViewController alloc] init];
     }
-    
-    //GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
-    //controller.type = type;
-    self.childViewController = controller;
+    else {
+        self.childViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+        ((GridViewController *)self.childViewController).type = type;
+    }
     
     [self addChildViewController:self.childViewController];
     self.childViewController.view.frame = self.view.bounds;

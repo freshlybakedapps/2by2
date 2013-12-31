@@ -42,8 +42,6 @@
         else {
             if (user.isNew) {
                 NSLog(@"User with facebook signed up and logged in!");
-                
-                //
             }
             else {
                 NSLog(@"User with facebook logged in!");
@@ -60,13 +58,12 @@
                     
                     if(user.isNew){
                         [PFCloud callFunctionInBackground:@"newUserRegistered"
-                                           withParameters:@{@"userID":[PFUser currentUser].objectId,@"username":name}
+                                           withParameters:@{@"userID":[PFUser currentUser].objectId, @"username":name}
                                                     block:^(NSString *result, NSError *error) {
                                                         if (!error) {
                                                             NSLog(@"newUserRegistered: %@", result);
                                                         }
                                                     }];
-                        
                     }
 
                     
@@ -105,12 +102,8 @@
                         NSLog(@"new_user_PFAnalytics/exception: %@",exception.description);
                     }
                     
-                    
-                    
-                    
-                    
+
                     [[AppDelegate delegate] showMainViewController];
-                    
                 }
                 else {
                     NSLog(@"Something went wrong: %@", error);

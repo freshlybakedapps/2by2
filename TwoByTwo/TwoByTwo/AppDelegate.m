@@ -162,4 +162,15 @@
     return (id)[UIApplication sharedApplication].delegate;
 }
 
+- (MainNavigationBar *)mainNavigationBar
+{
+    if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navController = (id)self.window.rootViewController;
+        if ([navController.navigationBar isKindOfClass:[MainNavigationBar class]]) {
+            return (id)navController.navigationBar;
+        }
+    }
+    return nil;
+}
+
 @end
