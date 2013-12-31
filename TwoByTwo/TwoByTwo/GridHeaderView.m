@@ -8,7 +8,6 @@
 
 #import "GridHeaderView.h"
 #import "EverythingElseViewController.h"
-#import "EditProfileViewController.h"
 #import "UIImageView+AFNetworking.h"
 
 
@@ -41,9 +40,9 @@
 - (void)setUser:(PFUser *)user
 {
     _user = user;
-    
+
     if (user) {
-        [self.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        [user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
             [self updateContent];
         }];
     }

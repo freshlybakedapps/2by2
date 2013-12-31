@@ -30,36 +30,8 @@ static CGFloat const kSegmentedControlOffsetY = 20.0;
 {
     [super layoutSubviews];
     
-    CGFloat width = CGRectGetWidth(self.frame);
-    
-    self.textLabel.frame = CGRectMake(kLabelPaddingX, kLabelOffsetY, width - 2 * kLabelPaddingX, kLabelHeight);
-    self.actionButton.frame = CGRectMake(width - kLabelPaddingX - kLabelHeight, kLabelOffsetY, kLabelHeight, kLabelHeight);
-
-    for (UIView *view in self.subviews) {
-        if ([view isKindOfClass:[UISegmentedControl class]]) {
-            view.frame = CGRectMake(view.frame.origin.x, kSegmentedControlOffsetY, view.frame.size.width, view.frame.size.height);
-        }
-    }
-}
-
-- (UILabel *)textLabel
-{
-    if (!_textLabel) {
-        _textLabel = [UILabel new];
-        _textLabel.textColor = [UIColor grayColor];
-        _textLabel.backgroundColor = [UIColor clearColor];
-        [self addSubview:_textLabel];
-    }
-    return _textLabel;
-}
-
-- (UIButton *)actionButton
-{
-    if (!_actionButton){
-        _actionButton = [UIButton new];
-        [self addSubview:_actionButton];
-    }
-    return _actionButton;
+    self.segmentedControl.frame = CGRectMake(20, 20, 280, 30);
+    [self addSubview:self.segmentedControl];
 }
 
 - (void)updateNotificationCount:(NSUInteger)count

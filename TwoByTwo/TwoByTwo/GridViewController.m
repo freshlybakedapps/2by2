@@ -11,7 +11,6 @@
 #import "CameraViewController.h"
 #import "GridHeaderView.h"
 #import "MainViewController.h"
-#import "FriendProfileViewController.h"
 #import "CommentsViewController.h"
 
 static NSUInteger const kQueryBatchSize = 20;
@@ -63,15 +62,17 @@ static NSUInteger const kQueryBatchSize = 20;
      http://stackoverflow.com/questions/19038949/content-falls-beneath-navigation-bar-when-embedded-in-custom-container-view-cont
      */
 
-    if (parent) {
+    if ([parent isKindOfClass:[MainViewController class]] && self.navigationController.topViewController == parent) {
         CGFloat top = parent.topLayoutGuide.length;
         CGFloat bottom = parent.bottomLayoutGuide.length;
-        
         if (self.collectionView.contentInset.top != top) {
             UIEdgeInsets newInsets = UIEdgeInsetsMake(top, 0, bottom, 0);
             self.collectionView.contentInset = newInsets;
             self.collectionView.scrollIndicatorInsets = newInsets;
         }
+    }
+    else {
+        [super didMoveToParentViewController:parent];
     }
 }
 
@@ -169,26 +170,18 @@ static NSUInteger const kQueryBatchSize = 20;
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             
             if (!error) {
-                NSUInteger count = self.objects.count;
-                if (count == 0) {
-                    self.objects = [objects mutableCopy];
-                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+                if (!self.objects) {
+                    self.objects = [NSMutableArray array];
                 }
-                else {
-                    @try {
-                        [self.collectionView performBatchUpdates:^{
-                            [self.objects addObjectsFromArray:objects];
-                            NSMutableArray *indexPaths = [NSMutableArray array];
-                            for (NSUInteger i = count; i < count + objects.count; i++) {
-                                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                            }
-                            [self.collectionView insertItemsAtIndexPaths:indexPaths];
-                        } completion:nil];
+                [self.collectionView performBatchUpdates:^{
+                    NSUInteger count = self.objects.count;
+                    NSMutableArray *indexPaths = [NSMutableArray array];
+                    for (NSUInteger i = count; i < count + objects.count; i++) {
+                        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                     }
-                    @catch (NSException *exception) {
-                        NSLog(@"performBatchUpdates: %@", exception.description);
-                    }
-                }
+                    [self.objects addObjectsFromArray:objects];
+                    [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                } completion:nil];
             }
             else {
                 self.objects = nil;
@@ -279,7 +272,6 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     if (kind == UICollectionElementKindSectionHeader) {
         GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
-//        headerView.controller = self;
         headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
         return headerView;
     }
@@ -291,10 +283,10 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)cell:(GridCell *)cell showProfileForUser:(PFUser *)user
 {
-    UINavigationController *navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FriendProfileViewController"];
-    FriendProfileViewController *controller = (id)navController.topViewController;
-    controller.friend = user;
-    [self presentViewController:navController animated:YES completion:nil];
+    GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+    controller.type = FeedTypeFriend;
+    controller.user = user;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)cell:(GridCell *)cell showCommentsForPhoto:(PFObject *)photo

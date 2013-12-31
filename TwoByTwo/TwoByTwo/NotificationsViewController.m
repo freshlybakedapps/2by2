@@ -8,7 +8,7 @@
 
 #import "NotificationsViewController.h"
 #import "PDPViewController.h"
-#import "FriendProfileViewController.h"
+#import "GridViewController.h"
 #import "MainViewController.h"
 
 
@@ -291,18 +291,12 @@
         pdp.photoID = photoID;
         [self presentViewController:controller animated:YES completion:nil];
     }else{
-        UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FriendProfileViewController"];
         
-        FriendProfileViewController * fvc = (FriendProfileViewController*)controller.topViewController;
-        
-        fvc.friend = [PFUser objectWithoutDataWithObjectId:byUserID];
-        fvc.friendName = @"Friend";
-        [self presentViewController:controller animated:YES completion:nil];
+        GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+        controller.type = FeedTypeFriend;
+        controller.user = [PFUser objectWithoutDataWithObjectId:byUserID];
+        [self.parentViewController.navigationController pushViewController:controller animated:YES];
     }
-    
-    
-    
-
 }
 
 

@@ -14,6 +14,9 @@
 
 
 @interface MainViewController ()
+@property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UILabel *leftLabel;
+@property (nonatomic, strong) UIButton *rightButton;
 @property (nonatomic, strong) UIViewController *childViewController;
 @property (nonatomic) FeedType currentFeedType;
 @end
@@ -25,10 +28,18 @@
 {
     [super viewDidLoad];
     
-    [self showControllerWithType:0];
+    self.leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 20)];
+    self.leftLabel.textColor = [UIColor grayColor];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftLabel];
+    
+    self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
     
     MainNavigationBar *navBar = [AppDelegate delegate].mainNavigationBar;
-    [navBar.actionButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    navBar.segmentedControl = self.segmentedControl;
+    self.navigationItem.titleView = nil;
+    
+    [self showControllerWithType:0];
 }
 
 
@@ -37,13 +48,16 @@
 - (IBAction)segmentedControlValueChanged:(UISegmentedControl *)sender
 {
     if (self.childViewController && self.currentFeedType == sender.selectedSegmentIndex) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
         if ([self.childViewController isKindOfClass:[GridViewController class]]) {
             GridViewController *controller = (id)self.childViewController;
             [controller.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
         }
     }
     else {
+        // Must call 'showControllerWithType' BEFORE poping child view controller, otherwise the collectionView contentInset will mess up.
         [self showControllerWithType:sender.selectedSegmentIndex];
+        [self.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 
@@ -57,35 +71,32 @@
 
 - (void)showControllerWithType:(FeedType)type
 {
-    // Update Navigation Bar
-    
-    MainNavigationBar *navBar = [AppDelegate delegate].mainNavigationBar;
     switch (type) {
         case FeedTypeSingle:
-            navBar.textLabel.text = @"Single exposure shots";
-            navBar.actionButton.hidden = YES;
+            self.leftLabel.text = @"Single exposure shots";
+            self.rightButton.hidden = YES;
             break;
             
         case FeedTypeGlobal:
-            navBar.textLabel.text = @"Public feed";
-            navBar.actionButton.hidden = YES;
+            self.leftLabel.text = @"Public feed";
+            self.rightButton.hidden = YES;
             break;
 
         case FeedTypeFollowing:
-            navBar.textLabel.text = @"From People you follow";
-            navBar.actionButton.hidden = YES;
+            self.leftLabel.text = @"From People you follow";
+            self.rightButton.hidden = YES;
             break;
             
         case FeedTypeYou:
-            navBar.textLabel.text = [PFUser currentUser][@"fullName"];
-            navBar.actionButton.hidden = NO;
-            [navBar.actionButton setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
-            [navBar.actionButton setImage:[UIImage imageNamed:@"edit_Down"] forState:UIControlStateHighlighted];
+            self.leftLabel.text = [PFUser currentUser][@"fullName"];
+            self.rightButton.hidden = NO;
+            [self.rightButton setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
+            [self.rightButton setImage:[UIImage imageNamed:@"edit_Down"] forState:UIControlStateHighlighted];
             break;
 
         case FeedTypeNotifications:
-            navBar.textLabel.text = @"Notifications";
-            navBar.actionButton.hidden = YES;
+            self.leftLabel.text = @"Notifications";
+            self.rightButton.hidden = YES;
             break;
 
         default:

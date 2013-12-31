@@ -66,6 +66,9 @@
                             </connections>
                         </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="segmentedControl" destination="Ilh-fn-X3d" id="NTy-rt-Pjs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DWP-Nj-xW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -614,43 +617,6 @@
             <point key="canvasLocation" x="3087" y="812"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="PO8-DC-U8y">
-            <objects>
-                <navigationController storyboardIdentifier="FriendProfileViewController" definesPresentationContext="YES" id="l9Y-RW-gpb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qms-yf-36R">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="GMr-1w-Llw" kind="relationship" relationship="rootViewController" id="1vF-us-0lx"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6lk-3Z-A2T" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="55" y="1772"/>
-        </scene>
-        <!--Friend Profile View Controller-->
-        <scene sceneID="deA-IN-dvn">
-            <objects>
-                <viewController id="GMr-1w-Llw" customClass="FriendProfileViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="n0X-DX-u4r"/>
-                        <viewControllerLayoutGuide type="bottom" id="H28-ZQ-Edx"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ujb-gA-2lb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="pQJ-0A-orz"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6DO-bf-01x" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="535" y="1780"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="IXx-xa-d9e">
             <objects>
                 <navigationController storyboardIdentifier="PDPViewController" definesPresentationContext="YES" id="FIC-2v-5Lh" sceneMemberID="viewController">
@@ -992,6 +958,7 @@
         <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
+        <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
         <image name="facebook" width="26" height="26"/>
         <image name="facebook_Active" width="26" height="26"/>
@@ -1003,6 +970,8 @@
         <image name="icon-like-on" width="30" height="30"/>
         <image name="icon-location" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
         <image name="selfieDown" width="26" height="26"/>

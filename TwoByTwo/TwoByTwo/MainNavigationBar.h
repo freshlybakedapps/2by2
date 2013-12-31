@@ -11,8 +11,7 @@
 
 @interface MainNavigationBar : UINavigationBar
 
-@property (nonatomic, strong) UILabel *textLabel;
-@property (nonatomic, strong) UIButton *actionButton;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 
 - (void)updateNotificationCount:(NSUInteger)count;
 
