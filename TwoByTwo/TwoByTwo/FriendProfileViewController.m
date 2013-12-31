@@ -23,7 +23,7 @@
 	
     GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
     controller.type = FeedTypeFriend;
-    controller.friend = self.friend;
+    controller.user = self.friend;
     //[self.view insertSubview:controller.view atIndex:0];
     
     [self addChildViewController:controller];

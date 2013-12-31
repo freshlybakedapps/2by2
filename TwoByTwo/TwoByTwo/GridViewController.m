@@ -11,16 +11,19 @@
 #import "CameraViewController.h"
 #import "GridHeaderView.h"
 #import "MainViewController.h"
+#import "FriendProfileViewController.h"
+#import "CommentsViewController.h"
+
+static NSUInteger const kQueryBatchSize = 20;
 
 
-@interface GridViewController ()
+@interface GridViewController () <GridCellDelegate>
 @property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
 @property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
-@property (nonatomic, strong) NSNumber* currentSkipCount;
-@property (nonatomic, strong) NSNumber* queryLimit;
-
-
-
+@property (nonatomic, strong) NSMutableArray *objects;
+@property (nonatomic, strong) NSArray *followers;
+@property (nonatomic) NSUInteger totalNumberOfObjects;
+@property (nonatomic) NSUInteger queryOffset;
 @end
 
 
@@ -30,13 +33,8 @@
 {
     [super viewDidLoad];
     
-   
     
-    self.currentSkipCount = 0;
-    self.limit = [NSNumber numberWithInt:20];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performQuery) name:@"reloadImagesTable" object:nil];
-    
+    // Setup Layouts
     self.gridLayout = [UICollectionViewFlowLayout new];
     self.gridLayout.itemSize = CGSizeMake(77, 77);
     self.gridLayout.minimumInteritemSpacing = 2;
@@ -53,80 +51,9 @@
     
     self.collectionView.collectionViewLayout = self.gridLayout;
     
-    [self getFollowers];
-    @try {
-        if(self.type != FeedTypeNotifications){
-            [self checkNotifications];
-        }
-        
-    }
-    @catch (NSException *exception) {
-        NSLog(@"checkNotifications/exception %@",exception.description);
-    }
     
-    
-}
-
--(NSDate *) toLocalTime:(NSDate*)d
-{
-    NSTimeZone *tz = [NSTimeZone defaultTimeZone];
-    NSInteger seconds = [tz secondsFromGMTForDate: d];
-    return [NSDate dateWithTimeInterval: seconds sinceDate: d];
-}
-
--(NSDate *) toGlobalTime:(NSDate*)d
-{
-    NSTimeZone *tz = [NSTimeZone defaultTimeZone];
-    NSInteger seconds = -[tz secondsFromGMTForDate: d];
-    return [NSDate dateWithTimeInterval: seconds sinceDate: d];
-}
-
-
-- (void) checkNotifications{
-    
-    //PFUser* object = [PFUser currentUser];
-    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
-        [query whereKey:@"notificationID" equalTo:object.objectId];
-        NSDate* d = (NSDate*)object[@"notificationWasAccessed"];
-        
-        NSLog(@"notificationWasAccessed: %@ %@ %@",object[@"notificationWasAccessed"],[NSDate new],[self toGlobalTime:d]);
-        
-        [query whereKey:@"createdAt" greaterThan:[self toGlobalTime:d]];
-        [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-            NSLog(@"NUMBER: %d",number);
-            [[AppDelegate delegate].mainNavigationBar updateNotificationCount:number];
-        }];
-    }];
-    
-    
-}
-
-- (void) scrollToTop{
-    NSLog(@"TOP");
-    [self.collectionView setContentOffset:CGPointZero animated:YES];
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-}
-
-- (void) getFollowers{
-    PFQuery *followQuery = [PFQuery queryWithClassName:@"Followers"];
-    [followQuery whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
-    [followQuery selectKeys:@[@"followingUserID"]];
-    
-    [followQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            self.followers = [NSMutableArray new];
-            for (int i=0; i < objects.count; i++) {
-                NSString *objid = objects[i][@"followingUserID"];
-                [self.followers addObject:[PFUser objectWithoutDataWithObjectId:objid]];
-            }
-            [self performQuery];
-        }
-        else {
-            NSLog(@"Followers error");
-        }
-    }];
-
+    // Load Data
+    [self performQuery];
 }
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
@@ -149,29 +76,56 @@
 }
 
 
-
-
 #pragma mark - Query
 
 - (void)performQuery
 {
+    if (self.type == FeedTypeFollowing) {
+        [self loadFollowers];
+    }
+    else {
+        [self loadPhotos];
+    }
+}
+
+- (void)loadFollowers
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Followers"];
+    [query whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
+    [query selectKeys:@[@"followingUserID"]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.followers = [objects bk_map:^id(id object) {
+                NSString *userID = object[@"followingUserID"];
+                PFUser *user = [PFUser objectWithoutDataWithObjectId:userID];
+                return user;
+            }];
+            [self loadPhotos];
+        }
+        else {
+            NSLog(@"loadFollowers error: %@", error);
+        }
+    }];
+    
+}
+
+- (void)loadPhotos
+{
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     
     switch (self.type) {
-        case FeedTypeYou:
-        {
-            //on FeedTypeYou we want to show all photos you started or finished
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", [PFUser currentUser], [PFUser currentUser]];
-            query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
-        }
-            break;
-            
         case FeedTypeSingle:
             [query whereKey:@"state" equalTo:@"half"];
             [query whereKey:@"user" notEqualTo:[PFUser currentUser]];
             break;
-        case FeedTypeFollowing:
-        {
+
+        case FeedTypeGlobal:
+        default:
+            [query whereKey:@"state" equalTo:@"full"];
+            break;
+
+        case FeedTypeFollowing: {
             PFQuery *userQuery = [PFQuery queryWithClassName:@"Photo"];
             [userQuery whereKey:@"user" containedIn:self.followers];
             
@@ -179,22 +133,24 @@
             [userFullQuery whereKey:@"user_full" containedIn:self.followers];
             
             query = [PFQuery orQueryWithSubqueries:@[userQuery,userFullQuery]];
-        }
             break;
-        case FeedTypeFriend:
-        {            
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", self.friend, self.friend];
+        }
+            
+        case FeedTypeYou: {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", [PFUser currentUser], [PFUser currentUser]];
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
-        }
             break;
+        }
+
+        case FeedTypeFriend: {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", self.user, self.user];
+            query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
+            break;
+        }
+
         case FeedTypePDP:
             self.collectionView.collectionViewLayout = self.feedLayout;
-            self.limit = [NSNumber numberWithInt:1];
             [query whereKey:@"objectId" equalTo:self.photoID];
-            break;
-        case FeedTypeGlobal:
-        default:
-            [query whereKey:@"state" equalTo:@"full"];
             break;
     }
     
@@ -204,45 +160,60 @@
     
     
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        self.totalObjects = [NSNumber numberWithInt:number];
-        
-        query.limit= [self.limit intValue];
-        query.skip = [self.currentSkipCount intValue];
+
+        self.totalNumberOfObjects = number;
+        query.limit= kQueryBatchSize;
+        query.skip = self.objects.count;
         [query setCachePolicy:kPFCachePolicyNetworkElseCache];
-        //[query clearAllCachedResults];
         
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             
             if (!error) {
-                
-                if(self.objects.count > 0){
-                    //[self.objects addObjectsFromArray:objects];
-                    @try {
-                        [self.collectionView performBatchUpdates:^{
-                            int resultsSize = [self.objects count];
-                            [self.objects addObjectsFromArray:objects];
-                            NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
-                            for (int i = resultsSize; i < resultsSize + objects.count; i++)
-                            {
-                                [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                            }
-                            [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
-                        } completion:nil];
-                        
-                    }
-                    @catch (NSException *exception) {
-                        NSLog(@"%@",exception.description);
-                    }
-
-                }else{
-                    self.objects = [(NSArray*)objects mutableCopy];
+                NSUInteger count = self.objects.count;
+                if (count == 0) {
+                    self.objects = [objects mutableCopy];
                     [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
                 }
-                    
-            }else {
+                else {
+                    @try {
+                        [self.collectionView performBatchUpdates:^{
+                            [self.objects addObjectsFromArray:objects];
+                            NSMutableArray *indexPaths = [NSMutableArray array];
+                            for (NSUInteger i = count; i < count + objects.count; i++) {
+                                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                            }
+                            [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                        } completion:nil];
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"performBatchUpdates: %@", exception.description);
+                    }
+                }
+            }
+            else {
                 self.objects = nil;
+                [self.collectionView reloadData];
                 [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
+            
+            [self loadNotifications];
+        }];
+    }];
+}
+
+- (void)loadNotifications
+{
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
+        NSDate *date = object[@"notificationWasAccessed"];
+        NSLog(@"notificationWasAccessed: %@", date);
+
+        PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
+        [query whereKey:@"notificationID" equalTo:object.objectId];
+        [query whereKey:@"createdAt" greaterThan:date];
+        [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            NSLog(@"notification count: %d", number);
+            [[AppDelegate delegate].mainNavigationBar updateNotificationCount:number];
         }];
     }];
 }
@@ -260,21 +231,17 @@
     return self.objects.count;
 }
 
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row==self.objects.count-1 && self.objects.count < [self.totalObjects intValue]){
-        self.currentSkipCount = @(self.currentSkipCount.intValue + 20);
+    if (indexPath.row == self.objects.count - 1 && self.objects.count < self.totalNumberOfObjects) {
         [self performQuery];
     }
     
     GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
     cell.photo = self.objects[indexPath.row];
-    cell.controller = self;
+    cell.delegate = self;
     return cell;
 }
-
-
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -302,36 +269,40 @@
         case FeedTypeFriend:
         case FeedTypeYou:
             return CGSizeMake(0, 175);
-            break;
             
-        case FeedTypeSingle:
-            return CGSizeMake(0, 0);
-            break;
-        case FeedTypeFollowing:
-            return CGSizeMake(0, 0);
-            break;
-        case FeedTypeGlobal:
         default:
-           return CGSizeMake(0, 0);
+           return CGSizeZero;
     }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.type == FeedTypeYou && kind == UICollectionElementKindSectionHeader){
+    if (kind == UICollectionElementKindSectionHeader) {
         GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
-        headerView.controller = self;
-        [headerView render];
-        return headerView;
-    }else if(self.type == FeedTypeFriend && kind == UICollectionElementKindSectionHeader){
-        GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
-        headerView.controller = self;
-        headerView.friend = self.friend;
-        [headerView render];
+//        headerView.controller = self;
+        headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
         return headerView;
     }
-    
     return nil;
+}
+
+
+#pragma mark - GridCell Delegate
+
+- (void)cell:(GridCell *)cell showProfileForUser:(PFUser *)user
+{
+    UINavigationController *navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FriendProfileViewController"];
+    FriendProfileViewController *controller = (id)navController.topViewController;
+    controller.friend = user;
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)cell:(GridCell *)cell showCommentsForPhoto:(PFObject *)photo
+{
+    UINavigationController *navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
+    CommentsViewController *controller = (id)navController.topViewController;
+    controller.commentID = photo.objectId;
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 @end

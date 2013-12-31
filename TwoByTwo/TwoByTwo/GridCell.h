@@ -7,29 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GridViewController.h"
 
-typedef NS_ENUM(NSUInteger, FlagType) {
-    FlagTypeInnapropiate = 0,
-    FlagTypeSpam,
-    FlagTypeScam,
-    FlagTypeStolen,
-};
+@protocol GridCellDelegate;
 
 
 @interface GridCell : UICollectionViewCell
-
 @property (nonatomic, weak) PFObject *photo;
-@property (nonatomic, strong) NSMutableArray* nLikes;
-
-@property (nonatomic, weak) UIButton *userButton;
-@property (nonatomic, weak) UIButton *userFullButton;
-@property (nonatomic, strong) UIImageView *userPhoto;
-@property (nonatomic, strong) UIImageView *userFullPhoto;
-
-@property (nonatomic, strong) GridViewController *controller;
-@property (nonatomic,strong) NSString* commentCount;
-
+@property (nonatomic, weak) id <GridCellDelegate> delegate;
 - (void)showImageOrMapAnimated:(BOOL)animated;
+@end
 
+
+@protocol GridCellDelegate <NSObject>
+- (void)cell:(GridCell *)cell showProfileForUser:(PFUser *)user;
+- (void)cell:(GridCell *)cell showCommentsForPhoto:(PFObject *)photo;
 @end

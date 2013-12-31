@@ -26,7 +26,7 @@
 
 - (NSString *)title
 {
-    PFUser *currentUser = [PFUser currentUser];
+//    PFUser *currentUser = [PFUser currentUser];
     return self.user.username;
 }
 

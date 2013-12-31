@@ -19,7 +19,8 @@ NSString * const PFUserFullKey      = @"user_full";
 NSString * const PFUserInUseKey     = @"user_inuse";
 NSString * const PFLikesKey         = @"likes";
 
-static NSString * const kShowMap    = @"show_map";
+static NSString * const kShowMap      = @"show_map";
+static NSString * const kCommentCount = @"comment_count";
 
 
 @implementation PFObject (Photo)
@@ -126,6 +127,17 @@ static NSString * const kShowMap    = @"show_map";
 {
     self[kShowMap] = @(showMap);
 }
+
+- (NSString *)commentCount
+{
+    return self[kCommentCount];
+}
+
+- (void)setCommentCount:(NSString *)commentCount
+{
+    self[kCommentCount] = commentCount;
+}
+
 
 - (BOOL)canDelete
 {

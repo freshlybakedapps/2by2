@@ -7,193 +7,44 @@
 //
 
 #import "GridCell.h"
-#import <MapKit/MapKit.h>
 #import "UserAnnotation.h"
 #import "MKMapView+Utilities.h"
-#import "UIImageView+Network.h"
-#import "NSString+MD5.h"
-#import "UIImageView+CircleMask.h"
-#import "FriendProfileViewController.h"
-#import "CommentsViewController.h"
+#import "UIButton+AFNetworking.h"
+
+typedef NS_ENUM(NSUInteger, FlagType) {
+    FlagTypeInnapropiate = 0,
+    FlagTypeSpam,
+    FlagTypeScam,
+    FlagTypeStolen,
+};
 
 
 @interface GridCell () <MKMapViewDelegate>
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIView *headerView;
+@property (nonatomic, weak) IBOutlet UIButton *firstUserButton;
+@property (nonatomic, weak) IBOutlet UIButton *secondUserButton;
 @property (nonatomic, weak) IBOutlet UIView *footerView;
 @property (nonatomic, weak) IBOutlet UIButton *likeButton;
 @property (nonatomic, weak) IBOutlet UIButton *commentButton;
 @property (nonatomic, weak) IBOutlet UILabel *filterLabel;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
+
+@property (nonatomic, strong) NSMutableArray* nLikes;
 @end
 
 
 @implementation GridCell
 
-#pragma mark - Content
-
-- (void)setPhoto:(PFObject *)photo
+- (void)awakeFromNib
 {
-    _photo = photo;
+    [super awakeFromNib];
     
-    if(photo[@"filter"]){
-        self.filterLabel.text = photo[@"filter"];
-    }else{
-        self.filterLabel.text = @"";
-    }
-    
-     __weak typeof(self) weakSelf = self;
-    
-    //storing values on controller so we don't have to get them again
-    self.commentCount = [self.controller.commentCount objectForKey:self.photo.objectId];
-    if(!self.commentCount){
-        PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
-        [query whereKey:@"commentID" equalTo:self.photo.objectId];
-        [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-            NSString* s = [NSString stringWithFormat:@"%d",number];
-            weakSelf.commentButton.titleLabel.text = s;
-            [weakSelf.commentButton setTitle:s forState:UIControlStateHighlighted];
-            [weakSelf.commentButton setTitle:s forState:UIControlStateSelected];
-            [weakSelf.commentButton setTitle:s forState:UIControlStateReserved];
-            [weakSelf.commentButton setTitle:s forState:UIControlStateDisabled];
-            [weakSelf.commentButton setTitle:s forState:UIControlStateApplication];
-            [weakSelf.commentButton setTitle:s forState:UIControlStateNormal];
-            [weakSelf.commentButton sizeToFit];
-        }];
-    }else{
-        self.commentButton.titleLabel.text = self.commentCount;
-        [self.commentButton setTitle:self.commentCount forState:UIControlStateHighlighted];
-        [self.commentButton setTitle:self.commentCount forState:UIControlStateSelected];
-    }
-    
-    
-    
-    
-    [self addPhotographerNames];
-    
-    // Image
-    self.imageView.image = nil;
-    PFFile *file = ([self.photo.state isEqualToString:@"full"]) ? self.photo.imageFull : self.photo.imageHalf;
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        if (!error) {
-            UIImage *image = [UIImage imageWithData:data];
-            self.imageView.image = image;
-        }
-        else {
-            NSLog(@"getDataInBackgroundWithBlock: %@", error);
-        }
-    }];
-    
-    
-    // Likes
-    [self updateLikeButton];
-    
-
-    // Flag or Delte
-    if (photo.canDelete) {
-        [self.toolButton setImage:[UIImage imageNamed:@"icon-delete"] forState:UIControlStateNormal];
-    }
-    else {
-        [self.toolButton setImage:[UIImage imageNamed:@"icon-flag-on"] forState:UIControlStateNormal];
-    }
-
-
-    // Map
-    photo.showMap = NO;
-    [self showImageOrMapAnimated:NO];
+    self.firstUserButton.imageView.layer.cornerRadius = 12.0;
+    self.secondUserButton.imageView.layer.cornerRadius = 12.0;
 }
-
-
-
-- (void) addPhotographerNames{
-    if(self.userButton == nil){
-        self.userButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.userButton addTarget:self action:@selector(goToUserProfile:) forControlEvents:UIControlEventTouchDown];
-        self.userButton.frame = CGRectMake(35.0, 0.0, 150.0, 40.0);
-        [self.userButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];        
-        [self.headerView addSubview:self.userButton];
-        
-        self.userPhoto = [UIImageView new];
-        [self.headerView addSubview:self.userPhoto];
-        
-    }
-    
-    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",_photo.user[@"facebookId"]];
-    NSURL *imageURL = [NSURL URLWithString:url];
-    //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    
-    //self.userPhoto.image = [UIImage imageWithData:imageData];
-    self.userPhoto.frame = CGRectMake(0, 0, 30, 30);
-    [self.userPhoto addMaskToBounds:CGRectMake(0, 0, 25, 25)];
-    
-    
-    [self.userPhoto loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
-    
-    
-    NSString* username = [NSString stringWithFormat:@"%@",_photo.user.username];
-    [self.userButton setTitle:username forState:UIControlStateNormal];
-    [self.userButton sizeToFit];
-    
-    
-    if (_photo.userFull) {
-        if(self.userFullButton == nil){
-            self.userFullButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            [self.userFullButton addTarget:self action:@selector(goToUserProfile:) forControlEvents:UIControlEventTouchDown];
-            
-            
-            [self.userFullButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-            [self.headerView addSubview:self.userFullButton];
-            
-            self.userFullPhoto = [UIImageView new];
-            [self.headerView addSubview:self.userFullPhoto];
-        }
-        
-        self.userFullButton.frame = CGRectMake(self.userButton.frame.size.width+self.userButton.frame.origin.x+40, 0.0, 150.0, 40.0);
-        [self.userFullButton setTitle:_photo.userFull.username forState:UIControlStateNormal];
-        [self.userFullButton sizeToFit];
-        
-        NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",_photo.userFull[@"facebookId"]];
-        NSURL *imageURL = [NSURL URLWithString:url];
-        //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-        
-        //self.userFullPhoto.image = [UIImage imageWithData:imageData];
-        self.userFullPhoto.frame = CGRectMake(self.userButton.frame.size.width+self.userButton.frame.origin.x+5, 0, 30, 30);
-        [self.userFullPhoto addMaskToBounds:CGRectMake(0, 0, 25, 25)];
-
-        [self.userFullPhoto loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
-        
-    }else{
-        [self.userFullButton setTitle:@"" forState:UIControlStateNormal];
-        self.userFullPhoto.image = nil;
-    }
-
-}
-
-- (void) goToUserProfile:(id)sender {
-    NSString* userID;
-    NSString* friendName;
-    
-    if(sender == self.userButton){
-        userID = _photo.user.objectId;
-        friendName = _photo.user.username;
-    }else{
-        userID = _photo.userFull.objectId;
-        friendName = _photo.userFull.username;
-    }
-    
-    UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FriendProfileViewController"];
-    
-    FriendProfileViewController * fvc = (FriendProfileViewController*)controller.topViewController;
-    
-    fvc.friend = [PFUser objectWithoutDataWithObjectId:userID];
-    fvc.friendName = friendName;
-    [self.controller presentViewController:controller animated:YES completion:nil];
-}
-
-
-#pragma mark - Layout
 
 // Without this, contentView's subviews won't be animated properly.
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
@@ -213,130 +64,140 @@
 }
 
 
+#pragma mark - Content
+
+- (void)setPhoto:(PFObject *)photo
+{
+    _photo = photo;
+    __weak typeof(self) weakSelf = self;
+    
+    
+    // User Avatars
+    NSURL *firstURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", self.photo.user[@"facebookId"]]];
+    [self.firstUserButton setImageForState:UIControlStateNormal withURL:firstURL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+    [self.firstUserButton setTitle:self.photo.user.username forState:UIControlStateNormal];
+    
+    if (self.photo.userFull) {
+        NSURL *secondURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", self.photo.userFull[@"facebookId"]]];
+        [self.secondUserButton setImageForState:UIControlStateNormal withURL:secondURL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+        [self.secondUserButton setTitle:self.photo.userFull.username forState:UIControlStateNormal];
+        self.secondUserButton.hidden = NO;
+    }
+    else {
+        self.secondUserButton.hidden = YES;
+    }
+
+    
+    // Photo
+    self.imageView.image = nil;
+    PFFile *file = ([self.photo.state isEqualToString:@"full"]) ? self.photo.imageFull : self.photo.imageHalf;
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            UIImage *image = [UIImage imageWithData:data];
+            weakSelf.imageView.image = image;
+        }
+        else {
+            NSLog(@"getDataInBackgroundWithBlock: %@", error);
+        }
+    }];
+    
+    
+    // Likes
+    [self updateLikeButton];
+    
+    
+    // Comments
+    if (self.photo.commentCount) {
+        [self.commentButton setTitle:self.photo.commentCount forState:UIControlStateNormal];
+    }
+    else {
+        PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
+        [query whereKey:@"commentID" equalTo:self.photo.objectId];
+        [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            weakSelf.photo.commentCount = [NSString stringWithFormat:@"%d", number];
+            [weakSelf.commentButton setTitle:weakSelf.photo.commentCount forState:UIControlStateNormal];
+        }];
+    }
+    
+
+    // Filter
+    self.filterLabel.text = photo[@"filter"];
+
+
+    // Map
+    self.photo.showMap = NO;
+    [self showImageOrMapAnimated:NO];
+
+    
+    // Flag or Delte
+    if (photo.canDelete) {
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-delete"] forState:UIControlStateNormal];
+    }
+    else {
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-flag-on"] forState:UIControlStateNormal];
+    }
+}
+
+
 #pragma mark - Actions
+
+- (IBAction)userButtonTapped:(id)sender
+{
+    if (sender == self.firstUserButton) {
+        [self.delegate cell:self showProfileForUser:self.photo.user];
+    }
+    else {
+        [self.delegate cell:self showProfileForUser:self.photo.userFull];
+    }
+}
 
 - (IBAction)commentButtonTapped:(id)sender
 {
-    
-    NSLog(@"commentCount: %@",self.commentButton.titleLabel.text);
-    [self.commentButton setTitle:self.commentButton.titleLabel.text forState:UIControlStateNormal];
-    
-    
-    @try {
-        UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
-        
-        //UINavigationController *navController =(UINavigationController*)[[[[UIApplication sharedApplication]delegate] window] rootViewController];
-        
-        //NSLog(@"%@",navController);
-        
-        CommentsViewController * cvc = (CommentsViewController*)controller.topViewController;
-        cvc.commentID = self.photo.objectId;
-        
-        
-        [self.controller presentViewController:controller animated:YES completion:nil];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"commentButtonTapped/exception: %@",exception.description);
-    }
-    
+    [self.delegate cell:self showCommentsForPhoto:self.photo];
 }
 
 - (IBAction)likeButtonTapped:(id)sender
 {
     NSArray *oldLikes = self.photo.likes;
-    if(self.photo.likes){
-        self.nLikes = [NSMutableArray arrayWithArray:self.photo.likes];
-    }else{
-        self.nLikes = [NSMutableArray new];
-    }
-    
+
+    NSMutableArray *newLikes = [self.photo.likes mutableCopy];
     if (self.photo.likedByMe) {
-        [self.nLikes removeObject:[PFUser currentUser].objectId];
+        [newLikes removeObject:[PFUser currentUser].objectId];
     }
     else {
-        [self.nLikes addObject:[PFUser currentUser].objectId];
+        [newLikes addObject:[PFUser currentUser].objectId];
     }
-    self.photo.likes = self.nLikes;
+    self.photo.likes = [newLikes copy];
     [self updateLikeButton];
     
     
-    @try {
-        __weak typeof(self) weakSelf = self;
-        
-        PFUser* user = [PFUser currentUser];
-        
-        NSDictionary* params = @{@"objectid":self.photo.objectId, @"userWhoLikedID":user.objectId, @"userWhoLikedUsername":user.username};
-        
-        [PFCloud callFunctionInBackground:@"likePhoto"
-                           withParameters:params
-                                    block:^(NSNumber *result, NSError *error) {
-                                        
-                                        if (error) {
-                                            NSLog(@"like photo: %@", error);
-                                            
-                                            
-                                            // Revert likes
-                                            weakSelf.photo.likes = oldLikes;
-                                            [weakSelf updateLikeButton];
-                                        }else{
-                                            NSLog(@"Like successfull");
-                                        }
-                                    }];
-
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error %@", exception.description);
-    }
+    __weak typeof(self) weakSelf = self;
+    PFUser *user = [PFUser currentUser];
+    NSDictionary *params = @{@"objectid":self.photo.objectId, @"userWhoLikedID":user.objectId, @"userWhoLikedUsername":user.username};
+    [PFCloud callFunctionInBackground:@"likePhoto" withParameters:params block:^(NSNumber *result, NSError *error) {
+        if (error) {
+            NSLog(@"likePhoto error: %@", error);
+            weakSelf.photo.likes = oldLikes;
+            [weakSelf updateLikeButton];
+        }
+        else {
+            NSLog(@"likePhoto successfull");
+        }
+    }];
     
     
-    @try {
-        NSDictionary *dimensions = @{
-                                     @"photoID": self.photo.objectId,
-                                     @"userWhoLiked": [PFUser currentUser].username,
-                                     @"likeCount": [NSString stringWithFormat:@"%lu",(unsigned long)self.photo.likes.count],
-                                     };
-        
-        [PFAnalytics trackEvent:@"like_or_unlike" dimensions:dimensions];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"like_or_unlike error: %@",exception.description);
-    }
-    
-    
-    
+    NSDictionary *dimensions = @{
+                                 @"photoID": self.photo.objectId,
+                                 @"userWhoLiked": [PFUser currentUser].username,
+                                 @"likeCount": [NSString stringWithFormat:@"%lu",(unsigned long)self.photo.likes.count],
+                                 };
+    [PFAnalytics trackEvent:@"like_or_unlike" dimensions:dimensions];
 }
 
 - (void)updateLikeButton
 {
     self.likeButton.selected = self.photo.likedByMe;
     [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.photo.likes.count] forState:UIControlStateNormal];
-}
-
-- (void) flagWithType:(FlagType)type{
-    NSString* typeString = @"";
-    switch (type) {
-        case FlagTypeInnapropiate:
-            typeString = @"FlagTypeInnapropiate";
-            break;
-        case FlagTypeScam:
-            typeString = @"FlagTypeScam";
-            break;
-        case FlagTypeSpam:
-            typeString = @"FlagTypeSpam";
-            break;
-        case FlagTypeStolen:
-            typeString = @"FlagTypeStolen";
-            break;
-        default:
-            break;
-    }
-    [PFCloud callFunctionInBackground:@"flagPhoto"
-                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoFlagged":[PFUser currentUser].username, @"type":typeString}
-                                block:^(NSString *result, NSError *error) {
-                                    if (error) {
-                                        NSLog(@"Failed to flag: %@", error);
-                                    }
-                                }];
 }
 
 - (IBAction)toolButtonTapped:(id)sender
@@ -358,34 +219,54 @@
         [alert bk_addButtonWithTitle:@"is spam" handler:^{
             [self flagWithType:FlagTypeSpam];
         }];
-        
         [alert bk_addButtonWithTitle:@"is scam" handler:^{
             [self flagWithType:FlagTypeScam];
         }];
-        
         [alert bk_addButtonWithTitle:@"diaplays stolen content" handler:^{
             [self flagWithType:FlagTypeStolen];
         }];
-        
         [alert bk_setCancelButtonWithTitle:@"CANCEL" handler:^{
             
         }];
         [alert show];
     }
     
-    NSString* flag_or_delete = @"flag";
-    
-    if (self.photo.canDelete) {
-        flag_or_delete = @"delete";
-    }
     
     NSDictionary *dimensions = @{
                                  @"photoID": self.photo.objectId,
                                  @"user": [PFUser currentUser].username,
-                                 @"flag_or_delete": flag_or_delete,
+                                 @"flag_or_delete": (self.photo.canDelete) ? @"delete" : @"flag",
                                  };
-    
     [PFAnalytics trackEvent:@"flag_or_delete_photo" dimensions:dimensions];
+}
+
+- (void)flagWithType:(FlagType)type
+{
+    NSString* typeString = @"";
+    switch (type) {
+        case FlagTypeInnapropiate:
+            typeString = @"FlagTypeInnapropiate";
+            break;
+        case FlagTypeScam:
+            typeString = @"FlagTypeScam";
+            break;
+        case FlagTypeSpam:
+            typeString = @"FlagTypeSpam";
+            break;
+        case FlagTypeStolen:
+            typeString = @"FlagTypeStolen";
+            break;
+        default:
+            break;
+    }
+    
+    [PFCloud callFunctionInBackground:@"flagPhoto"
+                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoFlagged":[PFUser currentUser].username, @"type":typeString}
+                                block:^(NSString *result, NSError *error) {
+                                    if (error) {
+                                        NSLog(@"flagPhoto error: %@", error);
+                                    }
+                                }];
 }
 
 - (IBAction)mapButtonTapped:(id)sender

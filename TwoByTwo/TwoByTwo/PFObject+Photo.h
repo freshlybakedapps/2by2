@@ -23,17 +23,18 @@ extern NSString * const PFLikesKey;
 
 @interface PFObject (Photo)
 
-@property (nonatomic, weak) PFFile *imageFull;
-@property (nonatomic, weak) PFFile *imageHalf;
-@property (nonatomic, weak) PFGeoPoint *locationFull;
-@property (nonatomic, weak) PFGeoPoint *locationHalf;
-@property (nonatomic, weak) NSString *state;
-@property (nonatomic, weak) PFUser *user;
-@property (nonatomic, weak) PFUser *userFull;
-@property (nonatomic, weak) PFUser *userInUse;
-@property (nonatomic, weak) NSArray *likes;
+@property (nonatomic, strong) PFFile *imageFull;
+@property (nonatomic, strong) PFFile *imageHalf;
+@property (nonatomic, strong) PFGeoPoint *locationFull;
+@property (nonatomic, strong) PFGeoPoint *locationHalf;
+@property (nonatomic, strong) NSString *state;
+@property (nonatomic, strong) PFUser *user;
+@property (nonatomic, strong) PFUser *userFull;
+@property (nonatomic, strong) PFUser *userInUse;
+@property (nonatomic, strong) NSArray *likes;
 
 @property (nonatomic) BOOL showMap;
+@property (nonatomic, strong) NSString *commentCount;
 @property (nonatomic, readonly) BOOL canDelete;
 @property (nonatomic, readonly) BOOL likedByMe;
 
