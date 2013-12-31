@@ -11,19 +11,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (nonatomic, strong) UIWindow *window;
-
-
-
-
-
-@property (nonatomic, strong) CLLocation *currentLocation;
-@property (nonatomic, readonly) int networkStatus;
-
 - (void)showLoginViewController;
 - (void)showMainViewController;
-- (BOOL)isParseReachable;
-
 + (AppDelegate *)delegate;
 
 @end
