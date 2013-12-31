@@ -147,14 +147,14 @@
     
     [self dismissViewControllerAnimated:YES completion:^{
         if(email && phone){
-            UIAlertView *alert = [UIAlertView alertViewWithTitle:nil message:msg];
-            [alert addButtonWithTitle:@"BY EMAIL" handler:^{
+            UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:nil message:msg];
+            [alert bk_addButtonWithTitle:@"BY EMAIL" handler:^{
                 [self sendEmail:email];
             }];
-            [alert addButtonWithTitle:@"BY TEXT" handler:^{
+            [alert bk_addButtonWithTitle:@"BY TEXT" handler:^{
                 [self sendSMS:msg recipientList:@[phone]];
             }];
-            [alert setCancelButtonWithTitle:@"CANCEL" handler:^{
+            [alert bk_setCancelButtonWithTitle:@"CANCEL" handler:^{
                 //cancel
             }];
             [alert show];

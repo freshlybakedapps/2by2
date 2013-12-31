@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         __weak typeof(self) weakSelf = self;
         void (^showErrorAndDismiss)(NSError *, NSString *) = ^(NSError *error, NSString *message) {
             if (!message) message = error.localizedDescription;
-            [UIAlertView showAlertViewWithTitle:@"Error" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            [UIAlertView bk_showAlertViewWithTitle:@"Error" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
                 [weakSelf cleanup];
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }];
@@ -445,7 +445,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                     }
                     @catch (NSException *exception) {
                         NSLog(@"notifyUser error: %@",exception.description);
-                        [UIAlertView showAlertViewWithTitle:@"Error" message:exception.description cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                        [UIAlertView bk_showAlertViewWithTitle:@"Error" message:exception.description cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
                             
                         }];
                     }

@@ -342,7 +342,7 @@
 - (IBAction)toolButtonTapped:(id)sender
 {
     if (self.photo.canDelete) {
-        [UIAlertView showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex != alertView.cancelButtonIndex) {
                 [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
@@ -351,23 +351,23 @@
         }];
     }
     else {
-        UIAlertView *alert = [UIAlertView alertViewWithTitle:@"Flagging photo" message:@"This photo..."];
-        [alert addButtonWithTitle:@"is innapropiate" handler:^{
+        UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"Flagging photo" message:@"This photo..."];
+        [alert bk_addButtonWithTitle:@"is innapropiate" handler:^{
             [self flagWithType:FlagTypeInnapropiate];
         }];
-        [alert addButtonWithTitle:@"is spam" handler:^{
+        [alert bk_addButtonWithTitle:@"is spam" handler:^{
             [self flagWithType:FlagTypeSpam];
         }];
         
-        [alert addButtonWithTitle:@"is scam" handler:^{
+        [alert bk_addButtonWithTitle:@"is scam" handler:^{
             [self flagWithType:FlagTypeScam];
         }];
         
-        [alert addButtonWithTitle:@"diaplays stolen content" handler:^{
+        [alert bk_addButtonWithTitle:@"diaplays stolen content" handler:^{
             [self flagWithType:FlagTypeStolen];
         }];
         
-        [alert setCancelButtonWithTitle:@"CANCEL" handler:^{
+        [alert bk_setCancelButtonWithTitle:@"CANCEL" handler:^{
             
         }];
         [alert show];
