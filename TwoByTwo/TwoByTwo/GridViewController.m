@@ -291,10 +291,9 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)cell:(GridCell *)cell showCommentsForPhoto:(PFObject *)photo
 {
-    UINavigationController *navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
-    CommentsViewController *controller = (id)navController.topViewController;
+    CommentsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
     controller.commentID = photo.objectId;
-    [self presentViewController:navController animated:YES completion:nil];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 @end

@@ -8,13 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@interface CommentsViewController : UIViewController
 
 @property (nonatomic, strong) NSString *commentID;
-@property (nonatomic, strong) NSMutableArray *objects;
-@property (nonatomic, strong) UITextField *textField;
-@property (nonatomic, strong) UITableView *tableView;
-
-
 
 @end
