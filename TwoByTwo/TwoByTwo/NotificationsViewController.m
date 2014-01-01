@@ -7,7 +7,6 @@
 //
 
 #import "NotificationsViewController.h"
-#import "PDPViewController.h"
 #import "GridViewController.h"
 #import "MainViewController.h"
 #import "NSDate+Addon.h"
@@ -134,9 +133,9 @@
     NSString* byUserID = notification[@"byUserID"];
     
     if (![photoID isEqualToString:@"0"] && ![photoID isEqualToString:@""]) {
-        UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PDPViewController"];
-        PDPViewController * pdp = (PDPViewController*)controller.topViewController;
-        pdp.photoID = photoID;
+        GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+        controller.type = FeedTypePDP;
+        controller.photoID = photoID;
         [self.navigationController pushViewController:controller animated:YES];
     }
     else {

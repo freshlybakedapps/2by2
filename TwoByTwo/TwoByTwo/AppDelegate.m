@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "UIWindow+Animation.h"
 #import "Crittercism.h"
-#import "PDPViewController.h"
+#import "GridViewController.h"
 
 
 @implementation AppDelegate
@@ -62,8 +62,7 @@
     // If the app was launched in response to a push notification, we'll handle the payload here
     NSDictionary *remoteNotificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotificationPayload) {
-        NSString *photoId = remoteNotificationPayload[@"p"];
-        [self showPDP:photoId];
+        //TODO: show Notifications view?
     }
 
     return YES;
@@ -126,9 +125,6 @@
         // so we consider the app as having been "opened by a push notification."
         [PFAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
     }
-    
-    NSString *photoId = [userInfo objectForKey:@"p"];    
-    [self showPDP:photoId];
 }
 
 
@@ -144,14 +140,6 @@
 {
     UIViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
     [self.window setRootViewController:controller animated:YES];
-}
-
-- (void)showPDP:(NSString *)photoID
-{
-    UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PDPViewController"];
-    PDPViewController * pdp = (PDPViewController*)controller.topViewController;
-    pdp.photoID = photoID;
-    [self.window.rootViewController presentViewController:controller animated:YES completion:nil];
 }
 
 

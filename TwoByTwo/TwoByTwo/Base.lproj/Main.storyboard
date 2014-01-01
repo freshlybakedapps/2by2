@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller - xxx-->
+        <!--Navigation Controller-->
         <scene sceneID="ucj-BP-YsX">
             <objects>
-                <navigationController title="xxx" definesPresentationContext="YES" id="Obj-f5-spw" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="Obj-f5-spw" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dia-uB-aYJ" customClass="MainNavigationBar">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -617,40 +617,6 @@
             <point key="canvasLocation" x="3087" y="812"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="IXx-xa-d9e">
-            <objects>
-                <navigationController storyboardIdentifier="PDPViewController" definesPresentationContext="YES" id="FIC-2v-5Lh" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6uJ-iS-f6u">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="dN6-rE-a4y" kind="relationship" relationship="rootViewController" id="VVv-7b-Qfh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hyp-qF-MXX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="53" y="2466"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="3tb-Cp-C0o">
-            <objects>
-                <viewController id="dN6-rE-a4y" customClass="PDPViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rbN-wa-UGf"/>
-                        <viewControllerLayoutGuide type="bottom" id="ROY-fE-dp5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8Vg-Vj-7Du">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="jdx-WR-vll"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xbW-XM-Ku4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="529" y="2472"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="lDf-tF-0fS">
             <objects>
                 <navigationController storyboardIdentifier="EditProfileViewController" definesPresentationContext="YES" id="CMk-9T-gY6" sceneMemberID="viewController">
@@ -994,7 +960,7 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gcC-2C-g1M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2041" y="69"/>
+            <point key="canvasLocation" x="2061" y="69"/>
         </scene>
         <!--Find Invite Friends View Controller-->
         <scene sceneID="xKJ-FK-ekY">
@@ -1157,7 +1123,9 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="add_photo" width="72" height="72"/>
         <image name="bio_bg" width="291" height="144"/>
         <image name="button-close" width="44" height="44"/>
+        <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
+        <image name="button-shutter-green" width="70" height="70"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
         <image name="facebook" width="26" height="26"/>
@@ -1170,6 +1138,9 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="icon-like-on" width="30" height="30"/>
         <image name="icon-location" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
         <image name="selfieDown" width="26" height="26"/>
