@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface NotificationsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
-
-@property (nonatomic, strong) NSMutableArray *objects;
-@property (nonatomic, strong) UITableView *tableView;
-
+@interface NotificationsViewController : UITableViewController
 
 @end

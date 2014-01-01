@@ -804,7 +804,7 @@
                                     <constraint firstAttribute="height" constant="60" id="o5R-hn-mX5"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GfC-i8-Spd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GfC-i8-Spd">
                                 <rect key="frame" x="0.0" y="80" width="320" height="428"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -951,6 +951,50 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfK-xO-DjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1609" y="69"/>
+        </scene>
+        <!--Notifications View Controller-->
+        <scene sceneID="egu-dx-0CI">
+            <objects>
+                <tableViewController storyboardIdentifier="NotificationsViewController" id="nXC-rf-ejY" customClass="NotificationsViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="07p-j0-LYD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationCell" textLabel="4K5-fX-3Oe" detailTextLabel="1Oy-pW-Wwj" style="IBUITableViewCellStyleSubtitle" id="T80-fX-PoE">
+                                <rect key="frame" x="0.0" y="22" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T80-fX-PoE" id="tBS-fm-FeD">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="qlkrlqkmel;qw" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="113" id="4K5-fX-3Oe">
+                                            <rect key="frame" x="15" y="11" width="113" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Oy-pW-Wwj">
+                                            <rect key="frame" x="15" y="33" width="43" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="nXC-rf-ejY" id="J2Q-JQ-d32"/>
+                            <outlet property="delegate" destination="nXC-rf-ejY" id="IlA-Ah-2jV"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gcC-2C-g1M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2041" y="69"/>
         </scene>
         <!--Find Invite Friends View Controller-->
         <scene sceneID="xKJ-FK-ekY">
@@ -1113,9 +1157,7 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="add_photo" width="72" height="72"/>
         <image name="bio_bg" width="291" height="144"/>
         <image name="button-close" width="44" height="44"/>
-        <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
-        <image name="button-shutter-green" width="70" height="70"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
         <image name="facebook" width="26" height="26"/>
@@ -1128,9 +1170,6 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="icon-like-on" width="30" height="30"/>
         <image name="icon-location" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
         <image name="selfieDown" width="26" height="26"/>

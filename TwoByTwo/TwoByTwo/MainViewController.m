@@ -113,7 +113,7 @@
     }
     
     if (type == FeedTypeNotifications) {
-        self.childViewController = [[NotificationsViewController alloc] init];
+        self.childViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
     }
     else {
         self.childViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
