@@ -63,9 +63,10 @@
 
 - (IBAction)actionButtonTapped:(id)sender
 {
+    NSLog(@"EditProfileViewController");
     if (self.currentFeedType == FeedTypeYou) {
         EditProfileViewController *controller = [EditProfileViewController controller];
-        [self presentViewController:controller animated:YES completion:nil];
+        [self.navigationController popToViewController:controller animated:YES];
     }
 }
 

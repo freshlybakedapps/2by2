@@ -105,7 +105,7 @@
     if (self.user) {
         self.actionButton.enabled = NO;
         [PFCloud callFunctionInBackground:@"follow"
-                           withParameters:@{@"userID":[PFUser currentUser].objectId,@"followingUserID":self.user.objectId}
+                           withParameters:@{@"userID":[PFUser currentUser].objectId,@"username":[PFUser currentUser].username,@"followingUserID":self.user.objectId}
                                     block:^(NSNumber *result, NSError *error) {
                                         self.actionButton.enabled = YES;
                                         if (!error) {

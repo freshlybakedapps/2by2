@@ -143,7 +143,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     }else{
         self.watermark.text = [NSString stringWithFormat:@"%@:2BY2",[[PFUser currentUser].username uppercaseString]];
     }
-    self.watermark.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(10.0)];
+    self.watermark.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:(11.0)];
     [self.watermark setTextAlignment:NSTextAlignmentCenter];
     self.watermark.textColor = [UIColor whiteColor];
     self.watermark.backgroundColor = [UIColor blackColor];

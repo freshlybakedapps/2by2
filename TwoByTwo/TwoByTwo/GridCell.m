@@ -10,6 +10,7 @@
 #import "UserAnnotation.h"
 #import "MKMapView+Utilities.h"
 #import "UIButton+AFNetworking.h"
+#import "BlocksKit+UIKit.h"
 
 typedef NS_ENUM(NSUInteger, FlagType) {
     FlagTypeInnapropiate = 0,
@@ -203,6 +204,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 - (IBAction)toolButtonTapped:(id)sender
 {
     if (self.photo.canDelete) {
+        
         [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex != alertView.cancelButtonIndex) {
                 [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -212,17 +214,17 @@ typedef NS_ENUM(NSUInteger, FlagType) {
         }];
     }
     else {
-        UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"Flagging photo" message:@"This photo..."];
-        [alert bk_addButtonWithTitle:@"is innapropiate" handler:^{
+        UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"FLAGGING THIS PHOTO" message:@"Choose a reason for flagging:"];
+        [alert bk_addButtonWithTitle:@"This photo is inappropriate" handler:^{
             [self flagWithType:FlagTypeInnapropiate];
         }];
-        [alert bk_addButtonWithTitle:@"is spam" handler:^{
+        [alert bk_addButtonWithTitle:@"This photo is a spam" handler:^{
             [self flagWithType:FlagTypeSpam];
         }];
-        [alert bk_addButtonWithTitle:@"is scam" handler:^{
+        [alert bk_addButtonWithTitle:@"This photo is a scam" handler:^{
             [self flagWithType:FlagTypeScam];
         }];
-        [alert bk_addButtonWithTitle:@"diaplays stolen content" handler:^{
+        [alert bk_addButtonWithTitle:@"This photo display stolen content" handler:^{
             [self flagWithType:FlagTypeStolen];
         }];
         [alert bk_setCancelButtonWithTitle:@"CANCEL" handler:^{

@@ -2,11 +2,14 @@ var Notifications = require('cloud/Notifications.js');
 
 exports.main = function(request, response){
   var userID = request.params.userID;
+  var username = request.params.username;
   var followingUserID = request.params.followingUserID;  
   
   var followQuery = new Parse.Query("Followers");
   followQuery.equalTo("userID", userID);
   followQuery.equalTo("followingUserID", followingUserID);
+
+  var phrases = ["You must be good looking!", "No pressure!", "We did not see that one coming ;)", "Kids these days!", "YAY, mashed potatoes, no gravy!", "I bet is that new haircut.", "It's going to be an awesome day.", "BTW, that color looks great on you."];
 
   followQuery.find({
   success: function(arr) {
@@ -26,13 +29,13 @@ exports.main = function(request, response){
           query.get(followingUserID, {
             success: function(user) {
               var email = user.get("email");
-              var username = user.get("username");
+              
               var followsEmailAlert = user.get("followsEmailAlert");
               var followsPushAlert = user.get("followsPushAlert");
-              var msg = "hi "+username+", you have a new follower.";
+              var msg = "Hi "+user.get("username")+", "+username+" started to follow you on 2by2. " + phrases[Math.floor(Math.random()*phrases.length)];
               var subject = "2by2 - new follower";
 
-              Notifications.sendNotifications(response,"follow",user.id,msg,msg,subject,"0","",userID,"",msg);
+              Notifications.sendNotifications(response,"follow",user.id,msg,msg,subject,"0","",userID,username,msg);
 
               /*
               if(followsPushAlert == true){
