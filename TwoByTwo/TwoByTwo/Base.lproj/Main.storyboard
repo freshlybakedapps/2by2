@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -616,25 +616,10 @@
             </objects>
             <point key="canvasLocation" x="3087" y="812"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="IXx-xa-d9e">
-            <objects>
-                <navigationController storyboardIdentifier="PDPViewController" definesPresentationContext="YES" id="FIC-2v-5Lh" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6uJ-iS-f6u">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="dN6-rE-a4y" kind="relationship" relationship="rootViewController" id="VVv-7b-Qfh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hyp-qF-MXX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="53" y="2466"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="3tb-Cp-C0o">
             <objects>
-                <viewController id="dN6-rE-a4y" customClass="PDPViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PDPViewController" id="dN6-rE-a4y" customClass="PDPViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rbN-wa-UGf"/>
                         <viewControllerLayoutGuide type="bottom" id="ROY-fE-dp5"/>
@@ -650,25 +635,10 @@
             </objects>
             <point key="canvasLocation" x="529" y="2472"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="lDf-tF-0fS">
-            <objects>
-                <navigationController storyboardIdentifier="EditProfileViewController" definesPresentationContext="YES" id="CMk-9T-gY6" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dna-Qx-Mtb">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="9NT-aa-4vW" kind="relationship" relationship="rootViewController" id="gY3-xf-0Sd"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uRb-vT-1Dz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1167" y="1780"/>
-        </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="1kb-hL-6pV">
             <objects>
-                <viewController id="9NT-aa-4vW" customClass="EditProfileViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfileViewController" id="9NT-aa-4vW" customClass="EditProfileViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2WW-Gr-B5J"/>
                         <viewControllerLayoutGuide type="bottom" id="vkj-Ki-wQf"/>

@@ -68,7 +68,7 @@
 - (void) follow:(UIButton*)b {
     b.enabled = NO;
     [PFCloud callFunctionInBackground:@"follow"
-                       withParameters:@{@"userID":[PFUser currentUser].objectId,@"followingUserID":self.data[@"parseID"]}
+                       withParameters:@{@"userID":[PFUser currentUser].objectId,@"username":[PFUser currentUser].username,@"followingUserID":self.data[@"parseID"]}
                                 block:^(NSNumber *result, NSError *error) {
                                     
                                     b.enabled = YES;

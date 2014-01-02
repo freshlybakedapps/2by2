@@ -45,16 +45,10 @@
     
     
     self.navigationItem.title = @"Notification";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close"
-                                                                             style:UIBarButtonItemStyleBordered
-                                                                            target:self
-                                                                            action:@selector(close:)];
+    
 }
 
--(void)close:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:^{ NSLog(@"controller dismissed"); }];
-}
+
 
 - (void)didReceiveMemoryWarning
 {

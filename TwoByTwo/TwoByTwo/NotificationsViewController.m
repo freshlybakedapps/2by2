@@ -129,22 +129,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *notification = self.objects[indexPath.row];
-    NSString* photoID = notification[@"photoID"];
-    NSString* byUserID = notification[@"byUserID"];
+    @try {
+        PFObject *notification = self.objects[indexPath.row];
+        NSString* photoID = notification[@"photoID"];
+        NSString* byUserID = notification[@"byUserID"];
+        
+        if (![photoID isEqualToString:@"0"] && ![photoID isEqualToString:@""]) {
+            //UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PDPViewController"];
+            PDPViewController * pdp = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PDPViewController"];
+            pdp.photoID = photoID;
+            [self.navigationController pushViewController:pdp animated:YES];
+            
+            
+        }
+        else {
+            GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+            controller.type = FeedTypeFriend;
+            controller.user = [PFUser objectWithoutDataWithObjectId:byUserID];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Notification exception: %@",exception.description);
+    }
     
-    if (![photoID isEqualToString:@"0"] && ![photoID isEqualToString:@""]) {
-        UINavigationController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PDPViewController"];
-        PDPViewController * pdp = (PDPViewController*)controller.topViewController;
-        pdp.photoID = photoID;
-        [self.navigationController pushViewController:controller animated:YES];
-    }
-    else {
-        GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
-        controller.type = FeedTypeFriend;
-        controller.user = [PFUser objectWithoutDataWithObjectId:byUserID];
-        [self.navigationController pushViewController:controller animated:YES];
-    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
