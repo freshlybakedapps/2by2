@@ -120,8 +120,12 @@
                                     }];
     }
     else {
-        EverythingElseViewController *controller = [EverythingElseViewController controller];
-        [[AppDelegate delegate].window.rootViewController presentViewController:controller animated:YES completion:nil];
+        EverythingElseViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EverythingElseViewController"];
+
+        UINavigationController *navController = (id)[AppDelegate delegate].window.rootViewController;
+        NSAssert([navController isKindOfClass:[UINavigationController class]], @"rootViewController should be an UINavigationController!");
+        [navController pushViewController:controller animated:YES];
+        
     }
 }
 

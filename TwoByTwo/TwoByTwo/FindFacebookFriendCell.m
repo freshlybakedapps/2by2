@@ -7,21 +7,15 @@
 //
 
 #import "FindFacebookFriendCell.h"
-#import "NSString+MD5.h"
-#import "UIImageView+Network.h"
-#import "UIImageView+CircleMask.h"
+#import "UIImageView+AFNetworking.h"
+
+
+@interface FindFacebookFriendCell ()
+@property (nonatomic, strong) UIButton *followButton;
+@end
+
 
 @implementation FindFacebookFriendCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
 /*
  facebookID = 100006174907836;
  following = 1;
@@ -33,66 +27,42 @@
 {
     _data = data;
     
-    //facebook photo
-    //https://developers.facebook.com/docs/reference/api/using-pictures/#sizes
-    NSString *url = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square",data[@"facebookID"]];
-    NSURL *imageURL = [NSURL URLWithString:url];
-    
-    
-    self.imageView.frame = CGRectMake(5, 15, 35, 35);   
-    [self.imageView loadImageFromURL:imageURL placeholderImage:[UIImage imageNamed:@"icon-you"] cachingKey:[imageURL.absoluteString MD5Hash]];
-    
-    [self.imageView addMaskToBounds:CGRectMake(5, 15, 35, 35)];
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", data[@"facebookID"]]];
+    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+    self.imageView.layer.cornerRadius = 15;
     
     self.textLabel.text = data[@"name"];
     
-    NSString* title;
     
-    
-    if(data[@"following"] == [NSNumber numberWithBool:YES]){
-        title = @"Unfollow";
-    }else{
-        title = @"Follow";
+    if (!self.followButton) {
+        self.followButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90, 40)];
+        self.followButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [self.followButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [self.followButton addTarget:self action:@selector(followButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        self.accessoryView = self.followButton;
     }
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [button addTarget:self action:@selector(follow:) forControlEvents:UIControlEventTouchDown];
-    [button setTitle:title forState:UIControlStateNormal];
-    button.frame = CGRectMake(0.0, 0.0, 90.0, 40.0);
-    self.accessoryView = button;
-    
-    [self setNeedsDisplay];
-    
+    NSString *buttonTitle = ([data[@"following"] boolValue]) ? @"Unfollow" : @"Follow";
+    [self.followButton setTitle:buttonTitle forState:UIControlStateNormal];
 }
 
-- (void) follow:(UIButton*)b {
-    b.enabled = NO;
+- (IBAction)followButtonTapped:(UIButton *)sender
+{
+    sender.enabled = NO;
     [PFCloud callFunctionInBackground:@"follow"
-                       withParameters:@{@"userID":[PFUser currentUser].objectId,@"followingUserID":self.data[@"parseID"]}
+                       withParameters:@{@"userID":[PFUser currentUser].objectId, @"followingUserID":self.data[@"parseID"]}
                                 block:^(NSNumber *result, NSError *error) {
-                                    
-                                    b.enabled = YES;
-                                    
+                                    sender.enabled = YES;
                                     if (!error) {
-                                        NSLog(@"Follow: %@", result);
-                                        if(result == 0){
-                                            [b setTitle:@"Follow" forState:UIControlStateNormal];
-                                        }else{
-                                            [b setTitle:@"Unfollow" forState:UIControlStateNormal];
+                                        if ([result isEqual:@0]){
+                                            [sender setTitle:@"Follow" forState:UIControlStateNormal];
                                         }
-                                        
+                                        else {
+                                            // In this case, result == @"Notifications sent"
+                                            [sender setTitle:@"Unfollow" forState:UIControlStateNormal];
+                                        }
                                     }
                                 }];
-
-}
-
-
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

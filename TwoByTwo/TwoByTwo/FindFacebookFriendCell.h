@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface FindFacebookFriendCell : UITableViewCell
 
 @property (nonatomic, strong) NSDictionary *data;
-@property (nonatomic, strong) IBOutlet UIImageView *imageView;
 
 @end

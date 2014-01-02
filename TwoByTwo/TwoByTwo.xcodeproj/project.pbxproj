@@ -53,6 +53,7 @@
 		7C7E2937183052120036557E /* UserAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E2936183052120036557E /* UserAnnotation.m */; };
 		7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293918305ACA0036557E /* MKMapView+Utilities.m */; };
 		7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293F18306DD30036557E /* PFObject+Photo.m */; };
+		7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */; };
 		7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */; };
 		7CF39DDF17E0070A003A859F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DDE17E0070A003A859F /* Foundation.framework */; };
 		7CF39DE117E0070A003A859F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE017E0070A003A859F /* CoreGraphics.framework */; };
@@ -159,6 +160,8 @@
 		7C7E293918305ACA0036557E /* MKMapView+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+Utilities.m"; sourceTree = "<group>"; };
 		7C7E293E18306DD30036557E /* PFObject+Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+Photo.h"; sourceTree = "<group>"; };
 		7C7E293F18306DD30036557E /* PFObject+Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Photo.m"; sourceTree = "<group>"; };
+		7CBC37351874F8830016B6E4 /* NotificationSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationSettingCell.h; sourceTree = "<group>"; };
+		7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationSettingCell.m; sourceTree = "<group>"; };
 		7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TwoByTwo.h"; sourceTree = "<group>"; };
 		7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TwoByTwo.m"; sourceTree = "<group>"; };
 		7CF39DDB17E0070A003A859F /* TwoByTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoByTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,11 +261,11 @@
 		1DB0C7AE18464DB1002626C8 /* EverythingElse */ = {
 			isa = PBXGroup;
 			children = (
-				1DB0C7FE184A65C2002626C8 /* Find & Invite Friends */,
-				1DB0C7FA184A6350002626C8 /* About */,
-				1DB0C7F618467EBB002626C8 /* Notification Settings */,
 				1DB0C7AF18464DED002626C8 /* EverythingElseViewController.h */,
 				1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */,
+				1DB0C7FA184A6350002626C8 /* About */,
+				1DB0C7F618467EBB002626C8 /* Notification Settings */,
+				1DB0C7FE184A65C2002626C8 /* Find & Invite Friends */,
 			);
 			name = EverythingElse;
 			sourceTree = "<group>";
@@ -272,6 +275,8 @@
 			children = (
 				1DB0C7F718467EF1002626C8 /* NotificationSettingsViewController.h */,
 				1DB0C7F818467EF1002626C8 /* NotificationSettingsViewController.m */,
+				7CBC37351874F8830016B6E4 /* NotificationSettingCell.h */,
+				7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */,
 			);
 			name = "Notification Settings";
 			sourceTree = "<group>";
@@ -291,10 +296,10 @@
 		1DB0C7FE184A65C2002626C8 /* Find & Invite Friends */ = {
 			isa = PBXGroup;
 			children = (
-				1DD9715F184BF68D001D35CA /* Find Contact Friends */,
-				1DB0C802184A6B05002626C8 /* Find Facebook friends */,
 				1DB0C7FF184A65F6002626C8 /* FindInviteFriendsViewController.h */,
 				1DB0C800184A65F6002626C8 /* FindInviteFriendsViewController.m */,
+				1DB0C802184A6B05002626C8 /* Find Facebook friends */,
+				1DD9715F184BF68D001D35CA /* Find Contact Friends */,
 			);
 			name = "Find & Invite Friends";
 			sourceTree = "<group>";
@@ -414,11 +419,11 @@
 				1DCD412518083B88007A5D56 /* Login */,
 				7CF39E2117E00D3F003A859F /* Main */,
 				7C7657911825AEA40053483B /* Grid */,
-				1DB27B111862525D00E5C083 /* Comments */,
-				7CF39E2017E00D3A003A859F /* Camera */,
 				1D0A5F6118675EFE0086FE1C /* Notifications */,
-				1D4A81071854431B007227BB /* EditProfile */,
+				7CF39E2017E00D3A003A859F /* Camera */,
+				1DB27B111862525D00E5C083 /* Comments */,
 				1DB0C7AE18464DB1002626C8 /* EverythingElse */,
+				1D4A81071854431B007227BB /* EditProfile */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -679,6 +684,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C07010A1873A6B90011845D /* NSDate+Addon.m in Sources */,
+				7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */,
 				7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */,
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
 				7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */,

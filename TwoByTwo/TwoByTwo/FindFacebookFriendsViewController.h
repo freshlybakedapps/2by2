@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FindFacebookFriendsViewController : UITableViewController
 
-@property (strong,nonatomic) NSArray* friends;
+@interface FindFacebookFriendsViewController : UITableViewController
 
 @end

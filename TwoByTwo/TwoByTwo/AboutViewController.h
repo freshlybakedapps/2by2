@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AboutViewController : UITableViewController
 
-@property (strong,nonatomic) NSMutableArray* sections;
+@interface AboutViewController : UITableViewController
 
 @end

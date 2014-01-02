@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebViewController : UIViewController <UIWebViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UIWebView *webview;
-@property (nonatomic, weak) NSString* page;
+@interface WebViewController : UIViewController
+
+@property (nonatomic, strong) NSString *page;
 
 @end

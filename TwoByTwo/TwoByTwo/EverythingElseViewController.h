@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface EverythingElseViewController : UITableViewController
-
-@property (strong,nonatomic) NSMutableArray* sections;
-
-+ (instancetype)controller;
 
 @end

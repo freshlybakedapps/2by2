@@ -11,134 +11,80 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface FindContactsViewController ()
 
+@interface FindContactsViewController ()
+@property (nonatomic, weak) IBOutlet UILabel *statusLabel;
+@property (nonatomic, strong) NSArray *friends;
 @end
 
-@implementation FindContactsViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@implementation FindContactsViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = @"Contacts";
+    self.title = @"Contacts";
     [self findFriendsFromContacts];
 }
 
-- (void) findFriendsFromContacts{
-    NSMutableArray* arr = [NSMutableArray new];
+- (void)findFriendsFromContacts
+{
+    CFErrorRef error;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!granted) {
+                //TODO: handle error
+            }
+            else {
+                [self parseAddressBook:addressBook];
+            }
+            CFRelease(addressBook);
+        });
+    });
+}
+
+- (void)parseAddressBook:(ABAddressBookRef)addressBook
+{
+    CFArrayRef allContacts = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    CFIndex numberOfContacts  = ABAddressBookGetPersonCount(addressBook);
+    NSMutableArray *uniqueEmails = [NSMutableArray array];
     
-    
-    ABAddressBookRef allPeople;
-    
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 6.0){
-        allPeople = ABAddressBookCreateWithOptions(NULL, NULL);
-        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-        ABAddressBookRequestAccessWithCompletion(allPeople,
-                                                 ^(bool granted, CFErrorRef error){
-                                                     dispatch_semaphore_signal(sema);
-                                                 });
-        
-        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-        //dispatch_release(sema);
-    }
-    else {
-        CFErrorRef error = NULL;
-        allPeople = ABAddressBookCreateWithOptions(NULL, &error);
-    }
-    
-    
-    
-    CFArrayRef allContacts = ABAddressBookCopyArrayOfAllPeople(allPeople);
-    CFIndex numberOfContacts  = ABAddressBookGetPersonCount(allPeople);
-    
-    //NSLog(@"numberOfContacts------------------------------------%ld",numberOfContacts);
-    
-    
-    for(int i = 0; i < numberOfContacts; i++){
-        //NSMutableDictionary *dic = [NSMutableDictionary new];
-        //NSString* name = @"";
-        NSString* email = @"";
-        
+    for (int i = 0; i < numberOfContacts; i++) {
         ABRecordRef aPerson = CFArrayGetValueAtIndex(allContacts, i);
-        //ABMultiValueRef fnameProperty = ABRecordCopyValue(aPerson, kABPersonFirstNameProperty);
-        //ABMultiValueRef lnameProperty = ABRecordCopyValue(aPerson, kABPersonLastNameProperty);
-        
         ABMultiValueRef emailProperty = ABRecordCopyValue(aPerson, kABPersonEmailProperty);
-        
         NSArray *emailArray = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(emailProperty);
         
-        /*
-        if (fnameProperty != nil) {
-            name = [NSString stringWithFormat:@"%@", fnameProperty];
-        }
-        if (lnameProperty != nil) {
-            name = [name stringByAppendingString:[NSString stringWithFormat:@" %@", lnameProperty]];
-        }
-        */
-        
-        
-        if ([emailArray count] > 0) {
-            
-             if ([emailArray count] > 1) {
-                 for (int i = 0; i < [emailArray count]; i++) {
-                     email = [email stringByAppendingString:[NSString stringWithFormat:@"%@\n", [emailArray objectAtIndex:i]]];
-                 }
-             }else {
-                 email = [NSString stringWithFormat:@"%@", [emailArray objectAtIndex:0]];
-             }
-            
-            //only add unique email addresses
-            if (![arr containsObject:email]){
-                [arr addObject:email];
+        if (emailArray.count) {
+            NSString *email = [emailArray componentsJoinedByString:@"\n"];
+            if (![uniqueEmails containsObject:email]){
+                [uniqueEmails addObject:email];
             }
         }
-        
     }
     
-    
+    self.statusLabel.text = [NSString stringWithFormat:@"Checking %d contacts...", uniqueEmails.count];
+
     [PFCloud callFunctionInBackground:@"getContactFriends"
-                       withParameters:@{@"contacts":arr,@"userID":[PFUser currentUser].objectId}
+                       withParameters:@{@"contacts":uniqueEmails, @"userID":[PFUser currentUser].objectId}
                                 block:^(NSArray *result, NSError *error) {
                                     if (!error) {
-                                        //NSLog(@"friends: %@", result);
+                                        self.statusLabel.text = [NSString stringWithFormat:@"Found %d friends", result.count];
                                         self.friends = result;
                                         [self.tableView reloadData];
-
+                                    }
+                                    else {
+                                        NSLog(@"getContactFriends error: %@", error);
+                                        self.statusLabel.text = [NSString stringWithFormat:@"Error loading friends"];
                                     }
                                 }];
-    
-    NSString* msg = [NSString stringWithFormat:@"You have %ld unique email addresses out of %ld contacts...please wait",(unsigned long)arr.count,numberOfContacts];
-    
-    [[[UIAlertView alloc] initWithTitle:@"Info" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return self.friends.count;
 }
 

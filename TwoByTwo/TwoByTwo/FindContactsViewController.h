@@ -8,12 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface FindContactsViewController : UITableViewController
-
-@property (strong,nonatomic) NSArray* friends;
-
-
-
-
 
 @end

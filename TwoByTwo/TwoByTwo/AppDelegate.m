@@ -47,6 +47,8 @@
     
     
     // Root View
+    [self setAppearance];
+
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
@@ -64,7 +66,7 @@
     if (remoteNotificationPayload) {
         //TODO: show Notifications view?
     }
-
+    
     return YES;
 }
 
@@ -159,6 +161,22 @@
         }
     }
     return nil;
+}
+
+- (void)setAppearance
+{
+    [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setTextColor:[UIColor colorWithWhite:0.55 alpha:1.0]];
+    [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];
+
+    [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setTextColor:[UIColor colorWithWhite:0.55 alpha:1.0]];
+    [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:13]];
+
+    [[UITableViewHeaderFooterView appearance] setTintColor:[UIColor whiteColor]];
+
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName:[UIColor colorWithWhite:0.55 alpha:1.0],
+                                                           NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Italic" size:18],
+                                                           }];
 }
 
 @end

@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AddressBook/AddressBook.h>
-#import <AddressBookUI/AddressBookUI.h>
-#import <MessageUI/MessageUI.h>
-#import <MessageUI/MFMailComposeViewController.h>
 
-@interface FindInviteFriendsViewController : UITableViewController <ABPeoplePickerNavigationControllerDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate>
 
-@property (strong,nonatomic) NSMutableArray* sections;
+@interface FindInviteFriendsViewController : UITableViewController
 
 @end
