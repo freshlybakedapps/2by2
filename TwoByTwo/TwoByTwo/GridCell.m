@@ -203,6 +203,8 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 - (IBAction)toolButtonTapped:(id)sender
 {
     if (self.photo.canDelete) {
+         
+        
         [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex != alertView.cancelButtonIndex) {
                 [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
