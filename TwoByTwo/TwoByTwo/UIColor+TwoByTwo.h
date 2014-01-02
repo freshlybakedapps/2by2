@@ -13,6 +13,8 @@
 
 + (UIColor *)appBlackishColor;
 + (UIColor *)appDarkGrayColor;
++ (UIColor *)appGrayColor;
 + (UIColor *)appRedColor;
++ (UIColor *)appGreenColor;
 
 @end

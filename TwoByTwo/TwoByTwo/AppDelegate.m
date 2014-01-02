@@ -165,16 +165,16 @@
 
 - (void)setAppearance
 {
-    [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setTextColor:[UIColor colorWithWhite:0.55 alpha:1.0]];
+    [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setTextColor:[UIColor appGrayColor]];
     [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18]];
 
-    [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setTextColor:[UIColor colorWithWhite:0.55 alpha:1.0]];
+    [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setTextColor:[UIColor appGrayColor]];
     [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:13]];
 
     [[UITableViewHeaderFooterView appearance] setTintColor:[UIColor whiteColor]];
 
     [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                                           NSForegroundColorAttributeName:[UIColor colorWithWhite:0.55 alpha:1.0],
+                                                           NSForegroundColorAttributeName:[UIColor appGrayColor],
                                                            NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Italic" size:18],
                                                            }];
 }

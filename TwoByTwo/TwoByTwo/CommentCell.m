@@ -27,11 +27,17 @@
 
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", comment[@"facebookId"]]];
     [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
-    self.avatarImageView.layer.cornerRadius = 30.0;
+    self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) * 0.5;
     
     self.nameLabel.text = comment[@"username"];
     self.commentLabel.text = comment[@"text" ];
     self.dateLabel.text = [comment.createdAt timeAgoString];
+    
+    self.nameLabel.font = [UIFont appFontOfSize:14];
+    self.commentLabel.font = [UIFont appFontOfSize:14];
+    self.dateLabel.font = [UIFont appFontOfSize:14];
+    
+    self.nameLabel.textColor = [UIColor appGreenColor];
 }
 
 @end

@@ -127,13 +127,13 @@
     PFObject *comment = self.objects[indexPath.row];
     NSString *text = comment[@"text"];
     
-    CGRect rect = [text boundingRectWithSize:CGSizeMake(230, MAXFLOAT)
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(260, MAXFLOAT)
                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}
+                                  attributes:@{NSFontAttributeName:[UIFont appFontOfSize:14]}
                                      context:nil];
     
-    CGFloat cellHeight = 37 + rect.size.height + 10;
-    return MAX(80.0, cellHeight);
+    CGFloat cellHeight = 38 + rect.size.height + 10;
+    return cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

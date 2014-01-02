@@ -20,5 +20,6 @@
     #import "FacebookSDK.h"
     #import "PFObject+Photo.h"
     #import "UIColor+TwoByTwo.h"
+    #import "UIFont+TwoByTwo.h"
     #import "AppDelegate.h"
 #endif

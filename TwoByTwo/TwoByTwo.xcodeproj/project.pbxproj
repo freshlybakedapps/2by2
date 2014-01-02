@@ -44,6 +44,10 @@
 		7C07010A1873A6B90011845D /* NSDate+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0701091873A6B90011845D /* NSDate+Addon.m */; };
 		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
 		7C16CF421839853B007EA62D /* GridHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF411839853B007EA62D /* GridHeaderView.m */; };
+		7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C1BFA3C187629F50076EFF2 /* Dosis-Light.ttf */; };
+		7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C1BFA3D187629F50076EFF2 /* Dosis-Medium.ttf */; };
+		7C1BFA41187629F50076EFF2 /* Dosis-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C1BFA3E187629F50076EFF2 /* Dosis-Regular.ttf */; };
+		7C1BFA4418762A6D0076EFF2 /* UIFont+TwoByTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C1BFA4318762A6D0076EFF2 /* UIFont+TwoByTwo.m */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
 		7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578A1825962A0053483B /* UIWindow+Animation.m */; };
@@ -144,6 +148,11 @@
 		7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconSegmentedControl.m; sourceTree = "<group>"; };
 		7C16CF401839853B007EA62D /* GridHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridHeaderView.h; sourceTree = "<group>"; };
 		7C16CF411839853B007EA62D /* GridHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridHeaderView.m; sourceTree = "<group>"; };
+		7C1BFA3C187629F50076EFF2 /* Dosis-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Light.ttf"; sourceTree = "<group>"; };
+		7C1BFA3D187629F50076EFF2 /* Dosis-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Medium.ttf"; sourceTree = "<group>"; };
+		7C1BFA3E187629F50076EFF2 /* Dosis-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Regular.ttf"; sourceTree = "<group>"; };
+		7C1BFA4218762A6D0076EFF2 /* UIFont+TwoByTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+TwoByTwo.h"; sourceTree = "<group>"; };
+		7C1BFA4318762A6D0076EFF2 /* UIFont+TwoByTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+TwoByTwo.m"; sourceTree = "<group>"; };
 		7C73FFC117E62EB50055C57C /* ProgressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressButton.h; sourceTree = "<group>"; };
 		7C73FFC217E62EB50055C57C /* ProgressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressButton.m; sourceTree = "<group>"; };
 		7C73FFC417E637C50055C57C /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
@@ -374,6 +383,16 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		7C1BFA3B187629F50076EFF2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7C1BFA3C187629F50076EFF2 /* Dosis-Light.ttf */,
+				7C1BFA3D187629F50076EFF2 /* Dosis-Medium.ttf */,
+				7C1BFA3E187629F50076EFF2 /* Dosis-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = SOURCE_ROOT;
+		};
 		7C7657911825AEA40053483B /* Grid */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +412,8 @@
 				1D7B9F811858C7600065C907 /* FTWCache */,
 				7C7657891825962A0053483B /* UIWindow+Animation.h */,
 				7C76578A1825962A0053483B /* UIWindow+Animation.m */,
+				7C1BFA4218762A6D0076EFF2 /* UIFont+TwoByTwo.h */,
+				7C1BFA4318762A6D0076EFF2 /* UIFont+TwoByTwo.m */,
 				7C73FFC417E637C50055C57C /* UIColor+Utilities.h */,
 				7C73FFC517E637C50055C57C /* UIColor+Utilities.m */,
 				7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */,
@@ -485,6 +506,7 @@
 				7C16CF3E18397839007EA62D /* Views */,
 				7C16CF3F18397854007EA62D /* Models */,
 				7CD9507417E657BC00C70956 /* Categories */,
+				7C1BFA3B187629F50076EFF2 /* Fonts */,
 				7CF39DE517E0070A003A859F /* Supporting Files */,
 			);
 			path = TwoByTwo;
@@ -627,8 +649,11 @@
 			files = (
 				1DD9716A184CCDD9001D35CA /* Terms.html in Resources */,
 				7C76578D182597930053483B /* Login.storyboard in Resources */,
+				7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */,
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
 				7CF39DE917E0070A003A859F /* InfoPlist.strings in Resources */,
+				7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */,
+				7C1BFA41187629F50076EFF2 /* Dosis-Regular.ttf in Resources */,
 				1DD97169184CCDD9001D35CA /* contact.html in Resources */,
 				7CF39DF217E0070A003A859F /* Main.storyboard in Resources */,
 				1DD97168184CCDD9001D35CA /* aboutUs.html in Resources */,
@@ -697,6 +722,7 @@
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
+				7C1BFA4418762A6D0076EFF2 /* UIFont+TwoByTwo.m in Sources */,
 				1DB0C801184A65F6002626C8 /* FindInviteFriendsViewController.m in Sources */,
 				7C7E2937183052120036557E /* UserAnnotation.m in Sources */,
 				1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */,
