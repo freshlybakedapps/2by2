@@ -11,6 +11,8 @@
 
 
 @interface LoginViewController ()
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *facebookButton;
 @property (nonatomic, weak) IBOutlet UIButton *termsButton;
 @end
 
@@ -21,6 +23,9 @@
 {
     [super viewDidLoad];
     
+    self.titleLabel.font = [UIFont appMediumFontOfSize:16];
+    self.facebookButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.termsButton.titleLabel.font = [UIFont appMediumFontOfSize:12];
     self.termsButton.titleLabel.numberOfLines = 2;
     self.termsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
 }
