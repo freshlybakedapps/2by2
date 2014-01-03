@@ -33,6 +33,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftLabel];
     
     self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    [self.rightButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
     
     MainNavigationBar *navBar = [AppDelegate delegate].mainNavigationBar;
@@ -66,7 +67,7 @@
     NSLog(@"EditProfileViewController");
     if (self.currentFeedType == FeedTypeYou) {
         EditProfileViewController *controller = [EditProfileViewController controller];
-        [self.navigationController popToViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
