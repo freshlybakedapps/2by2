@@ -175,8 +175,14 @@
 
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSForegroundColorAttributeName:[UIColor appGrayColor],
-                                                           NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Italic" size:18],
+                                                           NSFontAttributeName:[UIFont appMediumFontOfSize:14],
                                                            }];
+    
+//    [[UIBarButtonItem appearance] setTitleTextAttributes:@{
+//                                                           NSForegroundColorAttributeName:[UIColor appRedColor],
+//                                                           NSFontAttributeName:[UIFont appMediumFontOfSize:14],
+//                                                           }
+//                                                forState:UIControlStateNormal];
 }
 
 @end

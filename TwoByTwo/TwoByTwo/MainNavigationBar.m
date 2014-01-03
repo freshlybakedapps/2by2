@@ -30,7 +30,7 @@ static CGFloat const kSegmentedControlOffsetY = 20.0;
 {
     [super layoutSubviews];
     
-    self.segmentedControl.frame = CGRectMake(20, 20, 280, 30);
+    self.segmentedControl.frame = CGRectMake(10, 20, 300, 30);
     [self addSubview:self.segmentedControl];
 }
 

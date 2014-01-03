@@ -35,6 +35,14 @@
     self.numPhotosLabel.text = @"Loading..";
     self.followingLabel.text = @"Loading..";
     self.followersLabel.text = @"Loading..";
+    self.bioLabel.text = @"Loading..";
+    
+    self.nameLabel.font = [UIFont appFontOfSize:14];
+    self.usernameLabel.font = [UIFont appFontOfSize:14];
+    self.numPhotosLabel.font = [UIFont appFontOfSize:14];
+    self.followingLabel.font = [UIFont appFontOfSize:14];
+    self.followersLabel.font = [UIFont appFontOfSize:14];
+    self.bioLabel.font = [UIFont appFontOfSize:14];
 }
 
 - (void)setUser:(PFUser *)user

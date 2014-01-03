@@ -9,7 +9,7 @@
 #import "GridCell.h"
 #import "UserAnnotation.h"
 #import "MKMapView+Utilities.h"
-#import "UIButton+AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 #import "BlocksKit+UIKit.h"
 
 typedef NS_ENUM(NSUInteger, FlagType) {
@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIView *headerView;
+@property (nonatomic, weak) IBOutlet UIImageView *firstUserImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *secondUserImageView;
 @property (nonatomic, weak) IBOutlet UIButton *firstUserButton;
 @property (nonatomic, weak) IBOutlet UIButton *secondUserButton;
 @property (nonatomic, weak) IBOutlet UIView *footerView;
@@ -43,8 +45,13 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 {
     [super awakeFromNib];
     
-    self.firstUserButton.imageView.layer.cornerRadius = 12.0;
-    self.secondUserButton.imageView.layer.cornerRadius = 12.0;
+    self.firstUserImageView.layer.cornerRadius = CGRectGetWidth(self.firstUserImageView.frame) * 0.5;
+    self.secondUserImageView.layer.cornerRadius = CGRectGetWidth(self.secondUserImageView.frame) * 0.5;
+    
+    self.firstUserButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.secondUserButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.likeButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.commentButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
 }
 
 // Without this, contentView's subviews won't be animated properly.
@@ -75,16 +82,18 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     
     // User Avatars
     NSURL *firstURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", self.photo.user[@"facebookId"]]];
-    [self.firstUserButton setImageForState:UIControlStateNormal withURL:firstURL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+    [self.firstUserImageView setImageWithURL:firstURL placeholderImage:[UIImage imageNamed:@"icon-you"]];
     [self.firstUserButton setTitle:self.photo.user.username forState:UIControlStateNormal];
     
     if (self.photo.userFull) {
         NSURL *secondURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", self.photo.userFull[@"facebookId"]]];
-        [self.secondUserButton setImageForState:UIControlStateNormal withURL:secondURL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+        [self.secondUserImageView setImageWithURL:secondURL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+        self.secondUserImageView.hidden = NO;
         [self.secondUserButton setTitle:self.photo.userFull.username forState:UIControlStateNormal];
         self.secondUserButton.hidden = NO;
     }
     else {
+        self.secondUserImageView.hidden = YES;
         self.secondUserButton.hidden = YES;
     }
 
@@ -132,10 +141,12 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     
     // Flag or Delte
     if (photo.canDelete) {
-        [self.toolButton setImage:[UIImage imageNamed:@"icon-delete"] forState:UIControlStateNormal];
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-delete-off"] forState:UIControlStateNormal];
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-delete-on"] forState:UIControlStateHighlighted];
     }
     else {
-        [self.toolButton setImage:[UIImage imageNamed:@"icon-flag-on"] forState:UIControlStateNormal];
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-flag-off"] forState:UIControlStateNormal];
+        [self.toolButton setImage:[UIImage imageNamed:@"icon-flag-on"] forState:UIControlStateHighlighted];
     }
 }
 

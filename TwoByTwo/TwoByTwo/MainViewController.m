@@ -29,7 +29,8 @@
     [super viewDidLoad];
     
     self.leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 20)];
-    self.leftLabel.textColor = [UIColor grayColor];
+    self.leftLabel.textColor = [UIColor appRedColor];
+    self.leftLabel.font = [UIFont appMediumFontOfSize:14];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftLabel];
     
     self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
@@ -75,7 +76,7 @@
 {
     switch (type) {
         case FeedTypeSingle:
-            self.leftLabel.text = @"Single exposure shots";
+            self.leftLabel.text = @"Single Exposure Shots";
             self.rightButton.hidden = YES;
             break;
             
@@ -85,7 +86,7 @@
             break;
 
         case FeedTypeFollowing:
-            self.leftLabel.text = @"From People you follow";
+            self.leftLabel.text = @"Photos from People you follow";
             self.rightButton.hidden = YES;
             break;
             
@@ -104,6 +105,7 @@
         default:
             break;
     }
+    self.leftLabel.text = [self.leftLabel.text uppercaseString];
     
     
     // Show Child Controller
