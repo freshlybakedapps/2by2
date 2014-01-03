@@ -23,6 +23,7 @@
 {
     [super viewDidLoad];
     
+    //Since viewer is seeing the notifications we should set them back to zero
     [[AppDelegate delegate].mainNavigationBar updateNotificationCount:0];
     
     [PFUser currentUser][@"notificationWasAccessed"] = [NSDate date];

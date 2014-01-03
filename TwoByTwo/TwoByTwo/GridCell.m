@@ -225,7 +225,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
         }];
     }
     else {
-        UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"FLAGGING THIS PHOTO" message:@"Choose a reason for flagging:"];
+        UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"Flagging this photo" message:@"Choose a reason for flagging:"];
         [alert bk_addButtonWithTitle:@"This photo is inappropriate" handler:^{
             [self flagWithType:FlagTypeInnapropiate];
         }];
@@ -235,7 +235,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
         [alert bk_addButtonWithTitle:@"This photo is a scam" handler:^{
             [self flagWithType:FlagTypeScam];
         }];
-        [alert bk_addButtonWithTitle:@"This photo display stolen content" handler:^{
+        [alert bk_addButtonWithTitle:@"This photo displays stolen content" handler:^{
             [self flagWithType:FlagTypeStolen];
         }];
         [alert bk_setCancelButtonWithTitle:@"CANCEL" handler:^{

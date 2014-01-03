@@ -27,6 +27,10 @@ static NSString * const kCommentCount = @"comment_count";
 
 - (NSArray *)likes
 {
+    if(!self[PFLikesKey]){
+        self[PFLikesKey] = @[];
+    }
+    
     return self[PFLikesKey];
 }
 
