@@ -20,10 +20,6 @@
 		1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A81091854433D007227BB /* EditProfileViewController.m */; };
 		1D4A811618563D55007227BB /* MainNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A811518563D55007227BB /* MainNavigationBar.m */; };
 		1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D74B5701809A681005A4937 /* StoreKit.framework */; };
-		1D7B9F801858C3640065C907 /* UIImageView+Network.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F7F1858C3640065C907 /* UIImageView+Network.m */; };
-		1D7B9F861858C7600065C907 /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F831858C7600065C907 /* FTWCache.m */; };
-		1D7B9F871858C7600065C907 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F851858C7600065C907 /* NSString+MD5.m */; };
-		1D7B9F8A1858D2060065C907 /* UIImageView+CircleMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7B9F891858D2060065C907 /* UIImageView+CircleMask.m */; };
 		1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */; };
 		1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7F818467EF1002626C8 /* NotificationSettingsViewController.m */; };
 		1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7FC184A636A002626C8 /* AboutViewController.m */; };
@@ -106,14 +102,6 @@
 		1D4A811418563D55007227BB /* MainNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNavigationBar.h; sourceTree = "<group>"; };
 		1D4A811518563D55007227BB /* MainNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNavigationBar.m; sourceTree = "<group>"; };
 		1D74B5701809A681005A4937 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		1D7B9F7E1858C3640065C907 /* UIImageView+Network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Network.h"; sourceTree = "<group>"; };
-		1D7B9F7F1858C3640065C907 /* UIImageView+Network.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Network.m"; sourceTree = "<group>"; };
-		1D7B9F821858C7600065C907 /* FTWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWCache.h; sourceTree = "<group>"; };
-		1D7B9F831858C7600065C907 /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
-		1D7B9F841858C7600065C907 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
-		1D7B9F851858C7600065C907 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
-		1D7B9F881858D2060065C907 /* UIImageView+CircleMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+CircleMask.h"; sourceTree = "<group>"; };
-		1D7B9F891858D2060065C907 /* UIImageView+CircleMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+CircleMask.m"; sourceTree = "<group>"; };
 		1DB0C7AF18464DED002626C8 /* EverythingElseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverythingElseViewController.h; sourceTree = "<group>"; };
 		1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverythingElseViewController.m; sourceTree = "<group>"; };
 		1DB0C7F718467EF1002626C8 /* NotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationSettingsViewController.h; sourceTree = "<group>"; };
@@ -254,17 +242,6 @@
 				1D4A81091854433D007227BB /* EditProfileViewController.m */,
 			);
 			name = EditProfile;
-			sourceTree = "<group>";
-		};
-		1D7B9F811858C7600065C907 /* FTWCache */ = {
-			isa = PBXGroup;
-			children = (
-				1D7B9F821858C7600065C907 /* FTWCache.h */,
-				1D7B9F831858C7600065C907 /* FTWCache.m */,
-				1D7B9F841858C7600065C907 /* NSString+MD5.h */,
-				1D7B9F851858C7600065C907 /* NSString+MD5.m */,
-			);
-			path = FTWCache;
 			sourceTree = "<group>";
 		};
 		1DB0C7AE18464DB1002626C8 /* EverythingElse */ = {
@@ -409,7 +386,6 @@
 		7CD9507417E657BC00C70956 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				1D7B9F811858C7600065C907 /* FTWCache */,
 				7C7657891825962A0053483B /* UIWindow+Animation.h */,
 				7C76578A1825962A0053483B /* UIWindow+Animation.m */,
 				7C1BFA4218762A6D0076EFF2 /* UIFont+TwoByTwo.h */,
@@ -424,10 +400,6 @@
 				7C7E293918305ACA0036557E /* MKMapView+Utilities.m */,
 				7C7E293E18306DD30036557E /* PFObject+Photo.h */,
 				7C7E293F18306DD30036557E /* PFObject+Photo.m */,
-				1D7B9F7E1858C3640065C907 /* UIImageView+Network.h */,
-				1D7B9F7F1858C3640065C907 /* UIImageView+Network.m */,
-				1D7B9F881858D2060065C907 /* UIImageView+CircleMask.h */,
-				1D7B9F891858D2060065C907 /* UIImageView+CircleMask.m */,
 				7C0701081873A6B90011845D /* NSDate+Addon.h */,
 				7C0701091873A6B90011845D /* NSDate+Addon.m */,
 			);
@@ -727,17 +699,13 @@
 				7C7E2937183052120036557E /* UserAnnotation.m in Sources */,
 				1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */,
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
-				1D7B9F801858C3640065C907 /* UIImageView+Network.m in Sources */,
 				7C070107187398690011845D /* CommentCell.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				1D4A811618563D55007227BB /* MainNavigationBar.m in Sources */,
 				1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */,
-				1D7B9F861858C7600065C907 /* FTWCache.m in Sources */,
 				1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */,
 				7C16CF421839853B007EA62D /* GridHeaderView.m in Sources */,
 				1DD9718A184CD290001D35CA /* WebViewController.m in Sources */,
-				1D7B9F8A1858D2060065C907 /* UIImageView+CircleMask.m in Sources */,
-				1D7B9F871858C7600065C907 /* NSString+MD5.m in Sources */,
 				1DD97162184C065D001D35CA /* FindContactsViewController.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+UIImageResizing.m in Sources */,
 				7CF39E1817E00782003A859F /* GridViewController.m in Sources */,

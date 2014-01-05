@@ -26,9 +26,14 @@
 {
     for (NSUInteger i = 0; i < self.numberOfSegments; i++) {
         UIImage *image = [self imageForSegmentAtIndex:i];
-        image = (i == self.selectedSegmentIndex) ? [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] : [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [self setImage:image forSegmentAtIndex:i];
     }
+}
+
+- (void)setImage:(UIImage *)image forSegmentAtIndex:(NSUInteger)segment
+{
+    image = (segment == self.selectedSegmentIndex) ? [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] : [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [super setImage:image forSegmentAtIndex:segment];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
