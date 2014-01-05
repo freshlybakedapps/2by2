@@ -1517,7 +1517,6 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
     <resources>
         <image name="add_photo" width="72" height="72"/>
         <image name="button-close" width="44" height="44"/>
-        <image name="button-close" width="44" height="44"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
@@ -1526,18 +1525,12 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
-        <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-follwing" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
         <image name="icon-like-on" width="30" height="30"/>
         <image name="icon-location-off" width="22" height="26"/>
         <image name="icon-location-on" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
         <image name="selfieDown" width="26" height="26"/>

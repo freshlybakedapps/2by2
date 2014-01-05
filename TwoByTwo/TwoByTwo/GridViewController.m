@@ -247,7 +247,7 @@ static NSUInteger const kQueryBatchSize = 20;
             controller.photo = self.objects[indexPath.row];
             [self presentViewController:controller animated:YES completion:nil];
         }
-        else {
+        else if (self.type != FeedTypePDP) {
             [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
         }
     }

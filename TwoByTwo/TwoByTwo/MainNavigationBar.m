@@ -36,7 +36,6 @@ static CGFloat const kSegmentedControlOffsetY = 20.0;
 
 - (void)updateNotificationCount:(NSUInteger)count
 {
-    count = 5;
     if (count) {
         UIImage *image = [self circleWithNumber:count radius:30];
         [self.segmentedControl setImage:image forSegmentAtIndex:4];

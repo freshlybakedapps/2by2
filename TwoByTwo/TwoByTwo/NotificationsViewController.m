@@ -79,6 +79,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationCell"];
+    cell.textLabel.textColor = [UIColor appGreenColor];
+    cell.textLabel.font = [UIFont appFontOfSize:16];
+    cell.detailTextLabel.font = [UIFont appMediumFontOfSize:12];
 
     PFObject *notification = self.objects[indexPath.row];
     
