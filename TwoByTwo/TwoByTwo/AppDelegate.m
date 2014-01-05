@@ -64,7 +64,10 @@
     // If the app was launched in response to a push notification, we'll handle the payload here
     NSDictionary *remoteNotificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotificationPayload) {
-        //TODO: show Notifications view?
+        self.mainNavigationBar.segmentedControl.selectedSegmentIndex = FeedTypeNotifications;
+        UINavigationController *navController = (id)self.window.rootViewController;
+        [(MainViewController *)navController.topViewController showControllerWithType:FeedTypeNotifications];
+        //TODO: push in notification detail page?
     }
     
     return YES;
@@ -177,12 +180,6 @@
                                                            NSForegroundColorAttributeName:[UIColor appGrayColor],
                                                            NSFontAttributeName:[UIFont appMediumFontOfSize:14],
                                                            }];
-    
-//    [[UIBarButtonItem appearance] setTitleTextAttributes:@{
-//                                                           NSForegroundColorAttributeName:[UIColor appRedColor],
-//                                                           NSFontAttributeName:[UIFont appMediumFontOfSize:14],
-//                                                           }
-//                                                forState:UIControlStateNormal];
 }
 
 @end
