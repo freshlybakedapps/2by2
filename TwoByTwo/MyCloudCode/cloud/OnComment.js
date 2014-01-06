@@ -1,19 +1,27 @@
 var Notifications = require('cloud/Notifications.js');
 
-function notifyUser(response,photo,user_id,photoUsername,comment){
+function notifyUser(response,photo,user_id,photoUsername,comment,isYourPhoto){
   var commentID = comment.get("commentID");
   var userID = comment.get("userID");
   var username = comment.get("username");
-  var commentText = comment.get("text");
   
+  
+  var url;
+
+  if(photo.get("state") == "full"){
+    url = photo.get("image_full")._url;
+  }else{
+    url = photo.get("image_half")._url;
+  }
   
 
-  //console.log("photoUsername: "+photoUsername);
+  
+  //TODO: add location and distance
+  var msg = username+", just left a comment on your photo.";
 
-  
-  var url = photo.get("image_half")._url;
-  
-  var msg = "Hey "+photoUsername+", your photo was just commented by "+ username +". - '"+commentText+"'";
+  if(!isYourPhoto){
+    msg = username+", just left a comment.";
+  }
 
   //if I comment on my own photo it should not send me a notification
   if(photoUsername != username){
@@ -24,7 +32,7 @@ function notifyUser(response,photo,user_id,photoUsername,comment){
 
       //Notifications.sendMail(msg,htmlMsg,subject, photoUsername,email);
 
-      Notifications.sendNotifications(response,"comment",user_id,msg,htmlMsg,subject,commentID,"",userID,username,commentText);
+      Notifications.sendNotifications(response,"comment",user_id,msg,htmlMsg,subject,commentID,"",userID,username,msg);
           
   }
 }
@@ -59,14 +67,14 @@ exports.main = function(request, response){
     success: function(photo) {    
       var user = photo.get("user");
       var photoUserID = user.id;
-      notifyUser(response,photo,user.id,photo.get("username"),comment);
+      notifyUser(response,photo,user.id,photo.get("username"),comment,true);
 
       var photoUserID_full;
 
       if(photo.get("state") == "full"){
         var user_full = photo.get("user_full");
         photoUserID_full = user_full.id;
-        notifyUser(response,photo,user_full.id,photo.get("username"),comment);
+        notifyUser(response,photo,user_full.id,photo.get("username"),comment,true);
       }else{
         photoUserID_full = photoUserID;
       }
@@ -92,7 +100,7 @@ exports.main = function(request, response){
           };
 
           for (var i = uniqueUsers.length - 1; i >= 0; i--) {        
-            notifyUser(response,photo,uniqueUsers[i].id,photo.get("username"),c);
+            notifyUser(response,photo,uniqueUsers[i].id,photo.get("username"),c,false);
             //Notifications.sendPush(uniqueUsers[i].id,uniqueUsers[i].username+" - You have a new comment - "+commentText,commentID);
           };
         

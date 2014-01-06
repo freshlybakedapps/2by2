@@ -70,11 +70,10 @@ exports.main = function(request, response){
         if(!didUserLikedPhoto){
             if(state == "full"){
                 var user_full = photo.get("user_full");
-                var overexposeEmailAlert_full = user_full.get("overexposeEmailAlert");
-                var overexposePushAlert_full = user_full.get("overexposePushAlert");
                 var username_full = user_full.get("username");
-                var email_full = user_full.get("email");
-                var msg = userWhoLikedUsername + " just liked your double exposed photo.";
+                
+                //TODO: add location and distance
+                var msg = userWhoLikedUsername + " just liked your photo.";
                 var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
                 var subject = "2by2 - photo was liked";
 

@@ -16,7 +16,7 @@ exports.main = function(request, response){
 
       var latlng = request.params.location;
 
-      var distance = " - Distance between two photographers: " + getDistance(latlng,latlng_full)  + " miles";
+      var distance = " - about " + getDistance(latlng,latlng_full)  + " miles away from you.";
 
       if(!distance || distance == 0 || distance < 1){
         distance = "";
@@ -51,10 +51,10 @@ exports.main = function(request, response){
             var locationInfo = "";
 
             if(city != "" && state != ""){
-              locationInfo = " in " + city + ", " + state;
+              locationInfo = " from " + city + ", " + state;
             }
 
-            var msg = "Hey "+username+", your photo was overexposed by "+ user_full_username + locationInfo + distance;
+            var msg = user_full_username + "double exposed your photo "+ locationInfo + distance;
             var htmlMsg = msg+ "<br><img src='"+ url + "'></img>";
             var subject = "2by2 - your photo was double exposed by "+ user_full_username;
 

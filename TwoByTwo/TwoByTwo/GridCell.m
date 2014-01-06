@@ -31,7 +31,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 @property (nonatomic, weak) IBOutlet UIView *footerView;
 @property (nonatomic, weak) IBOutlet UIButton *likeButton;
 @property (nonatomic, weak) IBOutlet UIButton *commentButton;
-@property (nonatomic, weak) IBOutlet UILabel *filterLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *filterLabel;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
 
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     
 
     // Filter
-    self.filterLabel.text = photo[@"filter"];
+    //self.filterLabel.text = photo[@"filter"];
 
 
     // Map

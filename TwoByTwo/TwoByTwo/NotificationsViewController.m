@@ -86,12 +86,12 @@
     PFObject *notification = self.objects[indexPath.row];
     
     //NOTIFICATION TYPES
-    // - comment
-    // - overexposed
-    // - follow
-    // - like
+    // - comment (x)
+    // - overexposed (x)
+    // - follow (x)
+    // - like (x)
     // - newUser
-    // - flag
+    // - flag (x)
     
     //NOTIFICATON PROPERTIES
     // - notificationID (same as user ID)
@@ -104,25 +104,13 @@
 
 
     NSString* notificationType = notification[@"notificationType"];
-    if ([notificationType isEqualToString:@"comment"]) {
-        cell.textLabel.text = [NSString stringWithFormat:@"Your photo was commented by %@", notification[@"byUsername"]];
-    }
-    else if([notificationType isEqualToString:@"overexposed"]) {
-        cell.textLabel.text = [NSString stringWithFormat:@"Your photo was overexposed by %@", notification[@"byUsername"]];
-    }
-    else if([notificationType isEqualToString:@"follow"]) {
-        cell.textLabel.text = [NSString stringWithFormat:@"You have a new follower"];
-    }
-    else if([notificationType isEqualToString:@"like"]) {
-        cell.textLabel.text = [NSString stringWithFormat:@"Your photo was liked by %@", notification[@"byUsername"]];
-    }
-    else if([notificationType isEqualToString:@"newUser"]) {
-        cell.textLabel.text = [NSString stringWithFormat:@"Your facebook friend %@ just joined 2by2", notification[@"byUsername"]];
-    }
-    else if([notificationType isEqualToString:@"flag"]) {
+    if([notificationType isEqualToString:@"flag"]) {
         NSString *flagType = notification[@"content"];
         flagType = [flagType stringByReplacingOccurrencesOfString:@"FlagType" withString:@""];
         cell.textLabel.text = [NSString stringWithFormat:@"Your photo was flagged as %@", flagType];
+    }else{
+        //I don't want to duplicate this text on the backend and here so let's just bring it from the backend
+        cell.textLabel.text = notification[@"content"];
     }
     
     cell.detailTextLabel.text = [notification.createdAt timeAgoString];
