@@ -17,6 +17,9 @@
     
     if (!self.cellSwitch) {
         self.cellSwitch = [UISwitch new];
+        //self.cellSwitch.onTintColor = [UIColor colorWithRed:0.4 green:0.6 blue:0.8 alpha:1.0];
+        
+        
         [self.cellSwitch addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.accessoryView = self.cellSwitch;
     }

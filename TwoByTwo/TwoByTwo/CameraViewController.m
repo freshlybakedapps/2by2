@@ -414,7 +414,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                     }];
                 });
                 
-                NSString *location = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationFull.latitude,weakSelf.photo.locationFull.longitude];
+                NSString *locationFull = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationFull.latitude,weakSelf.photo.locationFull.longitude];
+                
+                 NSString *locationHalf = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationHalf.latitude,weakSelf.photo.locationHalf.longitude];
                 
                 if(weakSelf.sharingFacebook == YES){
                     if(weakSelf.photo){
@@ -432,7 +434,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                     
                     @try {
                         [PFCloud callFunctionInBackground:@"notifyUser"
-                                           withParameters:@{@"photoID":weakSelf.photo.objectId,@"user_full_username":weakSelf.photo.userFull.username,@"user_full_id":weakSelf.photo.userFull.objectId,@"userID":weakSelf.photo.user.objectId,@"url":weakSelf.photo.imageFull.url,@"locationFull":location}
+                                           withParameters:@{@"photoID":weakSelf.photo.objectId,@"user_full_username":weakSelf.photo.userFull.username,@"user_full_id":weakSelf.photo.userFull.objectId,@"userID":weakSelf.photo.user.objectId,@"url":weakSelf.photo.imageFull.url,@"locationFull":locationFull,@"location":locationHalf}
                                                     block:^(NSNumber *result, NSError *error) {
                                                         if (!error) {
                                                             NSLog(@"The user was notified sucessfully: %@", result);
