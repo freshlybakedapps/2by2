@@ -16,7 +16,7 @@ exports.main = function(request, response){
 
       var latlng = request.params.location;
 
-      var distance = " - about " + getDistance(latlng,latlng_full)  + " miles away from you.";
+      var distance = ". About " + getDistance(latlng,latlng_full)  + " miles away from you!";
 
       if(!distance || distance == 0 || distance < 1){
         distance = "";
@@ -54,9 +54,18 @@ exports.main = function(request, response){
               locationInfo = " from " + city + ", " + state;
             }
 
-            var msg = user_full_username + "double exposed your photo "+ locationInfo + distance;
-            var htmlMsg = msg+ "<br><img src='"+ url + "'></img>";
-            var subject = "2by2 - your photo was double exposed by "+ user_full_username;
+            var msg = "Your friend "+user_full_username+", just double exposed your photo"+locationInfo+distance;
+            
+            //var htmlMsg = msg+ "<br><img src='"+ url + "'></img>";
+            var htmlMsg = "Check it out!, you and "+user_full_username+" just created some art together!";  
+            htmlMsg += "<br><br>See photo.";
+            htmlMsg += "<br><br>";
+            htmlMsg += "Thanks,";
+            htmlMsg += "<br>Team 2by2";
+            htmlMsg += "<br>PS: To stop receiving this email, turn this notification off in the app settings page.";
+
+
+            var subject = msg;
 
 
             Notifications.sendNotifications(response,"overexposed",user.id,msg,htmlMsg,subject,photoID,locationInfo,user_full_id,user_full_username,msg);

@@ -107,7 +107,7 @@
     if([notificationType isEqualToString:@"flag"]) {
         NSString *flagType = notification[@"content"];
         flagType = [flagType stringByReplacingOccurrencesOfString:@"FlagType" withString:@""];
-        cell.textLabel.text = [NSString stringWithFormat:@"Your photo was flagged as %@", flagType];
+        cell.textLabel.text = [NSString stringWithFormat:@"Your photo was flagged as %@", [flagType lowercaseString]];
     }else{
         //I don't want to duplicate this text on the backend and here so let's just bring it from the backend
         cell.textLabel.text = notification[@"content"];

@@ -41,9 +41,12 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
       }else if(notificationType == "newUser"){
         userAllowsEmail = true;
         userAllowsPush = true;
+      }else if(notificationType == "flag"){
+        userAllowsEmail = true;
+        userAllowsPush = false;
       }
 
-      console.log("(sendNotifications/success) - "+notificationType+"    /   "+user.id + " / " + byUserID);
+      console.log("(sendNotifications/success) - "+notificationType+"    /   "+user.id + " / " + byUserID + " / " + email);
 
       //var digestEmailAlert = user.get("digestEmailAlert");
 
@@ -57,6 +60,7 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
       }
       
       if(userAllowsEmail == true){
+        console.log("send email...");
         sendMail(msg,htmlMsg,subject, username,email);
       }
       

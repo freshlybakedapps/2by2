@@ -4,37 +4,28 @@ function notifyUser(response,photo,user_id,photoUsername,comment,isYourPhoto){
   var commentID = comment.get("commentID");
   var userID = comment.get("userID");
   var username = comment.get("username");
+  var commentText = comment.get("text");
   
+  var msg;
+  var htmlMsg;
   
-  var url;
-
-  if(photo.get("state") == "full"){
-    url = photo.get("image_full")._url;
+  if(isYourPhoto == true){
+    msg = "Your friend "+username+", just left a comment on your photo.";
+    htmlMsg = "<b>"+username +"</b> said: '"+ commentText + "'";
   }else{
-    url = photo.get("image_half")._url;
+    msg = "Your friend "+username+", just left a comment on a photo you commented on.";
+    htmlMsg = "Your friend " + username + ", just joined the conversation, he said:'"+ commentText + "'";
   }
   
+  htmlMsg += "<br>See photo.";
+  htmlMsg += "<br><br>";
+  htmlMsg += "Thanks,";
+  htmlMsg += "<br>Team 2by2";
+  htmlMsg += "<br>PS: To stop receiving this email, turn this notification off in the app settings page.";
 
-  
-  //TODO: add location and distance
-  var msg = username+", just left a comment on your photo.";
+  var subject = msg;
 
-  if(!isYourPhoto){
-    msg = username+", just left a comment.";
-  }
-
-  //if I comment on my own photo it should not send me a notification
-  if(photoUsername != username){
-      
-      //Notifications.sendPush(user.id,msg,commentID);
-      var htmlMsg = msg+ "<br><img src='"+ url + "'></img>";
-      var subject = "2by2 - your photo was just commented by "+ username;
-
-      //Notifications.sendMail(msg,htmlMsg,subject, photoUsername,email);
-
-      Notifications.sendNotifications(response,"comment",user_id,msg,htmlMsg,subject,commentID,"",userID,username,msg);
-          
-  }
+  Notifications.sendNotifications(response,"comment",user_id,msg,htmlMsg,subject,commentID,"",userID,username,msg);
 }
 
 exports.main = function(request, response){
@@ -66,15 +57,78 @@ exports.main = function(request, response){
   query.get(commentID, {
     success: function(photo) {    
       var user = photo.get("user");
+      
       var photoUserID = user.id;
-      notifyUser(response,photo,user.id,photo.get("username"),comment,true);
+
+
+      //if we need to know if commenter is a facebook friend
+
+      /*
+      Parse.Cloud.run('getFacebookFriends', { user: photoUserID }, {
+        success: function(arr) {
+          var isFBfriend = false;
+          for (var i = arr.length - 1; i >= 0; i--) {
+            if(arr[i].parseID == userID){
+              isFBfriend = true;
+            }
+          };
+
+          if(isFBfriend){
+            //notifyUser(response,photo,photoUserID,photo.get("username"),comment,true);
+          }else{
+            //notifyUser(response,photo,photoUserID,photo.get("username"),comment,true);
+          }
+
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+      */
+
+      //if we need to know if commenter is someone you follow
+
+      /*
+      var followQuery = new Parse.Query("Followers");
+      followQuery.equalTo("userID", userID);
+      followQuery.equalTo("followingUserID", photoUserID);      
+      
+      followQuery.find({
+        success: function(arr) {
+          if(arr.length > 0){
+            //notifyUser(response,photo,photoUserID,photo.get("username"),comment,true);
+          }else{
+            //notifyUser(response,photo,photoUserID,photo.get("username"),comment,true);
+          }
+
+          
+        },
+        error: function(error) {      
+            console.log('error: ' + error);
+        }
+      });
+      */ 
+
+      
+      //inform the 1st photographer (if he is not the one commenting)
+      if(userID != photoUserID){
+        notifyUser(null,photo,photoUserID,user.get("username"),comment,true);
+      }
+
+      
 
       var photoUserID_full;
 
       if(photo.get("state") == "full"){
         var user_full = photo.get("user_full");
         photoUserID_full = user_full.id;
-        notifyUser(response,photo,user_full.id,photo.get("username"),comment,true);
+
+        //inform the 2nd photographer (if he is not the one commenting)
+        if(userID != photoUserID_full){
+          notifyUser(null,photo,user_full.id,user.get("username"),comment,true);
+        }
+
+        
       }else{
         photoUserID_full = photoUserID;
       }
@@ -87,20 +141,20 @@ exports.main = function(request, response){
           var uniqueUsers = [];
           for (var i = commentArray.length - 1; i >= 0; i--) {
             var c = commentArray[i];
-            var username = c.get("username");
+           
             
-            //don't send it to person liking the photo or person who took the photo (since he/she is already getting a notification)
+            //don't send it to person commenting on the photo or person who took the photo (since he/she is already getting a notification)
             if(c.get("userID") != userID && c.get("userID") != photoUserID &&  c.get("userID") != photoUserID_full){
               var obj = {};
               obj.id = c.get("userID");
-              obj.username = username;
+              obj.username = c.get("username");
               uniqueUsers.pushUnique(obj);
             }
             
           };
 
           for (var i = uniqueUsers.length - 1; i >= 0; i--) {        
-            notifyUser(response,photo,uniqueUsers[i].id,photo.get("username"),c,false);
+            notifyUser(null,photo,uniqueUsers[i].id,username,comment,false);
             //Notifications.sendPush(uniqueUsers[i].id,uniqueUsers[i].username+" - You have a new comment - "+commentText,commentID);
           };
         

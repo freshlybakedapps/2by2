@@ -379,7 +379,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
             NSString *model = [[UIDevice currentDevice] model];
             if (YES == [model isEqualToString:@"iPhone Simulator"]) {
                 //UIImage* smallImage = [UIImage imageNamed:@"logo"];
-                NSString* url = @"http://thecatapi.com/api/images/get?format=src&type=png&size=med";
+                //NSString* url = @"http://thecatapi.com/api/images/get?format=src&type=png&size=med";
+                NSString* url = @"http://placedog.com/300/300";
                 UIImage *smallImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
                 self.previewView.image = smallImage;
                 self.state = CameraViewStateReadyToUpload;

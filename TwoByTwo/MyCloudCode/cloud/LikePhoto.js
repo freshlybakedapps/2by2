@@ -68,32 +68,28 @@ exports.main = function(request, response){
 
         //if user liked a photo, this service is unlikning the photo so we should only send notifications if liking the photo
         if(!didUserLikedPhoto){
+            var msg = userWhoLikedUsername+ " just liked your photo." ;            
+            var htmlMsg = "See photo.";
+            htmlMsg += "<br><br>";
+            htmlMsg += "Thanks,";
+            htmlMsg += "<br>Team 2by2";
+            htmlMsg += "<br>PS: To stop receiving this email, turn this notification off in the app settings page.";
+            var subject = msg;
+
+            console.log(msg);
+
+            //don't send a notification if I am liking my own photo
+            if(userWhoLikedID != user.id){
+                Notifications.sendNotifications(null,"like",user.id,msg,htmlMsg,subject,photo.id,"",userWhoLikedID,userWhoLikedUsername,msg);
+            }
+
             if(state == "full"){
-                var user_full = photo.get("user_full");
-                var username_full = user_full.get("username");
-                
-                //TODO: add location and distance
-                var msg = userWhoLikedUsername + " just liked your photo.";
-                var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
-                var subject = "2by2 - photo was liked";
+                var user_full = photo.get("user_full");                              
 
                 if(userWhoLikedID != user_full.id && userWhoLikedID != user.id){
                     Notifications.sendNotifications(response,"like",user_full.id,msg,htmlMsg,subject,photo.id,"",userWhoLikedID,userWhoLikedUsername,msg);
                 }
 
-            }else{
-                //Amin T just liked your photo.
-
-                var msg = userWhoLikedUsername+ " just liked your photo." ;
-                var htmlMsg = msg + "<br><img src='"+ url + "'></img>";
-                var subject = "2by2 - photo was liked";
-
-                console.log(msg);
-
-                //don't send a notification if I am liking my own photo
-                if(userWhoLikedID != user.id){
-                    Notifications.sendNotifications(response,"like",user.id,msg,htmlMsg,subject,photo.id,"",userWhoLikedID,userWhoLikedUsername,msg);
-                }
             }
         }
             

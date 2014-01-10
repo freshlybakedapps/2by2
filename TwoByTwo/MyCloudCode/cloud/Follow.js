@@ -23,36 +23,17 @@ exports.main = function(request, response){
       followers.save(null, {
         success: function(follower) {
           
-          Parse.Cloud.useMasterKey();
-          
-          var query = new Parse.Query(Parse.User);      
-          query.get(followingUserID, {
-            success: function(user) {
-              var email = user.get("email");
-              
-              var followsEmailAlert = user.get("followsEmailAlert");
-              var followsPushAlert = user.get("followsPushAlert");
-              var msg = "Hi "+user.get("username")+", "+username+" started to follow you on 2by2. " + phrases[Math.floor(Math.random()*phrases.length)];
-              var subject = "2by2 - new follower";
+          var msg = username+" started to follow you on 2by2. " + phrases[Math.floor(Math.random()*phrases.length)];
+          var htmlMsg = "See "+username+"’s profile.";
+          htmlMsg += "<br><br>";
+          htmlMsg += "Thanks,";
+          htmlMsg += "<br>Team 2by2";
+          htmlMsg += "<br>PS: To stop receiving this email, turn this notification off in the app settings page.";
 
-              Notifications.sendNotifications(response,"follow",user.id,msg,msg,subject,"0","",userID,username,msg);
 
-              /*
-              if(followsPushAlert == true){
-                Notifications.sendPush(user.id,msg);
-              }
+          var subject = username+ " started to follow you on 2by2";
 
-              if(followsEmailAlert == true){
-                Notifications.sendMail(msg,msg,subject, username,email);
-              }
-              */
-              //response.success(true);
-            },
-            error: function(error) {
-              console.error("Got an error " + error.code + " : " + error.message);
-              //response.error(error);
-            }
-          });
+          Notifications.sendNotifications(response,"follow",followingUserID,msg,htmlMsg,subject,"0","",userID,username,msg);
 
           
         },

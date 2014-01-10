@@ -82,6 +82,17 @@
                            [PFUser currentUser].username = name;
                         }
                         
+                        //SET SOME DEFAULT VALUES FOR FIRST TIME USERS
+                        [PFUser currentUser][@"notificationWasAccessed"] = [NSDate date];
+                        [PFUser currentUser][@"likesEmailAlert"] = @(YES);
+                        [PFUser currentUser][@"followsEmailAlert"] = @(YES);
+                        [PFUser currentUser][@"commentsEmailAlert"] = @(YES);
+                        [PFUser currentUser][@"overexposePushAlert"] = @(YES);
+                        [PFUser currentUser][@"likesPushAlert"] = @(YES);
+                        [PFUser currentUser][@"followsPushAlert"] = @(YES);
+                        [PFUser currentUser][@"commentsPushAlert"] = @(YES);
+                        [PFUser currentUser][@"digestEmailAlert"] = @(YES);
+                        
                         
                         [PFUser currentUser][@"fullName"] = name;
                         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

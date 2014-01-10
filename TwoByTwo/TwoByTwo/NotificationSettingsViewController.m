@@ -82,7 +82,7 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
             
         case TableViewSectionDigest:
         default:
-            return @"Send my once a email digest:";
+            return @"Send my once a week email digest:";
     }
 }
 

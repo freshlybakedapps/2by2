@@ -17,11 +17,13 @@ exports.main = function(request, response){
             for (var i = 0; i < arr.length; i++) {
               var user = arr[i];
               var currentUser_fullName = user.get("fullName");
+
+              //console.log("access_token: "+user.get('authData').facebook.access_token);
               
 
               (function(index, indexOfLastPush, _user) {
                 //don't run this for the user that just registered
-                if(_user.id != userID){
+                //if(_user.id != userID){
                     var url = 'https://graph.facebook.com/'+user.get('authData').facebook.id+'/friends?access_token='+user.get('authData').facebook.access_token;
                     //var url =  "https://graph.facebook.com/"+user.get('authData').facebook.id+"?fields=friends.fields(name)&access_token="+user.get('authData').facebook.access_token;
 
@@ -45,14 +47,26 @@ exports.main = function(request, response){
 
                           if(newRegisteredUser_username == n1){
                             //send email/notification to current user letting them know their friend just joined 2by2
-                            var msg = _user.get("fullName") + ", "+ newRegisteredUser_username + " just joined 2by2!!";
+                            
+                            var msg = "Sneak attack!, your friend "+newRegisteredUser_username+" just joined 2by2.";
+                            var subject = msg;
+                            var htmlMsg = "Your friend " + newRegisteredUser_username + ", just joined the party.";  
+                            htmlMsg += "<br>Check out his profile.";
+                            htmlMsg += "<br><br>";
+                            htmlMsg += "Thanks,";
+                            htmlMsg += "<br>Team 2by2";
+                            htmlMsg += "<br>PS: To stop receiving this email, turn this notification off in the app settings page.";
+
+
                             console.log(msg);
 
-                            //Notifications.sendNotifications(response,"newUser",_user.id,msg,msg,"subject","0","",userID,newRegisteredUser_username,msg);
+                            Notifications.sendNotifications(null,"newUser",_user.id,msg,htmlMsg,subject,"0","",userID,newRegisteredUser_username,msg);
 
-                            Notifications.addNotification(_user.id,"0","newUser",userID,newRegisteredUser_username,"",msg);
+                            //Notifications.addNotification(_user.id,"0","newUser",userID,newRegisteredUser_username,"",msg);
 
-                            //Notifications.sendPush(_user.id,msg);//
+
+
+                            //Notifications.sendPush(_user.id,msg,"0");//userID,msg,photoID
                             break;                            
                           }                         
                         };
@@ -63,12 +77,12 @@ exports.main = function(request, response){
                         }                             
                       },
                       error:function(httpResponse){
-                        console.log(httpResponse);
+                        console.log(_user.get("fullName")+" error: "+httpResponse);
                       }
                     });
 
                                    
-                }
+                //}
               })(i,arr.length-2,arr[i]);
             };
           },
