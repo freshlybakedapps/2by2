@@ -7,10 +7,11 @@ exports.main = function(request, response){
   Parse.Cloud.run('getFacebookFriends', { user: userID }, {
       success: function(arr) {        
         for (var i = arr.length - 1; i >= 0; i--) {            
-            var msg = "Your facebook friend "+username+", just took a photo, double expose it now!";            
+            var msg = "Hey "+arr[i].name+", "+username+" just posted a photo.";
+            
             //var htmlMsg = msg+ "<br><img src='"+ url + "'></img>";
             var htmlMsg = msg;  
-            htmlMsg += "<br><br>See photo.";
+            htmlMsg += "<br>Collaborate by double exposing it... or not!.";
             htmlMsg += "<br><br>";
             htmlMsg += "Thanks,";
             htmlMsg += "<br>Team 2by2";
