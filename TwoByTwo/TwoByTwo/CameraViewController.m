@@ -87,6 +87,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                             [photo.imageHalf getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                                 if (!error) {
                                     weakSelf.filter = [[GPUImageLightenBlendFilter alloc] init];
+                                    
                                     [weakSelf.filter addTarget:weakSelf.liveView];
                                     
                                     UIImage *image = [UIImage imageWithData:data];
@@ -96,7 +97,9 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                                     
                                     weakSelf.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
                                     weakSelf.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
+                                    
                                     [weakSelf.stillCamera addTarget:weakSelf.filter];
+                                    
                                     [weakSelf.stillCamera startCameraCapture];
                                 }
                                 else {
@@ -369,6 +372,27 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     }
 }
 
+- (NSString*) randomTestPhoto{
+    
+    
+    NSArray* arr = @[@"http://thecatapi.com/api/images/get?format=src&type=png&size=med",
+                     @"http://www.fillmurray.com/400/400",
+                     @"http://placedog.com/300/300",
+                     @"http://www.nicenicejpg.com/400",
+                     @"http://www.placecage.com/400/400",
+                     @"http://www.placebear.com/400/400",
+                     @"http://lorempixel.com/300/300/music/2by2/",
+                     @"http://placezombies.com/400x400",
+                     @"http://baconmockup.com/400/400",
+                     @"http://placesheen.com/400/400",
+                     @"http://placedog.com/400/400"];
+    
+    
+    int r = arc4random() % arr.count-1;
+    
+    return arr[r];
+}
+
 - (IBAction)bottomButtonTapped:(id)sender
 {
     __weak typeof(self) weakSelf = self;
@@ -378,18 +402,21 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         {
             NSString *model = [[UIDevice currentDevice] model];
             if (YES == [model isEqualToString:@"iPhone Simulator"]) {
-                //UIImage* smallImage = [UIImage imageNamed:@"logo"];
-                //NSString* url = @"http://thecatapi.com/api/images/get?format=src&type=png&size=med";
-                NSString* url = @"http://placedog.com/300/300";
+                NSString* url = [self randomTestPhoto];
                 UIImage *smallImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
                 self.previewView.image = smallImage;
                 self.state = CameraViewStateReadyToUpload;
             }else{
+                
+
+                
                 [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
                     UIImage* smallImage = [processedImage scaleToSize:CGSizeMake(300, 300) contentMode:UIViewContentModeScaleAspectFill interpolationQuality:kCGInterpolationHigh];
                     weakSelf.previewView.image = smallImage;
                     weakSelf.state = CameraViewStateReadyToUpload;
                 }];
+                
+                
             }
         }
         break;

@@ -21,7 +21,9 @@ typedef NS_ENUM(NSUInteger, TableViewRow) {
     TableViewRowLike,
     TableViewRowFollow,
     TableViewRowComment,
+    TableViewRowFriendPhoto,
     TableViewRowCount,
+    
 };
 
 typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
@@ -107,6 +109,10 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
                     cell.textLabel.text = @"Follows me";
                     cell.key = @"followsEmailAlert";
                     break;
+                case TableViewRowFriendPhoto:
+                    cell.textLabel.text = @"Fiend took a photo";
+                    cell.key = @"friendTookPhotoEmailAlert";
+                    break;
                 case TableViewRowComment:
                 default:
                     cell.textLabel.text = @"Comments";
@@ -128,6 +134,10 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
                 case TableViewRowFollow:
                     cell.textLabel.text = @"Follows me";
                     cell.key = @"followsPushAlert";
+                    break;
+                case TableViewRowFriendPhoto:
+                    cell.textLabel.text = @"Fiend took a photo";
+                    cell.key = @"friendTookPhotoPushAlert";
                     break;
                 case TableViewRowComment:
                 default:
