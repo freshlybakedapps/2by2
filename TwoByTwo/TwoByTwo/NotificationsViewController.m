@@ -92,6 +92,7 @@
     // - like (x)
     // - newUser
     // - flag (x)
+    // - newPhoto
     
     //NOTIFICATON PROPERTIES
     // - notificationID (same as user ID)

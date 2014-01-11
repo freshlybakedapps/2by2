@@ -42,6 +42,11 @@ Parse.Cloud.define("notifyUser", function(request, response) {
     NotifyUser.main(request, response);
 });
 
+var NewPhotoWasPosted = require('cloud/NewPhotoWasPosted.js');
+Parse.Cloud.define("newPhotoWasPosted", function(request, response) {
+    NewPhotoWasPosted.main(request, response);
+});
+
 var GetFacebookId = require('cloud/GetFacebookId.js');
 Parse.Cloud.define("getFacebookId", function(request, response) {
     GetFacebookId.main(request, response);

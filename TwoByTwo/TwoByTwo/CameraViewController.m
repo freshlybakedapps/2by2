@@ -448,12 +448,29 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                     }
                     @catch (NSException *exception) {
                         NSLog(@"notifyUser error: %@",exception.description);
-                        [UIAlertView bk_showAlertViewWithTitle:@"Error" message:exception.description cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                            
-                        }];
                     }
-                    
+                }else{
+                    @try {
+                        [PFCloud callFunctionInBackground:@"newPhotoWasPosted"
+                                           withParameters:@{@"username":[PFUser currentUser].username,@"userID":[PFUser currentUser].objectId}
+                                                    block:^(NSNumber *result, NSError *error) {
+                                                        if (!error) {
+                                                            NSLog(@"newPhotoWasPosted sucessfully: %@", result);
+                                                            
+                                                        }else{
+                                                            NSLog(@"error: %@", error);
+                                                        }
+                                                    }];
+                        
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"newPhotoWasPosted error: %@",exception.description);
+                    }
+
                 }
+                
+                
+                
             }];
         }
             break;

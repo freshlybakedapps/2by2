@@ -10,6 +10,7 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
   // - like
   // - newUser
   // - flag
+  // - newPhoto
 
 
   console.log("(sendNotifications) - "+notificationType+"    /   "+userID);
@@ -44,6 +45,9 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
       }else if(notificationType == "flag"){
         userAllowsEmail = true;
         userAllowsPush = false;
+      }else if(notificationType == "newPhoto"){
+        userAllowsEmail = false;
+        userAllowsPush = true;
       }
 
       console.log("(sendNotifications/success) - "+notificationType+"    /   "+user.id + " / " + byUserID + " / " + email);
