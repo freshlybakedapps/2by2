@@ -84,14 +84,22 @@
                         
                         //SET SOME DEFAULT VALUES FOR FIRST TIME USERS
                         [PFUser currentUser][@"notificationWasAccessed"] = [NSDate date];
-                        [PFUser currentUser][@"likesEmailAlert"] = @(YES);
-                        [PFUser currentUser][@"followsEmailAlert"] = @(YES);
-                        [PFUser currentUser][@"commentsEmailAlert"] = @(YES);
+                        
+                        [PFUser currentUser][@"likesEmailAlert"] = @(NO);
+                        [PFUser currentUser][@"followsEmailAlert"] = @(NO);
+                        [PFUser currentUser][@"commentsEmailAlert"] = @(NO);
+                        [PFUser currentUser][@"overexposeEmailAlert"] = @(NO);
+                        [PFUser currentUser][@"friendTookPhotoEmailAlert"] = @(NO);
+                        
                         [PFUser currentUser][@"overexposePushAlert"] = @(YES);
                         [PFUser currentUser][@"likesPushAlert"] = @(YES);
                         [PFUser currentUser][@"followsPushAlert"] = @(YES);
                         [PFUser currentUser][@"commentsPushAlert"] = @(YES);
+                        [PFUser currentUser][@"friendTookPhotoPushAlert"] = @(YES);
+                        
                         [PFUser currentUser][@"digestEmailAlert"] = @(YES);
+                        
+                        
                         
                         
                         [PFUser currentUser][@"fullName"] = name;

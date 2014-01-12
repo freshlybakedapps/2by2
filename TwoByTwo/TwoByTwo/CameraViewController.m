@@ -177,6 +177,23 @@ static CGFloat const kImageSize = 600.0;
     return _blendModes;
 }
 
+- (NSString *)randomTestPhoto
+{
+    NSArray *arr = @[@"http://thecatapi.com/api/images/get?format=src&type=png&size=med",
+                     @"http://www.fillmurray.com/400/400",
+                     @"http://placedog.com/300/300",
+                     @"http://www.nicenicejpg.com/400",
+                     @"http://www.placecage.com/400/400",
+                     @"http://www.placebear.com/400/400",
+                     @"http://lorempixel.com/300/300/music/2by2/",
+                     @"http://placezombies.com/400x400",
+                     @"http://baconmockup.com/400/400",
+                     @"http://placesheen.com/400/400",
+                     @"http://placedog.com/400/400"];
+    int r = arc4random_uniform(arr.count - 1);
+    return arr[r];
+}
+
 
 #pragma mark - State
 
@@ -286,7 +303,7 @@ static CGFloat const kImageSize = 600.0;
         case CameraViewStateTakePhoto:
         {
 #if TARGET_IPHONE_SIMULATOR
-            NSString *URLString = [NSString stringWithFormat:@"http://placedog.com/%d/%d", (int)kImageSize, (int)kImageSize];
+            NSString *URLString = [self randomTestPhoto];
             UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:URLString]]];
             self.previewView.image = image;
             self.state = CameraViewStateReadyToUpload;
