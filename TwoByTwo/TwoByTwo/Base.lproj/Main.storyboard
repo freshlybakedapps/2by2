@@ -18,7 +18,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Wk-wn-Vgy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="72" y="69"/>
+            <point key="canvasLocation" x="-668" y="69"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="J3s-OE-Kce">
@@ -72,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DWP-Nj-xW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="547" y="69"/>
+            <point key="canvasLocation" x="-105" y="69"/>
         </scene>
         <!--Camera View Controller-->
         <scene sceneID="G2m-cp-LJH">
@@ -87,12 +87,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vZe-BE-PZL">
-                                <rect key="frame" x="10" y="134" width="300" height="300"/>
+                                <rect key="frame" x="10" y="70" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.94984137199999996" blue="0.72376825199999995" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3r-Er-iE6" userLabel="Preview View" customClass="GPUImageView">
-                                <rect key="frame" x="10" y="134" width="300" height="300"/>
+                                <rect key="frame" x="10" y="70" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -100,7 +100,37 @@
                                     <constraint firstAttribute="width" constant="300" id="hM1-mt-3lx"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLB-bE-VZL" customClass="ProgressButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9" userLabel="Top Left Button">
+                                <rect key="frame" x="20" y="30" width="26" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="0Jg-SS-v6E"/>
+                                    <constraint firstAttribute="width" constant="26" id="mqt-Wl-O1F"/>
+                                </constraints>
+                                <state key="normal" image="button-close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="topLeftButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="2uX-ub-B1v"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJz-kY-2FM" userLabel="Top Right Button">
+                                <rect key="frame" x="274" y="30" width="26" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="26" id="Rxr-Lt-IPG"/>
+                                    <constraint firstAttribute="height" constant="26" id="xOO-eE-CWU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" image="button-selfie">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="button-selfie"/>
+                                <connections>
+                                    <action selector="topRightButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="33O-A6-SAz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLB-bE-VZL" userLabel="Bottom Button" customClass="ProgressButton">
                                 <rect key="frame" x="128" y="484" width="64" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -114,96 +144,77 @@
                                     <action selector="bottomButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="aAH-Ag-qwL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9">
-                                <rect key="frame" x="20" y="40" width="44" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbb-3J-T9c">
+                                <rect key="frame" x="0.0" y="390" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="0Jg-SS-v6E"/>
-                                    <constraint firstAttribute="width" constant="44" id="mqt-Wl-O1F"/>
+                                    <constraint firstAttribute="height" constant="44" id="NNb-qE-1Oj"/>
                                 </constraints>
-                                <state key="normal" image="button-close">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="topButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="e47-BW-WZh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJz-kY-2FM">
-                                <rect key="frame" x="266" y="40" width="44" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="hXW-FA-ax0"/>
+                                    <barButtonItem style="plain" id="BGW-Eq-as5">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="amu-29-00S" customClass="IconSegmentedControl">
+                                            <rect key="frame" x="30" y="7" width="260" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="" image="icon-dot-on"/>
+                                                <segment title="" image="icon-dot-on"/>
+                                                <segment title="" image="icon-dot-on"/>
+                                                <segment title="" image="icon-dot-on"/>
+                                                <segment title="" image="icon-dot-on"/>
+                                                <segment title="" image="icon-dot-on"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="blendModeSegmentedControlValueChanged:" destination="vVh-uF-8fn" eventType="valueChanged" id="BZI-op-jOV"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="6cm-Kc-wN3"/>
+                                </items>
+                                <color key="barTintColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </toolbar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lighten" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqK-ZB-v0m">
+                                <rect key="frame" x="132" y="439" width="57" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="Rxr-Lt-IPG"/>
-                                    <constraint firstAttribute="height" constant="44" id="xOO-eE-CWU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" image="selfie">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" image="selfieDown"/>
-                                <connections>
-                                    <action selector="rotateCamera:" destination="vVh-uF-8fn" eventType="touchUpInside" id="gND-h2-4Wv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9K-pF-qD7">
-                                <rect key="frame" x="210" y="484" width="100" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="YRu-5F-m20"/>
-                                    <constraint firstAttribute="width" constant="100" id="bZU-xz-coe"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="Lighten">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="blendModeButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="7Pg-ZV-2tI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asc-Yj-b9h">
-                                <rect key="frame" x="10" y="442" width="26" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Button" image="facebook">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="facebook_Active"/>
-                                <connections>
-                                    <action selector="facebookShare:" destination="vVh-uF-8fn" eventType="touchUpInside" id="eP7-1g-HHz"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.24313725490196078" green="0.24313725490196078" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sAS-9Y-mbp" firstAttribute="top" secondItem="mLB-bE-VZL" secondAttribute="bottom" constant="20" id="0dZ-3F-V5J"/>
-                            <constraint firstItem="sAS-9Y-mbp" firstAttribute="top" secondItem="Y9K-pF-qD7" secondAttribute="bottom" constant="20" id="4ck-cY-cQP"/>
                             <constraint firstAttribute="centerX" secondItem="mLB-bE-VZL" secondAttribute="centerX" id="5ym-jJ-i1C"/>
-                            <constraint firstItem="TJz-kY-2FM" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="20" id="NUq-ys-J0b"/>
+                            <constraint firstItem="kbb-3J-T9c" firstAttribute="leading" secondItem="qK4-2w-Del" secondAttribute="leading" id="Dga-76-sjT"/>
+                            <constraint firstAttribute="trailing" secondItem="kbb-3J-T9c" secondAttribute="trailing" id="GqW-6c-XFo"/>
+                            <constraint firstItem="b3r-Er-iE6" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="50" id="Iqe-HO-xWn"/>
+                            <constraint firstItem="TJz-kY-2FM" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="10" id="NUq-ys-J0b"/>
                             <constraint firstItem="nKa-8F-6M9" firstAttribute="leading" secondItem="qK4-2w-Del" secondAttribute="leading" constant="20" id="O7J-ev-8Ze"/>
-                            <constraint firstAttribute="centerY" secondItem="b3r-Er-iE6" secondAttribute="centerY" id="P5j-PS-gor"/>
-                            <constraint firstAttribute="trailing" secondItem="Y9K-pF-qD7" secondAttribute="trailing" constant="10" id="W9Q-Kq-aVU"/>
+                            <constraint firstItem="SqK-ZB-v0m" firstAttribute="top" secondItem="kbb-3J-T9c" secondAttribute="bottom" constant="5" id="WBF-Cs-Iwq"/>
+                            <constraint firstAttribute="centerX" secondItem="SqK-ZB-v0m" secondAttribute="centerX" id="ejl-0a-3yz"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="bottom" secondItem="b3r-Er-iE6" secondAttribute="bottom" id="iOR-w2-bQH"/>
-                            <constraint firstItem="nKa-8F-6M9" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="20" id="jcY-Al-Drj"/>
+                            <constraint firstItem="nKa-8F-6M9" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="10" id="jcY-Al-Drj"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="leading" secondItem="b3r-Er-iE6" secondAttribute="leading" id="kSd-Un-j2r"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="trailing" secondItem="b3r-Er-iE6" secondAttribute="trailing" id="m6X-b7-MY0"/>
                             <constraint firstAttribute="centerX" secondItem="b3r-Er-iE6" secondAttribute="centerX" id="oat-dr-DyB"/>
+                            <constraint firstItem="kbb-3J-T9c" firstAttribute="top" secondItem="b3r-Er-iE6" secondAttribute="bottom" constant="20" id="pYc-na-hfX"/>
                             <constraint firstItem="vZe-BE-PZL" firstAttribute="top" secondItem="b3r-Er-iE6" secondAttribute="top" id="vtf-y4-CcO"/>
-                            <constraint firstAttribute="trailing" secondItem="TJz-kY-2FM" secondAttribute="trailing" constant="10" id="xCv-8p-lJq"/>
+                            <constraint firstAttribute="trailing" secondItem="TJz-kY-2FM" secondAttribute="trailing" constant="20" id="xCv-8p-lJq"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="blendModeButton" destination="Y9K-pF-qD7" id="FFM-TM-hlB"/>
+                        <outlet property="blendModeLabel" destination="SqK-ZB-v0m" id="RTE-Gj-0F5"/>
+                        <outlet property="blendModeSegmentedControl" destination="amu-29-00S" id="bi4-ff-Rf5"/>
                         <outlet property="bottomButton" destination="mLB-bE-VZL" id="4jj-ua-c8O"/>
-                        <outlet property="facebookButton" destination="asc-Yj-b9h" id="LHJ-Y3-Zub"/>
                         <outlet property="liveView" destination="b3r-Er-iE6" id="jAU-Mt-Ivj"/>
                         <outlet property="previewView" destination="vZe-BE-PZL" id="QVN-C0-i41"/>
-                        <outlet property="rotateCameraButton" destination="TJz-kY-2FM" id="2G6-0l-1C9"/>
-                        <outlet property="topButton" destination="nKa-8F-6M9" id="pW2-Zc-L20"/>
+                        <outlet property="topLeftButton" destination="nKa-8F-6M9" id="68C-m2-ePY"/>
+                        <outlet property="topRightButton" destination="TJz-kY-2FM" id="2eb-PD-Kfv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KRt-tr-coo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1167" y="916"/>
+            <point key="canvasLocation" x="471" y="904"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="dB4-Kk-aPc">
@@ -572,7 +583,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gym-In-jGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1167" y="69"/>
+            <point key="canvasLocation" x="471" y="69"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="gqY-1N-ZUF">
@@ -842,7 +853,7 @@ Characters)</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8U-1D-MEh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1865" y="916"/>
+            <point key="canvasLocation" x="945" y="69"/>
         </scene>
         <!--Everything Else View Controller - Everything else-->
         <scene sceneID="ihJ-dZ-OSg">
@@ -1229,7 +1240,7 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfK-xO-DjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1167" y="-691"/>
+            <point key="canvasLocation" x="1407" y="69"/>
         </scene>
         <!--Notifications View Controller-->
         <scene sceneID="egu-dx-0CI">
@@ -1508,11 +1519,17 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="add_photo" width="72" height="72"/>
         <image name="button-close" width="44" height="44"/>
         <image name="button-close" width="44" height="44"/>
+        <image name="button-selfie" width="25" height="25"/>
+        <image name="button-selfie" width="25" height="25"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
-        <image name="facebook" width="26" height="26"/>
-        <image name="facebook_Active" width="26" height="26"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
@@ -1530,8 +1547,6 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="icon-you" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
-        <image name="selfie" width="25" height="25"/>
-        <image name="selfieDown" width="26" height="26"/>
     </resources>
     <color key="tintColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

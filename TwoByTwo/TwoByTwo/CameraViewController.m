@@ -10,9 +10,8 @@
 #import "GPUImage.h"
 #import "ProgressButton.h"
 #import "AppDelegate.h"
-#import "UIImage+UIImageResizing.h"
+#import "UIImage+Addon.h"
 #import <Social/Social.h>
-
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
@@ -21,21 +20,25 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateDone,
 };
 
+static CGFloat const kImageSize = 600.0;
 
 
 @interface CameraViewController ()
 @property (nonatomic, weak) IBOutlet GPUImageView *liveView;
 @property (nonatomic, weak) IBOutlet UIImageView *previewView;
-@property (nonatomic, weak) IBOutlet UIButton *topButton;
-@property (nonatomic, weak) IBOutlet UIButton *rotateCameraButton;
-@property (nonatomic, weak) IBOutlet UIButton *blendModeButton;
-@property (nonatomic, weak) IBOutlet UIButton *facebookButton;
+@property (nonatomic, weak) IBOutlet UIButton *topLeftButton;
+@property (nonatomic, weak) IBOutlet UIButton *topRightButton;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *blendModeSegmentedControl;
+@property (nonatomic, weak) IBOutlet UILabel *blendModeLabel;
 @property (nonatomic, weak) IBOutlet ProgressButton *bottomButton;
 @property (nonatomic, strong) GPUImageStillCamera *stillCamera;
 @property (nonatomic, strong) GPUImageFilter *filter;
 @property (nonatomic, strong) GPUImagePicture *sourcePicture;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) NSArray *blendModes;
 @property (nonatomic) CameraViewState state;
 @property (nonatomic) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
+@property (nonatomic) BOOL isPostingToFacebook;
 @end
 
 
@@ -52,24 +55,20 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     [super viewDidLoad];
     
     self.locationManager = [CLLocationManager new];
-    self.locationManager.delegate = self;
     [self.locationManager startMonitoringSignificantLocationChanges];
     
     self.state = CameraViewStateTakePhoto;
-    
-    self.sharingFacebook = NO;
-    
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
     if (self.photo) {
         
-        self.blendModeButton.hidden = NO;
+        self.blendModeSegmentedControl.hidden = NO;
+        self.blendModeLabel.hidden = NO;
 
         __weak typeof(self) weakSelf = self;
         void (^showErrorAndDismiss)(NSError *, NSString *) = ^(NSError *error, NSString *message) {
             if (!message) message = error.localizedDescription;
             [UIAlertView bk_showAlertViewWithTitle:@"Error" message:message cancelButtonTitle:@"OK" otherButtonTitles:nil handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                [weakSelf cleanup];
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }];
         };
@@ -124,7 +123,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         }];
     }
     else {
-        self.blendModeButton.hidden = YES;
+        self.blendModeSegmentedControl.hidden = YES;
+        self.blendModeLabel.hidden = YES;
         
         self.filter = [[GPUImageGammaFilter alloc] init];
         [self.filter addTarget:self.liveView];
@@ -133,28 +133,17 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         self.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
         [self.stillCamera addTarget:self.filter];
         [self.stillCamera startCameraCapture];
+    }
+}
 
-    }
-    
-    
-    self.watermark = [ [UILabel alloc ] init];
-    if(self.photo){
-        self.watermark.text = [NSString stringWithFormat:@"%@/%@:2BY2",[self.photo.user.username uppercaseString],[[PFUser currentUser].username uppercaseString]];
-    }else{
-        self.watermark.text = [NSString stringWithFormat:@"%@:2BY2",[[PFUser currentUser].username uppercaseString]];
-    }
-    self.watermark.font = [UIFont fontWithName:@"Helvetica" size:(11.0)];
-    [self.watermark setTextAlignment:NSTextAlignmentCenter];
-    self.watermark.textColor = [UIColor whiteColor];
-    self.watermark.backgroundColor = [UIColor blackColor];
-    [self.watermark sizeToFit];
-    int x = self.previewView.frame.origin.x + self.previewView.frame.size.width - self.watermark.frame.size.width;
-    int y = self.previewView.frame.origin.y + self.previewView.frame.size.height - self.watermark.frame.size.height;
-    self.watermark.frame = CGRectMake(x-10, y, self.watermark.frame.size.width+10, self.watermark.frame.size.height);
-    
-    self.watermark.hidden = YES;
-    
-    [self.view addSubview:self.watermark];
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.filter = nil;
+    self.sourcePicture = nil;
+    self.stillCamera = nil;
+    self.photo = nil;
+    [self.locationManager stopMonitoringSignificantLocationChanges];
+    [super viewWillDisappear:animated];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -162,19 +151,30 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     return UIStatusBarStyleLightContent;
 }
 
-
-#pragma mark - Location
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+- (NSArray *)blendModes
 {
-    NSLog(@"locationManager: %@", locations);
-    //[AppDelegate delegate].currentLocation = locations[0];
-    
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"locationManager: %@", error);
+    if (!_blendModes) {
+        _blendModes = @[
+                        [GPUImageLightenBlendFilter class],
+                        [GPUImageDarkenBlendFilter class],
+                        [GPUImageMultiplyBlendFilter class],
+                        [GPUImageScreenBlendFilter class],
+                        [GPUImageOverlayBlendFilter class],
+                        [GPUImageColorDodgeBlendFilter class],
+                        [GPUImageColorBurnBlendFilter class],
+                        [GPUImageSoftLightBlendFilter class],
+                        [GPUImageHardLightBlendFilter class],
+                        [GPUImageDifferenceBlendFilter class],
+                        [GPUImageExclusionBlendFilter class],
+                        
+                        [GPUImageAddBlendFilter class],
+                        [GPUImageSubtractBlendFilter class],
+                        [GPUImageDivideBlendFilter class],
+                        [GPUImageAlphaBlendFilter class],
+                        [GPUImageLinearBurnBlendFilter class],
+                        ];
+    }
+    return _blendModes;
 }
 
 
@@ -183,34 +183,35 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 - (void)setState:(CameraViewState)state
 {
     _state = state;
+    self.topRightButton.selected = NO;
+
     switch (state) {
         case CameraViewStateTakePhoto:
             self.liveView.hidden = NO;
             self.previewView.hidden = YES;
-            self.topButton.hidden = NO;
-            self.rotateCameraButton.hidden = NO;
-            self.facebookButton.hidden = YES;
-            
-            [self.topButton setImage:[UIImage imageNamed:@"button-close"] forState:UIControlStateNormal];
+            self.topLeftButton.hidden = NO;
+            self.topRightButton.hidden = NO;
+            [self.topLeftButton setImage:[UIImage imageNamed:@"button-close"] forState:UIControlStateNormal];
+            [self.topRightButton setImage:[UIImage imageNamed:@"selfie"] forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-shutter-black"] forState:UIControlStateNormal];
             break;
             
         case CameraViewStateReadyToUpload:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
-            self.topButton.hidden = NO;
-            [self.topButton setImage:[UIImage imageNamed:@"button-back"] forState:UIControlStateNormal];
+            self.topLeftButton.hidden = NO;
+            self.topRightButton.hidden = NO;
+            [self.topLeftButton setImage:[UIImage imageNamed:@"button-back"] forState:UIControlStateNormal];
+            [self.topRightButton setImage:[UIImage imageNamed:@"button-facebook-off"] forState:UIControlStateNormal];
+            [self.topRightButton setImage:[UIImage imageNamed:@"button-facebook-on"] forState:UIControlStateSelected];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-upload"] forState:UIControlStateNormal];
-            self.rotateCameraButton.hidden = YES;
-            self.facebookButton.hidden = NO;
             break;
             
         case CameraViewStateUploading:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
-            self.topButton.hidden = YES;
-            self.rotateCameraButton.hidden = YES;
-            self.facebookButton.hidden = NO;
+            self.topLeftButton.hidden = YES;
+            self.topRightButton.hidden = YES;
             [self.bottomButton setImage:nil forState:UIControlStateNormal];
             self.bottomButton.outerColor = [UIColor appBlackishColor];
             self.bottomButton.innerColor = [UIColor appBlackishColor];
@@ -224,9 +225,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         case CameraViewStateDone:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
-            self.topButton.hidden = YES;
-            self.rotateCameraButton.hidden = YES;
-            self.facebookButton.hidden = NO;
+            self.topLeftButton.hidden = YES;
+            self.topRightButton.hidden = YES;
             [self.bottomButton setImage:[UIImage imageNamed:@"button-done"] forState:UIControlStateNormal];
             break;
             
@@ -238,132 +238,41 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
 #pragma mark - Actions
 
-- (void)ShareFacebook:(BOOL)doubleExposed
+- (IBAction)topLeftButtonTapped:(id)sender
 {
-    
-    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound)
-    {
-        // No permissions found in session, ask for it
-        [FBSession.activeSession requestNewPublishPermissions: [NSArray arrayWithObject:@"publish_actions"]
-                                              defaultAudience: FBSessionDefaultAudienceFriends
-                                            completionHandler: ^(FBSession *session, NSError *error)
-         {
-             if (!error)
-             {
-                 // If permissions granted and not already posting then publish the story
-                 if (!self.m_postingInProgress)
-                 {
-                     [self postToWall:doubleExposed];
-                 }
-             }
-         }];
-    }
-    else
-    {
-        // If permissions present and not already posting then publish the story
-        if (!self.m_postingInProgress)
-        {
-            [self postToWall:doubleExposed];
-        }
-    }
-    
-}
-
-- (UIImage * ) addWatermark{
-    self.watermark.hidden = NO;
-    UIGraphicsBeginImageContextWithOptions(self.previewView.bounds.size, YES, 0.0f);
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(c, -self.previewView.frame.origin.x, -self.previewView.frame.origin.y);
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-	UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-    self.watermark.hidden = YES;
-    return viewImage;
-}
-
-- (void) postToWall:(BOOL)doubleExposed{
-    
-    self.m_postingInProgress = YES;
-    
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-    
-    if(doubleExposed){
-        [params setObject:@"Photo was overexposed using new iphone app - 2by2" forKey:@"message"];
-    }else{
-        [params setObject:@"Photo taken with 2by2" forKey:@"message"];
-    }
-    
-    [params setObject:UIImageJPEGRepresentation([self addWatermark],1) forKey:@"picture"];
-    
-    
-    
-    [FBRequestConnection startWithGraphPath:@"me/photos"
-                                 parameters:params
-                                 HTTPMethod:@"POST"
-                          completionHandler:^(FBRequestConnection *connection,
-                                              id result,
-                                              NSError *error)
-     {
-         if (error)
-         {
-             //showing an alert for failure
-             UIAlertView *alertView = [[UIAlertView alloc]
-                                       initWithTitle:@"Post Failed"
-                                       message:error.localizedDescription
-                                       delegate:nil
-                                       cancelButtonTitle:@"OK"
-                                       otherButtonTitles:nil];
-             [alertView show];
-         }else{
-             self.m_postingInProgress = NO;
-             NSLog(@"facebook post sucessfull %@",result);
-         }
-         
-     }];
-    
-}
-
-- (IBAction)facebookShare:(id)sender
-{
-    //NSLog(@"facebookShare");
-    if(self.sharingFacebook == NO){
-        [self.facebookButton setImage:[UIImage imageNamed:@"facebook_Active"] forState:UIControlStateNormal];
-        self.sharingFacebook = YES;
-        
-    }else{
-        [self.facebookButton setImage:[UIImage imageNamed:@"facebook"] forState:UIControlStateNormal];
-        self.sharingFacebook = NO;
-    }
-}
-
-- (IBAction)rotateCamera:(id)sender
-{
-    [self.stillCamera rotateCamera];
-}
-
-- (IBAction)topButtonTapped:(id)sender
-{
+    __weak typeof(self) weakSelf = self;
     switch (self.state) {
         case CameraViewStateTakePhoto:
         {
-            __weak typeof(self) weakSelf = self;
             [self setPhotoState:@"half" completion:^(BOOL succeeded, NSError *error) {
                 if (!succeeded) {
                     NSLog(@"CameraViewStateTakePhoto setPhotoState: %@", error);
                 }
-                [weakSelf cleanup];
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }];
         }
             break;
             
         case CameraViewStateReadyToUpload:
-            NSLog(@"CameraViewStateReadyToUpload");
             self.state = CameraViewStateTakePhoto;
             break;
             
-        case CameraViewStateUploading:
-        case CameraViewStateDone:
+        default:
+            break;
+    }
+}
+
+- (IBAction)topRightButtonTapped:(id)sender
+{
+    switch (self.state) {
+        case CameraViewStateTakePhoto:
+            [self.stillCamera rotateCamera];
+            break;
+            
+        case CameraViewStateReadyToUpload:
+            self.topRightButton.selected = !self.topRightButton.selected;
+            break;
+            
         default:
             break;
     }
@@ -376,27 +285,23 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     switch (self.state) {
         case CameraViewStateTakePhoto:
         {
-            NSString *model = [[UIDevice currentDevice] model];
-            if (YES == [model isEqualToString:@"iPhone Simulator"]) {
-                //UIImage* smallImage = [UIImage imageNamed:@"logo"];
-                //NSString* url = @"http://thecatapi.com/api/images/get?format=src&type=png&size=med";
-                NSString* url = @"http://placedog.com/300/300";
-                UIImage *smallImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
-                self.previewView.image = smallImage;
-                self.state = CameraViewStateReadyToUpload;
-            }else{
-                [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
-                    UIImage* smallImage = [processedImage scaleToSize:CGSizeMake(300, 300) contentMode:UIViewContentModeScaleAspectFill interpolationQuality:kCGInterpolationHigh];
-                    weakSelf.previewView.image = smallImage;
-                    weakSelf.state = CameraViewStateReadyToUpload;
-                }];
-            }
+#if TARGET_IPHONE_SIMULATOR
+            NSString *URLString = [NSString stringWithFormat:@"http://placedog.com/%d/%d", (int)kImageSize, (int)kImageSize];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:URLString]]];
+            self.previewView.image = image;
+            self.state = CameraViewStateReadyToUpload;
+#else
+            [self.stillCamera capturePhotoAsImageProcessedUpToFilter:self.filter withCompletionHandler:^(UIImage *processedImage, NSError *error) {
+                UIImage* image = [processedImage scaleToSize:CGSizeMake(kImageSize, kImageSize) contentMode:UIViewContentModeScaleAspectFill interpolationQuality:kCGInterpolationHigh];
+                weakSelf.previewView.image = image;
+                weakSelf.state = CameraViewStateReadyToUpload;
+            }];
+#endif
         }
         break;
             
         case CameraViewStateReadyToUpload:
         {
-            
             self.state = CameraViewStateUploading;
             [self uploadImage:self.previewView.image progress:^(int percentDone) {
                 weakSelf.bottomButton.progress = (float)percentDone / 100;
@@ -408,79 +313,55 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 double delayInSeconds = 0.5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [weakSelf cleanup];
-                    
                     [weakSelf dismissViewControllerAnimated:YES completion:^{
-                       //
                     }];
                 });
                 
-                NSString *locationFull = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationFull.latitude,weakSelf.photo.locationFull.longitude];
                 
-                 NSString *locationHalf = [NSString stringWithFormat:@"%f,%f",weakSelf.photo.locationHalf.latitude,weakSelf.photo.locationHalf.longitude];
-                
-                if(weakSelf.sharingFacebook == YES){
-                    if(weakSelf.photo){
-                        [weakSelf ShareFacebook:YES];
-                    }else{
-                        [weakSelf ShareFacebook:NO];
-                    }
+                if (weakSelf.topRightButton.selected) {
+                    [weakSelf sharePhotoToFacebook];
                 }
                 
-                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
 
-                
-                if(weakSelf.photo){
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
+                NSString *locationFull = [NSString stringWithFormat:@"%f,%f", weakSelf.photo.locationFull.latitude, weakSelf.photo.locationFull.longitude];
+                NSString *locationHalf = [NSString stringWithFormat:@"%f,%f", weakSelf.photo.locationHalf.latitude, weakSelf.photo.locationHalf.longitude];
+                if (weakSelf.photo) {
+                    [PFCloud callFunctionInBackground:@"notifyUser"
+                                       withParameters:@{@"photoID":weakSelf.photo.objectId,
+                                                        @"user_full_username":weakSelf.photo.userFull.username,
+                                                        @"user_full_id":weakSelf.photo.userFull.objectId,
+                                                        @"userID":weakSelf.photo.user.objectId,
+                                                        @"url":weakSelf.photo.imageFull.url,
+                                                        @"locationFull":locationFull,
+                                                        @"location":locationHalf}
+                                                block:^(NSNumber *result, NSError *error) {
+                                                    if (!error) {
+                                                        NSLog(@"notifyUser sucessed: %@", result);
+                                                        
+                                                    }
+                                                    else {
+                                                        NSLog(@"notifyUser error: %@", error);
+                                                    }
+                                                }];
                     
-                    @try {
-                        [PFCloud callFunctionInBackground:@"notifyUser"
-                                           withParameters:@{@"photoID":weakSelf.photo.objectId,@"user_full_username":weakSelf.photo.userFull.username,@"user_full_id":weakSelf.photo.userFull.objectId,@"userID":weakSelf.photo.user.objectId,@"url":weakSelf.photo.imageFull.url,@"locationFull":locationFull,@"location":locationHalf}
-                                                    block:^(NSNumber *result, NSError *error) {
-                                                        if (!error) {
-                                                            NSLog(@"The user was notified sucessfully: %@", result);
-                                                            
-                                                        }else{
-                                                            NSLog(@"error: %@", error);
-                                                        }
-                                                    }];
-
-                    }
-                    @catch (NSException *exception) {
-                        NSLog(@"notifyUser error: %@",exception.description);
-                    }
-                }else{
-                    @try {
-                        [PFCloud callFunctionInBackground:@"newPhotoWasPosted"
-                                           withParameters:@{@"username":[PFUser currentUser].username,@"userID":[PFUser currentUser].objectId}
-                                                    block:^(NSNumber *result, NSError *error) {
-                                                        if (!error) {
-                                                            NSLog(@"newPhotoWasPosted sucessfully: %@", result);
-                                                            
-                                                        }else{
-                                                            NSLog(@"error: %@", error);
-                                                        }
-                                                    }];
-                        
-                    }
-                    @catch (NSException *exception) {
-                        NSLog(@"newPhotoWasPosted error: %@",exception.description);
-                    }
-
                 }
-                
-                
-                
+                else {
+                    [PFCloud callFunctionInBackground:@"newPhotoWasPosted"
+                                       withParameters:@{@"username":[PFUser currentUser].username,
+                                                        @"userID":[PFUser currentUser].objectId}
+                                                block:^(NSNumber *result, NSError *error) {
+                                                    if (!error) {
+                                                        NSLog(@"newPhotoWasPosted sucessed: %@", result);
+                                                        
+                                                    }else{
+                                                        NSLog(@"newPhotoWasPosted error: %@", error);
+                                                    }
+                                                }];
+                    
+                }
             }];
         }
-            break;
-            
-        case CameraViewStateUploading:
-            break;
-            
-        case CameraViewStateDone:
-            [self cleanup];
-            [self dismissViewControllerAnimated:YES completion:nil];
             break;
             
         default:
@@ -488,63 +369,32 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     }
 }
 
-- (IBAction)blendModeButtonTapped:(id)sender
+- (IBAction)blendModeSegmentedControlValueChanged:(UISegmentedControl *)sender
 {
-    //Refernce:
-    // Quartz 2D Programming Guide -> Bitmap Images and Image Masks -> Using Blend Modes with Images
-    // https://developer.apple.com/library/ios/documentation/graphicsimaging/conceptual/drawingwithquartz2d/dq_images/dq_images.html
-    // https://github.com/BradLarson/GPUImage
-    
-    NSArray *blendModes = @[
-                            [GPUImageMultiplyBlendFilter class],
-                            [GPUImageScreenBlendFilter class],
-                            [GPUImageOverlayBlendFilter class],
-                            [GPUImageLightenBlendFilter class],
-                            [GPUImageDarkenBlendFilter class],
-                            [GPUImageColorDodgeBlendFilter class],
-                            [GPUImageColorBurnBlendFilter class],
-                            [GPUImageSoftLightBlendFilter class],
-                            [GPUImageHardLightBlendFilter class],
-                            [GPUImageDifferenceBlendFilter class],
-                            [GPUImageExclusionBlendFilter class],
-
-                            [GPUImageAddBlendFilter class],
-                            [GPUImageSubtractBlendFilter class],
-                            [GPUImageDivideBlendFilter class],
-                            [GPUImageAlphaBlendFilter class],
-                            [GPUImageLinearBurnBlendFilter class],
-                            ];
-    
-    NSUInteger current = [blendModes indexOfObject:[self.filter class]];
-    NSUInteger next = (current + 1) % blendModes.count;
-    Class nextMode = blendModes[next];
-    
-    NSString *name = NSStringFromClass(nextMode);
-    name = [name stringByReplacingOccurrencesOfString:@"GPUImage" withString:@""];
-    name = [name stringByReplacingOccurrencesOfString:@"BlendFilter" withString:@""];
-    [self.blendModeButton setTitle:name forState:UIControlStateNormal];
+    self.blendModeLabel.text = self.blendModeName;
 
     [self.filter removeTarget:self.liveView];
     [self.sourcePicture removeTarget:self.filter];
     [self.stillCamera removeTarget:self.filter];
 
-    self.filter = [[nextMode alloc] init];
+    Class mode = self.blendModes[sender.selectedSegmentIndex];
+    self.filter = [[mode alloc] init];
     [self.filter addTarget:self.liveView];
     [self.sourcePicture addTarget:self.filter];
     [self.stillCamera addTarget:self.filter];
 }
 
-
-#pragma mark -
-
-- (void)cleanup
+- (NSString *)blendModeName
 {
-    self.filter = nil;
-    self.sourcePicture = nil;
-    self.stillCamera = nil;
-    self.photo = nil;
-    [self.locationManager stopMonitoringSignificantLocationChanges];
+    Class mode = self.blendModes[self.blendModeSegmentedControl.selectedSegmentIndex];
+    NSString *name = NSStringFromClass(mode);
+    name = [name stringByReplacingOccurrencesOfString:@"GPUImage" withString:@""];
+    name = [name stringByReplacingOccurrencesOfString:@"BlendFilter" withString:@""];
+    return name;
 }
+
+
+#pragma mark - API
 
 - (void)setPhotoState:(NSString *)state completion:(PFBooleanResultBlock)completion
 {
@@ -557,8 +407,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
         completion(NO, nil);
     }
 }
-
-
 
 - (void)uploadImage:(UIImage *)image progress:(PFProgressBlock)progress completion:(PFBooleanResultBlock)completion
 {
@@ -598,17 +446,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 weakSelf.photo.imageFull = photoFile;
                 weakSelf.photo.userFull = [PFUser currentUser];
                 weakSelf.photo.state = @"full";
-                
-                NSString *name = NSStringFromClass([self.filter class]);
-                name = [name stringByReplacingOccurrencesOfString:@"GPUImage" withString:@""];
-                name = [name stringByReplacingOccurrencesOfString:@"BlendFilter" withString:@""];
-                
-                //store the filter we are using
-                weakSelf.photo[@"filter"] = name;       
-                
-                
+                weakSelf.photo[@"filter"] = self.blendModeName;
                 [weakSelf.photo saveInBackgroundWithBlock:backgroundTaskCompletion];
-                
             }
             else {
                 PFObject *photo = [PFObject objectWithClassName:@"Photo"];
@@ -618,14 +457,63 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
                 photo.state = @"half";
                 [photo saveInBackgroundWithBlock:backgroundTaskCompletion];
             }
-            
-            
         }
         else {
             backgroundTaskCompletion(NO, error);
         }
-
     } progressBlock:progress];
+}
+
+- (void)sharePhotoToFacebook
+{
+    if (self.isPostingToFacebook) {
+        return;
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    void (^post)(void) = ^{
+        weakSelf.isPostingToFacebook = YES;
+        
+        NSString *message = (weakSelf.photo) ? @"Photo was overexposed using new iphone app - 2by2" : @"Photo taken with 2by2";
+        NSString *watermark = (weakSelf.photo)
+        ? [NSString stringWithFormat:@"%@/%@:2BY2", [self.photo.user.username uppercaseString], [[PFUser currentUser].username uppercaseString]]
+        : [NSString stringWithFormat:@"%@:2BY2", [[PFUser currentUser].username uppercaseString]];
+        UIImage *picture = [weakSelf.previewView.image imageWithWatermark:watermark];
+        
+        NSDictionary *params = @{
+                                 @"message" : message,
+                                 @"picture" : UIImageJPEGRepresentation(picture, 0.8),
+                                 };
+        [FBRequestConnection startWithGraphPath:@"me/photos"
+                                     parameters:params
+                                     HTTPMethod:@"POST"
+                              completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
+         {
+             weakSelf.isPostingToFacebook = NO;
+             
+             if (error) {
+                 //showing an alert for failure
+                 [[[UIAlertView alloc] initWithTitle:@"Post Failed" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+             }
+             else {
+                 NSLog(@"facebook post sucessfull %@", result);
+             }
+         }];
+    };
+    
+    if ([FBSession.activeSession.permissions containsObject:@"publish_actions"]) {
+        // No permissions found in session, ask for it
+        [FBSession.activeSession requestNewPublishPermissions:@[@"publish_actions"]
+                                              defaultAudience:FBSessionDefaultAudienceFriends
+                                            completionHandler:^(FBSession *session, NSError *error) {
+                                                if (!error) {
+                                                    post();
+                                                }
+                                            }];
+    }
+    else {
+        post();
+    }
 }
 
 @end

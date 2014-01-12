@@ -54,7 +54,7 @@ one unexpected  unique image. </string>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <inset key="titleEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Login with facebook" backgroundImage="button-facebook">
+                                <state key="normal" title="Login with facebook" backgroundImage="button-facebook-large">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -104,7 +104,7 @@ QnkgY3JlYXRpbmcgYW4gYWNjb3VudCB5b3UgYWdyZWUgdG8gb3VyCgN0ZXJtcyAmIGNvbmRpdGlvbnM
         </scene>
     </scenes>
     <resources>
-        <image name="button-facebook" width="186" height="38"/>
+        <image name="button-facebook-large" width="186" height="38"/>
         <image name="image-login" width="320" height="320"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

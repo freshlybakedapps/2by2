@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
-@interface UIImage (Resize)
+@interface UIImage (Addon)
 
 - (UIImage *)scaleToSize:(CGSize)size contentMode:(UIViewContentMode)contentMode interpolationQuality:(CGInterpolationQuality)quality;
+- (UIImage *)imageWithWatermark:(NSString *)text;
 
 @end

@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "UIImage+UIImageResizing.h"
+#import "UIImage+Addon.h"
 
 
-@implementation UIImage (Resize)
+@implementation UIImage (Addon)
 
 - (UIImage *)scaleToSize:(CGSize)size contentMode:(UIViewContentMode)contentMode interpolationQuality:(CGInterpolationQuality)quality
 {
@@ -55,5 +55,25 @@
     
     return newImage;
 }
+
+- (UIImage *)imageWithWatermark:(NSString *)text
+{
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:10], NSForegroundColorAttributeName:[UIColor whiteColor]};
+    
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(self.size.width, MAXFLOAT)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:attributes
+                                     context:nil];
+    CGRect textRect = CGRectMake(self.size.width - rect.size.width, self.size.height - rect.size.height, rect.size.width, rect.size.height);
+    
+    UIGraphicsBeginImageContextWithOptions(self.size, YES, 0.0);
+    [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+    [text drawInRect:textRect withAttributes:attributes];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 
 @end

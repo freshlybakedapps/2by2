@@ -9,13 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
-@interface CameraViewController : UIViewController <CLLocationManagerDelegate>
+@interface CameraViewController : UIViewController
 
 @property (nonatomic, weak) PFObject *photo;
-@property (nonatomic) BOOL sharingFacebook;
-@property (nonatomic) BOOL m_postingInProgress;
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) UILabel* watermark;
 
 + (instancetype)controller;
 
