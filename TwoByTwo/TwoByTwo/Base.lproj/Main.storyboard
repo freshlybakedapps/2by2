@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -1251,29 +1251,54 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NotificationCell" textLabel="4K5-fX-3Oe" detailTextLabel="1Oy-pW-Wwj" style="IBUITableViewCellStyleSubtitle" id="T80-fX-PoE">
-                                <rect key="frame" x="0.0" y="22" width="320" height="60"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T80-fX-PoE" id="tBS-fm-FeD">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationCell" rowHeight="140" id="fhw-Ug-QxU" customClass="NotificationCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="140"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fhw-Ug-QxU" id="JQy-oW-Nq1">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="qlkrlqkmel;qw" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="113" id="4K5-fX-3Oe">
-                                            <rect key="frame" x="15" y="11" width="113" height="22"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" red="0.0" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-you" translatesAutoresizingMaskIntoConstraints="NO" id="BXJ-lK-7pl">
+                                            <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="9E3-sM-I2g"/>
+                                                <constraint firstAttribute="width" constant="30" id="CKo-Ht-8C8"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="G8I-nt-3r2">
+                                            <rect key="frame" x="50" y="10" width="260" height="51"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <string key="text" base64-UTF8="YES">
+TmFoIG1hbiwgaXMgbm90IHRoYXQgZ3JlYXQhIFRoaXMgY29tbWVudAN3aWxsIGJyZWFrIGludG8gMyBs
+aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
+</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Oy-pW-Wwj">
-                                            <rect key="frame" x="15" y="33" width="43" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tab-KM-W2A">
+                                            <rect key="frame" x="50" y="69" width="17" height="17"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="G8I-nt-3r2" firstAttribute="leading" secondItem="BXJ-lK-7pl" secondAttribute="trailing" constant="10" id="3aA-0S-lbq"/>
+                                        <constraint firstItem="BXJ-lK-7pl" firstAttribute="top" secondItem="JQy-oW-Nq1" secondAttribute="top" constant="10" id="9Df-9M-V5M"/>
+                                        <constraint firstItem="BXJ-lK-7pl" firstAttribute="leading" secondItem="JQy-oW-Nq1" secondAttribute="leading" constant="10" id="Mz2-xa-40A"/>
+                                        <constraint firstItem="G8I-nt-3r2" firstAttribute="top" secondItem="JQy-oW-Nq1" secondAttribute="top" constant="10" id="gP0-1T-yLe"/>
+                                        <constraint firstAttribute="trailing" secondItem="G8I-nt-3r2" secondAttribute="trailing" constant="10" id="mN4-Oe-PIo"/>
+                                        <constraint firstItem="tab-KM-W2A" firstAttribute="leading" secondItem="G8I-nt-3r2" secondAttribute="leading" id="o5I-AW-4ND"/>
+                                        <constraint firstItem="tab-KM-W2A" firstAttribute="top" secondItem="G8I-nt-3r2" secondAttribute="bottom" constant="8" symbolic="YES" id="w6q-jE-2At"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarImageView" destination="BXJ-lK-7pl" id="znG-Yg-vFw"/>
+                                    <outlet property="dateLabel" destination="tab-KM-W2A" id="sHI-WQ-hR3"/>
+                                    <outlet property="notificationLabel" destination="G8I-nt-3r2" id="tul-7W-cbA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1518,21 +1543,13 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
     <resources>
         <image name="add_photo" width="72" height="72"/>
         <image name="button-close" width="44" height="44"/>
-        <image name="button-close" width="44" height="44"/>
-        <image name="button-selfie" width="25" height="25"/>
         <image name="button-selfie" width="25" height="25"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
         <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
-        <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-follwing" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
@@ -1540,11 +1557,6 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="icon-location-off" width="22" height="26"/>
         <image name="icon-location-on" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
     </resources>

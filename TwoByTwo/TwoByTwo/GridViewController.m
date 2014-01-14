@@ -50,7 +50,9 @@ static NSUInteger const kQueryBatchSize = 20;
     
     self.collectionView.collectionViewLayout = self.gridLayout;
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
+        
     // Load Data
     [self performQuery];
 }
@@ -256,7 +258,8 @@ static NSUInteger const kQueryBatchSize = 20;
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
     }
     else {
-        if (self.type == FeedTypeSingle) {
+        PFObject* photo = self.objects[indexPath.row];
+        if([photo.state isEqualToString:@"half"] && photo.user.objectId != [PFUser currentUser].objectId){
             CameraViewController *controller = [CameraViewController controller];
             controller.photo = self.objects[indexPath.row];
             [self presentViewController:controller animated:YES completion:nil];
@@ -264,6 +267,15 @@ static NSUInteger const kQueryBatchSize = 20;
         else if (self.type != FeedTypePDP) {
             [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
         }
+        
+        /*
+         if (self.type == FeedTypeSingle) {
+         CameraViewController *controller = [CameraViewController controller];
+         controller.photo = self.objects[indexPath.row];
+         [self presentViewController:controller animated:YES completion:nil];
+         }
+         */
+
     }
 }
 

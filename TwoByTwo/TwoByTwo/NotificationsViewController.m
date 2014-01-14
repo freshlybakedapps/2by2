@@ -10,6 +10,7 @@
 #import "GridViewController.h"
 #import "MainViewController.h"
 #import "NSDate+Addon.h"
+#import "NotificationCell.h"
 
 
 @interface NotificationsViewController ()
@@ -76,47 +77,26 @@
     return self.objects.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PFObject *notification = self.objects[indexPath.row];
+    NSString *text = notification[@"content"];
+    
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(260, MAXFLOAT)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:@{NSFontAttributeName:[UIFont appFontOfSize:14]}
+                                     context:nil];
+    
+    CGFloat cellHeight = 38 + rect.size.height + 10;
+    return cellHeight;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationCell"];
-    cell.textLabel.textColor = [UIColor appGreenColor];
-    cell.textLabel.font = [UIFont appFontOfSize:16];
-    cell.detailTextLabel.font = [UIFont appMediumFontOfSize:12];
-
-    PFObject *notification = self.objects[indexPath.row];
-    
-    //NOTIFICATION TYPES
-    // - comment (x)
-    // - overexposed (x)
-    // - follow (x)
-    // - like (x)
-    // - newUser
-    // - flag (x)
-    // - newPhoto
-    
-    //NOTIFICATON PROPERTIES
-    // - notificationID (same as user ID)
-    // - photoID
-    // - notificationType
-    // - byUserID
-    // - byUsername
-    // - content
-    // - locationString
-
-
-    NSString* notificationType = notification[@"notificationType"];
-    if([notificationType isEqualToString:@"flag"]) {
-        NSString *flagType = notification[@"content"];
-        flagType = [flagType stringByReplacingOccurrencesOfString:@"FlagType" withString:@""];
-        cell.textLabel.text = [NSString stringWithFormat:@"Your photo was flagged as %@", [flagType lowercaseString]];
-    }else{
-        //I don't want to duplicate this text on the backend and here so let's just bring it from the backend
-        cell.textLabel.text = notification[@"content"];
-    }
-    
-    cell.detailTextLabel.text = [notification.createdAt timeAgoString];
-    
-    return cell;
+    NotificationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationCell"];
+    cell.notification = self.objects[indexPath.row];
+    return cell;   
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

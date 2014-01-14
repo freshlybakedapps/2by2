@@ -41,6 +41,11 @@
     navBar.segmentedControl = self.segmentedControl;
     self.navigationItem.titleView = nil;
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    NSLog(@"MainViewController");
+
+    
     [self showControllerWithType:0];
 }
 

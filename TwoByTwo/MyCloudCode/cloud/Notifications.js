@@ -17,12 +17,15 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
 
   Parse.Cloud.useMasterKey();
 
-  var query = new Parse.Query(Parse.User);      
+  var query = new Parse.Query(Parse.User);
+
+
 
   query.get(userID, {
     success: function(user) {
       var email = user.get("email");
       var username = user.get("username");
+      
 
       var userAllowsPush;
       var userAllowsEmail;
@@ -56,7 +59,29 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
 
       //This should always happen (unless is the same user)
       if(user.id != byUserID){
-        addNotification(user.id,photoID,notificationType,byUserID,byUsername,locationString,content);
+        
+        if(byUserID && byUserID != ""){
+          var query2 = new Parse.Query(Parse.User);
+          query2.get(byUserID, {
+            success: function(u) {
+              var facebookID = u.get('authData').facebook.id;
+              console.log("byUserID/facebookID: "+ facebookID);
+              addNotification(user.id,photoID,notificationType,byUserID,byUsername,locationString,content,facebookID);
+            },
+            error: function(error) {
+                console.log("Got an error " + error);
+
+                if(response){
+                  response.error(error);
+                }
+            }
+          });
+        }else{
+          addNotification(user.id,photoID,notificationType,byUserID,byUsername,locationString,content,"");
+        }
+        
+
+        
       }
       
       if(userAllowsPush == true){
@@ -86,7 +111,7 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
 }
 
 
-function addNotification(notificationID,photoID,notificationType,byUserID,byUsername,locationString,content){
+function addNotification(notificationID,photoID,notificationType,byUserID,byUsername,locationString,content,facebookID){
   console.log("addNotification"+" / "+notificationID+" / "+photoID+" / "+notificationType+" / "+byUserID+" / "+byUsername+" / "+locationString);
   var Notification = Parse.Object.extend("Notification");
   var notification = new Notification();
@@ -97,6 +122,11 @@ function addNotification(notificationID,photoID,notificationType,byUserID,byUser
   notification.set("byUsername", byUsername);
   notification.set("locationString", locationString);
   notification.set("content", content);
+
+  if(facebookID && facebookID != ""){
+    notification.set("facebookID",facebookID);
+  }
+  
 
 
   notification.save(null, {

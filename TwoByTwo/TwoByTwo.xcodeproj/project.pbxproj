@@ -36,6 +36,7 @@
 		1DD9716A184CCDD9001D35CA /* Terms.html in Resources */ = {isa = PBXBuildFile; fileRef = 1DD97167184CCDD9001D35CA /* Terms.html */; };
 		1DD9718A184CD290001D35CA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD97189184CD290001D35CA /* WebViewController.m */; };
 		1DDC01081868E3DF00292DA2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDC01071868E3DF00292DA2 /* Social.framework */; };
+		1DF6A7211884ABD900FB913D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6A7201884ABD900FB913D /* NotificationCell.m */; };
 		7C070107187398690011845D /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C070106187398690011845D /* CommentCell.m */; };
 		7C07010A1873A6B90011845D /* NSDate+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0701091873A6B90011845D /* NSDate+Addon.m */; };
 		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
@@ -128,6 +129,8 @@
 		1DD97188184CD290001D35CA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		1DD97189184CD290001D35CA /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		1DDC01071868E3DF00292DA2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		1DF6A71F1884ABD900FB913D /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
+		1DF6A7201884ABD900FB913D /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
 		7C070105187398690011845D /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		7C070106187398690011845D /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		7C0701081873A6B90011845D /* NSDate+Addon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Addon.h"; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 			children = (
 				1D0A5F651867616E0086FE1C /* NotificationsViewController.h */,
 				1D0A5F661867616E0086FE1C /* NotificationsViewController.m */,
+				1DF6A71F1884ABD900FB913D /* NotificationCell.h */,
+				1DF6A7201884ABD900FB913D /* NotificationCell.m */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -689,6 +694,7 @@
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
 				7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */,
 				1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */,
+				1DF6A7211884ABD900FB913D /* NotificationCell.m in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */,
 				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,

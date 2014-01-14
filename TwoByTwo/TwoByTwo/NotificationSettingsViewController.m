@@ -45,6 +45,9 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
 
     self.title = @"Notification Settings";
     
+    NSDictionary *normalAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont appFontOfSize:18], NSFontAttributeName,nil];
+    self.navigationController.navigationBar.titleTextAttributes = normalAttributes;
+    
     [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
         [self.tableView reloadData];
     }];
@@ -93,6 +96,7 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
     NotificationSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationSettingCell" forIndexPath:indexPath];
 
     cell.backgroundColor = (indexPath.row % 2 == 0) ? [UIColor colorWithWhite:0.98 alpha:1.0] : [UIColor colorWithWhite:0.95 alpha:1.0];
+    //cell.textLabel.font = [UIFont appMediumFontOfSize:15];
     
     switch (indexPath.section) {
         case TableViewSectionEmail:
