@@ -43,20 +43,27 @@
 - (void)setNotification:(PFObject *)notification
 {
     _notification = notification;
+    NSURL *URL;
     
     if(notification[@"facebookID"]){
-        NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", notification[@"facebookID"]]];
-        [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
-        self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) * 0.5;
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", notification[@"facebookID"]]];
     }
     
+    
+    
+
+    
     if([notification[@"notificationType"] isEqualToString:@"flag"]) {
+        [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"flagForNotification"]];
         NSString *flagType = notification[@"content"];
         flagType = [flagType stringByReplacingOccurrencesOfString:@"FlagType" withString:@""];
         self.notificationLabel.text = [NSString stringWithFormat:@"Your photo was flagged as %@", [flagType lowercaseString]];
     }else{
+        [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
         self.notificationLabel.text = notification[@"content" ];
     }
+    
+    self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) * 0.5;
     
     
     self.dateLabel.text = [notification.createdAt timeAgoString];    

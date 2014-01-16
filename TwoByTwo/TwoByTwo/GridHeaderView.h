@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GridViewController.h"
 
 
 @interface GridHeaderView : UICollectionReusableView
 
 @property (nonatomic, strong) PFUser *user;
+@property (nonatomic, strong) GridViewController *controller;
 
 @end

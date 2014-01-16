@@ -20,6 +20,11 @@
 {
     [super viewDidLoad];
     self.title = @"About";
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    NSDictionary *normalAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont appFontOfSize:18], NSFontAttributeName,nil];
+    self.navigationController.navigationBar.titleTextAttributes = normalAttributes;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

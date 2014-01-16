@@ -299,6 +299,7 @@ static NSUInteger const kQueryBatchSize = 20;
     if (kind == UICollectionElementKindSectionHeader) {
         GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
         headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
+        headerView.controller = self;
         return headerView;
     }
     return nil;
