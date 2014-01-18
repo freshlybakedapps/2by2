@@ -87,7 +87,7 @@
     
     CGRect rect = [text boundingRectWithSize:CGSizeMake(260, MAXFLOAT)
                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:@{NSFontAttributeName:[UIFont appFontOfSize:14]}
+                                  attributes:@{NSFontAttributeName:[UIFont appFontOfSize:16]}
                                      context:nil];
     
     CGFloat cellHeight = 38 + rect.size.height + 10;
