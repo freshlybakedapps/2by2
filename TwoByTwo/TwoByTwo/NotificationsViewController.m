@@ -28,7 +28,7 @@
     self.titleLabel.font = [UIFont appMediumFontOfSize:14];
     
     //Since viewer is seeing the notifications we should set them back to zero
-    [(MainViewController *)self.parentViewController updateNotificationCount:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NoficationDidUpdatePushNotificationCount object:self userInfo:@{NoficationUserInfoKeyCount:@0}];
     
     [PFUser currentUser][@"notificationWasAccessed"] = [NSDate date];
     [[PFUser currentUser] saveEventually];
