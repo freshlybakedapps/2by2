@@ -201,34 +201,26 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)loadNotifications
 {
-    @try {
-        [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-            
-            NSDate *date = object[@"notificationWasAccessed"];
-            NSLog(@"notificationWasAccessed: %@", date);
-            
-            PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
-            [query whereKey:@"notificationID" equalTo:object.objectId];
-            
-            if(date){
-                [query whereKey:@"createdAt" greaterThan:date];
+    [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
+        NSDate *date = object[@"notificationWasAccessed"];
+        NSLog(@"notificationWasAccessed: %@", date);
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
+        [query whereKey:@"notificationID" equalTo:object.objectId];
+        
+        if(date){
+            [query whereKey:@"createdAt" greaterThan:date];
+        }
+        
+        [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            if(!error){
+                NSLog(@"notification count: %d", number);
+                [(MainViewController *)self.parentViewController updateNotificationCount:number];
             }
-            
-            [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-                if(!error){
-                    NSLog(@"notification count: %d", number);
-                    [[AppDelegate delegate].mainNavigationBar updateNotificationCount:number];
-                }
-                
-            }];
         }];
-
-    }
-    @catch (NSException *exception) {
-        NSLog(@"exception/loadNotifications %@",exception.description);
-    }
-    
-    }
+    }];
+}
 
 
 #pragma mark - Collection View

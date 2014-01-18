@@ -21,4 +21,5 @@ typedef NS_ENUM(NSUInteger, FeedType) {
 
 @interface MainViewController : UIViewController
 - (void)showControllerWithType:(FeedType)type;
+- (void)updateNotificationCount:(NSUInteger)count;
 @end

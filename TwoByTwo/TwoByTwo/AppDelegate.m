@@ -64,7 +64,6 @@
     // If the app was launched in response to a push notification, we'll handle the payload here
     NSDictionary *remoteNotificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotificationPayload) {
-        self.mainNavigationBar.segmentedControl.selectedSegmentIndex = FeedTypeNotifications;
         UINavigationController *navController = (id)self.window.rootViewController;
         [(MainViewController *)navController.topViewController showControllerWithType:FeedTypeNotifications];
         //TODO: push in notification detail page?
@@ -153,17 +152,6 @@
 + (AppDelegate *)delegate
 {
     return (id)[UIApplication sharedApplication].delegate;
-}
-
-- (MainNavigationBar *)mainNavigationBar
-{
-    if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navController = (id)self.window.rootViewController;
-        if ([navController.navigationBar isKindOfClass:[MainNavigationBar class]]) {
-            return (id)navController.navigationBar;
-        }
-    }
-    return nil;
 }
 
 - (void)setAppearance

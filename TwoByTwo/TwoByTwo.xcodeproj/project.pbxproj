@@ -18,7 +18,6 @@
 		1D4207CF17E6AB62008A7F98 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207CE17E6AB62008A7F98 /* Security.framework */; };
 		1D4207D317E6AB78008A7F98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */; };
 		1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A81091854433D007227BB /* EditProfileViewController.m */; };
-		1D4A811618563D55007227BB /* MainNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A811518563D55007227BB /* MainNavigationBar.m */; };
 		1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D74B5701809A681005A4937 /* StoreKit.framework */; };
 		1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */; };
 		1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7F818467EF1002626C8 /* NotificationSettingsViewController.m */; };
@@ -103,8 +102,6 @@
 		1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1D4A81081854433D007227BB /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		1D4A81091854433D007227BB /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
-		1D4A811418563D55007227BB /* MainNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNavigationBar.h; sourceTree = "<group>"; };
-		1D4A811518563D55007227BB /* MainNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNavigationBar.m; sourceTree = "<group>"; };
 		1D74B5701809A681005A4937 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1DB0C7AF18464DED002626C8 /* EverythingElseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverythingElseViewController.h; sourceTree = "<group>"; };
 		1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverythingElseViewController.m; sourceTree = "<group>"; };
@@ -543,8 +540,6 @@
 			children = (
 				7CF39E1317E00775003A859F /* MainViewController.h */,
 				7CF39E1417E00775003A859F /* MainViewController.m */,
-				1D4A811418563D55007227BB /* MainNavigationBar.h */,
-				1D4A811518563D55007227BB /* MainNavigationBar.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -724,7 +719,6 @@
 				7C070107187398690011845D /* CommentCell.m in Sources */,
 				7C508F53188AFB1E00C1334E /* GridTitleHeaderView.m in Sources */,
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
-				1D4A811618563D55007227BB /* MainNavigationBar.m in Sources */,
 				1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */,
 				1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */,
 				7C16CF421839853B007EA62D /* GridProfileHeaderView.m in Sources */,

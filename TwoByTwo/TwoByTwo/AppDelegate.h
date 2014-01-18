@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MainNavigationBar.h"
 
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -15,7 +14,6 @@
 @property (nonatomic, strong) UIWindow *window;
 
 + (AppDelegate *)delegate;
-- (MainNavigationBar *)mainNavigationBar;
 - (void)showLoginViewController;
 - (void)showMainViewController;
 
