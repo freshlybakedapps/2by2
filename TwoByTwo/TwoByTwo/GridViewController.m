@@ -9,7 +9,8 @@
 #import "GridViewController.h"
 #import "GridCell.h"
 #import "CameraViewController.h"
-#import "GridHeaderView.h"
+#import "GridProfileHeaderView.h"
+#import "GridTitleHeaderView.h"
 #import "MainViewController.h"
 #import "CommentsViewController.h"
 
@@ -32,6 +33,8 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     [super viewDidLoad];
     
+    [self.collectionView registerNib:[UINib nibWithNibName:@"GridTitleHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"GridProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView"];
     
     // Setup Layouts
     self.gridLayout = [UICollectionViewFlowLayout new];
@@ -287,20 +290,30 @@ static NSUInteger const kQueryBatchSize = 20;
     switch (self.type) {
         case FeedTypeFriend:
         case FeedTypeYou:
-            return CGSizeMake(0, 175);
+            return CGSizeMake(0, 180);
             
         default:
-           return CGSizeZero;
+            return CGSizeMake(0, 36);
     }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     if (kind == UICollectionElementKindSectionHeader) {
-        GridHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridHeaderView" forIndexPath:indexPath];
-        headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
-        headerView.controller = self;
-        return headerView;
+        switch (self.type) {
+            case FeedTypeFriend:
+            case FeedTypeYou: {
+                GridProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView" forIndexPath:indexPath];
+                headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
+                return headerView;
+            }
+                
+            default: {
+                GridTitleHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView" forIndexPath:indexPath];
+                headerView.type = self.type;
+                return headerView;
+            }
+        }
     }
     return nil;
 }

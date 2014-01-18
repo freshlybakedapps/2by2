@@ -28,24 +28,20 @@
 {
     [super viewDidLoad];
     
-    self.leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 20)];
-    self.leftLabel.textColor = [UIColor appRedColor];
-    self.leftLabel.font = [UIFont appMediumFontOfSize:14];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftLabel];
+//    self.leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 20)];
+//    self.leftLabel.textColor = [UIColor appRedColor];
+//    self.leftLabel.font = [UIFont appMediumFontOfSize:14];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftLabel];
+//    
+//    self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+//    [self.rightButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
     
-    self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-    [self.rightButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
-    
-    MainNavigationBar *navBar = [AppDelegate delegate].mainNavigationBar;
-    navBar.segmentedControl = self.segmentedControl;
-    self.navigationItem.titleView = nil;
-    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    
-    NSLog(@"MainViewController");
-
-    
+//    MainNavigationBar *navBar = [AppDelegate delegate].mainNavigationBar;
+//    navBar.segmentedControl = self.segmentedControl;
+//    self.navigationItem.titleView = nil;
+//    
+//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self showControllerWithType:0];
 }
 
@@ -79,40 +75,6 @@
 
 - (void)showControllerWithType:(FeedType)type
 {
-    switch (type) {
-        case FeedTypeSingle:
-            self.leftLabel.text = @"Single Exposure Shots";
-            self.rightButton.hidden = YES;
-            break;
-            
-        case FeedTypeGlobal:
-            self.leftLabel.text = @"Public feed";
-            self.rightButton.hidden = YES;
-            break;
-
-        case FeedTypeFollowing:
-            self.leftLabel.text = @"Photos from People you follow";
-            self.rightButton.hidden = YES;
-            break;
-            
-        case FeedTypeYou:
-            self.leftLabel.text = [PFUser currentUser][@"fullName"];
-            self.rightButton.hidden = NO;
-            [self.rightButton setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
-            [self.rightButton setImage:[UIImage imageNamed:@"edit_Down"] forState:UIControlStateHighlighted];
-            break;
-
-        case FeedTypeNotifications:
-            self.leftLabel.text = @"Notifications";
-            self.rightButton.hidden = YES;
-            break;
-
-        default:
-            break;
-    }
-    self.leftLabel.text = [self.leftLabel.text uppercaseString];
-    
-    
     // Show Child Controller
 
     if (self.childViewController) {

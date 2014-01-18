@@ -10,9 +10,6 @@
 #import "GridViewController.h"
 
 
-@interface GridHeaderView : UICollectionReusableView
-
+@interface GridProfileHeaderView : UICollectionReusableView
 @property (nonatomic, strong) PFUser *user;
-@property (nonatomic, strong) GridViewController *controller;
-
 @end

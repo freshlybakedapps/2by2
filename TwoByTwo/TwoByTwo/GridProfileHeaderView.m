@@ -6,15 +6,18 @@
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "GridHeaderView.h"
+#import "GridProfileHeaderView.h"
+#import "EditProfileViewController.h"
 #import "EverythingElseViewController.h"
 #import "UIImageView+AFNetworking.h"
 
 
-@interface GridHeaderView ()
+@interface GridProfileHeaderView ()
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *followButton;
+@property (nonatomic, weak) IBOutlet UIButton *editButton;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
-@property (nonatomic, weak) IBOutlet UIButton *actionButton;
-@property (nonatomic, weak) IBOutlet UILabel *nameLabel;
+@property (nonatomic, weak) IBOutlet UIButton *moreButton;
 @property (nonatomic, weak) IBOutlet UILabel *usernameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *numPhotosLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followingLabel;
@@ -23,21 +26,22 @@
 @end
 
 
-@implementation GridHeaderView
+@implementation GridProfileHeaderView
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     
     self.imageView.layer.cornerRadius = 40.0;
-    self.nameLabel.text = @"Loading..";
     self.usernameLabel.text = @"Loading..";
     self.numPhotosLabel.text = @"Loading..";
     self.followingLabel.text = @"Loading..";
     self.followersLabel.text = @"Loading..";
     self.bioLabel.text = @"Loading..";
     
-    self.nameLabel.font = [UIFont appFontOfSize:14];
+    self.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.followButton.titleLabel.font = [UIFont appMediumFontOfSize:12];
+    self.editButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.usernameLabel.font = [UIFont appFontOfSize:14];
     self.numPhotosLabel.font = [UIFont appFontOfSize:14];
     self.followingLabel.font = [UIFont appFontOfSize:14];
@@ -64,21 +68,21 @@
     PFUser *user = self.user;
     
     if (user) {
-        [self.actionButton setImage:nil forState:UIControlStateNormal];
-        [self.actionButton setImage:nil forState:UIControlStateHighlighted];
-        [self.actionButton setTitle:@"Follow" forState:UIControlStateNormal];
+        self.followButton.hidden = NO;
+        self.editButton.hidden = YES;
+        self.moreButton.hidden = YES;
         //TODO: load follow state
     }
     else {
         user = [PFUser currentUser];
-        [self.actionButton setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
-        [self.actionButton setImage:[UIImage imageNamed:@"more_active"] forState:UIControlStateHighlighted];
-        [self.actionButton setTitle:nil forState:UIControlStateNormal];
+        self.followButton.hidden = YES;
+        self.editButton.hidden = NO;
+        self.moreButton.hidden = NO;
     }
     
     __weak typeof(self) weakSelf = self;
     
-    self.nameLabel.text = user[@"fullName"];
+    self.titleLabel.text = [user[@"fullName"] uppercaseString];
     self.usernameLabel.text = user.username;
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", user, user];
@@ -108,33 +112,40 @@
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
 }
 
-- (IBAction)actionButtonTapped:(UIButton *)sender
+- (IBAction)followButtonTapped:(UIButton *)sender
 {
-    if (self.user) {
-        self.actionButton.enabled = NO;
-        [PFCloud callFunctionInBackground:@"follow"
-                           withParameters:@{@"userID":[PFUser currentUser].objectId,@"username":[PFUser currentUser].username,@"followingUserID":self.user.objectId}
-                                    block:^(NSNumber *result, NSError *error) {
-                                        self.actionButton.enabled = YES;
-                                        if (!error) {
-                                            if ([result isEqual:@0]){
-                                                [self.actionButton setTitle:@"Follow" forState:UIControlStateNormal];
-                                            }
-                                            else {
-                                                // In this case, result == @"Notifications sent"
-                                                [self.actionButton setTitle:@"Unfollow" forState:UIControlStateNormal];
-                                            }
+    __weak typeof(self) weakSelf = self;
+    self.followButton.enabled = NO;
+    [PFCloud callFunctionInBackground:@"follow"
+                       withParameters:@{@"userID":[PFUser currentUser].objectId,@"username":[PFUser currentUser].username,@"followingUserID":self.user.objectId}
+                                block:^(NSNumber *result, NSError *error) {
+                                    weakSelf.followButton.enabled = YES;
+                                    if (!error) {
+                                        if ([result isEqual:@0]){
+                                            [weakSelf.followButton setTitle:@"Follow" forState:UIControlStateNormal];
                                         }
-                                    }];
-    }
-    else {
-        EverythingElseViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EverythingElseViewController"];
+                                        else {
+                                            // In this case, result == @"Notifications sent"
+                                            [weakSelf.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+                                        }
+                                    }
+                                }];
+}
 
-        UINavigationController *navController = (id)[AppDelegate delegate].window.rootViewController;
-        NSAssert([navController isKindOfClass:[UINavigationController class]], @"rootViewController should be an UINavigationController!");
-        [navController pushViewController:controller animated:YES];
-        
-    }
+- (IBAction)editButtonTapped:(UIButton *)sender
+{
+    EditProfileViewController *controller = [EditProfileViewController controller];
+    UINavigationController *navController = (id)[AppDelegate delegate].window.rootViewController;
+    NSAssert([navController isKindOfClass:[UINavigationController class]], @"rootViewController should be an UINavigationController!");
+    [navController pushViewController:controller animated:YES];
+}
+
+- (IBAction)moreButtonTapped:(UIButton *)sender
+{
+    EverythingElseViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"EverythingElseViewController"];
+    UINavigationController *navController = (id)[AppDelegate delegate].window.rootViewController;
+    NSAssert([navController isKindOfClass:[UINavigationController class]], @"rootViewController should be an UINavigationController!");
+    [navController pushViewController:controller animated:YES];
 }
 
 @end

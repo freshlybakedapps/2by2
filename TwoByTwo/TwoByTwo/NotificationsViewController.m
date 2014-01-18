@@ -14,6 +14,7 @@
 
 
 @interface NotificationsViewController ()
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) NSMutableArray *objects;
 @end
 
@@ -23,6 +24,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.titleLabel.font = [UIFont appMediumFontOfSize:14];
     
     //Since viewer is seeing the notifications we should set them back to zero
     [[AppDelegate delegate].mainNavigationBar updateNotificationCount:0];
