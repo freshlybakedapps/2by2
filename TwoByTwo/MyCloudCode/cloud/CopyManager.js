@@ -16,7 +16,8 @@ exports.getCopy = function(category, dataObject){
       	//onComment.js
       	//msg
         copy = "Your friend [username], just left a comment on a photo you commented on.";
-        copy = copy.replace("[username]", dataObject.username);      	
+        copy = copy.replace("[username]", dataObject.username);
+        break;      	
       default:
         copy = "[x]";
         break;

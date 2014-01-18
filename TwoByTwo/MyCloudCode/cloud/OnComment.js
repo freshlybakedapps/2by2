@@ -11,10 +11,10 @@ function notifyUser(response,photo,user_id,photoUsername,comment,isYourPhoto){
   var htmlMsg;
   
   if(isYourPhoto == true){
-    msg = "Your friend "+username+", just left a comment on your photo.";
+    msg = CopyManager.getCopy(CopyManager.friend_left_comment_your_photo, {"username":username});
     htmlMsg = "<b>"+username +"</b> said: '"+ commentText + "'";
   }else{
-    msg = "Your friend "+username+", just left a comment on a photo you commented on.";//CopyManager.getCopy(CopyManager.friend_left_comment, {"username":username});
+    msg = CopyManager.getCopy(CopyManager.friend_left_comment, {"username":username});
     htmlMsg = "Your friend " + username + ", just joined the conversation, he said:'"+ commentText + "'";
   }
   
