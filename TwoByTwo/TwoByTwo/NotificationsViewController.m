@@ -30,7 +30,7 @@
     NSLog(@"parentViewController: %@",self.parentViewController);
     
     //Since viewer is seeing the notifications we should set them back to zero
-    [(MainViewController *)self.parentViewController updateNotificationCount:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NoficationDidUpdatePushNotificationCount object:self userInfo:@{NoficationUserInfoKeyCount:@0}];
     
     [PFUser currentUser][@"notificationWasAccessed"] = [NSDate date];
     [[PFUser currentUser] saveEventually];
@@ -89,7 +89,7 @@
     
     CGRect rect = [text boundingRectWithSize:CGSizeMake(260, MAXFLOAT)
                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:@{NSFontAttributeName:[UIFont appFontOfSize:14]}
+                                  attributes:@{NSFontAttributeName:[UIFont appFontOfSize:16]}
                                      context:nil];
     
     CGFloat cellHeight = 38 + rect.size.height + 10;

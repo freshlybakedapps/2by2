@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const NoficationDidUpdatePushNotificationCount;
+extern NSString * const NoficationUserInfoKeyCount;
+
 typedef NS_ENUM(NSUInteger, FeedType) {
     FeedTypeSingle = 0,
     FeedTypeGlobal,
@@ -21,5 +24,4 @@ typedef NS_ENUM(NSUInteger, FeedType) {
 
 @interface MainViewController : UIViewController
 - (void)showControllerWithType:(FeedType)type;
-- (void)updateNotificationCount:(NSUInteger)count;
 @end
