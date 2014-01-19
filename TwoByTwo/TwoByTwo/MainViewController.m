@@ -11,6 +11,9 @@
 #import "EditProfileViewController.h"
 #import "NotificationsViewController.h"
 
+NSString * const NoficationDidUpdatePushNotificationCount = @"NoficationDidUpdatePushNotificationCount";
+NSString * const NoficationUserInfoKeyCount = @"NoficationUserInfoKeyCount";
+
 
 @interface MainViewController ()
 @property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
@@ -27,21 +30,16 @@
 {
     [super viewDidLoad];
     
-//    self.leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 20)];
-//    self.leftLabel.textColor = [UIColor appRedColor];
-//    self.leftLabel.font = [UIFont appMediumFontOfSize:14];
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.leftLabel];
-//    
-//    self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-//    [self.rightButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightButton];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationCount:) name:NoficationDidUpdatePushNotificationCount object:nil];
     
-//    MainNavigationBar *navBar = [AppDelegate delegate].mainNavigationBar;
-//    navBar.segmentedControl = self.segmentedControl;
-//    self.navigationItem.titleView = nil;
-//    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     [self showControllerWithType:0];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -75,7 +73,7 @@
 - (void)showControllerWithType:(FeedType)type
 {
     // Show Child Controller
-
+    
     if (self.childViewController) {
         [self.childViewController willMoveToParentViewController:nil];
         [self.childViewController.view removeFromSuperview];
@@ -101,10 +99,11 @@
 
 #pragma mark - Notification
 
-- (void)updateNotificationCount:(NSUInteger)count
+- (void)updateNotificationCount:(NSNotification *)notification
 {
-    if (count) {
-        UIImage *image = [self circleWithNumber:count radius:30];
+    NSNumber *count = notification.userInfo[NoficationUserInfoKeyCount];
+    if (count.integerValue) {
+        UIImage *image = [self circleWithNumber:count.integerValue radius:30];
         [self.segmentedControl setImage:image forSegmentAtIndex:4];
     }
     else {

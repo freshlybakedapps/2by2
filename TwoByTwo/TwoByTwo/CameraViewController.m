@@ -60,6 +60,8 @@ static CGFloat const kImageSize = 600.0;
     self.state = CameraViewStateTakePhoto;
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     if (self.photo) {
         
         self.blendModeSegmentedControl.hidden = NO;

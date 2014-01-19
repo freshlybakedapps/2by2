@@ -55,7 +55,7 @@ static NSUInteger const kQueryBatchSize = 20;
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
-        
+    
     // Load Data
     [self performQuery];
 }
@@ -66,7 +66,7 @@ static NSUInteger const kQueryBatchSize = 20;
      Source:
      http://stackoverflow.com/questions/19038949/content-falls-beneath-navigation-bar-when-embedded-in-custom-container-view-cont
      */
-
+    
     if ([parent isKindOfClass:[MainViewController class]] && self.navigationController.topViewController == parent) {
         CGFloat top = parent.topLayoutGuide.length;
         CGFloat bottom = parent.bottomLayoutGuide.length;
@@ -125,12 +125,12 @@ static NSUInteger const kQueryBatchSize = 20;
             [query whereKey:@"state" equalTo:@"half"];
             [query whereKey:@"user" notEqualTo:[PFUser currentUser]];
             break;
-
+            
         case FeedTypeGlobal:
         default:
             [query whereKey:@"state" equalTo:@"full"];
             break;
-
+            
         case FeedTypeFollowing: {
             PFQuery *userQuery = [PFQuery queryWithClassName:@"Photo"];
             [userQuery whereKey:@"user" containedIn:self.followers];
@@ -147,13 +147,13 @@ static NSUInteger const kQueryBatchSize = 20;
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
             break;
         }
-
+            
         case FeedTypeFriend: {
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", self.user, self.user];
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
             break;
         }
-
+            
         case FeedTypePDP:
             self.collectionView.collectionViewLayout = self.feedLayout;
             [query whereKey:@"objectId" equalTo:self.photoID];
@@ -166,7 +166,7 @@ static NSUInteger const kQueryBatchSize = 20;
     
     
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-
+        
         self.totalNumberOfObjects = number;
         query.limit= kQueryBatchSize;
         query.skip = self.objects.count;
@@ -216,10 +216,7 @@ static NSUInteger const kQueryBatchSize = 20;
         [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if(!error){
                 NSLog(@"notification count: %d", number);
-                if([self.parentViewController isKindOfClass:[MainViewController class]]){
-                    [(MainViewController *)self.parentViewController updateNotificationCount:number];
-                }
-                
+                [[NSNotificationCenter defaultCenter] postNotificationName:NoficationDidUpdatePushNotificationCount object:self userInfo:@{NoficationUserInfoKeyCount:@(number)}];
             }
         }];
     }];
@@ -273,7 +270,7 @@ static NSUInteger const kQueryBatchSize = 20;
          [self presentViewController:controller animated:YES completion:nil];
          }
          */
-
+        
     }
 }
 

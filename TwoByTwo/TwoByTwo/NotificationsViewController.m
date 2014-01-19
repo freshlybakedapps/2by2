@@ -32,6 +32,8 @@
     //Since viewer is seeing the notifications we should set them back to zero
     [[NSNotificationCenter defaultCenter] postNotificationName:NoficationDidUpdatePushNotificationCount object:self userInfo:@{NoficationUserInfoKeyCount:@0}];
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     [PFUser currentUser][@"notificationWasAccessed"] = [NSDate date];
     [[PFUser currentUser] saveEventually];
     
