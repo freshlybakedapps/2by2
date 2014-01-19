@@ -40,7 +40,7 @@
 //    navBar.segmentedControl = self.segmentedControl;
 //    self.navigationItem.titleView = nil;
 //    
-//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self showControllerWithType:0];
 }
 

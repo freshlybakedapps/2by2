@@ -216,7 +216,10 @@ static NSUInteger const kQueryBatchSize = 20;
         [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if(!error){
                 NSLog(@"notification count: %d", number);
-                [(MainViewController *)self.parentViewController updateNotificationCount:number];
+                if([self.parentViewController isKindOfClass:[MainViewController class]]){
+                    [(MainViewController *)self.parentViewController updateNotificationCount:number];
+                }
+                
             }
         }];
     }];

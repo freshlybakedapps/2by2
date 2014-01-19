@@ -27,6 +27,8 @@
     
     self.titleLabel.font = [UIFont appMediumFontOfSize:14];
     
+    NSLog(@"parentViewController: %@",self.parentViewController);
+    
     //Since viewer is seeing the notifications we should set them back to zero
     [(MainViewController *)self.parentViewController updateNotificationCount:0];
     

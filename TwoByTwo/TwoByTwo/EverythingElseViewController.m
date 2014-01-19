@@ -31,6 +31,8 @@ typedef NS_ENUM(NSUInteger, TableViewRow) {
 {
     [super viewDidLoad];
     self.title = @"Everything else";
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 - (IBAction)logoutButtonTapped:(id)sender

@@ -48,6 +48,8 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
     NSDictionary *normalAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont appFontOfSize:18], NSFontAttributeName,nil];
     self.navigationController.navigationBar.titleTextAttributes = normalAttributes;
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
         [self.tableView reloadData];
     }];
@@ -114,7 +116,7 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
                     cell.key = @"followsEmailAlert";
                     break;
                 case TableViewRowFriendPhoto:
-                    cell.textLabel.text = @"Fiend took a photo";
+                    cell.textLabel.text = @"Friend took a photo";
                     cell.key = @"friendTookPhotoEmailAlert";
                     break;
                 case TableViewRowComment:
@@ -140,7 +142,7 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
                     cell.key = @"followsPushAlert";
                     break;
                 case TableViewRowFriendPhoto:
-                    cell.textLabel.text = @"Fiend took a photo";
+                    cell.textLabel.text = @"Friend took a photo";
                     cell.key = @"friendTookPhotoPushAlert";
                     break;
                 case TableViewRowComment:

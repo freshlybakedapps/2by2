@@ -44,6 +44,7 @@
             break;
             
         default:
+            self.textLabel.text = @"";
             break;
     }
     
