@@ -329,12 +329,12 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 
 - (void)addAnnotations
 {
-    if (self.photo.locationHalf) {
+    if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
         UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:self.photo.locationHalf user:self.photo.user];
         [self.mapView addAnnotation:annotation];
     }
     
-    if (self.photo.locationFull) {
+    if (self.photo.locationFull && self.photo.locationFull.latitude != 0) {
         UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:self.photo.locationFull user:self.photo.userFull];
         [self.mapView addAnnotation:annotation];
     }
