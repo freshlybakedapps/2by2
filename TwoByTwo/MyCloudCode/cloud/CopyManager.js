@@ -9,7 +9,7 @@ exports.getCopy = function(category, dataObject){
       case exports.friend_left_comment_your_photo:
       	//onComment.js
       	//msg
-        copy = "Your friend [username], just left a comment on your photo.";
+        copy = "Your friend, the rockstar [username], just left a comment on your photo.";
         copy = copy.replace("[username]", dataObject.username);
         break;
       case exports.friend_left_comment:
