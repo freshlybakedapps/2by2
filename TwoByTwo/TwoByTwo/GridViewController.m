@@ -38,14 +38,14 @@ static NSUInteger const kQueryBatchSize = 20;
     
     // Setup Layouts
     self.gridLayout = [UICollectionViewFlowLayout new];
-    self.gridLayout.itemSize = CGSizeMake(78.5, 78.5);
+    self.gridLayout.itemSize = CGSizeMake(100, 100);
     self.gridLayout.minimumInteritemSpacing = 2;
     self.gridLayout.minimumLineSpacing = 2;
     self.gridLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.gridLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     self.feedLayout = [UICollectionViewFlowLayout new];
-    self.feedLayout.itemSize = CGSizeMake(320, 370);
+    self.feedLayout.itemSize = CGSizeMake(320, 410);
     self.feedLayout.minimumInteritemSpacing = 10;
     self.feedLayout.minimumLineSpacing = 10;
     self.feedLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);

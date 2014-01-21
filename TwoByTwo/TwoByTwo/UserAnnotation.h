@@ -15,6 +15,8 @@
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly, copy) NSString *title;
 @property (nonatomic, readonly, copy) NSString *subtitle;
+@property (nonatomic, copy) NSString *halfOrFull;
+
 
 + (instancetype)annotationWithGeoPoint:(PFGeoPoint *)geoPoint user:(PFUser *)user;
 

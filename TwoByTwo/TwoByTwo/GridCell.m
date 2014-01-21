@@ -61,6 +61,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     
     if (CGRectGetWidth(layoutAttributes.frame) > 100) {
         self.headerView.alpha = self.footerView.alpha = 1.0;
+        //self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, 50.0, self.imageView.frame.size.width, self.imageView.frame.size.height);
     }
     else {
         if (self.photo.showMap) {
@@ -68,6 +69,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
             [self showImageOrMapAnimated:YES];
         }
         self.headerView.alpha = self.footerView.alpha = 0.0;
+        
     }
 }
 
@@ -318,6 +320,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 - (MKMapView *)mapView
 {
     if (!_mapView) {
+        
         _mapView = [[MKMapView alloc] initWithFrame:self.imageView.bounds];
         _mapView.userInteractionEnabled = NO;
         _mapView.delegate = self;
@@ -331,11 +334,13 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 {
     if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
         UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:self.photo.locationHalf user:self.photo.user];
+        annotation.halfOrFull = @"half";
         [self.mapView addAnnotation:annotation];
     }
     
     if (self.photo.locationFull && self.photo.locationFull.latitude != 0) {
         UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:self.photo.locationFull user:self.photo.userFull];
+        annotation.halfOrFull = @"full";
         [self.mapView addAnnotation:annotation];
     }
     
@@ -344,10 +349,21 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
 {
+    
     MKPinAnnotationView *pin = (id)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
     if (!pin) {
         pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
     }
+    
+    UserAnnotation* ua = (UserAnnotation*) annotation;
+    
+    if([ua.halfOrFull isEqualToString:@"half"]){
+        pin.image = [UIImage imageNamed:@"pin_green.png"];
+    }else{
+        pin.image = [UIImage imageNamed:@"pin_red.png"];
+    }
+    
+    
     pin.annotation = annotation;
     return pin;
 }

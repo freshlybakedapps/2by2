@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Obj-f5-spw">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -225,21 +225,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="hk2-0N-EDp">
-                            <size key="itemSize" width="320" height="370"/>
+                            <size key="itemSize" width="320" height="410"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GridCell" id="GOB-Y4-cAB" customClass="GridCell">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="410"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="410"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="So9-Wd-MPa">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
+                                            <rect key="frame" x="0.0" y="50" width="320" height="320"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3l-eF-rug" userLabel="Header View">
@@ -251,7 +251,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugE-p2-3e5">
-                                                            <rect key="frame" x="0.0" y="0.0" width="123" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="121" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <state key="normal" title="First User">
@@ -263,11 +263,11 @@
                                                             </connections>
                                                         </button>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-you" translatesAutoresizingMaskIntoConstraints="NO" id="iXv-uw-eqa">
-                                                            <rect key="frame" x="127" y="10" width="30" height="30"/>
+                                                            <rect key="frame" x="125" y="9" width="32" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="8bO-Fz-lyP"/>
-                                                                <constraint firstAttribute="width" constant="30" id="crz-Z6-Wz2"/>
+                                                                <constraint firstAttribute="height" constant="32" id="8bO-Fz-lyP"/>
+                                                                <constraint firstAttribute="width" constant="32" id="crz-Z6-Wz2"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -286,15 +286,15 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-you" translatesAutoresizingMaskIntoConstraints="NO" id="1GL-Ni-XXM">
-                                                            <rect key="frame" x="0.0" y="10" width="30" height="30"/>
+                                                            <rect key="frame" x="0.0" y="9" width="32" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="L5o-Qy-o7C"/>
-                                                                <constraint firstAttribute="width" constant="30" id="jBc-CD-CU3"/>
+                                                                <constraint firstAttribute="height" constant="32" id="L5o-Qy-o7C"/>
+                                                                <constraint firstAttribute="width" constant="32" id="jBc-CD-CU3"/>
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlB-hv-Fcd">
-                                                            <rect key="frame" x="34" y="0.0" width="123" height="50"/>
+                                                            <rect key="frame" x="36" y="0.0" width="121" height="50"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <state key="normal" title="Second User">
@@ -331,7 +331,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="piT-wP-Xpg" userLabel="Footer View">
-                                            <rect key="frame" x="0.0" y="330" width="320" height="40"/>
+                                            <rect key="frame" x="0.0" y="370" width="320" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7n-JO-Zjx" userLabel="Like Button - 100">
@@ -413,10 +413,10 @@
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="So9-Wd-MPa" firstAttribute="top" secondItem="GOB-Y4-cAB" secondAttribute="top" id="2Bv-Og-IDn"/>
+                                    <constraint firstItem="So9-Wd-MPa" firstAttribute="top" secondItem="GOB-Y4-cAB" secondAttribute="top" constant="50" id="2Bv-Og-IDn"/>
                                     <constraint firstAttribute="trailing" secondItem="piT-wP-Xpg" secondAttribute="trailing" id="5eS-Zq-2r5"/>
                                     <constraint firstAttribute="trailing" secondItem="So9-Wd-MPa" secondAttribute="trailing" id="7A2-3z-eTP"/>
-                                    <constraint firstAttribute="bottom" secondItem="So9-Wd-MPa" secondAttribute="bottom" id="Eg2-0O-Wkv"/>
+                                    <constraint firstAttribute="bottom" secondItem="So9-Wd-MPa" secondAttribute="bottom" constant="40" id="Eg2-0O-Wkv"/>
                                     <constraint firstItem="piT-wP-Xpg" firstAttribute="leading" secondItem="GOB-Y4-cAB" secondAttribute="leading" id="NhA-eZ-bUF"/>
                                     <constraint firstItem="b3l-eF-rug" firstAttribute="leading" secondItem="GOB-Y4-cAB" secondAttribute="leading" id="Q4m-dV-x2P"/>
                                     <constraint firstItem="So9-Wd-MPa" firstAttribute="leading" secondItem="GOB-Y4-cAB" secondAttribute="leading" id="T3B-5X-mhB"/>
@@ -1440,21 +1440,13 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
     <resources>
         <image name="add_photo" width="72" height="72"/>
         <image name="button-close" width="44" height="44"/>
-        <image name="button-close" width="44" height="44"/>
-        <image name="button-selfie" width="25" height="25"/>
         <image name="button-selfie" width="25" height="25"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
         <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
-        <image name="icon-dot-on" width="25" height="25"/>
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
-        <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-follwing" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
@@ -1462,12 +1454,6 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="icon-location-off" width="22" height="26"/>
         <image name="icon-location-on" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
-        <image name="icon-you" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
     </resources>
