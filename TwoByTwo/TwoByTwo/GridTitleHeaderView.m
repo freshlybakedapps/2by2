@@ -11,6 +11,14 @@
 
 @interface GridTitleHeaderView ()
 @property (nonatomic, weak) IBOutlet UILabel *textLabel;
+@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
+@property (nonatomic, weak) IBOutlet UIButton *closeButton;
+@property (nonatomic, weak) IBOutlet UIView *messageHolder;
+
+@property (nonatomic, strong) NSUbiquitousKeyValueStore *keyStore;
+
+
+
 @end
 
 
@@ -20,31 +28,80 @@
 {
     [super awakeFromNib];
     self.textLabel.font = [UIFont appMediumFontOfSize:14];
+    self.keyStore =[[NSUbiquitousKeyValueStore alloc] init];
+}
+
+- (IBAction)closeButtonTapped:(id)sender{
+    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_%lu",(unsigned long)self.type];
+    if(![self.keyStore stringForKey:keyStoreValue]){
+        [self.keyStore setString:@"YES" forKey:keyStoreValue];
+    }
+    
+    [self.controller.collectionView performBatchUpdates:^{
+        [UIView animateWithDuration:0.5f animations:^{
+            self.messageHolder.frame = CGRectMake(self.messageHolder.frame.origin.x, self.messageHolder.frame.origin.y, self.bounds.size.width, 0);
+            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.bounds.size.width, 36.0);
+            self.controller.headerSize = 36;
+        }completion:^(BOOL finished) {
+            NSLog(@"Animation is complete");
+        }];
+    } completion:nil];
 }
 
 - (void)setType:(FeedType)type
 {
     _type = type;
     
+    
+    
+    
+    
+    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_%lu",(unsigned long)type];
+    
+    NSLog(@"%@ exsist",keyStoreValue);
+    
+    /*
+    if(![self.keyStore stringForKey:keyStoreValue]){
+        self.messageHolder.hidden = YES;
+        [self.controller.collectionView performBatchUpdates:^{
+            [UIView animateWithDuration:0.5f animations:^{
+                self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.bounds.size.width, 113.0);
+                self.controller.headerSize = 113;
+            }completion:^(BOOL finished) {
+                NSLog(@"Animation is complete");
+            }];
+        } completion:nil];
+        
+    }else{
+        NSLog(@"%@ exsist",keyStoreValue);
+    }
+     */
+    
     switch (type) {
         case FeedTypeSingle:
             self.textLabel.text = @"Single Exposure Shots";
+            //self.messageLabel.text = @"These are your photos, both single shots and double exposed shots. (This notice will go away upon closing)";
+            self.messageLabel.text = @"These are single exposed photos waiting before they make it to the public feed. Tap on any of these to etch a second exposure over them. (This notice will go away upon closing)";
             break;
             
         case FeedTypeGlobal:
             self.textLabel.text = @"Public feed";
+            self.messageLabel.text = @"These photos are a combination of friend's photos and the general public. All photos here have been double exposed. (This notice will go away upon closing)";
             break;
             
         case FeedTypeFollowing:
             self.textLabel.text = @"Photos from People you follow";
+            self.messageLabel.text = @"Toggle between  single and double exposed photos from people you follow. Tap a single  exposed photo to collaborate. (This notice will go away upon closing)";
             break;
             
         case FeedTypeNotifications:
             self.textLabel.text = @"Notifications";
+            self.messageLabel.text = @"All of your activity is collected here to help keep track of who and from where people are interacting with your photos. (This notice will go away upon closing)";
             break;
             
         default:
             self.textLabel.text = @"";
+            self.messageLabel.text = @"";
             break;
     }
     

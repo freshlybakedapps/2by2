@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
+#import "GridViewController.h"
 
 
 @interface GridTitleHeaderView : UICollectionReusableView
 @property (nonatomic) FeedType type;
+@property (nonatomic, weak) GridViewController* controller;
 @end

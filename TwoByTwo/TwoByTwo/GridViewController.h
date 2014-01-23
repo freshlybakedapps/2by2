@@ -16,4 +16,6 @@
 @property (nonatomic, strong) NSString *photoID;
 @property (nonatomic, strong) PFUser *user;
 
+@property (nonatomic) int headerSize;
+
 @end

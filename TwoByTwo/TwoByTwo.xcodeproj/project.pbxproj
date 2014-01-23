@@ -19,6 +19,8 @@
 		1D4207D317E6AB78008A7F98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207D217E6AB78008A7F98 /* SystemConfiguration.framework */; };
 		1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A81091854433D007227BB /* EditProfileViewController.m */; };
 		1D74B5711809A681005A4937 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D74B5701809A681005A4937 /* StoreKit.framework */; };
+		1D98E9801890357400EE7AE1 /* NotificationHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D98E97F1890357400EE7AE1 /* NotificationHeader.m */; };
+		1D98E9821890365800EE7AE1 /* NotificationHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D98E9811890365800EE7AE1 /* NotificationHeader.xib */; };
 		1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */; };
 		1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7F818467EF1002626C8 /* NotificationSettingsViewController.m */; };
 		1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7FC184A636A002626C8 /* AboutViewController.m */; };
@@ -103,6 +105,10 @@
 		1D4A81081854433D007227BB /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		1D4A81091854433D007227BB /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		1D74B5701809A681005A4937 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1D98E97E1890357400EE7AE1 /* NotificationHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationHeader.h; sourceTree = "<group>"; };
+		1D98E97F1890357400EE7AE1 /* NotificationHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationHeader.m; sourceTree = "<group>"; };
+		1D98E9811890365800EE7AE1 /* NotificationHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationHeader.xib; sourceTree = "<group>"; };
+		1D98E98318908E8800EE7AE1 /* TwoByTwo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TwoByTwo.entitlements; sourceTree = "<group>"; };
 		1DB0C7AF18464DED002626C8 /* EverythingElseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverythingElseViewController.h; sourceTree = "<group>"; };
 		1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverythingElseViewController.m; sourceTree = "<group>"; };
 		1DB0C7F718467EF1002626C8 /* NotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationSettingsViewController.h; sourceTree = "<group>"; };
@@ -240,6 +246,9 @@
 				1D0A5F661867616E0086FE1C /* NotificationsViewController.m */,
 				1DF6A71F1884ABD900FB913D /* NotificationCell.h */,
 				1DF6A7201884ABD900FB913D /* NotificationCell.m */,
+				1D98E9811890365800EE7AE1 /* NotificationHeader.xib */,
+				1D98E97E1890357400EE7AE1 /* NotificationHeader.h */,
+				1D98E97F1890357400EE7AE1 /* NotificationHeader.m */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -482,6 +491,7 @@
 		7CF39DE417E0070A003A859F /* TwoByTwo */ = {
 			isa = PBXGroup;
 			children = (
+				1D98E98318908E8800EE7AE1 /* TwoByTwo.entitlements */,
 				7CF39DED17E0070A003A859F /* AppDelegate.h */,
 				7CF39DEE17E0070A003A859F /* AppDelegate.m */,
 				7C76578C182597930053483B /* Login.storyboard */,
@@ -599,6 +609,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
 							com.apple.iOS = {
 								enabled = 0;
 							};
@@ -643,6 +656,7 @@
 				1DD97169184CCDD9001D35CA /* contact.html in Resources */,
 				7CF39DF217E0070A003A859F /* Main.storyboard in Resources */,
 				7C508F57188B035C00C1334E /* GridProfileHeaderView.xib in Resources */,
+				1D98E9821890365800EE7AE1 /* NotificationHeader.xib in Resources */,
 				7C508F55188B028700C1334E /* GridTitleHeaderView.xib in Resources */,
 				1DD97168184CCDD9001D35CA /* aboutUs.html in Resources */,
 			);
@@ -726,6 +740,7 @@
 				1DD97162184C065D001D35CA /* FindContactsViewController.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */,
 				7CF39E1817E00782003A859F /* GridViewController.m in Sources */,
+				1D98E9801890357400EE7AE1 /* NotificationHeader.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */,
 				1DB27B171862533800E5C083 /* CommentsViewController.m in Sources */,
@@ -859,6 +874,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = TwoByTwo/TwoByTwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -882,6 +898,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = TwoByTwo/TwoByTwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

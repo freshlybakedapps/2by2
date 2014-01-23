@@ -6,27 +6,27 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GridTitleHeaderView" id="EQy-CB-5yq" customClass="GridTitleHeaderView">
+        <view clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NotificationHeader" id="yQb-aG-QFE" customClass="NotificationHeader">
             <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1h1-ol-Gwf">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTIFICATION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DQo-MO-byv">
                     <rect key="frame" x="20" y="8" width="280" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" id="6P2-Vl-GMP" userLabel="Divider">
+                <view contentMode="scaleToFill" id="pIn-L8-h8h" userLabel="Divider">
                     <rect key="frame" x="15" y="35" width="290" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.80000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view clipsSubviews="YES" contentMode="scaleToFill" id="j5a-sQ-k9u">
+                <view clipsSubviews="YES" contentMode="scaleToFill" id="2c9-0L-tOe">
                     <rect key="frame" x="0.0" y="36" width="320" height="77"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="roy-ZH-Jzs">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LAL-in-p1b">
                             <rect key="frame" x="245" y="17" width="90" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -34,10 +34,10 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="closeButtonTapped:" destination="EQy-CB-5yq" eventType="touchUpInside" id="Us7-kt-Zts"/>
+                                <action selector="closeButtonTapped:" destination="yQb-aG-QFE" eventType="touchUpInside" id="LSd-0L-Dot"/>
                             </connections>
                         </button>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are your photos, both single shots and double exposed shots. (This notice will go away upon closing)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pcP-35-qGg">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are your photos, both single shots and double exposed shots. (This notice will go away upon closing)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vsb-5z-wNE">
                             <rect key="frame" x="20" y="0.0" width="250" height="77"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -45,16 +45,16 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
+            <color key="backgroundColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
-                <outlet property="closeButton" destination="roy-ZH-Jzs" id="PjY-Sq-47w"/>
-                <outlet property="messageHolder" destination="j5a-sQ-k9u" id="c4A-iY-ztf"/>
-                <outlet property="messageLabel" destination="pcP-35-qGg" id="Oha-cI-eqN"/>
-                <outlet property="textLabel" destination="1h1-ol-Gwf" id="jCk-Sk-NoL"/>
+                <outlet property="closeButton" destination="LAL-in-p1b" id="noR-f3-Ojx"/>
+                <outlet property="messageLabel" destination="Vsb-5z-wNE" id="lfx-mb-fkb"/>
+                <outlet property="titleLabel" destination="DQo-MO-byv" id="tWD-4h-lOX"/>
             </connections>
-        </collectionReusableView>
+        </view>
     </objects>
     <resources>
         <image name="button-close" width="44" height="44"/>

@@ -11,11 +11,16 @@
 #import "MainViewController.h"
 #import "NSDate+Addon.h"
 #import "NotificationCell.h"
+#import "NotificationHeader.h"
 
 
 @interface NotificationsViewController ()
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) NSMutableArray *objects;
+@property (nonatomic) int headerHeight;
+@property (nonatomic, strong) NotificationHeader* header;
+
+
 @end
 
 
@@ -24,10 +29,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSArray* arr = [[NSBundle mainBundle] loadNibNamed:@"NotificationHeader" owner:self options:nil];
+    self.header = (NotificationHeader*)[arr objectAtIndex:0];
+    self.header.controller = self;
+    self.tableView.tableHeaderView = self.header;
     
-    self.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.titleLabel.font = [UIFont appMediumFontOfSize:14];    
     
-    NSLog(@"parentViewController: %@",self.parentViewController);
     
     //Since viewer is seeing the notifications we should set them back to zero
     [[NSNotificationCenter defaultCenter] postNotificationName:NoficationDidUpdatePushNotificationCount object:self userInfo:@{NoficationUserInfoKeyCount:@0}];
@@ -39,6 +47,7 @@
     
     [self performQuery];
 }
+
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
@@ -131,6 +140,7 @@
     return YES;
 }
 
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -146,6 +156,17 @@
         }];
     }
 }
+
+- (void)changeHeaderHeight {
+    [UIView animateWithDuration:0.5 animations:^
+    {
+        CGRect headerFrame = self.tableView.tableHeaderView.frame;
+        headerFrame.size.height = 36.0f;
+        self.header.frame = headerFrame;
+        self.tableView.tableHeaderView = self.header;
+    }];
+}
+
 
 
 @end

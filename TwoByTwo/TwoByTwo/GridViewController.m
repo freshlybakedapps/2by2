@@ -33,12 +33,14 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     [super viewDidLoad];
     
+    self.headerSize = 113;
+    
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridTitleHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView"];
     
     // Setup Layouts
     self.gridLayout = [UICollectionViewFlowLayout new];
-    self.gridLayout.itemSize = CGSizeMake(100, 100);
+    self.gridLayout.itemSize = CGSizeMake(78.5, 78.5);
     self.gridLayout.minimumInteritemSpacing = 2;
     self.gridLayout.minimumLineSpacing = 2;
     self.gridLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -285,24 +287,34 @@ static NSUInteger const kQueryBatchSize = 20;
             return CGSizeMake(0, 180);
             
         default:
-            return CGSizeMake(0, 36);
+            return CGSizeMake(0, self.headerSize);
     }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"self.type %u",self.type);
     if (kind == UICollectionElementKindSectionHeader) {
         switch (self.type) {
             case FeedTypeFriend:
             case FeedTypeYou: {
                 GridProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView" forIndexPath:indexPath];
                 headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
+                
+                
+                
                 return headerView;
             }
                 
             default: {
                 GridTitleHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView" forIndexPath:indexPath];
+                
+                
+                headerView.controller = self;
                 headerView.type = self.type;
+                
+                
+                
                 return headerView;
             }
         }
