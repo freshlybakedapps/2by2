@@ -35,6 +35,12 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
 
+@property (nonatomic, weak) IBOutlet UIView *mapOverlay;
+@property (nonatomic, weak) IBOutlet UILabel *mapOverlayYou;
+@property (nonatomic, weak) IBOutlet UILabel *mapOverlayUsername;
+@property (nonatomic, strong) IBOutlet UIImageView *mapOverlayPinGreen;
+@property (nonatomic, strong) IBOutlet UIImageView *mapOverlayPinRed;
+
 @property (nonatomic, strong) NSMutableArray* nLikes;
 @end
 
@@ -44,6 +50,10 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    self.mapOverlay.hidden = YES;
+    self.mapOverlayPinRed.hidden = YES;
+    self.mapOverlayUsername.hidden = YES;
     
     self.firstUserImageView.layer.cornerRadius = CGRectGetWidth(self.firstUserImageView.frame) * 0.5;
     self.secondUserImageView.layer.cornerRadius = CGRectGetWidth(self.secondUserImageView.frame) * 0.5;
@@ -292,6 +302,8 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 
 - (void)showImageOrMapAnimated:(BOOL)animated
 {
+    self.mapOverlay.hidden = YES;
+    
     void (^action)(void) = ^{
         if (self.photo.showMap) {
             [self.imageView addSubview:self.mapView];
@@ -307,7 +319,9 @@ typedef NS_ENUM(NSUInteger, FlagType) {
                           duration:0.5
                            options:(self.photo.showMap) ? UIViewAnimationOptionTransitionFlipFromRight : UIViewAnimationOptionTransitionFlipFromLeft
                         animations:action
-                        completion:nil];
+                        completion:^(BOOL b){
+                            self.mapOverlay.hidden = (self.photo.showMap) ? NO:YES;
+                        }];
     }
     else {
         action();
@@ -336,12 +350,35 @@ typedef NS_ENUM(NSUInteger, FlagType) {
         UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:self.photo.locationHalf user:self.photo.user];
         annotation.halfOrFull = @"half";
         [self.mapView addAnnotation:annotation];
+        
+        if(self.photo.user == [PFUser currentUser]){
+            self.mapOverlayYou.text = @"You!";
+        }else{
+            self.mapOverlayYou.text = self.photo.user.username;
+        }
+        
+    }else{
+        if(self.photo.user == [PFUser currentUser]){
+            self.mapOverlayYou.text = @"You!(?)";
+        }else{
+            self.mapOverlayYou.text = [NSString stringWithFormat:@"%@(?)",self.photo.user.username];
+        }
+    }
+    
+    if (self.photo.locationFull){
+        self.mapOverlayPinRed.hidden = NO;
+        self.mapOverlayUsername.hidden = NO;
     }
     
     if (self.photo.locationFull && self.photo.locationFull.latitude != 0) {
         UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:self.photo.locationFull user:self.photo.userFull];
         annotation.halfOrFull = @"full";
         [self.mapView addAnnotation:annotation];
+        
+        self.mapOverlayUsername.text = self.photo.userFull.username;
+        
+    }else{
+        self.mapOverlayUsername.text = [NSString stringWithFormat:@"%@(?)",self.photo.userFull.username];
     }
     
     [self.mapView zoomToFitAnnotationsAnimated:NO minimumSpan:MKCoordinateSpanMake(0.3, 0.3)];

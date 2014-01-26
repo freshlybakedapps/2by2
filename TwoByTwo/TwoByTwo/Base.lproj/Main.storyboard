@@ -408,6 +408,36 @@
                                                 <constraint firstAttribute="bottom" secondItem="G7n-JO-Zjx" secondAttribute="bottom" id="tr6-VA-D72"/>
                                             </constraints>
                                         </view>
+                                        <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qGw-Kb-WRc">
+                                            <rect key="frame" x="0.0" y="330" width="320" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pin_green_small" translatesAutoresizingMaskIntoConstraints="NO" id="4f8-5m-hxp">
+                                                    <rect key="frame" x="20" y="12" width="15" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pin_red_small" translatesAutoresizingMaskIntoConstraints="NO" id="yXi-V5-cN4">
+                                                    <rect key="frame" x="149" y="12" width="15" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jF-ch-K6x">
+                                                    <rect key="frame" x="43" y="9" width="103" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CeM-1N-QRG">
+                                                    <rect key="frame" x="172" y="9" width="128" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -433,6 +463,11 @@
                                     <outlet property="imageView" destination="So9-Wd-MPa" id="stP-dB-Jov"/>
                                     <outlet property="likeButton" destination="G7n-JO-Zjx" id="kFk-ep-u9e"/>
                                     <outlet property="mapButton" destination="Wc1-tq-jFR" id="bXX-sa-jHW"/>
+                                    <outlet property="mapOverlay" destination="qGw-Kb-WRc" id="21O-vU-0Lj"/>
+                                    <outlet property="mapOverlayPinGreen" destination="4f8-5m-hxp" id="hU5-bu-P28"/>
+                                    <outlet property="mapOverlayPinRed" destination="yXi-V5-cN4" id="3hf-2d-VHY"/>
+                                    <outlet property="mapOverlayUsername" destination="CeM-1N-QRG" id="wZV-Sn-lUg"/>
+                                    <outlet property="mapOverlayYou" destination="3jF-ch-K6x" id="EdX-2a-eUc"/>
                                     <outlet property="secondUserButton" destination="xlB-hv-Fcd" id="sC0-K0-IG4"/>
                                     <outlet property="secondUserImageView" destination="1GL-Ni-XXM" id="pxX-rh-2d2"/>
                                     <outlet property="toolButton" destination="lbf-vx-RiF" id="DRh-Fc-nqk"/>
@@ -1407,13 +1442,21 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
     <resources>
         <image name="add_photo" width="72" height="72"/>
         <image name="button-close" width="44" height="44"/>
+        <image name="button-close" width="44" height="44"/>
+        <image name="button-selfie" width="25" height="25"/>
         <image name="button-selfie" width="25" height="25"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="comment" width="24" height="26"/>
         <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
+        <image name="icon-dot-on" width="25" height="25"/>
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
+        <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-follwing" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
@@ -1422,7 +1465,15 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="icon-location-on" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
+        <image name="pin_green_small" width="15" height="15"/>
+        <image name="pin_red_small" width="15" height="15"/>
     </resources>
     <color key="tintColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
