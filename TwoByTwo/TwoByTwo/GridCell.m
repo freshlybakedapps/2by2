@@ -351,14 +351,14 @@ typedef NS_ENUM(NSUInteger, FlagType) {
         annotation.halfOrFull = @"half";
         [self.mapView addAnnotation:annotation];
         
-        if(self.photo.user == [PFUser currentUser]){
+        if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
             self.mapOverlayYou.text = @"You!";
         }else{
             self.mapOverlayYou.text = self.photo.user.username;
         }
         
     }else{
-        if(self.photo.user == [PFUser currentUser]){
+        if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
             self.mapOverlayYou.text = @"You!(?)";
         }else{
             self.mapOverlayYou.text = [NSString stringWithFormat:@"%@(?)",self.photo.user.username];
@@ -375,10 +375,20 @@ typedef NS_ENUM(NSUInteger, FlagType) {
         annotation.halfOrFull = @"full";
         [self.mapView addAnnotation:annotation];
         
-        self.mapOverlayUsername.text = self.photo.userFull.username;
+        //NSLog(@"%@ / %@",self.photo.userFull.objectId,[PFUser currentUser].objectId);
+        
+        if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
+            self.mapOverlayUsername.text = @"You!";
+        }else{
+            self.mapOverlayUsername.text = self.photo.userFull.username;
+        }
         
     }else{
-        self.mapOverlayUsername.text = [NSString stringWithFormat:@"%@(?)",self.photo.userFull.username];
+        if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
+            self.mapOverlayUsername.text = @"You!(?)";
+        }else{
+            self.mapOverlayUsername.text = [NSString stringWithFormat:@"%@(?)",self.photo.userFull.username];
+        }
     }
     
     [self.mapView zoomToFitAnnotationsAnimated:NO minimumSpan:MKCoordinateSpanMake(0.3, 0.3)];
