@@ -33,7 +33,18 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     [super viewDidLoad];
     
-    self.headerSize = 113;
+    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_%lu",(unsigned long)self.type];
+    
+    NSLog(@"xxxxxxxxxxx: %@",keyStoreValue);
+    
+    //[[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:keyStoreValue];
+    //[[NSUbiquitousKeyValueStore defaultStore] synchronize];
+    
+    if(![[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]){
+        self.headerSize = 113;
+    }else{
+        self.headerSize = 36;
+    }
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridTitleHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView"];

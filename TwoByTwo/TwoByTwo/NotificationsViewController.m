@@ -34,6 +34,16 @@
     self.header.controller = self;
     self.tableView.tableHeaderView = self.header;
     
+    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_notification"];
+    
+    //[[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:keyStoreValue];
+    //[[NSUbiquitousKeyValueStore defaultStore] synchronize];
+    
+    if([[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]){
+        [self changeHeaderHeight:NO];
+    }
+    
+    
     self.titleLabel.font = [UIFont appMediumFontOfSize:14];    
     
     
@@ -157,14 +167,23 @@
     }
 }
 
-- (void)changeHeaderHeight {
-    [UIView animateWithDuration:0.5 animations:^
-    {
+- (void)changeHeaderHeight:(BOOL)animate {
+    
+    if(animate){
+        [UIView animateWithDuration:0.5 animations:^
+         {
+             CGRect headerFrame = self.tableView.tableHeaderView.frame;
+             headerFrame.size.height = 36.0f;
+             self.header.frame = headerFrame;
+             self.tableView.tableHeaderView = self.header;
+         }];
+    }else{
         CGRect headerFrame = self.tableView.tableHeaderView.frame;
         headerFrame.size.height = 36.0f;
         self.header.frame = headerFrame;
         self.tableView.tableHeaderView = self.header;
-    }];
+    }
+    
 }
 
 

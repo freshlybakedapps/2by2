@@ -30,7 +30,12 @@
 }
 
 - (IBAction)closeButtonTapped:(id)sender{
-    [self.controller changeHeaderHeight];
+    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_notification"];
+    [[NSUbiquitousKeyValueStore defaultStore] setString:@"YES" forKey:keyStoreValue];
+    
+    [[NSUbiquitousKeyValueStore defaultStore] synchronize];
+    
+    [self.controller changeHeaderHeight:YES];
 
  
     

@@ -11,6 +11,6 @@
 
 @interface NotificationsViewController : UITableViewController
 
-- (void) changeHeaderHeight;
+- (void) changeHeaderHeight:(BOOL)animate;
 
 @end

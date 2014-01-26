@@ -15,8 +15,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *closeButton;
 @property (nonatomic, weak) IBOutlet UIView *messageHolder;
 
-@property (nonatomic, strong) NSUbiquitousKeyValueStore *keyStore;
-
 
 
 @end
@@ -28,14 +26,13 @@
 {
     [super awakeFromNib];
     self.textLabel.font = [UIFont appMediumFontOfSize:14];
-    self.keyStore =[[NSUbiquitousKeyValueStore alloc] init];
 }
 
 - (IBAction)closeButtonTapped:(id)sender{
     NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_%lu",(unsigned long)self.type];
-    if(![self.keyStore stringForKey:keyStoreValue]){
-        [self.keyStore setString:@"YES" forKey:keyStoreValue];
-    }
+    [[NSUbiquitousKeyValueStore defaultStore] setString:@"YES" forKey:keyStoreValue];
+     [[NSUbiquitousKeyValueStore defaultStore] synchronize];
+    
     
     [self.controller.collectionView performBatchUpdates:^{
         [UIView animateWithDuration:0.5f animations:^{
@@ -53,35 +50,11 @@
     _type = type;
     
     
-    
-    
-    
-    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_%lu",(unsigned long)type];
-    
-    NSLog(@"%@ exsist",keyStoreValue);
-    
-    /*
-    if(![self.keyStore stringForKey:keyStoreValue]){
-        self.messageHolder.hidden = YES;
-        [self.controller.collectionView performBatchUpdates:^{
-            [UIView animateWithDuration:0.5f animations:^{
-                self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.bounds.size.width, 113.0);
-                self.controller.headerSize = 113;
-            }completion:^(BOOL finished) {
-                NSLog(@"Animation is complete");
-            }];
-        } completion:nil];
-        
-    }else{
-        NSLog(@"%@ exsist",keyStoreValue);
-    }
-     */
-    
     switch (type) {
         case FeedTypeSingle:
             self.textLabel.text = @"Single Exposure Shots";
             //self.messageLabel.text = @"These are your photos, both single shots and double exposed shots. (This notice will go away upon closing)";
-            self.messageLabel.text = @"These are single exposed photos waiting before they make it to the public feed. Tap on any of these to etch a second exposure over them. (This notice will go away upon closing)";
+            self.messageLabel.text = @"These are single exposed photos waiting before they make it to the public feed. Tap on any of these to etch a second exposure. (This notice will go away upon closing)";
             break;
             
         case FeedTypeGlobal:
