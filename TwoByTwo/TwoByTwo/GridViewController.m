@@ -34,9 +34,6 @@ static NSUInteger const kQueryBatchSize = 20;
     [super viewDidLoad];
     
     NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_%lu",(unsigned long)self.type];
-    
-    NSLog(@"xxxxxxxxxxx: %@",keyStoreValue);
-    
     //[[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:keyStoreValue];
     //[[NSUbiquitousKeyValueStore defaultStore] synchronize];
     
@@ -44,6 +41,11 @@ static NSUInteger const kQueryBatchSize = 20;
         self.headerSize = 113;
     }else{
         self.headerSize = 36;
+    }
+    
+    if(self.type == FeedTypePDP){
+        self.title = @"Details";
+        self.headerSize = 0;
     }
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridTitleHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView"];
