@@ -25,6 +25,7 @@
     if (self) {
         // Initialization code
         self.titleLabel.font = [UIFont appMediumFontOfSize:14];
+        self.messageLabel.font = [UIFont appMediumFontOfSize:13];
     }
     return self;
 }

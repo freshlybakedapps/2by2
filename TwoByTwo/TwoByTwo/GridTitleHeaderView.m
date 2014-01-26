@@ -26,6 +26,7 @@
 {
     [super awakeFromNib];
     self.textLabel.font = [UIFont appMediumFontOfSize:14];
+    self.messageLabel.font = [UIFont appMediumFontOfSize:13];
 }
 
 - (IBAction)closeButtonTapped:(id)sender{
