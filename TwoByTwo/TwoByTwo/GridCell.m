@@ -54,6 +54,8 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     self.mapOverlay.hidden = YES;
     self.mapOverlayPinRed.hidden = YES;
     self.mapOverlayUsername.hidden = YES;
+    self.mapOverlayUsername.font = [UIFont appMediumFontOfSize:14];
+    self.mapOverlayYou.font = [UIFont appMediumFontOfSize:14];
     
     self.firstUserImageView.layer.cornerRadius = CGRectGetWidth(self.firstUserImageView.frame) * 0.5;
     self.secondUserImageView.layer.cornerRadius = CGRectGetWidth(self.secondUserImageView.frame) * 0.5;
@@ -397,9 +399,9 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
 {
     
-    MKPinAnnotationView *pin = (id)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
-    if (!pin) {
-        pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
+    MKAnnotationView *pin = (id)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
+    if (pin == nil) {
+        pin = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
     }
     
     UserAnnotation* ua = (UserAnnotation*) annotation;
