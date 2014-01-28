@@ -19,7 +19,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fT-QU-b3B">
-                    <rect key="frame" x="15" y="0.0" width="218" height="36"/>
+                    <rect key="frame" x="15" y="0.0" width="210" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="jfj-IH-5Tx"/>
@@ -36,7 +36,7 @@
                         <constraint firstAttribute="height" constant="30" id="Zky-2r-jCX"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <state key="normal" title="UnFollow" backgroundImage="button-red">
+                    <state key="normal" title="......................" backgroundImage="button-red">
                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -145,7 +145,7 @@
                 <constraint firstItem="QQr-Ch-ikA" firstAttribute="top" secondItem="77Y-fu-SeG" secondAttribute="bottom" id="ZRn-B9-Uh6"/>
                 <constraint firstAttribute="trailing" secondItem="J1x-5s-Bp5" secondAttribute="trailing" constant="15" id="aRj-ZN-5Uu"/>
                 <constraint firstItem="VE5-EN-iP5" firstAttribute="top" secondItem="3Ib-V7-R5i" secondAttribute="bottom" id="dtR-8S-Fp1"/>
-                <constraint firstItem="kgz-7D-PaU" firstAttribute="leading" secondItem="2fT-QU-b3B" secondAttribute="trailing" constant="-8" id="eBc-l3-Cxp"/>
+                <constraint firstItem="kgz-7D-PaU" firstAttribute="leading" secondItem="2fT-QU-b3B" secondAttribute="trailing" id="eBc-l3-Cxp"/>
                 <constraint firstItem="77Y-fu-SeG" firstAttribute="height" secondItem="VE5-EN-iP5" secondAttribute="height" id="fRM-Ip-aSN"/>
                 <constraint firstItem="J1x-5s-Bp5" firstAttribute="trailing" secondItem="kgz-7D-PaU" secondAttribute="trailing" id="hEP-Eg-vBb"/>
                 <constraint firstItem="ghe-Z6-jvH" firstAttribute="top" secondItem="VE5-EN-iP5" secondAttribute="bottom" constant="10" id="heh-1j-N8S"/>

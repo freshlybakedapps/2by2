@@ -39,6 +39,7 @@
     self.followersLabel.text = @"Loading..";
     self.bioLabel.text = @"Loading..";
     
+    
     self.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.followButton.titleLabel.font = [UIFont appMediumFontOfSize:12];
     self.editButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
@@ -66,6 +67,10 @@
 - (void)updateContent
 {
     PFUser *user = self.user;
+    
+    if([user.objectId isEqualToString:[PFUser currentUser].objectId]){
+        user = nil;
+    }
     
     if (user) {
         self.followButton.hidden = NO;
@@ -102,6 +107,7 @@
     [followingQuery2 whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
     [followingQuery2 whereKey:@"followingUserID" equalTo:user.objectId];
     [followingQuery2 countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        
         if(number > 0){
             weakSelf.followButton.titleLabel.text = @"Unfollow";
         }else{
