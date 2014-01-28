@@ -1438,6 +1438,24 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
             </objects>
             <point key="canvasLocation" x="3087" y="462"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="hr0-bi-C8n">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="445-ry-9Bj" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DYC-8v-PfX"/>
+                        <viewControllerLayoutGuide type="bottom" id="Xzq-Bt-mhs"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="jO7-Ep-FFx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tuf-Yc-Fcs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="add_photo" width="72" height="72"/>

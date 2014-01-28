@@ -13,6 +13,7 @@
 #import "GridTitleHeaderView.h"
 #import "MainViewController.h"
 #import "CommentsViewController.h"
+#import "GridFooterView.h"
 
 static NSUInteger const kQueryBatchSize = 20;
 
@@ -50,6 +51,8 @@ static NSUInteger const kQueryBatchSize = 20;
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridTitleHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView"];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"GridFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView"];
     
     // Setup Layouts
     self.gridLayout = [UICollectionViewFlowLayout new];
@@ -304,6 +307,11 @@ static NSUInteger const kQueryBatchSize = 20;
     }
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+{
+    return CGSizeMake(0, 80);
+}
+
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"self.type %u",self.type);
@@ -331,6 +339,16 @@ static NSUInteger const kQueryBatchSize = 20;
                 return headerView;
             }
         }
+
+    }else{
+        GridFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView" forIndexPath:indexPath];
+        
+        footerView.type = self.type;
+        footerView.count = self.objects.count;
+            
+        return footerView;
+        
+        
     }
     return nil;
 }
