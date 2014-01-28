@@ -98,6 +98,19 @@
         weakSelf.followingLabel.text = [NSString stringWithFormat:@"%d Following", number];
     }];
     
+    PFQuery *followingQuery2 = [PFQuery queryWithClassName:@"Followers"];
+    [followingQuery2 whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
+    [followingQuery2 whereKey:@"followingUserID" equalTo:user.objectId];
+    [followingQuery2 countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if(number > 0){
+            weakSelf.followButton.titleLabel.text = @"Unfollow";
+        }else{
+            weakSelf.followButton.titleLabel.text = @"Follow";
+        }
+    }];
+    
+    
+    
     PFQuery *followQuery = [PFQuery queryWithClassName:@"Followers"];
     [followQuery whereKey:@"followingUserID" equalTo:user.objectId];
     [followQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {

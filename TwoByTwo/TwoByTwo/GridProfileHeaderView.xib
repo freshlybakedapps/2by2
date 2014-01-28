@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
@@ -29,14 +29,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kgz-7D-PaU">
-                    <rect key="frame" x="241" y="3" width="64" height="30"/>
+                    <rect key="frame" x="225" y="3" width="80" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="64" id="JZC-Ky-cq0"/>
+                        <constraint firstAttribute="width" constant="80" id="JZC-Ky-cq0"/>
                         <constraint firstAttribute="height" constant="30" id="Zky-2r-jCX"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <state key="normal" title="Follow" backgroundImage="button-red">
+                    <state key="normal" title="UnFollow" backgroundImage="button-red">
                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -145,7 +145,7 @@
                 <constraint firstItem="QQr-Ch-ikA" firstAttribute="top" secondItem="77Y-fu-SeG" secondAttribute="bottom" id="ZRn-B9-Uh6"/>
                 <constraint firstAttribute="trailing" secondItem="J1x-5s-Bp5" secondAttribute="trailing" constant="15" id="aRj-ZN-5Uu"/>
                 <constraint firstItem="VE5-EN-iP5" firstAttribute="top" secondItem="3Ib-V7-R5i" secondAttribute="bottom" id="dtR-8S-Fp1"/>
-                <constraint firstItem="kgz-7D-PaU" firstAttribute="leading" secondItem="2fT-QU-b3B" secondAttribute="trailing" constant="8" id="eBc-l3-Cxp"/>
+                <constraint firstItem="kgz-7D-PaU" firstAttribute="leading" secondItem="2fT-QU-b3B" secondAttribute="trailing" constant="-8" id="eBc-l3-Cxp"/>
                 <constraint firstItem="77Y-fu-SeG" firstAttribute="height" secondItem="VE5-EN-iP5" secondAttribute="height" id="fRM-Ip-aSN"/>
                 <constraint firstItem="J1x-5s-Bp5" firstAttribute="trailing" secondItem="kgz-7D-PaU" secondAttribute="trailing" id="hEP-Eg-vBb"/>
                 <constraint firstItem="ghe-Z6-jvH" firstAttribute="top" secondItem="VE5-EN-iP5" secondAttribute="bottom" constant="10" id="heh-1j-N8S"/>
@@ -157,7 +157,7 @@
                 <constraint firstItem="77Y-fu-SeG" firstAttribute="leading" secondItem="QQr-Ch-ikA" secondAttribute="leading" id="u0f-up-vtQ"/>
                 <constraint firstItem="J1x-5s-Bp5" firstAttribute="top" secondItem="jEN-KA-6NF" secondAttribute="top" id="uLj-B1-wUZ"/>
                 <constraint firstItem="77Y-fu-SeG" firstAttribute="top" secondItem="VcM-76-VhQ" secondAttribute="top" id="v57-de-teT"/>
-                <constraint firstItem="ytc-sv-eXm" firstAttribute="leading" secondItem="kgz-7D-PaU" secondAttribute="leading" id="vNA-zr-GaR"/>
+                <constraint firstItem="ytc-sv-eXm" firstAttribute="leading" secondItem="kgz-7D-PaU" secondAttribute="leading" constant="16" id="vNA-zr-GaR"/>
                 <constraint firstItem="3Ib-V7-R5i" firstAttribute="leading" secondItem="77Y-fu-SeG" secondAttribute="leading" id="wN8-7R-mBV"/>
                 <constraint firstItem="77Y-fu-SeG" firstAttribute="top" secondItem="koQ-Ss-VV3" secondAttribute="top" id="yJ7-Gm-p58"/>
                 <constraint firstItem="3Ib-V7-R5i" firstAttribute="height" secondItem="77Y-fu-SeG" secondAttribute="height" id="yWO-Gp-bV6"/>

@@ -203,8 +203,8 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     [PFCloud callFunctionInBackground:@"likePhoto" withParameters:params block:^(NSNumber *result, NSError *error) {
         if (error) {
             NSLog(@"likePhoto error: %@", error);
-            weakSelf.photo.likes = oldLikes;
-            [weakSelf updateLikeButton];
+            //weakSelf.photo.likes = oldLikes;
+            //[weakSelf updateLikeButton];
         }
         else {
             NSLog(@"likePhoto successfull");
