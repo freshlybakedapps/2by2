@@ -181,7 +181,7 @@ static CGFloat const kImageSize = 600.0;
 
 - (NSString *)randomTestPhoto
 {
-    NSArray *arr = @[@"http://thecatapi.com/api/images/get?format=src&type=png&size=med",
+    NSArray *arr2 = @[@"http://thecatapi.com/api/images/get?format=src&type=png&size=med",
                      @"http://www.fillmurray.com/400/400",
                      @"http://placedog.com/300/300",
                      @"http://www.nicenicejpg.com/400",
@@ -192,6 +192,21 @@ static CGFloat const kImageSize = 600.0;
                      @"http://baconmockup.com/400/400",
                      @"http://placesheen.com/400/400",
                      @"http://placedog.com/400/400"];
+    
+    
+    NSArray *arr = @[[NSString stringWithFormat:@"http://lorempixel.com/300/300/sports/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/animals/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/business/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/cats/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/city/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/food/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/nightlife/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/fashion/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/people/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/nature/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/technics/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/transport/%u/",arc4random_uniform(10)],
+                     [NSString stringWithFormat:@"http://lorempixel.com/300/300/abstract/%u/",arc4random_uniform(10)]];
     int r = arc4random_uniform(arr.count - 1);
     return arr[r];
 }
