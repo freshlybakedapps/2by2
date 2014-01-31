@@ -17,6 +17,9 @@
 
 static NSUInteger const kQueryBatchSize = 20;
 
+static NSUInteger const headerSmall = 81;//36
+static NSUInteger const headerLarge = 165;//113
+
 
 @interface GridViewController () <GridCellDelegate>
 @property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
@@ -25,6 +28,7 @@ static NSUInteger const kQueryBatchSize = 20;
 @property (nonatomic, strong) NSArray *followers;
 @property (nonatomic) NSUInteger totalNumberOfObjects;
 @property (nonatomic) NSUInteger queryOffset;
+@property (nonatomic, strong) NSString *singleOrDouble;
 @end
 
 
@@ -39,10 +43,12 @@ static NSUInteger const kQueryBatchSize = 20;
     //[[NSUbiquitousKeyValueStore defaultStore] synchronize];
     
     if(![[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]){
-        self.headerSize = 113;
+        self.headerSize = headerLarge;
     }else{
-        self.headerSize = 36;
+        self.headerSize = headerSmall;
     }
+    
+    self.singleOrDouble = @"single";
     
     if(self.type == FeedTypePDP){
         self.title = @"Details";
@@ -100,6 +106,33 @@ static NSUInteger const kQueryBatchSize = 20;
 }
 
 
+- (void) toggleGridFeed{
+    if(self.collectionView.collectionViewLayout == self.gridLayout){
+        [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
+    }else{
+        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+    }
+    
+    //not sure why 64 but without this contentOffset it doesn't scroll to the top
+    self.collectionView.contentOffset = CGPointMake(0, -64.0);
+}
+
+- (void) toggleSingleDouble:(NSString*)str{
+    if([str isEqualToString:@"single"]){
+        NSLog(@"single");
+        self.singleOrDouble = @"single";
+    }else{
+        NSLog(@"double");
+        self.singleOrDouble = @"double";
+    }
+    
+    self.objects = nil;
+    [self.collectionView reloadData];
+    
+    [self loadPhotos];
+    
+}
+
 #pragma mark - Query
 
 - (void)performQuery
@@ -138,6 +171,7 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     
+    
     switch (self.type) {
         case FeedTypeSingle:
             [query whereKey:@"state" equalTo:@"half"];
@@ -157,18 +191,40 @@ static NSUInteger const kQueryBatchSize = 20;
             [userFullQuery whereKey:@"user_full" containedIn:self.followers];
             
             query = [PFQuery orQueryWithSubqueries:@[userQuery,userFullQuery]];
+            
+            if([self.singleOrDouble isEqualToString:@"single"]){
+                [query whereKey:@"state" equalTo:@"half"];
+            }else{
+                [query whereKey:@"state" equalTo:@"full"];
+            }
+            
             break;
         }
             
         case FeedTypeYou: {
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", [PFUser currentUser], [PFUser currentUser]];
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
+            
+            if([self.singleOrDouble isEqualToString:@"single"]){
+                [query whereKey:@"state" equalTo:@"half"];
+            }else{
+                [query whereKey:@"state" equalTo:@"full"];
+            }
+
             break;
         }
             
         case FeedTypeFriend: {
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", self.user, self.user];
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
+            
+            if([self.singleOrDouble isEqualToString:@"single"]){
+                [query whereKey:@"state" equalTo:@"half"];
+            }else{
+                [query whereKey:@"state" equalTo:@"full"];
+            }
+            
+            
             break;
         }
             
@@ -188,22 +244,28 @@ static NSUInteger const kQueryBatchSize = 20;
         self.totalNumberOfObjects = number;
         query.limit= kQueryBatchSize;
         query.skip = self.objects.count;
+        
         [query setCachePolicy:kPFCachePolicyNetworkElseCache];
         
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             
             if (!error) {
+                
                 if (!self.objects) {
                     self.objects = [NSMutableArray array];
                 }
+                
                 [self.collectionView performBatchUpdates:^{
                     NSUInteger count = self.objects.count;
                     NSMutableArray *indexPaths = [NSMutableArray array];
+                    
                     for (NSUInteger i = count; i < count + objects.count; i++) {
                         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                     }
+                    
                     [self.objects addObjectsFromArray:objects];
                     [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                   
                 } completion:nil];
             }
             else {
@@ -289,6 +351,8 @@ static NSUInteger const kQueryBatchSize = 20;
          }
          */
         
+        
+        
     }
 }
 
@@ -330,7 +394,7 @@ static NSUInteger const kQueryBatchSize = 20;
             default: {
                 GridTitleHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView" forIndexPath:indexPath];
                 
-                
+                headerView.tag = 999;
                 headerView.controller = self;
                 headerView.type = self.type;
                 
