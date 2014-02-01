@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "UIImage+Addon.h"
 #import <Social/Social.h>
+#import "CustomPickerView.h"
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
@@ -28,7 +29,7 @@ static CGFloat const kImageSize = 600.0;
 @property (nonatomic, weak) IBOutlet UIImageView *previewView;
 @property (nonatomic, weak) IBOutlet UIButton *topLeftButton;
 @property (nonatomic, weak) IBOutlet UIButton *topRightButton;
-@property (nonatomic, weak) IBOutlet UISegmentedControl *blendModeSegmentedControl;
+@property (nonatomic, weak) IBOutlet CustomPickerView *blendModePickerView;
 @property (nonatomic, weak) IBOutlet UILabel *blendModeLabel;
 @property (nonatomic, weak) IBOutlet ProgressButton *bottomButton;
 @property (nonatomic, strong) GPUImageStillCamera *stillCamera;
@@ -64,7 +65,8 @@ static CGFloat const kImageSize = 600.0;
     
     if (self.photo) {
         
-        self.blendModeSegmentedControl.hidden = NO;
+        self.blendModePickerView.dataSource = self.blendModes;
+        self.blendModePickerView.hidden = NO;
         self.blendModeLabel.hidden = NO;
 
         __weak typeof(self) weakSelf = self;
@@ -125,7 +127,7 @@ static CGFloat const kImageSize = 600.0;
         }];
     }
     else {
-        self.blendModeSegmentedControl.hidden = YES;
+        self.blendModePickerView.hidden = YES;
         self.blendModeLabel.hidden = YES;
         
         self.filter = [[GPUImageGammaFilter alloc] init];
@@ -153,47 +155,11 @@ static CGFloat const kImageSize = 600.0;
     return UIStatusBarStyleLightContent;
 }
 
-- (NSArray *)blendModes
-{
-    if (!_blendModes) {
-        _blendModes = @[
-                        [GPUImageLightenBlendFilter class],
-                        [GPUImageDarkenBlendFilter class],
-                        [GPUImageMultiplyBlendFilter class],
-                        [GPUImageScreenBlendFilter class],
-                        [GPUImageOverlayBlendFilter class],
-                        [GPUImageColorDodgeBlendFilter class],
-                        [GPUImageColorBurnBlendFilter class],
-                        [GPUImageSoftLightBlendFilter class],
-                        [GPUImageHardLightBlendFilter class],
-                        [GPUImageDifferenceBlendFilter class],
-                        [GPUImageExclusionBlendFilter class],
-                        
-                        [GPUImageAddBlendFilter class],
-                        [GPUImageSubtractBlendFilter class],
-                        [GPUImageDivideBlendFilter class],
-                        [GPUImageAlphaBlendFilter class],
-                        [GPUImageLinearBurnBlendFilter class],
-                        ];
-    }
-    return _blendModes;
-}
+
+#pragma mark - Debug
 
 - (NSString *)randomTestPhoto
 {
-    NSArray *arr2 = @[@"http://thecatapi.com/api/images/get?format=src&type=png&size=med",
-                     @"http://www.fillmurray.com/400/400",
-                     @"http://placedog.com/300/300",
-                     @"http://www.nicenicejpg.com/400",
-                     @"http://www.placecage.com/400/400",
-                     @"http://www.placebear.com/400/400",
-                     @"http://lorempixel.com/300/300/music/2by2/",
-                     @"http://placezombies.com/400x400",
-                     @"http://baconmockup.com/400/400",
-                     @"http://placesheen.com/400/400",
-                     @"http://placedog.com/400/400"];
-    
-    
     NSArray *arr = @[[NSString stringWithFormat:@"http://lorempixel.com/300/300/sports/%u/",arc4random_uniform(10)],
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/animals/%u/",arc4random_uniform(10)],
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/business/%u/",arc4random_uniform(10)],
@@ -403,28 +369,57 @@ static CGFloat const kImageSize = 600.0;
     }
 }
 
-- (IBAction)blendModeSegmentedControlValueChanged:(UISegmentedControl *)sender
+
+#pragma mark - Blend Mode
+
+- (NSArray *)blendModes
 {
-    self.blendModeLabel.text = self.blendModeName;
-
-    [self.filter removeTarget:self.liveView];
-    [self.sourcePicture removeTarget:self.filter];
-    [self.stillCamera removeTarget:self.filter];
-
-    Class mode = self.blendModes[sender.selectedSegmentIndex];
-    self.filter = [[mode alloc] init];
-    [self.filter addTarget:self.liveView];
-    [self.sourcePicture addTarget:self.filter];
-    [self.stillCamera addTarget:self.filter];
+    if (!_blendModes) {
+        _blendModes = @[
+                        [GPUImageLightenBlendFilter class],
+                        [GPUImageDarkenBlendFilter class],
+                        [GPUImageMultiplyBlendFilter class],
+                        [GPUImageScreenBlendFilter class],
+                        [GPUImageOverlayBlendFilter class],
+                        [GPUImageColorDodgeBlendFilter class],
+                        [GPUImageColorBurnBlendFilter class],
+                        [GPUImageSoftLightBlendFilter class],
+                        [GPUImageHardLightBlendFilter class],
+                        [GPUImageDifferenceBlendFilter class],
+                        [GPUImageExclusionBlendFilter class],
+                        
+                        [GPUImageAddBlendFilter class],
+                        [GPUImageSubtractBlendFilter class],
+                        [GPUImageDivideBlendFilter class],
+                        [GPUImageAlphaBlendFilter class],
+                        [GPUImageLinearBurnBlendFilter class],
+                        ];
+    }
+    return _blendModes;
 }
 
 - (NSString *)blendModeName
 {
-    Class mode = self.blendModes[self.blendModeSegmentedControl.selectedSegmentIndex];
+    Class mode = self.blendModes[self.blendModePickerView.currentItem];
     NSString *name = NSStringFromClass(mode);
     name = [name stringByReplacingOccurrencesOfString:@"GPUImage" withString:@""];
     name = [name stringByReplacingOccurrencesOfString:@"BlendFilter" withString:@""];
     return name;
+}
+
+- (void)pickerView:(CustomPickerView *)pickerView didSelectItem:(NSInteger)item
+{
+    self.blendModeLabel.text = self.blendModeName;
+    
+    [self.filter removeTarget:self.liveView];
+    [self.sourcePicture removeTarget:self.filter];
+    [self.stillCamera removeTarget:self.filter];
+    
+    Class mode = self.blendModes[item];
+    self.filter = [[mode alloc] init];
+    [self.filter addTarget:self.liveView];
+    [self.sourcePicture addTarget:self.filter];
+    [self.stillCamera addTarget:self.filter];
 }
 
 
