@@ -14,4 +14,7 @@
 @property (nonatomic) FeedType type;
 @property (nonatomic) int count;
 
+
+
+
 @end

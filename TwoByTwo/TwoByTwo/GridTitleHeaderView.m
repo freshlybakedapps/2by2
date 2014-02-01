@@ -31,15 +31,19 @@
     self.singleExposureLabel.font = [UIFont appMediumFontOfSize:12];
 }
 
-- (IBAction)gridToggleButtonTapped:(id)sender{
+- (void) toggleGridFeed{
     UIImage* thumbs = [UIImage imageNamed:@"toggleThumbs"];
     UIImage* feed = [UIImage imageNamed:@"toggleFeed"];
     if(self.gridToggleButton.currentImage == feed){
         [self.gridToggleButton setImage:thumbs forState:UIControlStateNormal];
     }else{
-        [self.gridToggleButton setImage:feed forState:UIControlStateNormal];        
+        [self.gridToggleButton setImage:feed forState:UIControlStateNormal];
     }
-    
+
+}
+
+- (IBAction)gridToggleButtonTapped:(id)sender{
+    [self toggleGridFeed];
     [self.controller toggleGridFeed];
 }
 

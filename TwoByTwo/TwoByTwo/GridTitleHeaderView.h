@@ -14,4 +14,6 @@
 @interface GridTitleHeaderView : UICollectionReusableView
 @property (nonatomic) FeedType type;
 @property (nonatomic, weak) GridViewController* controller;
+
+- (void) toggleGridFeed;
 @end

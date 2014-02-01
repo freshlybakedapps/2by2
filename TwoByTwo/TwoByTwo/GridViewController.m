@@ -119,10 +119,10 @@ static NSUInteger const headerLarge = 165;//113
 
 - (void) toggleSingleDouble:(NSString*)str{
     if([str isEqualToString:@"single"]){
-        NSLog(@"single");
+        //NSLog(@"single");
         self.singleOrDouble = @"single";
     }else{
-        NSLog(@"double");
+        //NSLog(@"double");
         self.singleOrDouble = @"double";
     }
     
@@ -241,6 +241,12 @@ static NSUInteger const headerLarge = 165;//113
     
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         
+        GridFooterView* footer = (GridFooterView*)[self.collectionView viewWithTag:888];
+        
+        if(footer && number < 1){
+            footer.hidden = NO;
+        }
+        
         self.totalNumberOfObjects = number;
         query.limit= kQueryBatchSize;
         query.skip = self.objects.count;
@@ -284,7 +290,7 @@ static NSUInteger const headerLarge = 165;//113
     [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
         NSDate *date = object[@"notificationWasAccessed"];
-        NSLog(@"notificationWasAccessed: %@", date);
+        //NSLog(@"notificationWasAccessed: %@", date);
         
         PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
         [query whereKey:@"notificationID" equalTo:object.objectId];
@@ -295,7 +301,7 @@ static NSUInteger const headerLarge = 165;//113
         
         [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if(!error){
-                NSLog(@"notification count: %d", number);
+                //NSLog(@"notification count: %d", number);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NoficationDidUpdatePushNotificationCount object:self userInfo:@{NoficationUserInfoKeyCount:@(number)}];
             }
         }];
@@ -329,8 +335,13 @@ static NSUInteger const headerLarge = 165;//113
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    GridTitleHeaderView* header = (GridTitleHeaderView*)[self.collectionView viewWithTag:999];
+    
+    
+    
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
+        [header toggleGridFeed];
     }
     else {
         PFObject* photo = self.objects[indexPath.row];
@@ -341,6 +352,7 @@ static NSUInteger const headerLarge = 165;//113
         }
         else if (self.type != FeedTypePDP) {
             [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+            [header toggleGridFeed];
         }
         
         /*
@@ -378,7 +390,7 @@ static NSUInteger const headerLarge = 165;//113
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"self.type %u",self.type);
+    //NSLog(@"self.type %u",self.type);
     if (kind == UICollectionElementKindSectionHeader) {
         switch (self.type) {
             case FeedTypeFriend:
@@ -405,13 +417,16 @@ static NSUInteger const headerLarge = 165;//113
         }
 
     }else{
-        GridFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView" forIndexPath:indexPath];
         
-        footerView.type = self.type;
-        footerView.count = self.objects.count;
+            GridFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView" forIndexPath:indexPath];
             
-        return footerView;
-        
+            footerView.tag = 888;
+            footerView.type = self.type;
+            footerView.count = self.objects.count;
+            
+            footerView.hidden = YES;
+            
+            return footerView;
         
     }
     return nil;
