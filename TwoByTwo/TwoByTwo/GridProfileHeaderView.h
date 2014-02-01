@@ -12,4 +12,8 @@
 
 @interface GridProfileHeaderView : UICollectionReusableView
 @property (nonatomic, strong) PFUser *user;
+
+@property (nonatomic, weak) GridViewController* controller;
+
+- (void) toggleGridFeed;
 @end

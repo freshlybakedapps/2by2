@@ -23,6 +23,10 @@
 @property (nonatomic, weak) IBOutlet UILabel *followingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followersLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bioLabel;
+@property (nonatomic, weak) IBOutlet UIView *toggleHolder;
+@property (nonatomic, weak) IBOutlet UIButton *gridToggleButton;
+@property (nonatomic, weak) IBOutlet UIButton *doubleToggleButton;
+@property (nonatomic, weak) IBOutlet UILabel *singleExposureLabel;
 @end
 
 
@@ -48,6 +52,8 @@
     self.followingLabel.font = [UIFont appFontOfSize:14];
     self.followersLabel.font = [UIFont appFontOfSize:14];
     self.bioLabel.font = [UIFont appFontOfSize:14];
+    self.singleExposureLabel.font = [UIFont appMediumFontOfSize:12];
+
 }
 
 - (void)setUser:(PFUser *)user
@@ -131,6 +137,7 @@
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
 }
 
+
 - (IBAction)followButtonTapped:(UIButton *)sender
 {
     __weak typeof(self) weakSelf = self;
@@ -166,5 +173,37 @@
     NSAssert([navController isKindOfClass:[UINavigationController class]], @"rootViewController should be an UINavigationController!");
     [navController pushViewController:controller animated:YES];
 }
+
+- (void) toggleGridFeed{
+    UIImage* thumbs = [UIImage imageNamed:@"toggleThumbs"];
+    UIImage* feed = [UIImage imageNamed:@"toggleFeed"];
+    if(self.gridToggleButton.currentImage == feed){
+        [self.gridToggleButton setImage:thumbs forState:UIControlStateNormal];
+    }else{
+        [self.gridToggleButton setImage:feed forState:UIControlStateNormal];
+    }
+    
+}
+
+
+- (IBAction)gridToggleButtonTapped:(id)sender{
+    [self toggleGridFeed];
+    [self.controller toggleGridFeed];
+}
+
+- (IBAction)doubleSingleToggleButtonTapped:(id)sender{
+    UIImage* singleToggle = [UIImage imageNamed:@"toggleSingle"];
+    UIImage* doubleToggle = [UIImage imageNamed:@"toggleDouble"];
+    if(self.doubleToggleButton.currentImage == singleToggle){
+        [self.doubleToggleButton setImage:doubleToggle forState:UIControlStateNormal];
+        self.singleExposureLabel.text = @"DOUBLE EXPOSURE";
+        [self.controller toggleSingleDouble:@"single"];
+    }else{
+        [self.doubleToggleButton setImage:singleToggle forState:UIControlStateNormal];
+        self.singleExposureLabel.text = @"SINGLE EXPOSURE";
+        [self.controller toggleSingleDouble:@"double"];
+    }
+}
+
 
 @end

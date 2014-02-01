@@ -335,9 +335,14 @@ static NSUInteger const headerLarge = 165;//113
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GridTitleHeaderView* header = (GridTitleHeaderView*)[self.collectionView viewWithTag:999];
     
+    id header;
     
+    if(self.type == FeedTypeFriend || self.type == FeedTypeYou) {
+        header = (GridProfileHeaderView*)[self.collectionView viewWithTag:777];
+    }else{
+        header = (GridTitleHeaderView*)[self.collectionView viewWithTag:999];
+    }
     
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
         [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
@@ -376,7 +381,7 @@ static NSUInteger const headerLarge = 165;//113
     switch (self.type) {
         case FeedTypeFriend:
         case FeedTypeYou:
-            return CGSizeMake(0, 180);
+            return CGSizeMake(0, 225);
             
         default:
             return CGSizeMake(0, self.headerSize);
@@ -397,8 +402,8 @@ static NSUInteger const headerLarge = 165;//113
             case FeedTypeYou: {
                 GridProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView" forIndexPath:indexPath];
                 headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
-                
-                
+                headerView.tag = 777;
+                headerView.controller = self;
                 
                 return headerView;
             }
