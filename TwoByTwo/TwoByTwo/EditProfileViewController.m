@@ -18,7 +18,7 @@
 @property (nonatomic, weak) IBOutlet UITextView *bioTextView;
 @end
 
-#define MAX_LENGTH 140
+#define MAX_LENGTH 100
 
 @implementation EditProfileViewController
 
