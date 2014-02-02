@@ -2,6 +2,29 @@ var mandrill = require('mandrill');
 mandrill.initialize('xpHTh_PelNA7rlzTzWUe4g');
 
 
+/*
+    var query = new Parse.Query("Comments");
+query.equalTo("post", 123);
+ 
+query.find().then(function(results) {
+  // Collect one promise for each delete into an array.
+  var promises = [];
+  _.each(results, function(result) {
+    // Start this delete immediately and add its promise to the list.
+    promises.push(result.destroy());
+  });
+  // Return a new promise that is resolved when all of the deletes are finished.
+  return Parse.Promise.when(promises);
+ 
+}).then(function() {
+  // Every comment was deleted.
+});
+
+
+
+  */
+
+
 exports.sendNotifications = function(response,notificationType,userID,msg,htmlMsg,subject,photoID,locationString,byUserID,byUsername,content){
   //NOTIFICATION TYPES
   // - comment
@@ -171,6 +194,7 @@ function sendPush(userID,msg,photoID){
       where: pushQuery, // Set our Installation query
       data: {
         alert: msg,
+        badge: "Increment",
         p: photoID 
       }
       }, {
