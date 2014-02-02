@@ -42,6 +42,7 @@
     self.followingLabel.text = @"Loading..";
     self.followersLabel.text = @"Loading..";
     self.bioLabel.text = @"Loading..";
+    self.singleExposureLabel.text = @"SINGLE EXPOSURE";
     
     
     self.titleLabel.font = [UIFont appMediumFontOfSize:14];
@@ -53,6 +54,7 @@
     self.followersLabel.font = [UIFont appFontOfSize:14];
     self.bioLabel.font = [UIFont appFontOfSize:14];
     self.singleExposureLabel.font = [UIFont appMediumFontOfSize:12];
+    
 
 }
 
@@ -197,12 +199,13 @@
     if(self.doubleToggleButton.currentImage == singleToggle){
         [self.doubleToggleButton setImage:doubleToggle forState:UIControlStateNormal];
         self.singleExposureLabel.text = @"DOUBLE EXPOSURE";
-        [self.controller toggleSingleDouble:@"single"];
+        
     }else{
         [self.doubleToggleButton setImage:singleToggle forState:UIControlStateNormal];
         self.singleExposureLabel.text = @"SINGLE EXPOSURE";
-        [self.controller toggleSingleDouble:@"double"];
     }
+    
+    [self.controller toggleSingleDouble];
 }
 
 

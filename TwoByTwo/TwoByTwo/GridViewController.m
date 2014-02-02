@@ -117,13 +117,13 @@ static NSUInteger const headerLarge = 165;//113
     self.collectionView.contentOffset = CGPointMake(0, -64.0);
 }
 
-- (void) toggleSingleDouble:(NSString*)str{
-    if([str isEqualToString:@"single"]){
+- (void) toggleSingleDouble{
+    if([self.singleOrDouble isEqualToString:@"single"]){
         //NSLog(@"single");
-        self.singleOrDouble = @"single";
+        self.singleOrDouble = @"double";
     }else{
         //NSLog(@"double");
-        self.singleOrDouble = @"double";
+        self.singleOrDouble = @"single";
     }
     
     self.objects = nil;

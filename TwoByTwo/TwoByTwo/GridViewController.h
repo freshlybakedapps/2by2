@@ -20,7 +20,7 @@
 
 - (void) toggleGridFeed;
 
-- (void) toggleSingleDouble:(NSString*)str;
+- (void) toggleSingleDouble;
 
 
 @end

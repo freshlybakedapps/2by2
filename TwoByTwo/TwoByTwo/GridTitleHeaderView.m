@@ -29,6 +29,8 @@
     self.textLabel.font = [UIFont appMediumFontOfSize:14];
     self.messageLabel.font = [UIFont appMediumFontOfSize:13];
     self.singleExposureLabel.font = [UIFont appMediumFontOfSize:12];
+    
+    self.singleExposureLabel.text = @"SINGLE EXPOSURE";
 }
 
 - (void) toggleGridFeed{
@@ -53,12 +55,13 @@
     if(self.doubleToggleButton.currentImage == singleToggle){
         [self.doubleToggleButton setImage:doubleToggle forState:UIControlStateNormal];
         self.singleExposureLabel.text = @"DOUBLE EXPOSURE";
-        [self.controller toggleSingleDouble:@"single"];
+        
     }else{
         [self.doubleToggleButton setImage:singleToggle forState:UIControlStateNormal];
         self.singleExposureLabel.text = @"SINGLE EXPOSURE";
-        [self.controller toggleSingleDouble:@"double"];
     }
+    
+    [self.controller toggleSingleDouble];
 }
 
 - (IBAction)closeButtonTapped:(id)sender{

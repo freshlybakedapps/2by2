@@ -55,7 +55,7 @@
                             <rect key="frame" x="20" y="10" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" image="toggleFeed">
+                            <state key="normal" image="toggleThumbs">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -73,7 +73,7 @@
                             <rect key="frame" x="269" y="10" width="39" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <state key="normal" image="toggleDouble">
+                            <state key="normal" image="toggleSingle">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -98,7 +98,7 @@
     </objects>
     <resources>
         <image name="button-close" width="44" height="44"/>
-        <image name="toggleDouble" width="39" height="24"/>
-        <image name="toggleFeed" width="25" height="25"/>
+        <image name="toggleSingle" width="39" height="24"/>
+        <image name="toggleThumbs" width="25" height="25"/>
     </resources>
 </document>
