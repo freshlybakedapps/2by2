@@ -13,6 +13,7 @@
 
 @property (nonatomic) FeedType type;
 @property (nonatomic) int count;
+@property (nonatomic, weak) NSString* singleOrDouble;
 
 
 

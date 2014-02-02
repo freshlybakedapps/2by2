@@ -426,6 +426,7 @@ static NSUInteger const headerLarge = 165;//113
             GridFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView" forIndexPath:indexPath];
             
             footerView.tag = 888;
+            footerView.singleOrDouble = self.singleOrDouble;
             footerView.type = self.type;
             footerView.count = self.objects.count;
             

@@ -21,48 +21,43 @@
     self.textLabel.font = [UIFont appMediumFontOfSize:14];
 }
 
-- (void)setCount:(int)count{
-    if(count > 0){
-        self.textLabel.text = @"";
-    }else{
-        self.textLabel.text = @"Not much going on here. Take your first photo by tapping below.";
-    }
-}
 
-/*
 - (void)setType:(FeedType)type
 {
     _type = type;
     
     
     switch (type) {
-        case FeedTypeSingle:
-            self.textLabel.text = @"Single Exposure Shots";
-           
             
+        case FeedTypeYou:
+            if([self.singleOrDouble isEqualToString:@"single"]){
+                self.textLabel.text = @"Not much going on here yet. Take a photo by tapping below.";
+            }else{
+                self.textLabel.text = @"Not much going on here yet. Go to any single exposed photo and tap on it to create a double exposure";
+            }
             break;
-            
-        case FeedTypeGlobal:
-            self.textLabel.text = @"Public feed";
-            
-            break;
-            
         case FeedTypeFollowing:
-            self.textLabel.text = @"Photos from People you follow";
-            
+            self.textLabel.text = @"Nothing to show here yet, swing by later.";
             break;
-            
-        case FeedTypeNotifications:
-            self.textLabel.text = @"Notifications";
-            
+        case FeedTypeFriend:
+            if([self.singleOrDouble isEqualToString:@"single"]){
+                self.textLabel.text = @"This person doesn't have any single exposed photos.";
+            }else{
+                self.textLabel.text = @"This person doesn't have any double exposed photos.";
+            }
             break;
-            
+        case FeedTypeSingle:
+            self.textLabel.text = @"Single exposed photos ran out, swing by later.";
+            break;
+        case FeedTypeGlobal:
+            self.textLabel.text = @"Nothing to show here yet, swing by later.";
+            break;
         default:
             self.textLabel.text = @"";
             break;
     }
 }
-*/
+
 
 
 @end
