@@ -168,6 +168,16 @@
                                                            NSForegroundColorAttributeName:[UIColor appGrayColor],
                                                            NSFontAttributeName:[UIFont appMediumFontOfSize:14],
                                                            }];
+    
+    int imageSize = 24;
+    
+    UIImage *barBackBtnImg = [[UIImage imageNamed:@"backArrow"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, imageSize, 0, 0)];
+    
+    [[UINavigationBar appearance] setBackIndicatorImage:barBackBtnImg];
+    
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:barBackBtnImg];
+    
+    [[UIBarButtonItem appearance] setBackButtonBackgroundVerticalPositionAdjustment:5 forBarMetrics:UIBarMetricsDefault];
 }
 
 @end
