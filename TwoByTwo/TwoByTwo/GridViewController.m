@@ -350,7 +350,7 @@ static NSUInteger const headerLarge = 165;//113
     }
     else {
         PFObject* photo = self.objects[indexPath.row];
-        if([photo.state isEqualToString:@"half"] && photo.user.objectId != [PFUser currentUser].objectId){
+        if([photo.state isEqualToString:@"half"] && ![photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
             CameraViewController *controller = [CameraViewController controller];
             controller.photo = self.objects[indexPath.row];
             [self presentViewController:controller animated:YES completion:nil];

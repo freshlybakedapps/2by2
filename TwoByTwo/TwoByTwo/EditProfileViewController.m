@@ -18,6 +18,7 @@
 @property (nonatomic, weak) IBOutlet UITextView *bioTextView;
 @end
 
+#define MAX_LENGTH 140
 
 @implementation EditProfileViewController
 
@@ -94,7 +95,19 @@
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
     }
-    return YES;
+    
+    NSUInteger newLength = (textView.text.length - range.length) + text.length;
+    if(newLength <= MAX_LENGTH)
+    {
+        return YES;
+    } else {
+        NSUInteger emptySpace = MAX_LENGTH - (textView.text.length - range.length);
+        textView.text = [[[textView.text substringToIndex:range.location]
+                          stringByAppendingString:[text substringToIndex:emptySpace]]
+                         stringByAppendingString:[textView.text substringFromIndex:(range.location + range.length)]];
+        return NO;
+    }
 }
+
 
 @end
