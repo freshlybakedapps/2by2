@@ -16,6 +16,11 @@
 @property (nonatomic, weak) IBOutlet UILabel *emailLabel;
 @property (nonatomic, weak) IBOutlet UITextField *usernameTextField;
 @property (nonatomic, weak) IBOutlet UITextView *bioTextView;
+
+@property (nonatomic, weak) IBOutlet UILabel *usernameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *bioLabel;
+@property (nonatomic, weak) IBOutlet UILabel *bio2Label;
+
 @end
 
 #define MAX_LENGTH 100
@@ -38,6 +43,15 @@
     self.emailLabel.text = [PFUser currentUser][@"email"];
     self.usernameTextField.text = [PFUser currentUser].username;
     self.bioTextView.text = [PFUser currentUser][@"bio"];
+    
+    self.nameLabel.font = [UIFont appMediumFontOfSize:15];
+    self.emailLabel.font = [UIFont appMediumFontOfSize:15];
+    self.usernameTextField.font = [UIFont appMediumFontOfSize:14];
+    self.bioTextView.font = [UIFont appMediumFontOfSize:14];
+    
+    self.usernameLabel.font = [UIFont appMediumFontOfSize:14];
+    self.bioLabel.font = [UIFont appMediumFontOfSize:14];
+    self.bio2Label.font = [UIFont appMediumFontOfSize:10];
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", [PFUser currentUser][@"facebookId"]]];
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];

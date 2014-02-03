@@ -594,8 +594,8 @@
                                                 <rect key="frame" x="20" y="152" width="80" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="52" translatesAutoresizingMaskIntoConstraints="NO" id="dac-bi-chn">
-                                                        <rect key="frame" x="10" y="10" width="52" height="40"/>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="21" translatesAutoresizingMaskIntoConstraints="NO" id="dac-bi-chn">
+                                                        <rect key="frame" x="10" y="10" width="21" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <attributedString key="attributedText">
                                                             <fragment content="Bio">
@@ -605,16 +605,13 @@
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                                 </attributes>
                                                             </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-DQ
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <font key="NSFont" size="13" name="HelveticaNeue"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                                </attributes>
-                                                            </fragment>
+                                                        </attributedString>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="52" translatesAutoresizingMaskIntoConstraints="NO" id="jf8-D6-4TE">
+                                                        <rect key="frame" x="10" y="29" width="52" height="31"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <attributedString key="attributedText">
                                                             <fragment>
                                                                 <string key="content">(100 
 Characters)</string>
@@ -725,10 +722,13 @@ Characters)</string>
                     </view>
                     <navigationItem key="navigationItem" id="qJd-MU-P4v"/>
                     <connections>
+                        <outlet property="bio2Label" destination="jf8-D6-4TE" id="ixc-bo-tPb"/>
+                        <outlet property="bioLabel" destination="dac-bi-chn" id="MH4-mB-8V5"/>
                         <outlet property="bioTextView" destination="2dQ-JB-IVh" id="Epm-5v-g7H"/>
                         <outlet property="emailLabel" destination="qNw-Z6-PxF" id="yGo-bT-3ED"/>
                         <outlet property="imageView" destination="xKb-St-3YH" id="WCI-fG-Fxh"/>
                         <outlet property="nameLabel" destination="6cA-Su-H5R" id="meB-Xg-9Z0"/>
+                        <outlet property="usernameLabel" destination="pfj-GP-7iW" id="VzS-fE-Mq0"/>
                         <outlet property="usernameTextField" destination="ZTS-ka-HdP" id="c6D-9A-SRg"/>
                     </connections>
                 </viewController>
@@ -1424,6 +1424,8 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
     <resources>
         <image name="add_photo" width="72" height="72"/>
         <image name="button-close" width="44" height="44"/>
+        <image name="button-close" width="44" height="44"/>
+        <image name="button-selfie" width="25" height="25"/>
         <image name="button-selfie" width="25" height="25"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
@@ -1431,12 +1433,19 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
+        <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-follwing" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
         <image name="icon-like-on" width="30" height="30"/>
         <image name="icon-location-off" width="22" height="26"/>
         <image name="icon-location-on" width="30" height="30"/>
         <image name="icon-single" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
+        <image name="icon-you" width="30" height="30"/>
         <image name="icon-you" width="30" height="30"/>
         <image name="notifications_Active" width="26" height="26"/>
         <image name="pin_green_small" width="15" height="15"/>
