@@ -66,8 +66,6 @@ static CGFloat const kImageSize = 600.0;
     if (self.photo) {
         
         self.blendModePickerView.dataSource = self.blendModes;
-        self.blendModePickerView.hidden = NO;
-        self.blendModeLabel.hidden = NO;
 
         __weak typeof(self) weakSelf = self;
         void (^showErrorAndDismiss)(NSError *, NSString *) = ^(NSError *error, NSString *message) {
@@ -127,9 +125,6 @@ static CGFloat const kImageSize = 600.0;
         }];
     }
     else {
-        self.blendModePickerView.hidden = YES;
-        self.blendModeLabel.hidden = YES;
-        
         self.filter = [[GPUImageGammaFilter alloc] init];
         [self.filter addTarget:self.liveView];
         
@@ -194,6 +189,7 @@ static CGFloat const kImageSize = 600.0;
             [self.topLeftButton setImage:[UIImage imageNamed:@"button-close"] forState:UIControlStateNormal];
             [self.topRightButton setImage:[UIImage imageNamed:@"selfie"] forState:UIControlStateNormal];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-shutter-black"] forState:UIControlStateNormal];
+            self.blendModePickerView.hidden = self.blendModeLabel.hidden = (self.photo) ? NO : YES;
             break;
             
         case CameraViewStateReadyToUpload:
@@ -205,6 +201,7 @@ static CGFloat const kImageSize = 600.0;
             [self.topRightButton setImage:[UIImage imageNamed:@"button-facebook-off"] forState:UIControlStateNormal];
             [self.topRightButton setImage:[UIImage imageNamed:@"button-facebook-on"] forState:UIControlStateSelected];
             [self.bottomButton setImage:[UIImage imageNamed:@"button-upload"] forState:UIControlStateNormal];
+            self.blendModePickerView.hidden = self.blendModeLabel.hidden = YES;
             break;
             
         case CameraViewStateUploading:
@@ -220,6 +217,7 @@ static CGFloat const kImageSize = 600.0;
             self.bottomButton.trackInset = 4.0;
             self.bottomButton.trackWidth = 2.0;
             self.bottomButton.progress = 0.0;
+            self.blendModePickerView.hidden = self.blendModeLabel.hidden = YES;
             break;
             
         case CameraViewStateDone:
@@ -228,6 +226,7 @@ static CGFloat const kImageSize = 600.0;
             self.topLeftButton.hidden = YES;
             self.topRightButton.hidden = YES;
             [self.bottomButton setImage:[UIImage imageNamed:@"button-done"] forState:UIControlStateNormal];
+            self.blendModePickerView.hidden = self.blendModeLabel.hidden = YES;
             break;
             
         default:
