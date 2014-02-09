@@ -184,7 +184,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 
 - (IBAction)likeButtonTapped:(id)sender
 {
-    NSArray *oldLikes = self.photo.likes;
+//    NSArray *oldLikes = self.photo.likes;
 
     NSMutableArray *newLikes = [self.photo.likes mutableCopy];
     if (self.photo.likedByMe) {
@@ -197,7 +197,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     [self updateLikeButton];
     
     
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     PFUser *user = [PFUser currentUser];
     NSDictionary *params = @{@"objectid":self.photo.objectId, @"userWhoLikedID":user.objectId, @"userWhoLikedUsername":user.username};
     [PFCloud callFunctionInBackground:@"likePhoto" withParameters:params block:^(NSNumber *result, NSError *error) {
