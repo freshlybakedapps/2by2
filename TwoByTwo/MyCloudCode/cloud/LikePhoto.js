@@ -1,6 +1,9 @@
 var Notifications = require('cloud/Notifications.js');
 
 exports.main = function(request, response){
+
+    console.log(arguments);
+
   var query = new Parse.Query("Photo");
   query.include("user");
   query.include("user_full");
