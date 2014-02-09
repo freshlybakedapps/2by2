@@ -98,9 +98,13 @@ static CGFloat const kImageSize = 600.0;
                                     [weakSelf.sourcePicture processImage];
                                     [weakSelf.sourcePicture addTarget:weakSelf.filter];
                                     
-                                    weakSelf.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPresetPhoto cameraPosition:AVCaptureDevicePositionBack];
+                                    float ratio = 720.0/1280.0;
+                                    GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.5 * ratio, 1.0, ratio)];
+                                    [cropFilter addTarget:weakSelf.filter];
+
+                                    weakSelf.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:AVCaptureDevicePositionBack];
                                     weakSelf.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
-                                    [weakSelf.stillCamera addTarget:weakSelf.filter];
+                                    [weakSelf.stillCamera addTarget:cropFilter];
                                     [weakSelf.stillCamera startCameraCapture];
                                 }
                                 else {
