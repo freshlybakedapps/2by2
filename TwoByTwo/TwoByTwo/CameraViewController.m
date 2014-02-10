@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateDone,
 };
 
-static CGFloat const kImageSize = 600.0;
+static CGFloat const kImageSize = 320.0;
 
 
 @interface CameraViewController ()
