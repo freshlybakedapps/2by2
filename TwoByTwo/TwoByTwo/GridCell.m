@@ -96,12 +96,12 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     
     // User Avatars
     NSURL *firstURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", self.photo.user[@"facebookId"]]];
-    [self.firstUserImageView setImageWithURL:firstURL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+    [self.firstUserImageView setImageWithURL:firstURL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     [self.firstUserButton setTitle:self.photo.user.username forState:UIControlStateNormal];
     
     if (self.photo.userFull) {
         NSURL *secondURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", self.photo.userFull[@"facebookId"]]];
-        [self.secondUserImageView setImageWithURL:secondURL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+        [self.secondUserImageView setImageWithURL:secondURL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
         self.secondUserImageView.hidden = NO;
         [self.secondUserButton setTitle:self.photo.userFull.username forState:UIControlStateNormal];
         self.secondUserButton.hidden = NO;

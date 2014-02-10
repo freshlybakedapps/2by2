@@ -59,7 +59,7 @@
         flagType = [flagType stringByReplacingOccurrencesOfString:@"FlagType" withString:@""];
         self.notificationLabel.text = [NSString stringWithFormat:@"Your photo was flagged as %@", [flagType lowercaseString]];
     }else{
-        [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+        [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
         self.notificationLabel.text = notification[@"content" ];
     }
     

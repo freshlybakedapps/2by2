@@ -26,7 +26,7 @@
     _comment = comment;
 
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", comment[@"facebookId"]]];
-    [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+    [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) * 0.5;
     
     self.nameLabel.text = comment[@"username"];

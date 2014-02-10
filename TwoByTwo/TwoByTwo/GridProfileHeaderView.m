@@ -136,7 +136,7 @@
     
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", user[@"facebookId"]]];
-    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
 }
 
 

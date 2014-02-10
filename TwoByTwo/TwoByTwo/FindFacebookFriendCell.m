@@ -28,7 +28,7 @@
     _data = data;
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", data[@"facebookID"]]];
-    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     self.imageView.layer.cornerRadius = 15;
     
     self.textLabel.text = data[@"name"];

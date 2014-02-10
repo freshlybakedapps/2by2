@@ -54,7 +54,7 @@
     self.bio2Label.font = [UIFont appMediumFontOfSize:10];
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", [PFUser currentUser][@"facebookId"]]];
-    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"icon-you"]];
+    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     self.imageView.layer.cornerRadius = CGRectGetWidth(self.imageView.frame) * 0.5;
 }
 
