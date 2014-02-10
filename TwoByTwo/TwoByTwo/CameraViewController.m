@@ -34,6 +34,7 @@ static CGFloat const kImageSize = 320.0;
 @property (nonatomic, weak) IBOutlet ProgressButton *bottomButton;
 @property (nonatomic, strong) GPUImageStillCamera *stillCamera;
 @property (nonatomic, strong) GPUImageFilter *filter;
+@property (nonatomic, strong) GPUImageCropFilter *cropFilter;
 @property (nonatomic, strong) GPUImagePicture *sourcePicture;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSArray *blendModes;
@@ -100,12 +101,12 @@ static CGFloat const kImageSize = 320.0;
                                     [weakSelf.sourcePicture addTarget:weakSelf.filter];
                                     
                                     float ratio = 720.0/1280.0;
-                                    GPUImageCropFilter *cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.5 * ratio, 1.0, ratio)];
-                                    [cropFilter addTarget:weakSelf.filter];
+                                    weakSelf.cropFilter = [[GPUImageCropFilter alloc] initWithCropRegion:CGRectMake(0.0, 0.5 * ratio, 1.0, ratio)];
+                                    [weakSelf.cropFilter addTarget:weakSelf.filter];
 
                                     weakSelf.stillCamera = [[GPUImageStillCamera alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720 cameraPosition:AVCaptureDevicePositionBack];
                                     weakSelf.stillCamera.outputImageOrientation = UIInterfaceOrientationPortrait;
-                                    [weakSelf.stillCamera addTarget:cropFilter];
+                                    [weakSelf.stillCamera addTarget:weakSelf.cropFilter];
                                     [weakSelf.stillCamera startCameraCapture];
                                 }
                                 else {
@@ -430,13 +431,14 @@ static CGFloat const kImageSize = 320.0;
     
     [self.filter removeTarget:self.liveView];
     [self.sourcePicture removeTarget:self.filter];
+    [self.cropFilter removeTarget:self.filter];
     [self.stillCamera removeTarget:self.filter];
     
     Class mode = self.blendModes[item];
     self.filter = [[mode alloc] init];
     [self.filter addTarget:self.liveView];
     [self.sourcePicture addTarget:self.filter];
-    [self.stillCamera addTarget:self.filter];
+    [self.cropFilter addTarget:self.filter];
 }
 
 
