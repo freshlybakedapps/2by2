@@ -462,11 +462,13 @@ static CGFloat const kImageSize = 320.0;
 
     if (![PFUser currentUser]) {
         completion(NO, nil);
+        return;
     }
     
     NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
     if (!imageData) {
         completion(NO, nil);
+        return;
     }
     
 
