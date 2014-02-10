@@ -40,6 +40,7 @@ static CGFloat const kImageSize = 320.0;
 @property (nonatomic) CameraViewState state;
 @property (nonatomic) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property (nonatomic) BOOL isPostingToFacebook;
+@property (nonatomic) BOOL share;
 @end
 
 
@@ -283,7 +284,13 @@ static CGFloat const kImageSize = 320.0;
             break;
             
         case CameraViewStateReadyToUpload:
-            self.topRightButton.selected = !self.topRightButton.selected;
+            if(self.topRightButton.selected){
+                self.topRightButton.selected = NO;
+                self.share = NO;
+            }else{
+                self.topRightButton.selected = YES;
+                self.share = YES;
+            }
             break;
             
         default:
@@ -331,7 +338,7 @@ static CGFloat const kImageSize = 320.0;
                 });
                 
                 
-                if (weakSelf.topRightButton.selected) {
+                if (weakSelf.share == YES) {
                     [weakSelf sharePhotoToFacebook];
                 }
                 
@@ -505,6 +512,7 @@ static CGFloat const kImageSize = 320.0;
 
 - (void)sharePhotoToFacebook
 {
+    
     if (self.isPostingToFacebook) {
         return;
     }
