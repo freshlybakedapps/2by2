@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSString *commentID;
 
+@property (nonatomic, strong) PFObject *photo;
+
 @end

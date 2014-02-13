@@ -110,6 +110,10 @@
         
         sender.enabled = YES;
         weakSelf.textField.text = nil;
+        
+        weakSelf.photo.commentCount = [NSString stringWithFormat:@"%lu",(unsigned long)weakSelf.objects.count];
+        
+        NSLog(@"%lu",(unsigned long)weakSelf.objects.count);
     }];
 }
 

@@ -453,6 +453,7 @@ static NSUInteger const headerLarge = 165;//113
 {
     CommentsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
     controller.commentID = photo.objectId;
+    controller.photo = photo;//self.photo.commentCount
     [self presentViewController:controller animated:YES completion:nil];
 }
 
