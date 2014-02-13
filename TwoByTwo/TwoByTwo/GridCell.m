@@ -130,8 +130,9 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     [self updateLikeButton];
     
     
+    
     // Comments
-    if (self.photo.commentCount) {
+    if (self.photo.commentCount && ![self.photo.commentCount isEqualToString:@"0"]) {
         [self.commentButton setTitle:self.photo.commentCount forState:UIControlStateNormal];
     }
     else {
