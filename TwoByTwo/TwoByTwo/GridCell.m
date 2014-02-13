@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 @property (nonatomic, weak) IBOutlet UIButton *commentButton;
 //@property (nonatomic, weak) IBOutlet UILabel *filterLabel;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
+@property (nonatomic, weak) IBOutlet UIButton *mapCloseButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
 
 @property (nonatomic, weak) IBOutlet UIView *mapOverlay;
@@ -52,6 +53,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     [super awakeFromNib];
     
     self.mapOverlay.hidden = YES;
+    self.mapCloseButton.hidden = YES;
     self.mapOverlayPinRed.hidden = YES;
     self.mapOverlayUsername.hidden = YES;
     self.mapOverlayUsername.font = [UIFont appMediumFontOfSize:14];
@@ -167,6 +169,11 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 
 
 #pragma mark - Actions
+
+- (IBAction)closeMap:(id)sender
+{
+    
+}
 
 - (IBAction)userButtonTapped:(id)sender
 {
@@ -301,6 +308,13 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 {
     self.photo.showMap = !self.photo.showMap;
     [self showImageOrMapAnimated:YES];
+    if(self.photo.showMap){
+        [self.mapButton setImage:[UIImage imageNamed:@"map_Active"] forState:UIControlStateNormal];
+        self.mapCloseButton.hidden = NO;
+    }else{
+        [self.mapButton setImage:[UIImage imageNamed:@"map"] forState:UIControlStateNormal];
+        self.mapCloseButton.hidden = YES;
+    }
 }
 
 - (void)showImageOrMapAnimated:(BOOL)animated
