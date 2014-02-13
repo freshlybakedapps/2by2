@@ -148,7 +148,10 @@ static NSUInteger const headerLarge = 165;//113
 - (void)loadFollowers
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Followers"];
-    [query whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
+    if([PFUser currentUser]){
+        [query whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
+    }
+    
     [query selectKeys:@[@"followingUserID"]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -233,7 +236,9 @@ static NSUInteger const headerLarge = 165;//113
             
         case FeedTypePDP:
             self.collectionView.collectionViewLayout = self.feedLayout;
-            [query whereKey:@"objectId" equalTo:self.photoID];
+            if(self.photoID){
+                [query whereKey:@"objectId" equalTo:self.photoID];
+            }
             break;
     }
     
