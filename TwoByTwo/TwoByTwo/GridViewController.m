@@ -137,7 +137,7 @@ static NSUInteger const headerLarge = 165;//113
 
 - (void)performQuery
 {
-    if (self.type == FeedTypeFollowing) {
+    if (self.type == FeedTypeFollowing || self.type == FeedTypeGlobal) {
         [self loadFollowers];
     }
     else {
@@ -181,6 +181,9 @@ static NSUInteger const headerLarge = 165;//113
         case FeedTypeGlobal:
         default:
             [query whereKey:@"state" equalTo:@"full"];
+            [query whereKey:@"user" notContainedIn:self.followers];
+            [query whereKey:@"user_full" notContainedIn:self.followers];
+            
             break;
             
         case FeedTypeFollowing: {
