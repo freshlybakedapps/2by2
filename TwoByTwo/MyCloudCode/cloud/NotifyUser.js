@@ -68,7 +68,18 @@ exports.main = function(request, response){
             var subject = msg;
 
 
-            Notifications.sendNotifications(response,"overexposed",user.id,msg,htmlMsg,subject,photoID,locationInfo,user_full_id,user_full_username,msg);
+            Notifications.sendNotifications(null,"overexposed",user.id,msg,htmlMsg,subject,photoID,locationInfo,user_full_id,user_full_username,msg);
+
+            /*
+            Parse.Cloud.run('CreateThumbnails', { photoID: photoID }, {
+              success: function(str) {        
+                console.log(str);
+              },
+              error: function(error) {
+                console.log(error);
+              }
+            });
+            */              
           
           },
   	    	error: function(error) {

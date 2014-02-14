@@ -57,6 +57,11 @@ Parse.Cloud.define("lastPhotoURL", function(request, response) {
     LastPhotoURL.main(request, response);
 });
 
+var CreateThumbnails = require('cloud/CreateThumbnails.js');
+Parse.Cloud.define("CreateThumbnails", function(request, response) {
+  CreateThumbnails.main(request, response);
+});
+
 
 ///////////////////////////////////////////////////////////////////
 //CRON JOBS
@@ -87,17 +92,24 @@ Parse.Cloud.job("addLocationStrings", function(request, status) {
   AddLocationStrings.main(request, status);
 });
 
+var CreateAllthumbnails = require('cloud/CreateAllthumbnails.js');
+Parse.Cloud.job("CreateAllthumbnails", function(request, status) {
+  CreateAllthumbnails.main(request, status);
+});
+
 var OnComment = require('cloud/OnComment.js');
 Parse.Cloud.afterSave("Comment", function(request, response) {
   OnComment.main(request, response);
 });
 
+var OnPhotoCreated = require('cloud/OnPhotoCreated.js');
+Parse.Cloud.afterSave("Photo", function(request, response) {
+  OnPhotoCreated.main(request, response);
+});
+
 
 /*
-var CreateThumbnails = require('cloud/CreateThumbnails.js');
-Parse.Cloud.beforeSave("Photo", function(request, response) {
-  CreateThumbnails.main(request, response);
-});
+
 */
 
 /*

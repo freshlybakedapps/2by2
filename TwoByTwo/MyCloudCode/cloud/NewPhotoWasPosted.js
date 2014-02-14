@@ -2,7 +2,7 @@ var Notifications = require('cloud/Notifications.js');
 
 exports.main = function(request, response){  		
   var username = request.params.username;
-  var userID = request.params.userID;      
+  var userID = request.params.userID;     
   
   Parse.Cloud.run('getFacebookFriends', { user: userID }, {
       success: function(arr) {        
@@ -23,8 +23,7 @@ exports.main = function(request, response){
               Notifications.sendNotifications(null,"newPhoto",arr[i].parseID,msg,htmlMsg,subject,"0","",userID,username,msg);    
             }else{
               Notifications.sendNotifications(null,"newPhoto",arr[i].parseID,msg,htmlMsg,subject,"0","",userID,username,msg);    
-            }
-                 
+            }               
         };        
       },
       error: function(error) {
