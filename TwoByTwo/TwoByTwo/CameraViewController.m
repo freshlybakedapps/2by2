@@ -222,7 +222,7 @@ static CGFloat const kImageSize = 320.0;
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
             self.topLeftButton.hidden = YES;
-            self.topRightButton.hidden = YES;
+            self.topRightButton.alpha = .2;
             [self.bottomButton setImage:nil forState:UIControlStateNormal];
             self.bottomButton.outerColor = [UIColor appBlackishColor];
             self.bottomButton.innerColor = [UIColor appBlackishColor];
