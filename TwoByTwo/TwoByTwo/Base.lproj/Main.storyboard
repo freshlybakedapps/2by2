@@ -421,10 +421,10 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9PH-Zf-8sB">
-                                            <rect key="frame" x="254" y="67" width="44" height="44"/>
+                                            <rect key="frame" x="272" y="70" width="28" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" image="close">
+                                            <state key="normal" image="CloseMap">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -1434,16 +1434,24 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
         </scene>
     </scenes>
     <resources>
+        <image name="CloseMap" width="28" height="28"/>
         <image name="add_photo" width="72" height="72"/>
         <image name="button-close" width="44" height="44"/>
+        <image name="button-close" width="44" height="44"/>
+        <image name="button-selfie" width="25" height="25"/>
         <image name="button-selfie" width="25" height="25"/>
         <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
-        <image name="close" width="26" height="26"/>
         <image name="comment" width="24" height="26"/>
+        <image name="defaultUserImage" width="72" height="72"/>
+        <image name="defaultUserImage" width="72" height="72"/>
+        <image name="defaultUserImage" width="72" height="72"/>
+        <image name="defaultUserImage" width="72" height="72"/>
+        <image name="defaultUserImage" width="72" height="72"/>
         <image name="defaultUserImage" width="72" height="72"/>
         <image name="icon-double" width="30" height="30"/>
         <image name="icon-flag-off" width="30" height="30"/>
+        <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-follwing" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
