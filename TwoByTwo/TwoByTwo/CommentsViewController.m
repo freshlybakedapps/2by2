@@ -149,8 +149,11 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //only allow to edit my own comments
+    //or any comments on my own photos
     PFObject *comment = self.objects[indexPath.row];
-    if ([comment[@"username"] isEqualToString:[PFUser currentUser].username]) {
+    if ([comment[@"username"] isEqualToString:[PFUser currentUser].username] ||
+        [[PFUser currentUser].username isEqualToString:self.photo.user.username] ||
+        [[PFUser currentUser].username isEqualToString:self.photo.userFull.username]) {
         return YES;
     }
     else {
