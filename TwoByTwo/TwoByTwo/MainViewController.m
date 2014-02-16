@@ -51,7 +51,9 @@ NSString * const NoficationUserInfoKeyCount = @"NoficationUserInfoKeyCount";
         [self.navigationController popToRootViewControllerAnimated:YES];
         if ([self.childViewController isKindOfClass:[GridViewController class]]) {
             GridViewController *controller = (id)self.childViewController;
-            [controller.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+            if ([controller.collectionView numberOfItemsInSection:0] > 0) {
+                [controller.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+            }
         }
     }
     else {
