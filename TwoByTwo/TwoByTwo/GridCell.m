@@ -10,6 +10,7 @@
 #import "UserAnnotation.h"
 #import "MKMapView+Utilities.h"
 #import "UIImageView+AFNetworking.h"
+
 #import "BlocksKit+UIKit.h"
 
 typedef NS_ENUM(NSUInteger, FlagType) {
@@ -21,7 +22,8 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 
 
 @interface GridCell () <MKMapViewDelegate>
-@property (nonatomic, strong) MKMapView *mapView;
+//@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) UIImageView *mapView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIView *headerView;
 @property (nonatomic, weak) IBOutlet UIImageView *firstUserImageView;
@@ -348,6 +350,77 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 
 #pragma mark - Map
 
+
+- (UIImageView *)mapView
+{
+    if (!_mapView) {
+        
+        _mapView = [[UIImageView alloc] initWithFrame:self.imageView.bounds];
+        
+        NSString* markers;
+        
+        if(self.photo.locationHalf){
+            markers = [NSString stringWithFormat:@"&markers=color:0x00cc99|%f,%f",self.photo.locationHalf.latitude,self.photo.locationHalf.longitude];
+        }
+        
+        if([self.photo.state isEqualToString:@"full"] && self.photo.locationFull){
+            
+            markers = [NSString stringWithFormat:@"%@&markers=color:0xff3366|%f,%f",markers,self.photo.locationFull.latitude,self.photo.locationFull.longitude];
+        }
+        
+        NSString *mapImageURL = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&style=saturation:-100&size=320x370&maptype=roadmap%@&sensor=false",markers];
+        
+        NSString *escappedURL = [mapImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSLog(@"MapImageURL: %@",escappedURL);
+
+        NSURL *URL = [NSURL URLWithString:escappedURL];
+
+        
+        [_mapView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
+        
+        if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
+            if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
+                self.mapOverlayYou.text = @"You!";
+            }else{
+                self.mapOverlayYou.text = self.photo.user.username;
+            }
+            
+        }else{
+            if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
+                self.mapOverlayYou.text = @"You!(?)";
+            }else{
+                self.mapOverlayYou.text = [NSString stringWithFormat:@"%@(?)",self.photo.user.username];
+            }
+        }
+        
+        if (self.photo.locationFull){
+            self.mapOverlayPinRed.hidden = NO;
+            self.mapOverlayUsername.hidden = NO;
+        }
+        
+        if (self.photo.locationFull && self.photo.locationFull.latitude != 0) {
+            if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
+                self.mapOverlayUsername.text = @"You!";
+            }else{
+                self.mapOverlayUsername.text = self.photo.userFull.username;
+            }
+            
+        }else{
+            if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
+                self.mapOverlayUsername.text = @"You!(?)";
+            }else{
+                self.mapOverlayUsername.text = [NSString stringWithFormat:@"%@(?)",self.photo.userFull.username];
+            }
+        }
+
+        
+        
+    }
+    return _mapView;
+}
+
+/*
 - (MKMapView *)mapView
 {
     if (!_mapView) {
@@ -361,6 +434,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     return _mapView;
 }
 
+ 
 - (void)addAnnotations
 {
     if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
@@ -411,6 +485,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     [self.mapView zoomToFitAnnotationsAnimated:NO minimumSpan:MKCoordinateSpanMake(0.3, 0.3)];
 }
 
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
 {
     
@@ -431,5 +506,6 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     pin.annotation = annotation;
     return pin;
 }
+  */
 
 @end
