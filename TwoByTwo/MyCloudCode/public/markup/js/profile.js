@@ -135,16 +135,19 @@ $(function () {
 		                //static maps doc: https://developers.google.com/maps/documentation/staticmaps/?csw=1#StyledMaps
 		                //style map: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
 		                //Get API key: https://cloud.google.com/console/project
+
+		                //http://2by2.parseapp.com/images/red.png
+		                //http://2by2.parseapp.com/images/green.png
 		                
 		                var markers;
 
 		                if(data.location_half){
-		                	markers = "&markers=color:0xff3366%7C"+locationHalf._latitude+","+locationHalf._longitude;
+		                	markers = "&markers=icon:http://2by2.parseapp.com/images/red.png%7Ccolor:0xff3366%7C"+locationHalf._latitude+","+locationHalf._longitude;
 		                }		                
 
 		                if(data.state == "full" && data.location_full){
 							var locationFull = data.location_full;
-		                	markers+="&markers=color:0x00cc99%7C"+locationFull._latitude+","+locationFull._longitude;
+		                	markers+="&markers=icon:http://2by2.parseapp.com/images/green.png%7Ccolor:0x00cc99%7C"+locationFull._latitude+","+locationFull._longitude;
 		                }
 		                //&center=Brooklyn+Bridge,New+York,NY&zoom=13
 		                var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100&size=500x500&maptype=roadmap"+markers+"&sensor=false";
@@ -202,9 +205,7 @@ $(function () {
 		            for(var i=0;i<10;i++){		                
 		                var Comment = Parse.Object.extend("Comment");
 						var query = new Parse.Query(Comment);
-						query.equalTo("commentID", photosArr[i].id);
-
-						console.log(photosArr[i].id);
+						query.equalTo("commentID", photosArr[i].id);						
 
 						(function(index, length) { 
 							query.count({

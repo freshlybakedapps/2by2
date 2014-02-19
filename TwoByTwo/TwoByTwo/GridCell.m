@@ -360,12 +360,12 @@ typedef NS_ENUM(NSUInteger, FlagType) {
         NSString* markers;
         
         if(self.photo.locationHalf){
-            markers = [NSString stringWithFormat:@"&markers=color:0x00cc99|%f,%f",self.photo.locationHalf.latitude,self.photo.locationHalf.longitude];
+            markers = [NSString stringWithFormat:@"&markers=icon:http://2by2.parseapp.com/images/red.png|color:0x00cc99|%f,%f",self.photo.locationHalf.latitude,self.photo.locationHalf.longitude];
         }
         
         if([self.photo.state isEqualToString:@"full"] && self.photo.locationFull){
             
-            markers = [NSString stringWithFormat:@"%@&markers=color:0xff3366|%f,%f",markers,self.photo.locationFull.latitude,self.photo.locationFull.longitude];
+            markers = [NSString stringWithFormat:@"%@&markers=icon:http://2by2.parseapp.com/images/green.png|color:0xff3366|%f,%f",markers,self.photo.locationFull.latitude,self.photo.locationFull.longitude];
         }
         
         NSString *mapImageURL = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&style=saturation:-100&size=320x370&maptype=roadmap%@&sensor=false",markers];
