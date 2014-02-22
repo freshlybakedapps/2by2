@@ -368,7 +368,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
             markers = [NSString stringWithFormat:@"%@&markers=icon:http://2by2.parseapp.com/images/green.png|color:0xff3366|%f,%f",markers,self.photo.locationFull.latitude,self.photo.locationFull.longitude];
         }
         
-        NSString *mapImageURL = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&style=saturation:-100&size=320x370&maptype=roadmap%@&sensor=false",markers];
+        NSString *mapImageURL = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&style=lightness:-57|saturation:-100&size=320x370&maptype=roadmap%@&sensor=false",markers];
         
         NSString *escappedURL = [mapImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         

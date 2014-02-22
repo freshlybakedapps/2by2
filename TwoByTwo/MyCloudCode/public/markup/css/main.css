@@ -169,6 +169,7 @@ header.home {
 }
 
 .picture > img,
+.picture > a > img,
 .picture-map > img{
     display: block;
     width: 100%;
@@ -238,6 +239,7 @@ header.home {
     padding: 10px 90px 10px 10px;
 }
 
+
 .upload-comment input {
     -moz-border-radius: 2px;
     -moz-webkit-radius: 2px;
@@ -256,6 +258,7 @@ header.home {
     width: 100%;
 }
 
+#commentButton,
 .upload-comment input[type="submit"] {
     background: #00cc99;
     border: none;
