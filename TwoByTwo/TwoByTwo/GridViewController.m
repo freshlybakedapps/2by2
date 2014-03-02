@@ -24,13 +24,14 @@ static NSUInteger const headerLarge = 165;//113
 
 
 @interface GridViewController () <FeedCellDelegate>
-@property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
-@property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
+//@property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
+//@property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
 @property (nonatomic, strong) NSMutableArray *objects;
 @property (nonatomic, strong) NSArray *followers;
 @property (nonatomic) NSUInteger totalNumberOfObjects;
 @property (nonatomic) NSUInteger queryOffset;
 @property (nonatomic, strong) NSString *singleOrDouble;
+@property (nonatomic) BOOL showingFeed;
 @end
 
 
@@ -65,21 +66,21 @@ static NSUInteger const headerLarge = 165;//113
     [self.collectionView registerNib:[UINib nibWithNibName:@"ThumbCell" bundle:nil] forCellWithReuseIdentifier:@"ThumbCell"];
     
     // Setup Layouts
-    self.gridLayout = [UICollectionViewFlowLayout new];
-    self.gridLayout.itemSize = CGSizeMake(78.5, 78.5);
-    self.gridLayout.minimumInteritemSpacing = 2;
-    self.gridLayout.minimumLineSpacing = 2;
-    self.gridLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.gridLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    
-    self.feedLayout = [UICollectionViewFlowLayout new];
-    self.feedLayout.itemSize = CGSizeMake(320, 410);
-    self.feedLayout.minimumInteritemSpacing = 10;
-    self.feedLayout.minimumLineSpacing = 10;
-    self.feedLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.feedLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    
-    self.collectionView.collectionViewLayout = self.gridLayout;
+//    self.gridLayout = [UICollectionViewFlowLayout new];
+//    self.gridLayout.itemSize = CGSizeMake(78.5, 78.5);
+//    self.gridLayout.minimumInteritemSpacing = 2;
+//    self.gridLayout.minimumLineSpacing = 2;
+//    self.gridLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//    self.gridLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//    
+//    self.feedLayout = [UICollectionViewFlowLayout new];
+//    self.feedLayout.itemSize = CGSizeMake(320, 410);
+//    self.feedLayout.minimumInteritemSpacing = 10;
+//    self.feedLayout.minimumLineSpacing = 10;
+//    self.feedLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//    self.feedLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//    
+//    self.collectionView.collectionViewLayout = self.gridLayout;
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
@@ -110,12 +111,18 @@ static NSUInteger const headerLarge = 165;//113
 }
 
 
-- (void) toggleGridFeed{
-    if(self.collectionView.collectionViewLayout == self.gridLayout){
-        [self.collectionView setCollectionViewLayout:self.feedLayout animated:NO];
-    }else{
-        [self.collectionView setCollectionViewLayout:self.gridLayout animated:NO];
-    }
+- (void) toggleGridFeed
+{
+//    if(self.collectionView.collectionViewLayout == self.gridLayout){
+//        self.collectionView.collectionViewLayout = self.feedLayout;
+////        [self.collectionView setCollectionViewLayout:self.feedLayout animated:NO];
+//    }else{
+//        self.collectionView.collectionViewLayout = self.gridLayout;
+////        [self.collectionView setCollectionViewLayout:self.gridLayout animated:NO];
+//    }
+    self.showingFeed = !self.showingFeed;
+    [self.collectionView reloadData];
+    
     
     //not sure why 64 but without this contentOffset it doesn't scroll to the top
     self.collectionView.contentOffset = CGPointMake(0, -64.0);
@@ -239,7 +246,9 @@ static NSUInteger const headerLarge = 165;//113
         }
             
         case FeedTypePDP:
-            self.collectionView.collectionViewLayout = self.feedLayout;
+//            self.collectionView.collectionViewLayout = self.feedLayout;
+            self.showingFeed = YES;
+            
             if(self.photoID){
                 [query whereKey:@"objectId" equalTo:self.photoID];
             }
@@ -322,6 +331,48 @@ static NSUInteger const headerLarge = 165;//113
 
 
 #pragma mark - Collection View
+//self.gridLayout.itemSize = CGSizeMake(78.5, 78.5);
+//self.gridLayout.minimumInteritemSpacing = 2;
+//self.gridLayout.minimumLineSpacing = 2;
+//self.gridLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//self.gridLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//
+//self.feedLayout = [UICollectionViewFlowLayout new];
+//self.feedLayout.itemSize = CGSizeMake(320, 410);
+//self.feedLayout.minimumInteritemSpacing = 10;
+//self.feedLayout.minimumLineSpacing = 10;
+//self.feedLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+//self.feedLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return (self.showingFeed) ? 10 : 2;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return (self.showingFeed) ? 10 : 2;
+}
+
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
+//{
+//    
+//}
+//
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+//{
+//    
+//}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return (self.showingFeed) ? CGSizeMake(320, 410) : CGSizeMake(78.5, 78.5);
+}
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -339,7 +390,7 @@ static NSUInteger const headerLarge = 165;//113
         [self performQuery];
     }
     
-    if (self.collectionView.collectionViewLayout == self.gridLayout) {
+    if (!self.showingFeed) {
         ThumbCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ThumbCell" forIndexPath:indexPath];
         cell.photo = self.objects[indexPath.row];
         return cell;
@@ -363,7 +414,7 @@ static NSUInteger const headerLarge = 165;//113
         header = (GridTitleHeaderView*)[self.collectionView viewWithTag:999];
     }
     
-    if (self.collectionView.collectionViewLayout == self.gridLayout) {
+    if (!self.showingFeed) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         layout.itemSize = CGSizeMake(320, 410);
         layout.minimumInteritemSpacing = 10;
@@ -384,8 +435,8 @@ static NSUInteger const headerLarge = 165;//113
             [self presentViewController:controller animated:YES completion:nil];
         }
         else if (self.type != FeedTypePDP) {
-            [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
-            [header toggleGridFeed];
+//            [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+//            [header toggleGridFeed];
         }
         
         /*
