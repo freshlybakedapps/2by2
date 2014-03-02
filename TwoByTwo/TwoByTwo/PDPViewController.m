@@ -8,6 +8,8 @@
 
 #import "PDPViewController.h"
 #import "GridCell.h"
+#import "CommentsViewController.h"
+#import "GridViewController.h"
 
 typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     CollectionViewSectionMain = 0,
@@ -82,6 +84,24 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+}
+
+#pragma mark - GridCell Delegate
+
+- (void)cell:(GridCell *)cell showProfileForUser:(PFUser *)user
+{
+    GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+    controller.type = FeedTypeFriend;
+    controller.user = user;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)cell:(GridCell *)cell showCommentsForPhoto:(PFObject *)photo
+{
+    CommentsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
+    controller.commentID = photo.objectId;
+    controller.photo = photo;//self.photo.commentCount
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 @end

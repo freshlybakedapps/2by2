@@ -42,6 +42,8 @@
 		1DF6A7211884ABD900FB913D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6A7201884ABD900FB913D /* NotificationCell.m */; };
 		7C0681AE18C2E4D200B8BFD6 /* GridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */; };
 		7C0681B118C2E57100B8BFD6 /* PDPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0681B018C2E57100B8BFD6 /* PDPViewController.m */; };
+		7C0681B918C2F13C00B8BFD6 /* ThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0681B818C2F13C00B8BFD6 /* ThumbCell.m */; };
+		7C0681BB18C2F14600B8BFD6 /* ThumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C0681BA18C2F14600B8BFD6 /* ThumbCell.xib */; };
 		7C070107187398690011845D /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C070106187398690011845D /* CommentCell.m */; };
 		7C07010A1873A6B90011845D /* NSDate+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0701091873A6B90011845D /* NSDate+Addon.m */; };
 		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
@@ -150,6 +152,9 @@
 		7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GridCell.xib; sourceTree = "<group>"; };
 		7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPViewController.h; sourceTree = "<group>"; };
 		7C0681B018C2E57100B8BFD6 /* PDPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPViewController.m; sourceTree = "<group>"; };
+		7C0681B718C2F13C00B8BFD6 /* ThumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbCell.h; sourceTree = "<group>"; };
+		7C0681B818C2F13C00B8BFD6 /* ThumbCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbCell.m; sourceTree = "<group>"; };
+		7C0681BA18C2F14600B8BFD6 /* ThumbCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThumbCell.xib; sourceTree = "<group>"; };
 		7C070105187398690011845D /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		7C070106187398690011845D /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		7C0701081873A6B90011845D /* NSDate+Addon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Addon.h"; sourceTree = "<group>"; };
@@ -413,6 +418,9 @@
 				7CF39E1717E00782003A859F /* GridViewController.m */,
 				7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */,
 				7C0681B018C2E57100B8BFD6 /* PDPViewController.m */,
+				7C0681B718C2F13C00B8BFD6 /* ThumbCell.h */,
+				7C0681B818C2F13C00B8BFD6 /* ThumbCell.m */,
+				7C0681BA18C2F14600B8BFD6 /* ThumbCell.xib */,
 				7C76578E1825AE920053483B /* GridCell.h */,
 				7C76578F1825AE920053483B /* GridCell.m */,
 				7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */,
@@ -680,6 +688,7 @@
 				7C76578D182597930053483B /* Login.storyboard in Resources */,
 				7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */,
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
+				7C0681BB18C2F14600B8BFD6 /* ThumbCell.xib in Resources */,
 				7CF39DE917E0070A003A859F /* InfoPlist.strings in Resources */,
 				7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */,
 				7C1BFA41187629F50076EFF2 /* Dosis-Regular.ttf in Resources */,
@@ -780,6 +789,7 @@
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */,
 				1DB27B171862533800E5C083 /* CommentsViewController.m in Sources */,
+				7C0681B918C2F13C00B8BFD6 /* ThumbCell.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

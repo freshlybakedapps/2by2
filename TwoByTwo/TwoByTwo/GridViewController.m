@@ -15,6 +15,7 @@
 #import "CommentsViewController.h"
 #import "GridFooterView.h"
 #import "PDPViewController.h"
+#import "ThumbCell.h"
 
 static NSUInteger const kQueryBatchSize = 20;
 
@@ -61,6 +62,7 @@ static NSUInteger const headerLarge = 165;//113
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridCell" bundle:nil] forCellWithReuseIdentifier:@"GridCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"ThumbCell" bundle:nil] forCellWithReuseIdentifier:@"ThumbCell"];
     
     // Setup Layouts
     self.gridLayout = [UICollectionViewFlowLayout new];
@@ -110,9 +112,9 @@ static NSUInteger const headerLarge = 165;//113
 
 - (void) toggleGridFeed{
     if(self.collectionView.collectionViewLayout == self.gridLayout){
-        [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
+        [self.collectionView setCollectionViewLayout:self.feedLayout animated:NO];
     }else{
-        [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
+        [self.collectionView setCollectionViewLayout:self.gridLayout animated:NO];
     }
     
     //not sure why 64 but without this contentOffset it doesn't scroll to the top
@@ -337,10 +339,17 @@ static NSUInteger const headerLarge = 165;//113
         [self performQuery];
     }
     
-    GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
-    cell.photo = self.objects[indexPath.row];
-    cell.delegate = self;
-    return cell;
+    if (self.collectionView.collectionViewLayout == self.gridLayout) {
+        ThumbCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ThumbCell" forIndexPath:indexPath];
+        cell.photo = self.objects[indexPath.row];
+        return cell;
+    }
+    else {
+        GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
+        cell.photo = self.objects[indexPath.row];
+        cell.delegate = self;
+        return cell;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
