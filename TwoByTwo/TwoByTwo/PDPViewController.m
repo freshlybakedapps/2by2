@@ -7,20 +7,22 @@
 //
 
 #import "PDPViewController.h"
-#import "FeedCell.h"
-#import "CommentsViewController.h"
 #import "FeedViewController.h"
+#import "FeedCell.h"
+#import "LikersCell.h"
+#import "CommentCell.h"
 
 typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     CollectionViewSectionMain = 0,
-    CollectionViewSectionLike,
-    CollectionViewSectionComment,
+    CollectionViewSectionLikers,
+    CollectionViewSectionComments,
     CollectionViewSectionCount,
 };
 
 
-@interface PDPViewController ()
+@interface PDPViewController () <FeedCellDelegate>
 @property (nonatomic, strong) PFObject *photo;
+@property (nonatomic, strong) NSArray *comments;
 @end
 
 
@@ -41,14 +43,16 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
 
     // Load Data
-    [self performQuery];
+    [self performPhotoQuery];
 }
 
 
 #pragma mark - Query
 
-- (void)performQuery
+- (void)performPhotoQuery
 {
+    __weak typeof(self) weakSelf = self;
+
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     [query whereKey:@"objectId" equalTo:self.photoID];
     [query includeKey:@"user"];
@@ -56,14 +60,30 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            self.photo = [objects lastObject];
-            [self.collectionView reloadData];
+            weakSelf.photo = [objects lastObject];
+            [weakSelf.collectionView reloadData];
+            [weakSelf performCommentsQuery];
         }
         else {
-            self.photo = nil;
+            weakSelf.photo = nil;
             [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
-        [self.collectionView reloadData];
+        [weakSelf.collectionView reloadData];
+    }];
+}
+
+- (void)performCommentsQuery
+{
+    __weak typeof(self) weakSelf = self;
+
+    PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
+    [query whereKey:@"commentID" equalTo:self.photoID];
+    [query orderByAscending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            weakSelf.comments = [objects mutableCopy];
+            [weakSelf.collectionView reloadData];
+        }
     }];
 }
 
@@ -72,25 +92,59 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return (self.photo) ? 1 : 0; //CollectionViewSectionCount;
+    return (self.photo) ? CollectionViewSectionCount : 0;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return (section == CollectionViewSectionComment) ? 1 : 1;
+    return (section == CollectionViewSectionComments) ? self.comments.count : 1;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case CollectionViewSectionMain:
+            return CGSizeMake(320, 410);
+
+        case CollectionViewSectionLikers:
+            return CGSizeMake(320, 100);
+            
+        case CollectionViewSectionComments:
+        default: {
+            CGFloat height = [CommentCell heightForComment:self.comments[indexPath.item]];
+            return CGSizeMake(320, height);
+        }
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
-    cell.photo = self.photo;
-    cell.delegate = self;
-    return cell;
+    switch (indexPath.section) {
+        case CollectionViewSectionMain: {
+            FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
+            cell.photo = self.photo;
+            cell.delegate = self;
+            return cell;
+        }
+            
+        case CollectionViewSectionLikers: {
+            LikersCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LikersCell" forIndexPath:indexPath];
+            return cell;
+        }
+            
+        case CollectionViewSectionComments:
+        default: {
+            CommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CommentCell" forIndexPath:indexPath];
+            cell.comment = self.comments[indexPath.item];
+            return cell;
+        }
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 }
+
 
 #pragma mark - FeedCell Delegate
 
@@ -104,10 +158,6 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 - (void)cell:(FeedCell *)cell showCommentsForPhoto:(PFObject *)photo
 {
-    CommentsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
-    controller.commentID = photo.objectId;
-    controller.photo = photo;//self.photo.commentCount
-    [self presentViewController:controller animated:YES completion:nil];
 }
 
 @end

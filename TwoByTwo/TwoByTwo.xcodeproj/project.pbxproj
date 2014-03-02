@@ -68,6 +68,7 @@
 		7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293918305ACA0036557E /* MKMapView+Utilities.m */; };
 		7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293F18306DD30036557E /* PFObject+Photo.m */; };
 		7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */; };
+		7CD137FF18C3F43400D534D7 /* LikersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD137FE18C3F43400D534D7 /* LikersCell.m */; };
 		7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */; };
 		7CF39DDF17E0070A003A859F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DDE17E0070A003A859F /* Foundation.framework */; };
 		7CF39DE117E0070A003A859F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE017E0070A003A859F /* CoreGraphics.framework */; };
@@ -195,6 +196,8 @@
 		7C7E293F18306DD30036557E /* PFObject+Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Photo.m"; sourceTree = "<group>"; };
 		7CBC37351874F8830016B6E4 /* NotificationSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationSettingCell.h; sourceTree = "<group>"; };
 		7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationSettingCell.m; sourceTree = "<group>"; };
+		7CD137FD18C3F43400D534D7 /* LikersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikersCell.h; sourceTree = "<group>"; };
+		7CD137FE18C3F43400D534D7 /* LikersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikersCell.m; sourceTree = "<group>"; };
 		7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TwoByTwo.h"; sourceTree = "<group>"; };
 		7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TwoByTwo.m"; sourceTree = "<group>"; };
 		7CF39DDB17E0070A003A859F /* TwoByTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoByTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,17 +345,6 @@
 			name = "Find Facebook friends";
 			sourceTree = "<group>";
 		};
-		1DB27B111862525D00E5C083 /* Comments */ = {
-			isa = PBXGroup;
-			children = (
-				1DB27B151862533800E5C083 /* CommentsViewController.h */,
-				1DB27B161862533800E5C083 /* CommentsViewController.m */,
-				7C070105187398690011845D /* CommentCell.h */,
-				7C070106187398690011845D /* CommentCell.m */,
-			);
-			name = Comments;
-			sourceTree = "<group>";
-		};
 		1DCD412518083B88007A5D56 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,8 +408,6 @@
 			children = (
 				7CF39E1617E00782003A859F /* FeedViewController.h */,
 				7CF39E1717E00782003A859F /* FeedViewController.m */,
-				7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */,
-				7C0681B018C2E57100B8BFD6 /* PDPViewController.m */,
 				7C0681B718C2F13C00B8BFD6 /* ThumbCell.h */,
 				7C0681B818C2F13C00B8BFD6 /* ThumbCell.m */,
 				7C0681BA18C2F14600B8BFD6 /* ThumbCell.xib */,
@@ -435,6 +425,21 @@
 				1D568E96189756CC0043AB04 /* FeedFooterView.xib */,
 			);
 			name = Feed;
+			sourceTree = "<group>";
+		};
+		7CB4394918C3EE4900AEA876 /* PDP */ = {
+			isa = PBXGroup;
+			children = (
+				7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */,
+				7C0681B018C2E57100B8BFD6 /* PDPViewController.m */,
+				7CD137FD18C3F43400D534D7 /* LikersCell.h */,
+				7CD137FE18C3F43400D534D7 /* LikersCell.m */,
+				7C070105187398690011845D /* CommentCell.h */,
+				7C070106187398690011845D /* CommentCell.m */,
+				1DB27B151862533800E5C083 /* CommentsViewController.h */,
+				1DB27B161862533800E5C083 /* CommentsViewController.m */,
+			);
+			name = PDP;
 			sourceTree = "<group>";
 		};
 		7CD9507417E657BC00C70956 /* Categories */ = {
@@ -466,9 +471,9 @@
 				1DCD412518083B88007A5D56 /* Login */,
 				7CF39E2117E00D3F003A859F /* Main */,
 				7C7657911825AEA40053483B /* Feed */,
+				7CB4394918C3EE4900AEA876 /* PDP */,
 				1D0A5F6118675EFE0086FE1C /* Notifications */,
 				7CF39E2017E00D3A003A859F /* Camera */,
-				1DB27B111862525D00E5C083 /* Comments */,
 				1DB0C7AE18464DB1002626C8 /* EverythingElse */,
 				1D4A81071854431B007227BB /* EditProfile */,
 			);
@@ -786,6 +791,7 @@
 				1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
 				1D98E9801890357400EE7AE1 /* NotificationHeader.m in Sources */,
+				7CD137FF18C3F43400D534D7 /* LikersCell.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */,
 				1DB27B171862533800E5C083 /* CommentsViewController.m in Sources */,

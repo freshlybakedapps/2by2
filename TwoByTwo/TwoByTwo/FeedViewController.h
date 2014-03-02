@@ -13,7 +13,6 @@
 @interface FeedViewController : UICollectionViewController
 
 @property (nonatomic) FeedType type;
-@property (nonatomic, strong) NSString *photoID;
 @property (nonatomic, strong) PFUser *user;
 
 @end

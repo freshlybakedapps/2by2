@@ -9,6 +9,7 @@
 #import "NotificationsViewController.h"
 #import "FeedViewController.h"
 #import "MainViewController.h"
+#import "PDPViewController.h"
 #import "NSDate+Addon.h"
 #import "NotificationCell.h"
 #import "NotificationHeader.h"
@@ -132,8 +133,7 @@
     NSString* byUserID = notification[@"byUserID"];
     
     if (![photoID isEqualToString:@"0"] && ![photoID isEqualToString:@""]) {
-        FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
-        controller.type = FeedTypePDP;
+        PDPViewController *controller = [PDPViewController controller];
         controller.photoID = photoID;
         [self.navigationController pushViewController:controller animated:YES];
     }

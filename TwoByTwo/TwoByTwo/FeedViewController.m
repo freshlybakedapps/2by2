@@ -7,15 +7,13 @@
 //
 
 #import "FeedViewController.h"
-#import "FeedCell.h"
 #import "CameraViewController.h"
-#import "FeedProfileHeaderView.h"
-#import "FeedHeaderView.h"
-#import "MainViewController.h"
-#import "CommentsViewController.h"
-#import "FeedFooterView.h"
 #import "PDPViewController.h"
+#import "FeedCell.h"
 #import "ThumbCell.h"
+#import "FeedHeaderView.h"
+#import "FeedProfileHeaderView.h"
+#import "FeedFooterView.h"
 
 static NSUInteger const kQueryBatchSize = 20;
 
@@ -36,11 +34,11 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     [super viewDidLoad];
     
-    //Debug
-    NSDictionary *dict = [[NSUbiquitousKeyValueStore defaultStore] dictionaryRepresentation];
-    for (id key in dict.allKeys) {
-        [[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:key];
-    }
+//    //Debug
+//    NSDictionary *dict = [[NSUbiquitousKeyValueStore defaultStore] dictionaryRepresentation];
+//    for (id key in dict.allKeys) {
+//        [[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:key];
+//    }
 
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView"];
@@ -360,10 +358,9 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)cell:(FeedCell *)cell showCommentsForPhoto:(PFObject *)photo
 {
-    CommentsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
-    controller.commentID = photo.objectId;
-    controller.photo = photo;//self.photo.commentCount
-    [self presentViewController:controller animated:YES completion:nil];
+    PDPViewController *controller = [PDPViewController controller];
+    controller.photoID = photo.objectId;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 
