@@ -18,11 +18,9 @@
 #import "ThumbCell.h"
 
 static NSUInteger const kQueryBatchSize = 20;
-static NSUInteger const headerSmall = 81;//36
-static NSUInteger const headerLarge = 165;//113
 
 
-@interface FeedViewController () <FeedCellDelegate>
+@interface FeedViewController () <FeedCellDelegate, FeedHeaderViewDelegate>
 @property (nonatomic, strong) NSMutableArray *objects;
 @property (nonatomic, strong) NSArray *followers;
 @property (nonatomic) NSUInteger totalNumberOfObjects;
@@ -38,13 +36,12 @@ static NSUInteger const headerLarge = 165;//113
 {
     [super viewDidLoad];
     
-    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_%lu",(unsigned long)self.type];
-    if (![[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]){
-        self.headerSize = headerLarge;
+    //Debug
+    NSDictionary *dict = [[NSUbiquitousKeyValueStore defaultStore] dictionaryRepresentation];
+    for (id key in dict.allKeys) {
+        [[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:key];
     }
-    else {
-        self.headerSize = headerSmall;
-    }
+
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView"];
@@ -78,24 +75,6 @@ static NSUInteger const headerLarge = 165;//113
     }
 }
 
-- (void)toggleGridFeed
-{
-    self.showingFeed = !self.showingFeed;
-    [self.collectionView reloadData];
-    
-    //not sure why 64 but without this contentOffset it doesn't scroll to the top
-    self.collectionView.contentOffset = CGPointMake(0, -64.0);
-}
-
-- (void)toggleSingleDouble
-{
-    self.showingDouble = !self.showingDouble;
-    self.objects = nil;
-    [self.collectionView reloadData];
-    
-    [self loadPhotos];
-}
-
 
 #pragma mark - Query
 
@@ -112,12 +91,10 @@ static NSUInteger const headerLarge = 165;//113
 - (void)loadFollowers
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Followers"];
-    if([PFUser currentUser]){
+    if ([PFUser currentUser]) {
         [query whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
     }
-    
     [query selectKeys:@[@"followingUserID"]];
-    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.followers = [objects bk_map:^id(id object) {
@@ -131,13 +108,11 @@ static NSUInteger const headerLarge = 165;//113
             NSLog(@"loadFollowers error: %@", error);
         }
     }];
-    
 }
 
 - (void)loadPhotos
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
-    
     
     switch (self.type) {
         case FeedTypeSingle:
@@ -197,15 +172,6 @@ static NSUInteger const headerLarge = 165;//113
             
             break;
         }
-            
-        case FeedTypePDP:
-//            self.collectionView.collectionViewLayout = self.feedLayout;
-            self.showingFeed = YES;
-            
-            if(self.photoID){
-                [query whereKey:@"objectId" equalTo:self.photoID];
-            }
-            break;
     }
     
     [query includeKey:@"user"];
@@ -214,12 +180,6 @@ static NSUInteger const headerLarge = 165;//113
     
     
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        
-        FeedFooterView* footer = (FeedFooterView*)[self.collectionView viewWithTag:888];
-        
-        if(footer && number < 1){
-            footer.hidden = NO;
-        }
         
         self.totalNumberOfObjects = number;
         query.limit= kQueryBatchSize;
@@ -264,7 +224,6 @@ static NSUInteger const headerLarge = 165;//113
     [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
         NSDate *date = object[@"notificationWasAccessed"];
-        //NSLog(@"notificationWasAccessed: %@", date);
         
         PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
         [query whereKey:@"notificationID" equalTo:object.objectId];
@@ -275,7 +234,6 @@ static NSUInteger const headerLarge = 165;//113
         
         [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if(!error){
-                //NSLog(@"notification count: %d", number);
                 [[NSNotificationCenter defaultCenter] postNotificationName:NoficationDidUpdatePushNotificationCount object:self userInfo:@{NoficationUserInfoKeyCount:@(number)}];
             }
         }];
@@ -284,52 +242,20 @@ static NSUInteger const headerLarge = 165;//113
 
 
 #pragma mark - Collection View
-//self.gridLayout.itemSize = CGSizeMake(78.5, 78.5);
-//self.gridLayout.minimumInteritemSpacing = 2;
-//self.gridLayout.minimumLineSpacing = 2;
-//self.gridLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//self.gridLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-//
-//self.feedLayout = [UICollectionViewFlowLayout new];
-//self.feedLayout.itemSize = CGSizeMake(320, 410);
-//self.feedLayout.minimumInteritemSpacing = 10;
-//self.feedLayout.minimumLineSpacing = 10;
-//self.feedLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//self.feedLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(0, 0, 0, 0);
-}
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return (self.showingFeed) ? 10 : 2;
+    return (self.showingFeed) ? 10.0 : 2.0;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return (self.showingFeed) ? 10 : 2;
+    return (self.showingFeed) ? 10.0 : 2.0;
 }
-
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
-//{
-//    
-//}
-//
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-//{
-//    
-//}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return (self.showingFeed) ? CGSizeMake(320, 410) : CGSizeMake(78.5, 78.5);
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -358,42 +284,17 @@ static NSUInteger const headerLarge = 165;//113
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (!self.showingFeed) {
-        UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-        layout.itemSize = CGSizeMake(320, 410);
-        layout.minimumInteritemSpacing = 10;
-        layout.minimumLineSpacing = 10;
-        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    PFObject *photo = self.objects[indexPath.row];
 
-        PFObject *photo = self.objects[indexPath.row];
-        PDPViewController *controller = [[PDPViewController alloc] initWithCollectionViewLayout:layout];
-        controller.photoID = photo.objectId;
-        [self.navigationController pushViewController:controller animated:YES];
+    if (self.showingFeed && [photo.state isEqualToString:@"half"] && ![photo.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+        CameraViewController *controller = [CameraViewController controller];
+        controller.photo = photo;
+        [self presentViewController:controller animated:YES completion:nil];
     }
     else {
-        PFObject *photo = self.objects[indexPath.row];
-        if([photo.state isEqualToString:@"half"] && ![photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
-            CameraViewController *controller = [CameraViewController controller];
-            controller.photo = self.objects[indexPath.row];
-            [self presentViewController:controller animated:YES completion:nil];
-        }
-        else if (self.type != FeedTypePDP) {
-//            [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
-//            [header toggleFeedFeed];
-        }
-        
-        /*
-         if (self.type == FeedTypeSingle) {
-         CameraViewController *controller = [CameraViewController controller];
-         controller.photo = self.objects[indexPath.row];
-         [self presentViewController:controller animated:YES completion:nil];
-         }
-         */
-        
-        
-        
+        PDPViewController *controller = [PDPViewController controller];
+        controller.photoID = photo.objectId;
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
@@ -405,56 +306,43 @@ static NSUInteger const headerLarge = 165;//113
     switch (self.type) {
         case FeedTypeFriend:
         case FeedTypeYou:
-            return CGSizeMake(0, 225);
+            return CGSizeMake(0, [FeedProfileHeaderView headerHeightForType:self.type]);
             
         default:
-            return CGSizeMake(0, self.headerSize);
+            return CGSizeMake(0, [FeedHeaderView headerHeightForType:self.type]);
     }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    return (self.totalNumberOfObjects == 0) ? CGSizeMake(0, 80) : CGSizeMake(0, 1);
+    return (self.totalNumberOfObjects == 0) ? CGSizeMake(0, 80) : CGSizeMake(0, 1); // Setting CGSizeZero causes crash
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"self.type %u",self.type);
     if (kind == UICollectionElementKindSectionHeader) {
         switch (self.type) {
             case FeedTypeFriend:
             case FeedTypeYou: {
                 FeedProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView" forIndexPath:indexPath];
                 headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
-                headerView.tag = 777;
-                headerView.controller = self;
-                
+                headerView.delegate = self;
                 return headerView;
             }
                 
             default: {
                 FeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView" forIndexPath:indexPath];
-                
-                headerView.tag = 999;
-                headerView.controller = self;
                 headerView.type = self.type;
-                
-                
-                
+                headerView.delegate = self;
                 return headerView;
             }
         }
-
-    }else{
-            FeedFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView" forIndexPath:indexPath];
-            
-            footerView.tag = 888;
-            footerView.showingDouble = self.showingDouble;
-            footerView.type = self.type;
-            
-//                footerView.hidden = (self.totalNumberOfObjects == 0) ? NO :YES;
-        
-            return footerView;
+    }
+    else {
+        FeedFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView" forIndexPath:indexPath];
+        footerView.showingDouble = self.showingDouble;
+        footerView.type = self.type;
+        return footerView;
     }
     return nil;
 }
@@ -476,6 +364,28 @@ static NSUInteger const headerLarge = 165;//113
     controller.commentID = photo.objectId;
     controller.photo = photo;//self.photo.commentCount
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+
+#pragma mark - FeedHeaderViewDelegate
+
+- (void)setShowingFeed:(BOOL)showingFeed
+{
+    _showingFeed = showingFeed;
+    [self.collectionView reloadData];
+}
+
+- (void)setShowingDouble:(BOOL)showingDouble
+{
+    _showingDouble = showingDouble;
+    self.objects = nil;
+    [self.collectionView reloadData];
+    [self loadPhotos];
+}
+
+- (void)updateHeaderHeight
+{
+    [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
 @end

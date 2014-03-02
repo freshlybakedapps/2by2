@@ -26,6 +26,12 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 @implementation PDPViewController
 
++ (instancetype)controller
+{
+    id controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"PDPViewController"];
+    return controller;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

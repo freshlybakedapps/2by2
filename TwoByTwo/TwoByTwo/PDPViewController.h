@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) NSString *photoID;
 
++ (instancetype)controller;
+
 @end

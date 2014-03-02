@@ -6,14 +6,11 @@
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "FeedViewController.h"
+#import "FeedHeaderView.h"
 
 
-@interface FeedProfileHeaderView : UICollectionReusableView
+@interface FeedProfileHeaderView : FeedHeaderView
+
 @property (nonatomic, strong) PFUser *user;
 
-@property (nonatomic, weak) FeedViewController* controller;
-
-- (void) toggleFeedFeed;
 @end
