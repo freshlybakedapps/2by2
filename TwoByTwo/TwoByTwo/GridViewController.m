@@ -14,6 +14,7 @@
 #import "MainViewController.h"
 #import "CommentsViewController.h"
 #import "GridFooterView.h"
+#import "PDPViewController.h"
 
 static NSUInteger const kQueryBatchSize = 20;
 
@@ -59,6 +60,7 @@ static NSUInteger const headerLarge = 165;//113
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView"];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"GridCell" bundle:nil] forCellWithReuseIdentifier:@"GridCell"];
     
     // Setup Layouts
     self.gridLayout = [UICollectionViewFlowLayout new];
@@ -353,11 +355,20 @@ static NSUInteger const headerLarge = 165;//113
     }
     
     if (self.collectionView.collectionViewLayout == self.gridLayout) {
-        [self.collectionView setCollectionViewLayout:self.feedLayout animated:YES];
-        [header toggleGridFeed];
+        UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+        layout.itemSize = CGSizeMake(320, 410);
+        layout.minimumInteritemSpacing = 10;
+        layout.minimumLineSpacing = 10;
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+
+        PFObject *photo = self.objects[indexPath.row];
+        PDPViewController *controller = [[PDPViewController alloc] initWithCollectionViewLayout:layout];
+        controller.photoID = photo.objectId;
+        [self.navigationController pushViewController:controller animated:YES];
     }
     else {
-        PFObject* photo = self.objects[indexPath.row];
+        PFObject *photo = self.objects[indexPath.row];
         if([photo.state isEqualToString:@"half"] && ![photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
             CameraViewController *controller = [CameraViewController controller];
             controller.photo = self.objects[indexPath.row];

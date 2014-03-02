@@ -40,6 +40,8 @@
 		1DD9718A184CD290001D35CA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD97189184CD290001D35CA /* WebViewController.m */; };
 		1DDC01081868E3DF00292DA2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDC01071868E3DF00292DA2 /* Social.framework */; };
 		1DF6A7211884ABD900FB913D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6A7201884ABD900FB913D /* NotificationCell.m */; };
+		7C0681AE18C2E4D200B8BFD6 /* GridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */; };
+		7C0681B118C2E57100B8BFD6 /* PDPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0681B018C2E57100B8BFD6 /* PDPViewController.m */; };
 		7C070107187398690011845D /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C070106187398690011845D /* CommentCell.m */; };
 		7C07010A1873A6B90011845D /* NSDate+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0701091873A6B90011845D /* NSDate+Addon.m */; };
 		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
@@ -145,6 +147,9 @@
 		1DDC01071868E3DF00292DA2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		1DF6A71F1884ABD900FB913D /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
 		1DF6A7201884ABD900FB913D /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
+		7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GridCell.xib; sourceTree = "<group>"; };
+		7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPViewController.h; sourceTree = "<group>"; };
+		7C0681B018C2E57100B8BFD6 /* PDPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPViewController.m; sourceTree = "<group>"; };
 		7C070105187398690011845D /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		7C070106187398690011845D /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		7C0701081873A6B90011845D /* NSDate+Addon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Addon.h"; sourceTree = "<group>"; };
@@ -406,8 +411,11 @@
 			children = (
 				7CF39E1617E00782003A859F /* GridViewController.h */,
 				7CF39E1717E00782003A859F /* GridViewController.m */,
+				7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */,
+				7C0681B018C2E57100B8BFD6 /* PDPViewController.m */,
 				7C76578E1825AE920053483B /* GridCell.h */,
 				7C76578F1825AE920053483B /* GridCell.m */,
+				7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */,
 				7C16CF401839853B007EA62D /* GridProfileHeaderView.h */,
 				7C16CF411839853B007EA62D /* GridProfileHeaderView.m */,
 				7C508F56188B035C00C1334E /* GridProfileHeaderView.xib */,
@@ -676,6 +684,7 @@
 				7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */,
 				7C1BFA41187629F50076EFF2 /* Dosis-Regular.ttf in Resources */,
 				1DD97169184CCDD9001D35CA /* contact.html in Resources */,
+				7C0681AE18C2E4D200B8BFD6 /* GridCell.xib in Resources */,
 				7CF39DF217E0070A003A859F /* Main.storyboard in Resources */,
 				1D568E97189756CC0043AB04 /* GridFooterView.xib in Resources */,
 				7C508F57188B035C00C1334E /* GridProfileHeaderView.xib in Resources */,
@@ -743,6 +752,7 @@
 				1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */,
 				1DF6A7211884ABD900FB913D /* NotificationCell.m in Sources */,
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
+				7C0681B118C2E57100B8BFD6 /* PDPViewController.m in Sources */,
 				1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */,
 				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,
 				7C7657901825AE920053483B /* GridCell.m in Sources */,
