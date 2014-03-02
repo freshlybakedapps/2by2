@@ -1,19 +1,19 @@
 //
-//  GridViewController.m
+//  FeedViewController.m
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 9/10/13.
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "GridViewController.h"
+#import "FeedViewController.h"
 #import "FeedCell.h"
 #import "CameraViewController.h"
-#import "GridProfileHeaderView.h"
-#import "GridTitleHeaderView.h"
+#import "FeedProfileHeaderView.h"
+#import "FeedHeaderView.h"
 #import "MainViewController.h"
 #import "CommentsViewController.h"
-#import "GridFooterView.h"
+#import "FeedFooterView.h"
 #import "PDPViewController.h"
 #import "ThumbCell.h"
 
@@ -22,7 +22,7 @@ static NSUInteger const headerSmall = 81;//36
 static NSUInteger const headerLarge = 165;//113
 
 
-@interface GridViewController () <FeedCellDelegate>
+@interface FeedViewController () <FeedCellDelegate>
 @property (nonatomic, strong) NSMutableArray *objects;
 @property (nonatomic, strong) NSArray *followers;
 @property (nonatomic) NSUInteger totalNumberOfObjects;
@@ -32,7 +32,7 @@ static NSUInteger const headerLarge = 165;//113
 @end
 
 
-@implementation GridViewController
+@implementation FeedViewController
 
 - (void)viewDidLoad
 {
@@ -46,9 +46,9 @@ static NSUInteger const headerLarge = 165;//113
         self.headerSize = headerSmall;
     }
     
-    [self.collectionView registerNib:[UINib nibWithNibName:@"GridTitleHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView"];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"GridProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView"];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"GridFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FeedHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FeedProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FeedFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ThumbCell" bundle:nil] forCellWithReuseIdentifier:@"ThumbCell"];
     
@@ -215,7 +215,7 @@ static NSUInteger const headerLarge = 165;//113
     
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         
-        GridFooterView* footer = (GridFooterView*)[self.collectionView viewWithTag:888];
+        FeedFooterView* footer = (FeedFooterView*)[self.collectionView viewWithTag:888];
         
         if(footer && number < 1){
             footer.hidden = NO;
@@ -381,7 +381,7 @@ static NSUInteger const headerLarge = 165;//113
         }
         else if (self.type != FeedTypePDP) {
 //            [self.collectionView setCollectionViewLayout:self.gridLayout animated:YES];
-//            [header toggleGridFeed];
+//            [header toggleFeedFeed];
         }
         
         /*
@@ -424,7 +424,7 @@ static NSUInteger const headerLarge = 165;//113
         switch (self.type) {
             case FeedTypeFriend:
             case FeedTypeYou: {
-                GridProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView" forIndexPath:indexPath];
+                FeedProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView" forIndexPath:indexPath];
                 headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
                 headerView.tag = 777;
                 headerView.controller = self;
@@ -433,7 +433,7 @@ static NSUInteger const headerLarge = 165;//113
             }
                 
             default: {
-                GridTitleHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView" forIndexPath:indexPath];
+                FeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView" forIndexPath:indexPath];
                 
                 headerView.tag = 999;
                 headerView.controller = self;
@@ -446,7 +446,7 @@ static NSUInteger const headerLarge = 165;//113
         }
 
     }else{
-            GridFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView" forIndexPath:indexPath];
+            FeedFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView" forIndexPath:indexPath];
             
             footerView.tag = 888;
             footerView.showingDouble = self.showingDouble;
@@ -464,7 +464,7 @@ static NSUInteger const headerLarge = 165;//113
 
 - (void)cell:(FeedCell *)cell showProfileForUser:(PFUser *)user
 {
-    GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+    FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
     controller.type = FeedTypeFriend;
     controller.user = user;
     [self.navigationController pushViewController:controller animated:YES];

@@ -1,5 +1,5 @@
 //
-//  GridFooterView.h
+//  FeedFooterView.h
 //  TwoByTwo
 //
 //  Created by John Tubert on 1/27/14.
@@ -10,7 +10,7 @@
 #import "MainViewController.h"
 
 
-@interface GridFooterView : UICollectionReusableView
+@interface FeedFooterView : UICollectionReusableView
 
 @property (nonatomic) FeedType type;
 @property (nonatomic) BOOL showingDouble;

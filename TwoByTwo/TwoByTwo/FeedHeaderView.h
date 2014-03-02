@@ -1,5 +1,5 @@
 //
-//  GridTitleHeaderView.h
+//  FeedTitleHeaderView.h
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 1/18/14.
@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
-#import "GridViewController.h"
+#import "FeedViewController.h"
 
 
-@interface GridTitleHeaderView : UICollectionReusableView
+@interface FeedHeaderView : UICollectionReusableView
 @property (nonatomic) FeedType type;
-@property (nonatomic, weak) GridViewController* controller;
+@property (nonatomic, weak) FeedViewController* controller;
 
 
-- (void) toggleGridFeed;
+- (void) toggleFeedFeed;
 @end

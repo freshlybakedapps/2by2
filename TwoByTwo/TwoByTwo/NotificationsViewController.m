@@ -7,7 +7,7 @@
 //
 
 #import "NotificationsViewController.h"
-#import "GridViewController.h"
+#import "FeedViewController.h"
 #import "MainViewController.h"
 #import "NSDate+Addon.h"
 #import "NotificationCell.h"
@@ -132,13 +132,13 @@
     NSString* byUserID = notification[@"byUserID"];
     
     if (![photoID isEqualToString:@"0"] && ![photoID isEqualToString:@""]) {
-        GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+        FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
         controller.type = FeedTypePDP;
         controller.photoID = photoID;
         [self.navigationController pushViewController:controller animated:YES];
     }
     else {
-        GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+        FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
         controller.type = FeedTypeFriend;
         controller.user = [PFUser objectWithoutDataWithObjectId:byUserID];
         [self.navigationController pushViewController:controller animated:YES];

@@ -9,7 +9,7 @@
 #import "PDPViewController.h"
 #import "FeedCell.h"
 #import "CommentsViewController.h"
-#import "GridViewController.h"
+#import "FeedViewController.h"
 
 typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     CollectionViewSectionMain = 0,
@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 - (void)cell:(FeedCell *)cell showProfileForUser:(PFUser *)user
 {
-    GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
+    FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
     controller.type = FeedTypeFriend;
     controller.user = user;
     [self.navigationController pushViewController:controller animated:YES];

@@ -1,18 +1,18 @@
 //
-//  GridHeaderView.m
+//  FeedHeaderView.m
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 11/17/13.
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "GridProfileHeaderView.h"
+#import "FeedProfileHeaderView.h"
 #import "EditProfileViewController.h"
 #import "EverythingElseViewController.h"
 #import "UIImageView+AFNetworking.h"
 
 
-@interface GridProfileHeaderView ()
+@interface FeedProfileHeaderView ()
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UIButton *followButton;
 @property (nonatomic, weak) IBOutlet UIButton *editButton;
@@ -30,7 +30,7 @@
 @end
 
 
-@implementation GridProfileHeaderView
+@implementation FeedProfileHeaderView
 
 - (void)awakeFromNib
 {
@@ -176,7 +176,7 @@
     [navController pushViewController:controller animated:YES];
 }
 
-- (void) toggleGridFeed{
+- (void) toggleFeedFeed{
     UIImage* thumbs = [UIImage imageNamed:@"toggleThumbs"];
     UIImage* feed = [UIImage imageNamed:@"toggleFeed"];
     if(self.gridToggleButton.currentImage == feed){
@@ -189,7 +189,7 @@
 
 
 - (IBAction)gridToggleButtonTapped:(id)sender{
-    [self toggleGridFeed];
+    [self toggleFeedFeed];
     [self.controller toggleGridFeed];
 }
 

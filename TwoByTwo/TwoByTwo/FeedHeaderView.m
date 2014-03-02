@@ -1,15 +1,15 @@
 //
-//  GridTitleHeaderView.m
+//  FeedTitleHeaderView.m
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 1/18/14.
 //  Copyright (c) 2014 Joseph Lin. All rights reserved.
 //
 
-#import "GridTitleHeaderView.h"
+#import "FeedHeaderView.h"
 
 
-@interface GridTitleHeaderView ()
+@interface FeedHeaderView ()
 @property (nonatomic, weak) IBOutlet UILabel *textLabel;
 @property (nonatomic, weak) IBOutlet UILabel *messageLabel;
 @property (nonatomic, weak) IBOutlet UIButton *closeButton;
@@ -21,7 +21,7 @@
 @end
 
 
-@implementation GridTitleHeaderView
+@implementation FeedHeaderView
 
 - (void)awakeFromNib
 {
@@ -33,7 +33,7 @@
     self.singleExposureLabel.text = @"SINGLE EXPOSURE";
 }
 
-- (void) toggleGridFeed{
+- (void) toggleFeedFeed{
     UIImage* thumbs = [UIImage imageNamed:@"toggleThumbs"];
     UIImage* feed = [UIImage imageNamed:@"toggleFeed"];
     if(self.gridToggleButton.currentImage == feed){
@@ -45,7 +45,7 @@
 }
 
 - (IBAction)gridToggleButtonTapped:(id)sender{
-    [self toggleGridFeed];
+    [self toggleFeedFeed];
     [self.controller toggleGridFeed];
 }
 
