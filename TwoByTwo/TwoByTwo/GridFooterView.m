@@ -30,7 +30,7 @@
     switch (type) {
             
         case FeedTypeYou:
-            if([self.singleOrDouble isEqualToString:@"single"]){
+            if(!self.showingDouble){
                 self.textLabel.text = @"Not much going on here yet. Take a photo by tapping below.";
             }else{
                 self.textLabel.text = @"Not much going on here yet. Go to any single exposed photo and tap on it to create a double exposure";
@@ -40,7 +40,7 @@
             self.textLabel.text = @"Nothing to show here yet, swing by later.";
             break;
         case FeedTypeFriend:
-            if([self.singleOrDouble isEqualToString:@"single"]){
+            if(!self.showingDouble){
                 self.textLabel.text = @"This person doesn't have any single exposed photos.";
             }else{
                 self.textLabel.text = @"This person doesn't have any double exposed photos.";

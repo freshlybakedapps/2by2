@@ -9,13 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
 
+
 @interface GridFooterView : UICollectionReusableView
 
 @property (nonatomic) FeedType type;
-@property (nonatomic) int count;
-@property (nonatomic, weak) NSString* singleOrDouble;
-
-
-
+@property (nonatomic) BOOL showingDouble;
 
 @end

@@ -18,20 +18,17 @@
 #import "ThumbCell.h"
 
 static NSUInteger const kQueryBatchSize = 20;
-
 static NSUInteger const headerSmall = 81;//36
 static NSUInteger const headerLarge = 165;//113
 
 
 @interface GridViewController () <FeedCellDelegate>
-//@property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
-//@property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
 @property (nonatomic, strong) NSMutableArray *objects;
 @property (nonatomic, strong) NSArray *followers;
 @property (nonatomic) NSUInteger totalNumberOfObjects;
 @property (nonatomic) NSUInteger queryOffset;
-@property (nonatomic, strong) NSString *singleOrDouble;
 @property (nonatomic) BOOL showingFeed;
+@property (nonatomic) BOOL showingDouble;
 @end
 
 
@@ -42,47 +39,18 @@ static NSUInteger const headerLarge = 165;//113
     [super viewDidLoad];
     
     NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_%lu",(unsigned long)self.type];
-    //[[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:keyStoreValue];
-    //[[NSUbiquitousKeyValueStore defaultStore] synchronize];
-    
-    if(![[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]){
+    if (![[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]){
         self.headerSize = headerLarge;
-    }else{
-        self.headerSize = headerSmall;
     }
-    
-    self.singleOrDouble = @"single";
-    
-    if(self.type == FeedTypePDP){
-        self.title = @"Details";
-        self.headerSize = 0;
+    else {
+        self.headerSize = headerSmall;
     }
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridTitleHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridTitleHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView"];
-    
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ThumbCell" bundle:nil] forCellWithReuseIdentifier:@"ThumbCell"];
-    
-    // Setup Layouts
-//    self.gridLayout = [UICollectionViewFlowLayout new];
-//    self.gridLayout.itemSize = CGSizeMake(78.5, 78.5);
-//    self.gridLayout.minimumInteritemSpacing = 2;
-//    self.gridLayout.minimumLineSpacing = 2;
-//    self.gridLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//    self.gridLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-//    
-//    self.feedLayout = [UICollectionViewFlowLayout new];
-//    self.feedLayout.itemSize = CGSizeMake(320, 410);
-//    self.feedLayout.minimumInteritemSpacing = 10;
-//    self.feedLayout.minimumLineSpacing = 10;
-//    self.feedLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//    self.feedLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-//    
-//    self.collectionView.collectionViewLayout = self.gridLayout;
-    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     
     // Load Data
@@ -110,39 +78,24 @@ static NSUInteger const headerLarge = 165;//113
     }
 }
 
-
-- (void) toggleGridFeed
+- (void)toggleGridFeed
 {
-//    if(self.collectionView.collectionViewLayout == self.gridLayout){
-//        self.collectionView.collectionViewLayout = self.feedLayout;
-////        [self.collectionView setCollectionViewLayout:self.feedLayout animated:NO];
-//    }else{
-//        self.collectionView.collectionViewLayout = self.gridLayout;
-////        [self.collectionView setCollectionViewLayout:self.gridLayout animated:NO];
-//    }
     self.showingFeed = !self.showingFeed;
     [self.collectionView reloadData];
-    
     
     //not sure why 64 but without this contentOffset it doesn't scroll to the top
     self.collectionView.contentOffset = CGPointMake(0, -64.0);
 }
 
-- (void) toggleSingleDouble{
-    if([self.singleOrDouble isEqualToString:@"single"]){
-        //NSLog(@"single");
-        self.singleOrDouble = @"double";
-    }else{
-        //NSLog(@"double");
-        self.singleOrDouble = @"single";
-    }
-    
+- (void)toggleSingleDouble
+{
+    self.showingDouble = !self.showingDouble;
     self.objects = nil;
     [self.collectionView reloadData];
     
     [self loadPhotos];
-    
 }
+
 
 #pragma mark - Query
 
@@ -209,7 +162,7 @@ static NSUInteger const headerLarge = 165;//113
             
             query = [PFQuery orQueryWithSubqueries:@[userQuery,userFullQuery]];
             
-            if([self.singleOrDouble isEqualToString:@"single"]){
+            if(!self.showingDouble){
                 [query whereKey:@"state" equalTo:@"half"];
             }else{
                 [query whereKey:@"state" equalTo:@"full"];
@@ -222,7 +175,7 @@ static NSUInteger const headerLarge = 165;//113
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", [PFUser currentUser], [PFUser currentUser]];
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
             
-            if([self.singleOrDouble isEqualToString:@"single"]){
+            if(!self.showingDouble){
                 [query whereKey:@"state" equalTo:@"half"];
             }else{
                 [query whereKey:@"state" equalTo:@"full"];
@@ -235,7 +188,7 @@ static NSUInteger const headerLarge = 165;//113
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", self.user, self.user];
             query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
             
-            if([self.singleOrDouble isEqualToString:@"single"]){
+            if(!self.showingDouble){
                 [query whereKey:@"state" equalTo:@"half"];
             }else{
                 [query whereKey:@"state" equalTo:@"full"];
@@ -406,14 +359,6 @@ static NSUInteger const headerLarge = 165;//113
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    id header;
-    
-    if(self.type == FeedTypeFriend || self.type == FeedTypeYou) {
-        header = (GridProfileHeaderView*)[self.collectionView viewWithTag:777];
-    }else{
-        header = (GridTitleHeaderView*)[self.collectionView viewWithTag:999];
-    }
-    
     if (!self.showingFeed) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         layout.itemSize = CGSizeMake(320, 410);
@@ -469,7 +414,7 @@ static NSUInteger const headerLarge = 165;//113
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    return CGSizeMake(0, 80);
+    return (self.totalNumberOfObjects == 0) ? CGSizeMake(0, 80) : CGSizeMake(0, 1);
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -501,18 +446,15 @@ static NSUInteger const headerLarge = 165;//113
         }
 
     }else{
-        
             GridFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView" forIndexPath:indexPath];
             
             footerView.tag = 888;
-            footerView.singleOrDouble = self.singleOrDouble;
+            footerView.showingDouble = self.showingDouble;
             footerView.type = self.type;
-            footerView.count = self.objects.count;
             
-            footerView.hidden = YES;
-            
-            return footerView;
+//                footerView.hidden = (self.totalNumberOfObjects == 0) ? NO :YES;
         
+            return footerView;
     }
     return nil;
 }
