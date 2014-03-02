@@ -10,41 +10,30 @@
 #import "UserAnnotation.h"
 #import "MKMapView+Utilities.h"
 #import "UIImageView+AFNetworking.h"
-
 #import "BlocksKit+UIKit.h"
 
-typedef NS_ENUM(NSUInteger, FlagType) {
-    FlagTypeInnapropiate = 0,
-    FlagTypeSpam,
-    FlagTypeScam,
-    FlagTypeStolen,
-};
 
-
-@interface FeedCell () <MKMapViewDelegate>
-//@property (nonatomic, strong) MKMapView *mapView;
-@property (nonatomic, strong) UIImageView *mapView;
-@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@interface FeedCell ()
 @property (nonatomic, weak) IBOutlet UIView *headerView;
 @property (nonatomic, weak) IBOutlet UIImageView *firstUserImageView;
 @property (nonatomic, weak) IBOutlet UIImageView *secondUserImageView;
 @property (nonatomic, weak) IBOutlet UIButton *firstUserButton;
 @property (nonatomic, weak) IBOutlet UIButton *secondUserButton;
+
+@property (nonatomic, weak) IBOutlet UIView *containerView;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (nonatomic, weak) IBOutlet UIButton *mapCloseButton;
+@property (nonatomic, weak) IBOutlet UIView *mapInfoView;
+@property (nonatomic, weak) IBOutlet UIImageView *mapFirstUserImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *mapSecondUserImageView;
+@property (nonatomic, weak) IBOutlet UILabel *mapFirstUserLabel;
+@property (nonatomic, weak) IBOutlet UILabel *mapSecondUserLabel;
+
 @property (nonatomic, weak) IBOutlet UIView *footerView;
 @property (nonatomic, weak) IBOutlet UIButton *likeButton;
 @property (nonatomic, weak) IBOutlet UIButton *commentButton;
-//@property (nonatomic, weak) IBOutlet UILabel *filterLabel;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
-@property (nonatomic, weak) IBOutlet UIButton *mapCloseButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
-
-@property (nonatomic, weak) IBOutlet UIView *mapOverlay;
-@property (nonatomic, weak) IBOutlet UILabel *mapOverlayYou;
-@property (nonatomic, weak) IBOutlet UILabel *mapOverlayUsername;
-@property (nonatomic, strong) IBOutlet UIImageView *mapOverlayPinGreen;
-@property (nonatomic, strong) IBOutlet UIImageView *mapOverlayPinRed;
-
-@property (nonatomic, strong) NSMutableArray* nLikes;
 @end
 
 
@@ -54,13 +43,6 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 {
     [super awakeFromNib];
     
-    self.mapOverlay.hidden = YES;
-    self.mapCloseButton.hidden = YES;
-    self.mapOverlayPinRed.hidden = YES;
-    self.mapOverlayUsername.hidden = YES;
-    self.mapOverlayUsername.font = [UIFont appMediumFontOfSize:14];
-    self.mapOverlayYou.font = [UIFont appMediumFontOfSize:14];
-    
     self.firstUserImageView.layer.cornerRadius = CGRectGetWidth(self.firstUserImageView.frame) * 0.5;
     self.secondUserImageView.layer.cornerRadius = CGRectGetWidth(self.secondUserImageView.frame) * 0.5;
     
@@ -68,25 +50,8 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     self.secondUserButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.likeButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.commentButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
-}
-
-// Without this, contentView's subviews won't be animated properly.
-- (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
-{
-    [self layoutIfNeeded];
-    
-    if (CGRectGetWidth(layoutAttributes.frame) > 100) {
-        self.headerView.alpha = self.footerView.alpha = 1.0;
-        //self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, 50.0, self.imageView.frame.size.width, self.imageView.frame.size.height);
-    }
-    else {
-        if (self.photo.showMap) {
-            self.photo.showMap = NO;
-            [self showImageOrMapAnimated:YES];
-        }
-        self.headerView.alpha = self.footerView.alpha = 0.0;
-        
-    }
+    self.mapSecondUserLabel.font = [UIFont appMediumFontOfSize:14];
+    self.mapFirstUserLabel.font = [UIFont appMediumFontOfSize:14];
 }
 
 
@@ -116,23 +81,13 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     }
 
     
-    // Photo
-    self.imageView.image = nil;
-    PFFile *file = ([self.photo.state isEqualToString:@"full"]) ? self.photo.imageFull : self.photo.imageHalf;
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        if (!error) {
-            UIImage *image = [UIImage imageWithData:data];
-            weakSelf.imageView.image = image;
-        }
-        else {
-            NSLog(@"getDataInBackgroundWithBlock: %@", error);
-        }
-    }];
-    
+    // Main
+    self.photo.showMap = NO;
+    [self showImageOrMapAnimated:NO];
+
     
     // Likes
     [self updateLikeButton];
-    
     
     
     // Comments
@@ -148,15 +103,6 @@ typedef NS_ENUM(NSUInteger, FlagType) {
         }];
     }
     
-
-    // Filter
-    //self.filterLabel.text = photo[@"filter"];
-
-
-    // Map
-    self.photo.showMap = NO;
-    [self showImageOrMapAnimated:NO];
-
     
     // Flag or Delte
     if (photo.canDelete) {
@@ -169,13 +115,97 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     }
 }
 
+- (void)showPhoto
+{
+    __weak typeof(self) weakSelf = self;
+
+    self.imageView.image = nil;
+    PFFile *file = ([self.photo.state isEqualToString:@"full"]) ? self.photo.imageFull : self.photo.imageHalf;
+    if (file.isDataAvailable) {
+        UIImage *image = [UIImage imageWithData:file.getData];
+        self.imageView.image = image;
+    }
+    else {
+        [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:data];
+                weakSelf.imageView.image = image;
+            }
+            else {
+                NSLog(@"getDataInBackgroundWithBlock: %@", error);
+            }
+        }];
+    }
+}
+
+- (void)showMap
+{
+    NSString *markers;
+    if (self.photo.locationHalf) {
+        markers = [NSString stringWithFormat:@"&markers=icon:http://2by2.parseapp.com/images/red.png|color:0x00cc99|%f,%f", self.photo.locationHalf.latitude, self.photo.locationHalf.longitude];
+    }
+    if ([self.photo.state isEqualToString:@"full"] && self.photo.locationFull) {
+        markers = [NSString stringWithFormat:@"%@&markers=icon:http://2by2.parseapp.com/images/green.png|color:0xff3366|%f,%f", markers, self.photo.locationFull.latitude, self.photo.locationFull.longitude];
+    }
+    
+    NSString *mapURLString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&style=lightness:-57|saturation:-100&size=640x640&maptype=roadmap%@&sensor=false", markers];
+    mapURLString = [mapURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *URL = [NSURL URLWithString:mapURLString];
+    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
+    
+    
+    if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
+        if ([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
+            self.mapFirstUserLabel.text = @"You!";
+        }
+        else {
+            self.mapFirstUserLabel.text = self.photo.user.username;
+        }
+    }
+    else {
+        if ([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
+            self.mapFirstUserLabel.text = @"You!(?)";
+        }
+        else {
+            self.mapFirstUserLabel.text = [NSString stringWithFormat:@"%@(?)", self.photo.user.username];
+        }
+    }
+    
+    if (self.photo.locationFull) {
+        self.mapSecondUserImageView.hidden = NO;
+        self.mapSecondUserLabel.hidden = NO;
+    }
+    else {
+        self.mapSecondUserImageView.hidden = YES;
+        self.mapSecondUserLabel.hidden = YES;
+    }
+    
+    if (self.photo.locationFull && self.photo.locationFull.latitude != 0) {
+        if ([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]) {
+            self.mapSecondUserLabel.text = @"You!";
+        }
+        else {
+            self.mapSecondUserLabel.text = self.photo.userFull.username;
+        }
+        
+    }
+    else {
+        if ([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]) {
+            self.mapSecondUserLabel.text = @"You!(?)";
+        } else {
+            self.mapSecondUserLabel.text = [NSString stringWithFormat:@"%@(?)", self.photo.userFull.username];
+        }
+    }
+}
+
+- (void)updateLikeButton
+{
+    self.likeButton.selected = self.photo.likedByMe;
+    [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.photo.likes.count] forState:UIControlStateNormal];
+}
+
 
 #pragma mark - Actions
-
-- (IBAction)closeMap:(id)sender
-{
-    
-}
 
 - (IBAction)userButtonTapped:(id)sender
 {
@@ -194,8 +224,6 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 
 - (IBAction)likeButtonTapped:(id)sender
 {
-//    NSArray *oldLikes = self.photo.likes;
-
     NSMutableArray *newLikes = [self.photo.likes mutableCopy];
     if (self.photo.likedByMe) {
         [newLikes removeObject:[PFUser currentUser].objectId];
@@ -207,14 +235,11 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     [self updateLikeButton];
     
     
-//    __weak typeof(self) weakSelf = self;
     PFUser *user = [PFUser currentUser];
     NSDictionary *params = @{@"objectid":self.photo.objectId, @"userWhoLikedID":user.objectId, @"userWhoLikedUsername":user.username};
     [PFCloud callFunctionInBackground:@"likePhoto" withParameters:params block:^(NSNumber *result, NSError *error) {
         if (error) {
             NSLog(@"likePhoto error: %@", error);
-            //weakSelf.photo.likes = oldLikes;
-            //[weakSelf updateLikeButton];
         }
         else {
             NSLog(@"likePhoto successfull");
@@ -228,12 +253,6 @@ typedef NS_ENUM(NSUInteger, FlagType) {
                                  @"likeCount": [NSString stringWithFormat:@"%lu",(unsigned long)self.photo.likes.count],
                                  };
     [PFAnalytics trackEvent:@"like_or_unlike" dimensions:dimensions];
-}
-
-- (void)updateLikeButton
-{
-    self.likeButton.selected = self.photo.likedByMe;
-    [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.photo.likes.count] forState:UIControlStateNormal];
 }
 
 - (IBAction)toolButtonTapped:(id)sender
@@ -251,16 +270,16 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     else {
         UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"Flagging this photo" message:@"Choose a reason for flagging:"];
         [alert bk_addButtonWithTitle:@"This photo is inappropriate" handler:^{
-            [self flagWithType:FlagTypeInnapropiate];
+            [self flagWithType:@"FlagTypeInnapropiate"];
         }];
         [alert bk_addButtonWithTitle:@"This photo is a spam" handler:^{
-            [self flagWithType:FlagTypeSpam];
+            [self flagWithType:@"FlagTypeSpam"];
         }];
         [alert bk_addButtonWithTitle:@"This photo is a scam" handler:^{
-            [self flagWithType:FlagTypeScam];
+            [self flagWithType:@"FlagTypeScam"];
         }];
         [alert bk_addButtonWithTitle:@"This photo displays stolen content" handler:^{
-            [self flagWithType:FlagTypeStolen];
+            [self flagWithType:@"FlagTypeStolen"];
         }];
         [alert bk_setCancelButtonWithTitle:@"CANCEL" handler:^{
             
@@ -277,28 +296,10 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     [PFAnalytics trackEvent:@"flag_or_delete_photo" dimensions:dimensions];
 }
 
-- (void)flagWithType:(FlagType)type
+- (void)flagWithType:(NSString *)type
 {
-    NSString* typeString = @"";
-    switch (type) {
-        case FlagTypeInnapropiate:
-            typeString = @"FlagTypeInnapropiate";
-            break;
-        case FlagTypeScam:
-            typeString = @"FlagTypeScam";
-            break;
-        case FlagTypeSpam:
-            typeString = @"FlagTypeSpam";
-            break;
-        case FlagTypeStolen:
-            typeString = @"FlagTypeStolen";
-            break;
-        default:
-            break;
-    }
-    
     [PFCloud callFunctionInBackground:@"flagPhoto"
-                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoFlagged":[PFUser currentUser].username, @"type":typeString}
+                       withParameters:@{@"objectid":self.photo.objectId, @"userWhoFlagged":[PFUser currentUser].username, @"type":type}
                                 block:^(NSString *result, NSError *error) {
                                     if (error) {
                                         NSLog(@"flagPhoto error: %@", error);
@@ -310,36 +311,31 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 {
     self.photo.showMap = !self.photo.showMap;
     [self showImageOrMapAnimated:YES];
-    if(self.photo.showMap){
-        [self.mapButton setImage:[UIImage imageNamed:@"map_Active"] forState:UIControlStateNormal];
-        self.mapCloseButton.hidden = NO;
-    }else{
-        [self.mapButton setImage:[UIImage imageNamed:@"map"] forState:UIControlStateNormal];
-        self.mapCloseButton.hidden = YES;
-    }
 }
 
 - (void)showImageOrMapAnimated:(BOOL)animated
 {
-    self.mapOverlay.hidden = YES;
-    
     void (^action)(void) = ^{
         if (self.photo.showMap) {
-            [self.imageView addSubview:self.mapView];
+            [self.mapButton setImage:[UIImage imageNamed:@"map_Active"] forState:UIControlStateNormal];
+            self.mapCloseButton.hidden = NO;
+            self.mapInfoView.hidden = NO;
+            [self showMap];
         }
         else {
-            [self.mapView removeFromSuperview];
-            self.mapView = nil;
+            [self.mapButton setImage:[UIImage imageNamed:@"map"] forState:UIControlStateNormal];
+            self.mapCloseButton.hidden = YES;
+            self.mapInfoView.hidden = YES;
+            [self showPhoto];
         }
     };
     
     if (animated) {
-        [UIView transitionWithView:self.imageView
+        [UIView transitionWithView:self.containerView
                           duration:0.5
                            options:(self.photo.showMap) ? UIViewAnimationOptionTransitionFlipFromRight : UIViewAnimationOptionTransitionFlipFromLeft
                         animations:action
-                        completion:^(BOOL b){
-                            self.mapOverlay.hidden = (self.photo.showMap) ? NO:YES;
+                        completion:^(BOOL finished) {
                         }];
     }
     else {
@@ -347,84 +343,14 @@ typedef NS_ENUM(NSUInteger, FlagType) {
     }
 }
 
-
+/*
+ 
 #pragma mark - Map
 
-
-- (UIImageView *)mapView
-{
-    if (!_mapView) {
-        
-        _mapView = [[UIImageView alloc] initWithFrame:self.imageView.bounds];
-        
-        NSString* markers;
-        
-        if(self.photo.locationHalf){
-            markers = [NSString stringWithFormat:@"&markers=icon:http://2by2.parseapp.com/images/red.png|color:0x00cc99|%f,%f",self.photo.locationHalf.latitude,self.photo.locationHalf.longitude];
-        }
-        
-        if([self.photo.state isEqualToString:@"full"] && self.photo.locationFull){
-            
-            markers = [NSString stringWithFormat:@"%@&markers=icon:http://2by2.parseapp.com/images/green.png|color:0xff3366|%f,%f",markers,self.photo.locationFull.latitude,self.photo.locationFull.longitude];
-        }
-        
-        NSString *mapImageURL = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&style=lightness:-57|saturation:-100&size=320x370&maptype=roadmap%@&sensor=false",markers];
-        
-        NSString *escappedURL = [mapImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSLog(@"MapImageURL: %@",escappedURL);
-
-        NSURL *URL = [NSURL URLWithString:escappedURL];
-
-        
-        [_mapView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
-        
-        if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
-            if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
-                self.mapOverlayYou.text = @"You!";
-            }else{
-                self.mapOverlayYou.text = self.photo.user.username;
-            }
-            
-        }else{
-            if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
-                self.mapOverlayYou.text = @"You!(?)";
-            }else{
-                self.mapOverlayYou.text = [NSString stringWithFormat:@"%@(?)",self.photo.user.username];
-            }
-        }
-        
-        if (self.photo.locationFull){
-            self.mapOverlayPinRed.hidden = NO;
-            self.mapOverlayUsername.hidden = NO;
-        }
-        
-        if (self.photo.locationFull && self.photo.locationFull.latitude != 0) {
-            if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
-                self.mapOverlayUsername.text = @"You!";
-            }else{
-                self.mapOverlayUsername.text = self.photo.userFull.username;
-            }
-            
-        }else{
-            if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
-                self.mapOverlayUsername.text = @"You!(?)";
-            }else{
-                self.mapOverlayUsername.text = [NSString stringWithFormat:@"%@(?)",self.photo.userFull.username];
-            }
-        }
-
-        
-        
-    }
-    return _mapView;
-}
-
-/*
 - (MKMapView *)mapView
 {
     if (!_mapView) {
-        
+ 
         _mapView = [[MKMapView alloc] initWithFrame:self.imageView.bounds];
         _mapView.userInteractionEnabled = NO;
         _mapView.delegate = self;
