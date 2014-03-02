@@ -40,7 +40,7 @@
 		1DD9718A184CD290001D35CA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD97189184CD290001D35CA /* WebViewController.m */; };
 		1DDC01081868E3DF00292DA2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDC01071868E3DF00292DA2 /* Social.framework */; };
 		1DF6A7211884ABD900FB913D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF6A7201884ABD900FB913D /* NotificationCell.m */; };
-		7C0681AE18C2E4D200B8BFD6 /* GridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */; };
+		7C0681AE18C2E4D200B8BFD6 /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C0681AD18C2E4D200B8BFD6 /* FeedCell.xib */; };
 		7C0681B118C2E57100B8BFD6 /* PDPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0681B018C2E57100B8BFD6 /* PDPViewController.m */; };
 		7C0681B918C2F13C00B8BFD6 /* ThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0681B818C2F13C00B8BFD6 /* ThumbCell.m */; };
 		7C0681BB18C2F14600B8BFD6 /* ThumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C0681BA18C2F14600B8BFD6 /* ThumbCell.xib */; };
@@ -62,7 +62,7 @@
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
 		7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578A1825962A0053483B /* UIWindow+Animation.m */; };
 		7C76578D182597930053483B /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C76578C182597930053483B /* Login.storyboard */; };
-		7C7657901825AE920053483B /* GridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578F1825AE920053483B /* GridCell.m */; };
+		7C7657901825AE920053483B /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578F1825AE920053483B /* FeedCell.m */; };
 		7C7E2934183043D60036557E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7E2933183043D60036557E /* MapKit.framework */; };
 		7C7E2937183052120036557E /* UserAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E2936183052120036557E /* UserAnnotation.m */; };
 		7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293918305ACA0036557E /* MKMapView+Utilities.m */; };
@@ -149,7 +149,7 @@
 		1DDC01071868E3DF00292DA2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		1DF6A71F1884ABD900FB913D /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
 		1DF6A7201884ABD900FB913D /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
-		7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GridCell.xib; sourceTree = "<group>"; };
+		7C0681AD18C2E4D200B8BFD6 /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPViewController.h; sourceTree = "<group>"; };
 		7C0681B018C2E57100B8BFD6 /* PDPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDPViewController.m; sourceTree = "<group>"; };
 		7C0681B718C2F13C00B8BFD6 /* ThumbCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbCell.h; sourceTree = "<group>"; };
@@ -184,8 +184,8 @@
 		7C7657891825962A0053483B /* UIWindow+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Animation.h"; sourceTree = "<group>"; };
 		7C76578A1825962A0053483B /* UIWindow+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Animation.m"; sourceTree = "<group>"; };
 		7C76578C182597930053483B /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		7C76578E1825AE920053483B /* GridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridCell.h; sourceTree = "<group>"; };
-		7C76578F1825AE920053483B /* GridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridCell.m; sourceTree = "<group>"; };
+		7C76578E1825AE920053483B /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
+		7C76578F1825AE920053483B /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCell.m; sourceTree = "<group>"; };
 		7C7E2933183043D60036557E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7C7E2935183052120036557E /* UserAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAnnotation.h; sourceTree = "<group>"; };
 		7C7E2936183052120036557E /* UserAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAnnotation.m; sourceTree = "<group>"; };
@@ -421,9 +421,9 @@
 				7C0681B718C2F13C00B8BFD6 /* ThumbCell.h */,
 				7C0681B818C2F13C00B8BFD6 /* ThumbCell.m */,
 				7C0681BA18C2F14600B8BFD6 /* ThumbCell.xib */,
-				7C76578E1825AE920053483B /* GridCell.h */,
-				7C76578F1825AE920053483B /* GridCell.m */,
-				7C0681AD18C2E4D200B8BFD6 /* GridCell.xib */,
+				7C76578E1825AE920053483B /* FeedCell.h */,
+				7C76578F1825AE920053483B /* FeedCell.m */,
+				7C0681AD18C2E4D200B8BFD6 /* FeedCell.xib */,
 				7C16CF401839853B007EA62D /* GridProfileHeaderView.h */,
 				7C16CF411839853B007EA62D /* GridProfileHeaderView.m */,
 				7C508F56188B035C00C1334E /* GridProfileHeaderView.xib */,
@@ -693,7 +693,7 @@
 				7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */,
 				7C1BFA41187629F50076EFF2 /* Dosis-Regular.ttf in Resources */,
 				1DD97169184CCDD9001D35CA /* contact.html in Resources */,
-				7C0681AE18C2E4D200B8BFD6 /* GridCell.xib in Resources */,
+				7C0681AE18C2E4D200B8BFD6 /* FeedCell.xib in Resources */,
 				7CF39DF217E0070A003A859F /* Main.storyboard in Resources */,
 				1D568E97189756CC0043AB04 /* GridFooterView.xib in Resources */,
 				7C508F57188B035C00C1334E /* GridProfileHeaderView.xib in Resources */,
@@ -764,7 +764,7 @@
 				7C0681B118C2E57100B8BFD6 /* PDPViewController.m in Sources */,
 				1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */,
 				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,
-				7C7657901825AE920053483B /* GridCell.m in Sources */,
+				7C7657901825AE920053483B /* FeedCell.m in Sources */,
 				7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,

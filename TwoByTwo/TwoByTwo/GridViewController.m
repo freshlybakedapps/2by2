@@ -7,7 +7,7 @@
 //
 
 #import "GridViewController.h"
-#import "GridCell.h"
+#import "FeedCell.h"
 #import "CameraViewController.h"
 #import "GridProfileHeaderView.h"
 #import "GridTitleHeaderView.h"
@@ -23,7 +23,7 @@ static NSUInteger const headerSmall = 81;//36
 static NSUInteger const headerLarge = 165;//113
 
 
-@interface GridViewController () <GridCellDelegate>
+@interface GridViewController () <FeedCellDelegate>
 @property (nonatomic, strong) UICollectionViewFlowLayout *gridLayout;
 @property (nonatomic, strong) UICollectionViewFlowLayout *feedLayout;
 @property (nonatomic, strong) NSMutableArray *objects;
@@ -61,7 +61,7 @@ static NSUInteger const headerLarge = 165;//113
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"GridProfileHeaderView"];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"GridFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"GridFooterView"];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"GridCell" bundle:nil] forCellWithReuseIdentifier:@"GridCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ThumbCell" bundle:nil] forCellWithReuseIdentifier:@"ThumbCell"];
     
     // Setup Layouts
@@ -345,7 +345,7 @@ static NSUInteger const headerLarge = 165;//113
         return cell;
     }
     else {
-        GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
+        FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
         cell.photo = self.objects[indexPath.row];
         cell.delegate = self;
         return cell;
@@ -467,9 +467,9 @@ static NSUInteger const headerLarge = 165;//113
 }
 
 
-#pragma mark - GridCell Delegate
+#pragma mark - FeedCell Delegate
 
-- (void)cell:(GridCell *)cell showProfileForUser:(PFUser *)user
+- (void)cell:(FeedCell *)cell showProfileForUser:(PFUser *)user
 {
     GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
     controller.type = FeedTypeFriend;
@@ -477,7 +477,7 @@ static NSUInteger const headerLarge = 165;//113
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)cell:(GridCell *)cell showCommentsForPhoto:(PFObject *)photo
+- (void)cell:(FeedCell *)cell showCommentsForPhoto:(PFObject *)photo
 {
     CommentsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
     controller.commentID = photo.objectId;

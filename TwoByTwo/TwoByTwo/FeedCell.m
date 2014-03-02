@@ -1,12 +1,12 @@
 //
-//  GridCell.m
+//  FeedCell.m
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 11/2/13.
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "GridCell.h"
+#import "FeedCell.h"
 #import "UserAnnotation.h"
 #import "MKMapView+Utilities.h"
 #import "UIImageView+AFNetworking.h"
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 };
 
 
-@interface GridCell () <MKMapViewDelegate>
+@interface FeedCell () <MKMapViewDelegate>
 //@property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) UIImageView *mapView;
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger, FlagType) {
 @end
 
 
-@implementation GridCell
+@implementation FeedCell
 
 - (void)awakeFromNib
 {

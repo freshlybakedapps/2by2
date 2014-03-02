@@ -7,7 +7,7 @@
 //
 
 #import "PDPViewController.h"
-#import "GridCell.h"
+#import "FeedCell.h"
 #import "CommentsViewController.h"
 #import "GridViewController.h"
 
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
     self.title = @"Details";
     
-    [self.collectionView registerNib:[UINib nibWithNibName:@"GridCell" bundle:nil] forCellWithReuseIdentifier:@"GridCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
 
     // Load Data
     [self performQuery];
@@ -76,7 +76,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    GridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridCell" forIndexPath:indexPath];
+    FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
     cell.photo = self.photo;
     cell.delegate = self;
     return cell;
@@ -86,9 +86,9 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 {
 }
 
-#pragma mark - GridCell Delegate
+#pragma mark - FeedCell Delegate
 
-- (void)cell:(GridCell *)cell showProfileForUser:(PFUser *)user
+- (void)cell:(FeedCell *)cell showProfileForUser:(PFUser *)user
 {
     GridViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
     controller.type = FeedTypeFriend;
@@ -96,7 +96,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)cell:(GridCell *)cell showCommentsForPhoto:(PFObject *)photo
+- (void)cell:(FeedCell *)cell showCommentsForPhoto:(PFObject *)photo
 {
     CommentsViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CommentsViewController"];
     controller.commentID = photo.objectId;
