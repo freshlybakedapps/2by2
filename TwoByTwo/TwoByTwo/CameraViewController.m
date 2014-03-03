@@ -13,6 +13,7 @@
 #import "UIImage+Addon.h"
 #import <Social/Social.h>
 #import "CustomPickerView.h"
+#import "PDPViewController.h"
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
@@ -334,8 +335,16 @@ static CGFloat const kImageSize = 320.0;
                 double delayInSeconds = 0.5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                    [weakSelf dismissViewControllerAnimated:YES completion:^{
-                    }];
+                    id presentingViewController = weakSelf.presentingViewController;
+                    if ([presentingViewController isKindOfClass:[UINavigationController class]]) {
+                        id topController = [[presentingViewController viewControllers] lastObject];
+                        if (![topController isKindOfClass:[PDPViewController class]]) {   
+                            PDPViewController *controller = [PDPViewController controller];
+                            controller.photoID = weakSelf.photo.objectId;
+                            [presentingViewController pushViewController:controller animated:NO];
+                        }
+                    }
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
                 });
                 
                 

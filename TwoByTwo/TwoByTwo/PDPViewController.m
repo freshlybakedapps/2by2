@@ -8,6 +8,7 @@
 
 #import "PDPViewController.h"
 #import "FeedViewController.h"
+#import "CameraViewController.h"
 #import "FeedCell.h"
 #import "LikersCell.h"
 #import "CommentCell.h"
@@ -45,9 +46,11 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
+}
 
-    // Load Data
-    [self performPhotoQuery];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     __weak typeof(self) weakSelf = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
@@ -55,11 +58,15 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
         rect.size.height = keyboardFrameInView.origin.y;
         weakSelf.view.frame = rect;
     }];
+    
+    // Load Data
+    [self performPhotoQuery];
 }
 
-- (void)dealloc
+- (void)viewDidDisappear:(BOOL)animated
 {
     [self.view removeKeyboardControl];
+    [super viewDidDisappear:animated];
 }
 
 
@@ -166,7 +173,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             cell.didSendComment = ^(PFObject *comment){
                 [weakSelf.collectionView performBatchUpdates:^{
                     
-                    NSIndexPath *commentIndexPath = [NSIndexPath indexPathForItem:self.comments.count inSection:CollectionViewSectionComments];
+                    NSIndexPath *commentIndexPath = [NSIndexPath indexPathForItem:weakSelf.comments.count inSection:CollectionViewSectionComments];
                     weakSelf.comments = [weakSelf.comments arrayByAddingObject:comment];
                     [weakSelf.collectionView insertItemsAtIndexPaths:@[commentIndexPath]];
                     
@@ -181,6 +188,15 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             };
             return cell;
         }
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == CollectionViewSectionMain && [self.photo.state isEqualToString:@"half"] && ![self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+        CameraViewController *controller = [CameraViewController controller];
+        controller.photo = self.photo;
+        [self presentViewController:controller animated:YES completion:nil];
     }
 }
 
