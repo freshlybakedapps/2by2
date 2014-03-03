@@ -74,6 +74,10 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 - (void)performPhotoQuery
 {
+    if (!self.photoID) {
+        return;
+    }
+    
     __weak typeof(self) weakSelf = self;
 
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];

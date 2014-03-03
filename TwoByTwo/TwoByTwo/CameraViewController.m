@@ -39,6 +39,7 @@ static CGFloat const kImageSize = 320.0;
 @property (nonatomic, strong) GPUImagePicture *sourcePicture;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSArray *blendModes;
+@property (nonatomic, strong) PFObject *uploadedPhoto;
 @property (nonatomic) CameraViewState state;
 @property (nonatomic) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property (nonatomic) BOOL isPostingToFacebook;
@@ -338,9 +339,9 @@ static CGFloat const kImageSize = 320.0;
                     id presentingViewController = weakSelf.presentingViewController;
                     if ([presentingViewController isKindOfClass:[UINavigationController class]]) {
                         id topController = [[presentingViewController viewControllers] lastObject];
-                        if (![topController isKindOfClass:[PDPViewController class]]) {   
+                        if (![topController isKindOfClass:[PDPViewController class]]) {
                             PDPViewController *controller = [PDPViewController controller];
-                            controller.photoID = weakSelf.photo.objectId;
+                            controller.photoID = (weakSelf.photo.objectId) ?: weakSelf.uploadedPhoto.objectId;
                             [presentingViewController pushViewController:controller animated:NO];
                         }
                     }
@@ -509,12 +510,12 @@ static CGFloat const kImageSize = 320.0;
                 [weakSelf.photo saveInBackgroundWithBlock:backgroundTaskCompletion];
             }
             else {
-                PFObject *photo = [PFObject objectWithClassName:@"Photo"];
-                photo.locationHalf = geoPoint;
-                photo.imageHalf = photoFile;
-                photo.user = [PFUser currentUser];
-                photo.state = @"half";
-                [photo saveInBackgroundWithBlock:backgroundTaskCompletion];
+                weakSelf.uploadedPhoto = [PFObject objectWithClassName:@"Photo"];
+                weakSelf.uploadedPhoto.locationHalf = geoPoint;
+                weakSelf.uploadedPhoto.imageHalf = photoFile;
+                weakSelf.uploadedPhoto.user = [PFUser currentUser];
+                weakSelf.uploadedPhoto.state = @"half";
+                [weakSelf.uploadedPhoto saveInBackgroundWithBlock:backgroundTaskCompletion];
             }
         }
         else {
