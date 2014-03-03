@@ -80,7 +80,7 @@
     }
     
     if (user) {
-        self.followButton.hidden = NO;
+//        self.followButton.hidden = NO; // Keep followButton hidden until the state is loaded.
         self.editButton.hidden = YES;
         self.moreButton.hidden = YES;
     }
@@ -122,11 +122,12 @@
     [followedByMeQuery whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
     [followedByMeQuery whereKey:@"followingUserID" equalTo:user.objectId];
     [followedByMeQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        weakSelf.followButton.hidden = NO;
         if (number > 0){
-            weakSelf.followButton.titleLabel.text = @"Unfollow";
+            [weakSelf.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         }
         else {
-            weakSelf.followButton.titleLabel.text = @"Follow";
+            [weakSelf.followButton setTitle:@"Follow" forState:UIControlStateNormal];
         }
     }];
 

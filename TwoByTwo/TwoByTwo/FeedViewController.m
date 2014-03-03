@@ -34,12 +34,10 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     [super viewDidLoad];
     
-//    //Debug
-//    NSDictionary *dict = [[NSUbiquitousKeyValueStore defaultStore] dictionaryRepresentation];
-//    for (id key in dict.allKeys) {
-//        [[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:key];
-//    }
-
+    if (self.user) {
+        self.title = self.user.username;
+    }
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView"];

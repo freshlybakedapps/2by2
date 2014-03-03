@@ -42,7 +42,8 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     [super viewDidLoad];
 
     self.title = @"Details";
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
 
     // Load Data
