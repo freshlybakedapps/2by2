@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-#import "GridViewController.h"
+#import "FeedViewController.h"
 #import "EditProfileViewController.h"
 #import "NotificationsViewController.h"
 
@@ -49,8 +49,8 @@ NSString * const NoficationUserInfoKeyCount = @"NoficationUserInfoKeyCount";
 {
     if (self.childViewController && self.currentFeedType == sender.selectedSegmentIndex) {
         [self.navigationController popToRootViewControllerAnimated:YES];
-        if ([self.childViewController isKindOfClass:[GridViewController class]]) {
-            GridViewController *controller = (id)self.childViewController;
+        if ([self.childViewController isKindOfClass:[FeedViewController class]]) {
+            FeedViewController *controller = (id)self.childViewController;
             if ([controller.collectionView numberOfItemsInSection:0] > 0) {
                 [controller.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
             }
@@ -86,8 +86,8 @@ NSString * const NoficationUserInfoKeyCount = @"NoficationUserInfoKeyCount";
         self.childViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
     }
     else {
-        self.childViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"GridViewController"];
-        ((GridViewController *)self.childViewController).type = type;
+        self.childViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+        ((FeedViewController *)self.childViewController).type = type;
     }
     
     [self addChildViewController:self.childViewController];

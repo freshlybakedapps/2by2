@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "UIWindow+Animation.h"
 #import "Crittercism.h"
-#import "GridViewController.h"
+#import "FeedViewController.h"
 
 
 @implementation AppDelegate

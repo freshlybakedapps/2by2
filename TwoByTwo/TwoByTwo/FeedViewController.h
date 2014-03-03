@@ -1,5 +1,5 @@
 //
-//  GridViewController.h
+//  FeedViewController.h
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 9/10/13.
@@ -10,17 +10,9 @@
 #import "MainViewController.h"
 
 
-@interface GridViewController : UICollectionViewController
+@interface FeedViewController : UICollectionViewController
 
 @property (nonatomic) FeedType type;
-@property (nonatomic, strong) NSString *photoID;
 @property (nonatomic, strong) PFUser *user;
-
-@property (nonatomic) int headerSize;
-
-- (void) toggleGridFeed;
-
-- (void) toggleSingleDouble;
-
 
 @end

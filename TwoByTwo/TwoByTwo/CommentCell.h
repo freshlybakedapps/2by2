@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-@interface CommentCell : UITableViewCell
+@interface CommentCell : UICollectionViewCell
+
 @property (nonatomic, strong) PFObject *comment;
+
++ (CGFloat)heightForComment:(PFObject *)comment;
+
 @end

@@ -1,19 +1,19 @@
 //
-//  GridHeaderView.m
+//  FeedHeaderView.m
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 11/17/13.
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "GridProfileHeaderView.h"
+#import "FeedProfileHeaderView.h"
 #import "EditProfileViewController.h"
 #import "EverythingElseViewController.h"
 #import "UIImageView+AFNetworking.h"
 
 
-@interface GridProfileHeaderView ()
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@interface FeedProfileHeaderView ()
+//@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UIButton *followButton;
 @property (nonatomic, weak) IBOutlet UIButton *editButton;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -23,14 +23,14 @@
 @property (nonatomic, weak) IBOutlet UILabel *followingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followersLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bioLabel;
-@property (nonatomic, weak) IBOutlet UIView *toggleHolder;
-@property (nonatomic, weak) IBOutlet UIButton *gridToggleButton;
-@property (nonatomic, weak) IBOutlet UIButton *doubleToggleButton;
-@property (nonatomic, weak) IBOutlet UILabel *singleExposureLabel;
+//@property (nonatomic, weak) IBOutlet UIView *controlView;
+//@property (nonatomic, weak) IBOutlet UIButton *feedToggleButton;
+//@property (nonatomic, weak) IBOutlet UILabel *exposureLabel;
+//@property (nonatomic, weak) IBOutlet UIButton *exposureToggleButton;
 @end
 
 
-@implementation GridProfileHeaderView
+@implementation FeedProfileHeaderView
 
 - (void)awakeFromNib
 {
@@ -42,8 +42,6 @@
     self.followingLabel.text = @"Loading..";
     self.followersLabel.text = @"Loading..";
     self.bioLabel.text = @"Loading..";
-    self.singleExposureLabel.text = @"SINGLE EXPOSURE";
-    
     
     self.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.followButton.titleLabel.font = [UIFont appMediumFontOfSize:12];
@@ -53,10 +51,11 @@
     self.followingLabel.font = [UIFont appFontOfSize:14];
     self.followersLabel.font = [UIFont appFontOfSize:14];
     self.bioLabel.font = [UIFont appFontOfSize:14];
-    self.singleExposureLabel.font = [UIFont appMediumFontOfSize:12];
-    
-
+    self.exposureLabel.font = [UIFont appMediumFontOfSize:12];
 }
+
+
+#pragma mark - Content
 
 - (void)setUser:(PFUser *)user
 {
@@ -81,10 +80,9 @@
     }
     
     if (user) {
-        self.followButton.hidden = NO;
+//        self.followButton.hidden = NO; // Keep followButton hidden until the state is loaded.
         self.editButton.hidden = YES;
         self.moreButton.hidden = YES;
-        //TODO: load follow state
     }
     else {
         user = [PFUser currentUser];
@@ -111,34 +109,35 @@
         weakSelf.followingLabel.text = [NSString stringWithFormat:@"%d Following", number];
     }];
     
-    PFQuery *followingQuery2 = [PFQuery queryWithClassName:@"Followers"];
-    [followingQuery2 whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
-    [followingQuery2 whereKey:@"followingUserID" equalTo:user.objectId];
-    [followingQuery2 countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        
-        if(number > 0){
-            weakSelf.followButton.titleLabel.text = @"Unfollow";
-        }else{
-            weakSelf.followButton.titleLabel.text = @"Follow";
-        }
-    }];
-    
-    
-    
-    PFQuery *followQuery = [PFQuery queryWithClassName:@"Followers"];
-    [followQuery whereKey:@"followingUserID" equalTo:user.objectId];
-    [followQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+    PFQuery *followerQuery = [PFQuery queryWithClassName:@"Followers"];
+    [followerQuery whereKey:@"followingUserID" equalTo:user.objectId];
+    [followerQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         weakSelf.followersLabel.text = [NSString stringWithFormat:@"%d Followers", number];
     }];
     
-
     self.bioLabel.text = user[@"bio"];
     
+    
+    PFQuery *followedByMeQuery = [PFQuery queryWithClassName:@"Followers"];
+    [followedByMeQuery whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
+    [followedByMeQuery whereKey:@"followingUserID" equalTo:user.objectId];
+    [followedByMeQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        weakSelf.followButton.hidden = NO;
+        if (number > 0){
+            [weakSelf.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+        }
+        else {
+            [weakSelf.followButton setTitle:@"Follow" forState:UIControlStateNormal];
+        }
+    }];
+
     
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", user[@"facebookId"]]];
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
 }
 
+
+#pragma mark - IBActions
 
 - (IBAction)followButtonTapped:(UIButton *)sender
 {
@@ -149,6 +148,7 @@
                                 block:^(NSNumber *result, NSError *error) {
                                     weakSelf.followButton.enabled = YES;
                                     if (!error) {
+                                        weakSelf.followButton.hidden = NO;
                                         if ([result isEqual:@0]){
                                             [weakSelf.followButton setTitle:@"Follow" forState:UIControlStateNormal];
                                         }
@@ -176,37 +176,12 @@
     [navController pushViewController:controller animated:YES];
 }
 
-- (void) toggleGridFeed{
-    UIImage* thumbs = [UIImage imageNamed:@"toggleThumbs"];
-    UIImage* feed = [UIImage imageNamed:@"toggleFeed"];
-    if(self.gridToggleButton.currentImage == feed){
-        [self.gridToggleButton setImage:thumbs forState:UIControlStateNormal];
-    }else{
-        [self.gridToggleButton setImage:feed forState:UIControlStateNormal];
-    }
-    
+
+#pragma mark - IBActions
+
++ (CGFloat)headerHeightForType:(FeedType)type
+{
+    return 225.0;
 }
-
-
-- (IBAction)gridToggleButtonTapped:(id)sender{
-    [self toggleGridFeed];
-    [self.controller toggleGridFeed];
-}
-
-- (IBAction)doubleSingleToggleButtonTapped:(id)sender{
-    UIImage* singleToggle = [UIImage imageNamed:@"toggleSingle"];
-    UIImage* doubleToggle = [UIImage imageNamed:@"toggleDouble"];
-    if(self.doubleToggleButton.currentImage == singleToggle){
-        [self.doubleToggleButton setImage:doubleToggle forState:UIControlStateNormal];
-        self.singleExposureLabel.text = @"DOUBLE EXPOSURE";
-        
-    }else{
-        [self.doubleToggleButton setImage:singleToggle forState:UIControlStateNormal];
-        self.singleExposureLabel.text = @"SINGLE EXPOSURE";
-    }
-    
-    [self.controller toggleSingleDouble];
-}
-
 
 @end

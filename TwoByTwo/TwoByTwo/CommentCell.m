@@ -40,4 +40,17 @@
     self.nameLabel.textColor = [UIColor appGreenColor];
 }
 
++ (CGFloat)heightForComment:(PFObject *)comment
+{
+    NSString *text = comment[@"text"];
+    
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(260, MAXFLOAT)
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:@{NSFontAttributeName:[UIFont appFontOfSize:14]}
+                                     context:nil];
+    
+    CGFloat cellHeight = 38 + rect.size.height + 10;
+    return cellHeight;
+}
+
 @end

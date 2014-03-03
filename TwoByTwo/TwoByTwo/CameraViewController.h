@@ -11,7 +11,7 @@
 
 @interface CameraViewController : UIViewController
 
-@property (nonatomic, weak) PFObject *photo;
+@property (nonatomic, strong) PFObject *photo;
 
 + (instancetype)controller;
 
