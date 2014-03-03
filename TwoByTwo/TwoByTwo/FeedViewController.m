@@ -35,7 +35,7 @@ static NSUInteger const kQueryBatchSize = 20;
     [super viewDidLoad];
     
     if (self.user) {
-        self.title = self.user.username;
+        self.title = [self.user[@"fullName"] uppercaseString];
     }
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
