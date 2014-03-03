@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             return CGSizeMake(320, 410);
 
         case CollectionViewSectionLikers:
-            return CGSizeMake(320, 100);
+            return CGSizeMake(320, (self.photo.likes.count) ? 70 : 1);
             
         case CollectionViewSectionComments:
         default: {
@@ -129,6 +129,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             
         case CollectionViewSectionLikers: {
             LikersCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LikersCell" forIndexPath:indexPath];
+            cell.likers = self.photo.likes;
             return cell;
         }
             

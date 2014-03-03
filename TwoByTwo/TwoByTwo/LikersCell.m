@@ -7,25 +7,41 @@
 //
 
 #import "LikersCell.h"
+#import "AvatarCell.h"
+
+
+@interface LikersCell ()
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
+@end
+
 
 @implementation LikersCell
 
-- (id)initWithFrame:(CGRect)frame
+- (void)awakeFromNib
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    [super awakeFromNib];
+    self.titleLabel.font = [UIFont appFontOfSize:14];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)setLikers:(NSArray *)likers
 {
-    // Drawing code
+    _likers = likers;
+    [self.collectionView reloadData];
 }
-*/
+
+#pragma mark - Collection View
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.likers.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    AvatarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AvatarCell" forIndexPath:indexPath];
+    cell.userID = self.likers[indexPath.row];
+    return cell;
+}
 
 @end

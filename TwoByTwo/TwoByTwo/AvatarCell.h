@@ -1,5 +1,5 @@
 //
-//  LikersCell.h
+//  AvatarCell.h
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 3/2/14.
@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 
-@interface LikersCell : UICollectionViewCell
+@interface AvatarCell : UICollectionViewCell
 
-@property (nonatomic, strong) NSArray *likers;
+@property (nonatomic, copy) NSString *userID;
 
 @end
