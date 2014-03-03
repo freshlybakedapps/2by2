@@ -643,7 +643,7 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                                     <outlet property="nameLabel" destination="5fc-vP-jf6" id="b15-GW-6WV"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="8ef-Tz-52g">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddCommentCell" id="8ef-Tz-52g" customClass="AddCommentCell">
                                 <rect key="frame" x="0.0" y="170" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -663,6 +663,7 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                                             </state>
                                             <connections>
                                                 <action selector="sendButtonTapped:" destination="5uv-R1-MUi" eventType="touchUpInside" id="2Xh-co-fdB"/>
+                                                <action selector="sendButtonTapped:" destination="8ef-Tz-52g" eventType="touchUpInside" id="VfH-bf-X1q"/>
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipj-A9-xlP">
@@ -674,6 +675,9 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="8ef-Tz-52g" id="vDD-Ff-nln"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -698,6 +702,9 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                                     <constraint firstItem="ipj-A9-xlP" firstAttribute="top" secondItem="8ef-Tz-52g" secondAttribute="top" constant="10" id="ndc-Vp-Ns4"/>
                                 </constraints>
                                 <size key="customSize" width="320" height="60"/>
+                                <connections>
+                                    <outlet property="textField" destination="2WR-aW-6YI" id="o93-4z-PDI"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

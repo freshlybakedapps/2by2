@@ -298,9 +298,7 @@
         <image name="CloseMap" width="28" height="28"/>
         <image name="comment" width="24" height="26"/>
         <image name="defaultUserImage" width="72" height="72"/>
-        <image name="defaultUserImage" width="72" height="72"/>
         <image name="icon-flag-off" width="30" height="30"/>
-        <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
         <image name="icon-like-on" width="30" height="30"/>

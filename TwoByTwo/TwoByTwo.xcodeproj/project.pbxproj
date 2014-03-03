@@ -70,6 +70,7 @@
 		7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */; };
 		7CD137FF18C3F43400D534D7 /* LikersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD137FE18C3F43400D534D7 /* LikersCell.m */; };
 		7CD1380218C3F9E400D534D7 /* AvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD1380118C3F9E400D534D7 /* AvatarCell.m */; };
+		7CD1380518C4006100D534D7 /* AddCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD1380418C4006100D534D7 /* AddCommentCell.m */; };
 		7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */; };
 		7CF39DDF17E0070A003A859F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DDE17E0070A003A859F /* Foundation.framework */; };
 		7CF39DE117E0070A003A859F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE017E0070A003A859F /* CoreGraphics.framework */; };
@@ -201,6 +202,8 @@
 		7CD137FE18C3F43400D534D7 /* LikersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikersCell.m; sourceTree = "<group>"; };
 		7CD1380018C3F9E400D534D7 /* AvatarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarCell.h; sourceTree = "<group>"; };
 		7CD1380118C3F9E400D534D7 /* AvatarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarCell.m; sourceTree = "<group>"; };
+		7CD1380318C4006100D534D7 /* AddCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCommentCell.h; sourceTree = "<group>"; };
+		7CD1380418C4006100D534D7 /* AddCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentCell.m; sourceTree = "<group>"; };
 		7CD9507517E657CA00C70956 /* UIColor+TwoByTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TwoByTwo.h"; sourceTree = "<group>"; };
 		7CD9507617E657CA00C70956 /* UIColor+TwoByTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TwoByTwo.m"; sourceTree = "<group>"; };
 		7CF39DDB17E0070A003A859F /* TwoByTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoByTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -441,6 +444,8 @@
 				7CD1380118C3F9E400D534D7 /* AvatarCell.m */,
 				7C070105187398690011845D /* CommentCell.h */,
 				7C070106187398690011845D /* CommentCell.m */,
+				7CD1380318C4006100D534D7 /* AddCommentCell.h */,
+				7CD1380418C4006100D534D7 /* AddCommentCell.m */,
 				1DB27B151862533800E5C083 /* CommentsViewController.h */,
 				1DB27B161862533800E5C083 /* CommentsViewController.m */,
 			);
@@ -776,6 +781,7 @@
 				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,
 				7C7657901825AE920053483B /* FeedCell.m in Sources */,
 				7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */,
+				7CD1380518C4006100D534D7 /* AddCommentCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,

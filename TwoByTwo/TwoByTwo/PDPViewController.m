@@ -11,11 +11,14 @@
 #import "FeedCell.h"
 #import "LikersCell.h"
 #import "CommentCell.h"
+#import "AddCommentCell.h"
+#import "DAKeyboardControl.h"
 
 typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     CollectionViewSectionMain = 0,
     CollectionViewSectionLikers,
     CollectionViewSectionComments,
+    CollectionViewSectionAddComment,
     CollectionViewSectionCount,
 };
 
@@ -44,6 +47,18 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
     // Load Data
     [self performPhotoQuery];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        CGRect rect = weakSelf.view.frame;
+        rect.size.height = keyboardFrameInView.origin.y;
+        weakSelf.view.frame = rect;
+    }];
+}
+
+- (void)dealloc
+{
+    [self.view removeKeyboardControl];
 }
 
 
@@ -109,11 +124,14 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
         case CollectionViewSectionLikers:
             return CGSizeMake(320, (self.photo.likes.count) ? 70 : 1);
             
-        case CollectionViewSectionComments:
-        default: {
+        case CollectionViewSectionComments: {
             CGFloat height = [CommentCell heightForComment:self.comments[indexPath.item]];
             return CGSizeMake(320, height);
         }
+            
+        case CollectionViewSectionAddComment:
+            default:
+            return CGSizeMake(320, 60);
     }
 }
 
@@ -133,17 +151,36 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             return cell;
         }
             
-        case CollectionViewSectionComments:
-        default: {
+        case CollectionViewSectionComments: {
             CommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CommentCell" forIndexPath:indexPath];
             cell.comment = self.comments[indexPath.item];
             return cell;
         }
-    }
-}
+            
+        case CollectionViewSectionAddComment:
+        default: {
+            __weak typeof(self) weakSelf = self;
+            AddCommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AddCommentCell" forIndexPath:indexPath];
+            cell.photo = self.photo;
+            cell.didSendComment = ^(PFObject *comment){
+                [weakSelf.collectionView performBatchUpdates:^{
+                    
+                    NSIndexPath *commentIndexPath = [NSIndexPath indexPathForItem:self.comments.count inSection:CollectionViewSectionComments];
+                    weakSelf.comments = [weakSelf.comments arrayByAddingObject:comment];
+                    [weakSelf.collectionView insertItemsAtIndexPaths:@[commentIndexPath]];
+                    
+                    NSIndexPath *mainIndexPath = [NSIndexPath indexPathForItem:0 inSection:CollectionViewSectionMain];
+                    weakSelf.photo.commentCount = [NSString stringWithFormat:@"%lu",(unsigned long)weakSelf.comments.count];
+                    [weakSelf.collectionView reloadItemsAtIndexPaths:@[mainIndexPath]];
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+                } completion:^(BOOL finished) {
+                    CGPoint bottomOffset = CGPointMake(0, weakSelf.collectionView.contentSize.height - weakSelf.collectionView.bounds.size.height);
+                    [weakSelf.collectionView setContentOffset:bottomOffset animated:YES];
+                }];
+            };
+            return cell;
+        }
+    }
 }
 
 
