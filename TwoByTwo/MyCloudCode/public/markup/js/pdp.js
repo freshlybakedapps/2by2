@@ -31,13 +31,14 @@ $(function () {
                 $("#signin").hide();
                 $(".logout").show();
                 $("#fullname").show();
-                this.getPhoto();               
+                //this.getPhoto();               
             }else{
                 //location.href = "pdp.html";
                 $(".logout").hide();
                 $("#fullname").hide();
                 $("#signin").show();
-                this.getPhoto();  
+                //this.getPhoto();
+
             }
             this.bind();
         },
@@ -60,7 +61,7 @@ $(function () {
                         $('#signin').hide();
                         $(".logout").show();
                         $("#fullname").show();             
-                        that.getPhoto();
+                        //that.getPhoto();
 
                         // If it's a new user, let's fetch their name from FB
                         if (!user.existed()) {
@@ -103,19 +104,16 @@ $(function () {
             console.log("getLikesInfo",arr);
 
             for (var i = arr.length - 1; i >= 0; i--) {
-                
-
                 var User = Parse.Object.extend("User");
                 var query = new Parse.Query(User);
                 query.equalTo("objectId", arr[i]);
 
                 query.find({
                     success: function(users) {
-                        console.log(users[0]._serverData.facebookId);
+                        //console.log(users[0]);
                         var url = 'https://graph.facebook.com/'+users[0]._serverData.facebookId+'/picture?type=square';
-                        var html = '<li><a href="#"><img src="'+url+'" class="avatar" /></a></li>';
+                        var html = '<li><a href="profile?id='+users[0].id+'"><img src="'+url+'" class="avatar" /></a></li>';
                         $(".like-list").find("ul").append(html);
-                                      
                     },
                     error: function(object, error) {
                         // The object was not retrieved successfully.
@@ -124,6 +122,26 @@ $(function () {
                     }
                 });
             }
+        },
+
+        centerImage: function(){
+            $('.picture > .picture-wrapper').each(function(){
+                var width = $(this).width();
+                $(this).css({
+                    height : width
+                });
+                var imgLoader = new Image();
+                var $img = $(this).find('img');
+                imgLoader.onload = function(){
+                    var imageWidth = $img.width(),
+                    imageHeight = $img.height();
+                    console.log(width, imageWidth, imageHeight);
+                    $img.css({
+                        top : (width - imageHeight) / 2
+                    });
+                };
+                imgLoader.src = $img.attr('src');
+            });
         },
 
         
@@ -143,7 +161,7 @@ $(function () {
             var id = this.getUrlVars()["id"];
 
             if(!id){
-                location.href = "profile.html";
+                location.href = "profile";
             }
             
             id = id.split("#")[0];
@@ -166,7 +184,7 @@ $(function () {
 
                     for(var i=0;i<photosArr.length  ;i++){
                         var data = photosArr[i].attributes;
-                        //console.log(data);
+                        console.log(data);
                         
                         var image = data.image_full;
                         
@@ -175,6 +193,19 @@ $(function () {
                         }
                         
                         var username_half = data.user._serverData.username;
+                        var username_full = "";
+
+                        if(Parse.User.current() && username_half == Parse.User.current().attributes.username){
+                            username_half = "You!";
+                        }
+
+                        if(data.user_full){
+                            username_full = data.user_full._serverData.username;
+                        }
+
+                        if(Parse.User.current() && username_full == Parse.User.current().attributes.username){
+                            username_full = "You!";
+                        }
                         
                         var imageURL = image.url;                       
                         var likeLength = 0;
@@ -200,20 +231,33 @@ $(function () {
                         var markers;
 
                         if(data.location_half){
-                            markers = "&markers=icon:http://2by2.parseapp.com/images/red.png%7Ccolor:0xff3366%7C"+locationHalf._latitude+","+locationHalf._longitude;
+                            if(data.location_half._longitude == 0){
+                                username_half+=" (?)";
+                            }else{
+                                markers = "&markers=icon:http://2by2.parseapp.com/images/red.png%7Ccolor:0xff3366%7C"+locationHalf._latitude+","+locationHalf._longitude;
+                            }
                         }                       
 
                         if(data.state == "full" && data.location_full){
                             var locationFull = data.location_full;
-                            markers+="&markers=icon:http://2by2.parseapp.com/images/green.png%7Ccolor:0x00cc99%7C"+locationFull._latitude+","+locationFull._longitude;
+                            if(locationFull._longitude == 0){
+                                username_full+=" (?)";
+                            }else{
+                                markers+="&markers=icon:http://2by2.parseapp.com/images/green.png%7Ccolor:0x00cc99%7C"+locationFull._latitude+","+locationFull._longitude;
+                            }
                         }
                         //&center=Brooklyn+Bridge,New+York,NY&zoom=13
                         var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
 
+                        
 
                         result+='<div class="picture-viewer">';               
                         result+='<div class="picture">';
-                            result+='<img src="'+imageURL+'" alt="" />';
+                            result+='<div class="picture-wrapper">';
+                                result+='<img src="'+imageURL+'" alt="" />';                        
+                            result+='</div>';
+
+                            
                             result+='<div class="picture-options">';
                                 result+='<a href="#" class="likes left">';
                                     result+='<span></span>'+likeLength;
@@ -239,12 +283,12 @@ $(function () {
                                 result+='<nav>';
                                     result+='<ul>';
                                         result+='<li>';
-                                            result+='<span></span> '+username_half;
+                                            result+='<span></span> <a href="profile?id='+data.user.id+'">'+username_half+'</a>';
                                         result+='</li>';
                                         
                                         if(data.user_full){
                                             result+='<li>';
-                                            result+='<span></span> '+data.user_full._serverData.username;
+                                            result+='<span></span> <a href="profile?id='+data.user_full.id+'">'+username_full+'</a>';
                                             result+='</li>';
                                         }
                                         
@@ -303,10 +347,41 @@ $(function () {
 
 
                     }
+
+
         
                     
         
                     $("#main-content").append(result);
+
+                    if($('.picture > .picture-wrapper').length){
+                        that.centerImage();
+                        $(window).smartresize(that.centerImage);
+                    }
+
+                    if(!Parse.User.current()){
+                       $("#main-content").append('<div class="need-to-log-in"><p>You must be logged in too see and leave comments.</p></div>');
+   
+                    }
+                    
+
+                    //Mark pictures liked by curent user
+                    for(var i=0;i<photosArr.length;i++){
+
+                        var data = photosArr[i].attributes;
+                        if(Parse.User.current() && data.likes){
+                            for (var j = data.likes.length - 1; j >= 0; j--) {
+                                
+
+                                if(data.likes[j] == Parse.User.current().id){
+                                    console.log(data.likes[j],Parse.User.current().id);
+                                    //$(".picture-options").find().css("background-position","-32px");
+                                    var el = $(".picture-options > a > span")[i];
+                                    $(el).css("background-position","-32px");
+                                }
+                            };
+                        }
+                    }
 
                     
 
@@ -318,20 +393,20 @@ $(function () {
                         var comment = new Comment();
 
                         comment.set("text",$('#commentText').attr("value"));
-                        comment.set("username", Parse.User.current().changed.username);
+                        comment.set("username", Parse.User.current().attributes.username);
                         comment.set("commentID", photosArr[0].id);
-                        comment.set("facebookId", Parse.User.current().changed.facebookId);
+                        comment.set("facebookId", Parse.User.current().attributes.facebookId);
                         comment.set("userID", Parse.User.current().id);
 
-                        //console.log(comment);
+                        console.log("Parse.User.current()",Parse.User.current());
                         
                         
                         comment.save(null, {
                             success: function (n) {
-                                console.log("Comment saved success");
+                                console.log("Comment saved success",Parse.User.current());
                                 var html = "";
                                 html+='<li>';
-                                    html+='<img src="https://graph.facebook.com/'+Parse.User.current().changed.facebookId+'/picture?type=square" class="avatar" />';
+                                    html+='<a href="profile?id='+Parse.User.current().id+'"><img src="https://graph.facebook.com/'+Parse.User.current().changed.facebookId+'/picture?type=square" class="avatar" /></a>';
                                     html+='<div class="comment-data">';
                                         html+='<h3><a href="#">'+Parse.User.current().changed.username+'</a></h3>';
                                         html+='<p>';
@@ -385,6 +460,8 @@ $(function () {
                         (function(index, length) { 
                             query.find({
                               success: function(arr) {
+                                console.log(arr);
+
                                 // The count request succeeded. Show the count
                                 //$("#comment_"+photosArr[index].id).html(" "+count);
                                 $("#comment_"+photosArr[index].id).prev().html("<span></span>"+arr.length);
@@ -395,7 +472,9 @@ $(function () {
                                     var serverData = arr[i]._serverData;
                                     console.log("photo comment: ",serverData.text,serverData.username,serverData.facebookId);
                                     html+='<li>';
-                                        html+='<img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" />';
+                                        ////<a href="profile?id='+data.user.id+'">'+username_half+'</a>'
+                                    
+                                        html+='<a href="profile?id='+serverData.userID+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
                                         html+='<div class="comment-data">';
                                             html+='<h3><a href="#">'+serverData.username+'</a></h3>';
                                             html+='<p>';
@@ -427,7 +506,7 @@ $(function () {
             });
             }else{
                 console.log("no id");
-                location.href = "profile.html";
+                location.href = "profile";
             }          
             
             

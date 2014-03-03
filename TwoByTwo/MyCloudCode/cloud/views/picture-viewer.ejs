@@ -1,0 +1,75 @@
+<div class="picture-viewer">               
+    <div class="picture">
+        
+        <img src="<%= imageURL %>" alt="" />                        
+        
+
+        
+        <div class="picture-options">
+            <a href="#" class="likes left">
+                <span></span><%= likeLength %>
+            </a>
+            <a href="#" class="comments left">
+                <span></span><a id="comment_<%= photoID %>"></a>
+            </a>                                
+            
+            <br class="clr" />
+        </div>
+    </div>
+    <div class="picture-map">
+        <img src="<%= mapImageURL %>" alt="" />
+        
+        <div class="user-list">
+            <nav>
+                <ul>
+                    <li>
+                        <span></span> <a href="profile?id=<%= user.id %>"><%= user._serverData.username %></a>
+                    </li>
+                    
+                    <% if (userFull) { %>
+                        <li>
+                        <span></span> <a href="profile?id=<%= userFull.id %>"><%= userFull._serverData.username %></a>
+                        </li>
+                    <% } %>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+    </div>
+
+    
+     <% if (currentUser) { %>
+        <div class="picture-data">
+            <form class="upload-comment" action="">
+                <input id="commentText" type="text" placeholder="Type a nice comment here..." value="" />
+                <input id="commentButton" type="button" value="Post" />
+            </form>
+            
+            <nav class="like-list">
+                <h3>Likers</h3>
+                <ul>
+                    
+                    
+                    
+                </ul>
+                
+            </nav>
+            
+            <nav class="comment-list">                                        
+                <ul>                                                                              
+                    <li>
+                        <img src="img/avatar.jpg" class="avatar" />
+                        <div class="comment-data">
+                            <h3><a href="#">John Tubert</a></h3>
+                            <p>
+                                Man, this is the bee’s knees
+                            </p>
+                        </div>
+                    </li>                                        
+                </ul>
+                
+            </nav>
+            
+        </div>
+    <% } %>

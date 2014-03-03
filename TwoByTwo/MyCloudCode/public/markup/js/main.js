@@ -79,7 +79,7 @@ $(function () {
         },
 
         gotoProfile: function(){
-        	location.href = "profile.html";
+        	location.href = "/profile";
         }		
     }
 

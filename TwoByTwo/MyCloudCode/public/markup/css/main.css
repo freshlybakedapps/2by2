@@ -133,7 +133,7 @@ header.home {
 }
 
 .picture .picture-options > a > span{
-    background: url("../img/sprite-icons.png");
+    background: url("../img/sprite-icons2.png");
     display: inline-block;
     height: 26px;
     margin-right: 5px;
@@ -168,11 +168,26 @@ header.home {
     width: 20px;
 }
 
+
+
 .picture > img,
-.picture > a > img,
-.picture-map > img{
+.picture-map > img,
+.picture > .picture-wrapper > a > img,
+.picture > .picture-wrapper > img{
     display: block;
     width: 100%;
+}
+
+.picture > .picture-wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.picture > .picture-wrapper > a > img,
+.picture > .picture-wrapper > img {
+    left: 0;
+    position: absolute;
 }
 
 .picture-map > .mask {
@@ -315,6 +330,7 @@ header.home {
     position: relative;
 }
 
+.comment-list li > a > img,
 .comment-list li > img {
     -moz-border-radius: 50%;
     -moz-webkit-radius: 50%;
@@ -393,6 +409,11 @@ header.home {
     width: 100%;
 }
 
+.user-list a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
 /* FOOTER */
 
 footer {
@@ -428,5 +449,9 @@ footer a.footer-download-app {
     .load-more,
     .thumb-list li {
         width: 100%;
+    }
+
+    .picture-map {
+        display: none;
     }
 }
