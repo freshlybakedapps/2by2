@@ -150,12 +150,12 @@ header.home {
 }
 
 .picture .picture-options > a.likes > span {
-    width: 29px;
+    width: 30px;
 }
 
 .picture .picture-options > a.comments > span {
     background-position: -63px 0;
-    width: 22px;
+    width: 25px;
 }
 
 .picture .picture-options > a.delete > span {

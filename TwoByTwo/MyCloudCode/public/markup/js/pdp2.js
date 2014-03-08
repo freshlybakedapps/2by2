@@ -30,23 +30,23 @@ $(function () {
                 $("#fullname").html(Parse.User.current().changed.fullName);                
                 $("#signin").hide();
                 $(".logout").show();
-                $("#fullname").show();                
-                this.getPhoto();               
-            }else{
-                //location.href = "pdp.html";
+                $("#fullname").show();
+
+                if(!this.getUrlVars().u){                    
+                    location.href = location.href.replace("#","")+"&u="+Parse.User.current().id;
+                }
+                this.getPhoto();                            
+            }else{                
                 $(".logout").hide();
                 $("#fullname").hide();
-                $("#signin").show();
+                $("#signin").show();  
                 this.getPhoto();
-
             }
             this.bind();
         },
 
         bind: function () {
-            var that = this;
-
-            
+            var that = this;            
             
             $('.logout').click(function (e) {
                 Parse.User.logOut();
@@ -148,15 +148,12 @@ $(function () {
 
         getPhoto: function () { 
             var that = this;
-            $("#main-content").html("");           
+            //$("#main-content").html("");           
             var clicking = false;
             
             var Photo = Parse.Object.extend("Photo");
             var query = new Parse.Query(Photo);
-            //query.limit(0);
-            query.include("user");
-            query.include("user_full");    
-            
+            //query.limit(0);            
             
             var id = this.getUrlVars()["id"];
 
@@ -174,185 +171,13 @@ $(function () {
                 query.find({
                 success: function(photosArr) {
                     // The object was retrieved successfully.
-                    console.log(photosArr[0]._serverData.likes);
-                    var result = "";
+                    
+                    
         
                     if(photosArr.length == 0){
                         $("#main-content").html("<br><p>You have no photos.</p>");
                         return;
-                    }
-
-                    for(var i=0;i<photosArr.length  ;i++){
-                        var data = photosArr[i].attributes;
-                        console.log(data);
-                        
-                        var image = data.image_full;
-                        
-                        if(!image){
-                            image = data.image_half;
-                        }
-                        
-                        var username_half = data.user._serverData.username;
-                        var username_full = "";
-
-                        if(Parse.User.current() && username_half == Parse.User.current().attributes.username){
-                            username_half = "You!";
-                        }
-
-                        if(data.user_full){
-                            username_full = data.user_full._serverData.username;
-                        }
-
-                        if(Parse.User.current() && username_full == Parse.User.current().attributes.username){
-                            username_full = "You!";
-                        }
-                        
-                        var imageURL = image.url;                       
-                        var likeLength = 0;
-                        if(photosArr[i]._serverData.likes){
-                            likeLength = photosArr[i]._serverData.likes.length;
-
-                            that.getLikesInfo(photosArr[i]._serverData.likes);
-                        }
-
-
-
-                        var locationHalf = data.location_half;
-
-
-                        //static maps doc: https://developers.google.com/maps/documentation/staticmaps/?csw=1#StyledMaps
-                        //https://developers.google.com/maps/documentation/staticmaps/?csw=1#CustomIcons
-                        //style map: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
-                        //Get API key: https://cloud.google.com/console/project
-
-                        //http://2by2.parseapp.com/images/red.png
-                        //http://2by2.parseapp.com/images/green.png
-                        
-                        var markers;
-
-                        if(data.location_half){
-                            if(data.location_half._longitude == 0){
-                                username_half+=" (?)";
-                            }else{
-                                markers = "&markers=icon:http://2by2.parseapp.com/images/red.png%7Ccolor:0xff3366%7C"+locationHalf._latitude+","+locationHalf._longitude;
-                            }
-                        }                       
-
-                        if(data.state == "full" && data.location_full){
-                            var locationFull = data.location_full;
-                            if(locationFull._longitude == 0){
-                                username_full+=" (?)";
-                            }else{
-                                markers+="&markers=icon:http://2by2.parseapp.com/images/green.png%7Ccolor:0x00cc99%7C"+locationFull._latitude+","+locationFull._longitude;
-                            }
-                        }
-                        //&center=Brooklyn+Bridge,New+York,NY&zoom=13
-                        var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
-
-                        
-
-                        result+='<div class="picture-viewer">';               
-                        result+='<div class="picture">';
-                            result+='<div class="picture-wrapper">';
-                                result+='<img src="'+imageURL+'" alt="" />';                        
-                            result+='</div>';
-
-                            
-                            result+='<div class="picture-options">';
-                                result+='<a href="#" class="likes left">';
-                                    result+='<span></span>'+likeLength;
-                                result+='</a>';
-                                result+='<a href="#" class="comments left">';
-                                    result+='<span></span><a id="comment_'+photosArr[i].id+'"></a>';
-                                result+='</a>';
-                                /*
-                                result+='<a href="#" class="delete right">';
-                                    result+='<span></span>';
-                                result+='</a>';
-                                result+='<a href="#" class="location right">';
-                                    result+='<span></span>';
-                                result+='</a>';
-                                */
-                                result+='<br class="clr" />';
-                            result+='</div>';
-                        result+='</div>';
-                        result+='<div class="picture-map">';
-                            result+='<img src="'+mapImageURL+'" alt="" />';
-                            //result+='<div class="mask"></div>';
-                            result+='<div class="user-list">';
-                                result+='<nav>';
-                                    result+='<ul>';
-                                        result+='<li>';
-                                            result+='<span></span> <a href="profile?id='+data.user.id+'">'+username_half+'</a>';
-                                        result+='</li>';
-                                        
-                                        if(data.user_full){
-                                            result+='<li>';
-                                            result+='<span></span> <a href="profile?id='+data.user_full.id+'">'+username_full+'</a>';
-                                            result+='</li>';
-                                        }
-                                        
-                                    result+='</ul>';
-                                result+='</nav>';
-                            result+='</div>';
-                        result+='</div>';
-                        result+='</div>';
-
-                        //only show this info if user is loggedin
-                        if (Parse.User.current()) {
-                            result+='<div class="picture-data">';
-                                result+='<form class="upload-comment" action="">';
-                                    result+='<input id="commentText" type="text" placeholder="Type a nice comment here..." value="" />';
-                                    result+='<input id="commentButton" type="button" value="Post" />';
-                                result+='</form>';
-                                
-                                result+='<nav class="like-list">';
-                                    result+='<h3>Likers</h3>';
-                                    result+='<ul>';
-                                        
-                                        
-                                        
-                                    result+='</ul>';
-                                    /*
-                                    result+='<a href="#" class="see-likers">';
-                                        result+='See all likers';
-                                    result+='</a>';
-                                    */
-                                result+='</nav>';
-                                
-                                result+='<nav class="comment-list">';
-                                        
-                                    result+='<ul>'; 
-                                        /*                                       
-                                        <li>
-                                            <img src="img/avatar.jpg" class="avatar" />
-                                            <div class="comment-data">
-                                                <h3><a href="#">John Tubert</a></h3>
-                                                <p>
-                                                    Man, this is the bee’s knees
-                                                </p>
-                                            </div>
-                                        </li>
-                                        */
-                                    result+='</ul>';
-                                    
-                                result+='</nav>';
-                                /*
-                                result+='<a href="#" class="load-more">';
-                                    result+='Load More';
-                                result+='</a>';
-                                */
-                            result+='</div>';
-                        }
-
-
-                    }
-
-
-        
-                    
-        
-                    $("#main-content").append(result);
+                    }                   
 
                     if($('.picture > .picture-wrapper').length){
                         that.centerImage();

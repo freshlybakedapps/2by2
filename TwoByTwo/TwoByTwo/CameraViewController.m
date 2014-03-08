@@ -535,7 +535,7 @@ static CGFloat const kImageSize = 320.0;
     void (^post)(void) = ^{
         weakSelf.isPostingToFacebook = YES;
         
-        NSString *message = (weakSelf.photo) ? @"This was made using 2by2" : @"Photo taken with 2by2";
+        NSString *message = (weakSelf.photo) ? @"This was made using #2by2" : @"Photo taken with #2by2";
         NSString *watermark = (weakSelf.photo)
         ? [NSString stringWithFormat:@"%@/%@:2BY2", [self.photo.user.username uppercaseString], [[PFUser currentUser].username uppercaseString]]
         : [NSString stringWithFormat:@"%@:2BY2", [[PFUser currentUser].username uppercaseString]];

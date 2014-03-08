@@ -1,19 +1,39 @@
 exports.index = function(req, resp){
-	//console.log(req);	
-	getPhoto(req.query.id,resp);	
+	//console.log(req);
+	
+	if(req.query.u){
+		var currentUserID = req.query.u;
+		Parse.Cloud.useMasterKey();    
+		var query = new Parse.Query(Parse.User);  		
+	  		
+	  	query.get(currentUserID, {      
+			success: function(user) {		    	
+	          	getPhoto(req,resp,user);
+	       	},
+		    error: function(error) {
+		      	console.log(error);
+		    }
+		});
+	  }else{
+	  	getPhoto(req,resp,null);	
+	  }
+	
+
+
+	
 };
 
-function getPhoto(id,resp) { 
-	console.log("Parse.User.current(): ",Parse.User.current());
-
-	var currentUser = Parse.User.current();
+function getPhoto(req,resp,user) { 
+	console.log("Parse.User.current(): "+user);
 
             
 	var Photo = Parse.Object.extend("Photo");
 	var query = new Parse.Query(Photo);
 	//query.limit(0);
 	query.include("user");
-	query.include("user_full");          
+	query.include("user_full");  
+
+	var id = req.query.id;        
 	        
 
 	if(id){
@@ -33,7 +53,7 @@ function getPhoto(id,resp) {
 	                var username_half = data.user._serverData.username;
 	                var username_full = "";
 
-	                if(Parse.User.current() && username_half == Parse.User.current().attributes.username){
+	                if(user && username_half == user._serverData.username){
 	                    username_half = "You!";
 	                }
 
@@ -41,7 +61,9 @@ function getPhoto(id,resp) {
 	                    username_full = data.user_full._serverData.username;
 	                }
 
-	                if(Parse.User.current() && username_full == Parse.User.current().attributes.username){
+	                //console.log(username_full+" / "+user._serverData.username);
+
+	                if(user && username_full == user._serverData.username){
 	                    username_full = "You!";
 	                }
 	                
@@ -94,7 +116,9 @@ function getPhoto(id,resp) {
 							mapImageURL:mapImageURL,
 							user:data.user,							
 							userFull:data.user_full,							
-							currentUser:currentUser,
+							currentUser:user,
+							username_half:username_half,
+							username_full:username_full
 						});
             	}
                 

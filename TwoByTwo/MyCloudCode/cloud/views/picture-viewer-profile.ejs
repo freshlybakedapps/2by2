@@ -1,0 +1,39 @@
+<% for(var i=0; i<allPhotosData.length; i++) {%>
+    <div class="picture-viewer">               
+        <div class="picture">
+            
+            <img src="<%= allPhotosData[i].imageURL %>" alt="" />
+            
+            <div class="picture-options">
+                <a href="#" class="likes left">
+                    <span></span><%= allPhotosData[i].likeLength %>
+                </a>
+                <a href="#" class="comments left">
+                    <span></span><a id="comment_<%= allPhotosData[i].photoID %>"></a>
+                </a>                                
+                
+                <br class="clr" />
+            </div>
+        </div>
+        <div class="picture-map">
+            <img src="<%= allPhotosData[i].mapImageURL %>" alt="" />
+            
+            <div class="user-list">
+                <nav>
+                    <ul>
+                        <li>
+                            <span></span> <a href="profile2?id=<%= allPhotosData[i].user.id %>"><%= allPhotosData[i].username_half %></a>
+                        </li>
+                        
+                        <% if (allPhotosData[i].userFull) { %>
+                            <li>
+                            <span></span> <a href="profile2?id=<%= allPhotosData[i].userFull.id %>"><%= allPhotosData[i].username_full %></a>
+                            </li>
+                        <% } %>
+                        
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+<% } %> 

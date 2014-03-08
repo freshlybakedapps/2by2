@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>2by2</title>
+        <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href='http://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800' rel='stylesheet' type='text/css'>
@@ -18,29 +18,47 @@
         <script src="markup/js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <div id="fb-root"></div>
+        
         <div class="container">
-            <header class="home">
+            <header>
                 <h1 id="logo">
                     <a href="#">
                         2 by 2
                     </a>
                 </h1>
+                <a id="signin" class="facebook-connect" href="#" target="_self"></a>
+                <div class="user-links">
+                    <ul>
+                        <li class="logout">
+                            <a href="#">
+                                Log out
+                            </a>
+                        </li>
+                        <li>
+                            <a id="fullname" href="#"></a>
+                        </li>
+                    </ul>
+                </div>
             </header>
-            <div class="slogan">
-                <span>2by2</span> <%= title %> Is a fun and easy way to make unexpected double exposure photos with friends <br/>(or with total strangers.)
-            </div>
-            <a href="#"><p class="logout">logout</p></a>
-            <a id="signin" class="facebook-connect" href="#" target="_self"></a>
-            <a class="download-app" href="https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8">
-                Download on the Appstore
-            </a>
-            <img class="mockup" src="markup/img/mockup.png" alt="" />
+
+            <a href="#" class="thumb-icon"></a>
+
+            <section id="main-content" role="content">
+                <% if(allPhotosData){ %>                
+                    <% include picture-viewer-profile %>
+                <% } %>   
+            </section>
+            <footer>
+                <p>Taken with 2by2 <a href="#" class="footer-download-app">Download the app</a>
+                <p><a href="#">About 2by2</a> / <a href="#">Terms</a> / <a href="#">Contact</a></p>
+            </footer>
         </div>
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>   
         <script src="markup/js/plugins.js"></script>
-        <script src="markup/js/main.js"></script>        
+        <script src="markup/js/profile2.js"></script>
+
+        
     </body>
 </html>

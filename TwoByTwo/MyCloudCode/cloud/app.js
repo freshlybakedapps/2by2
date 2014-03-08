@@ -11,11 +11,13 @@ app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
 
 var indexController = require('cloud/routes/index.js');
 var profileController = require('cloud/routes/profile.js');
+var profileController2 = require('cloud/routes/profile2.js');
 var pdpController = require('cloud/routes/pdp.js');
 var pdpController2 = require('cloud/routes/pdp2.js');
 
 app.get('/', indexController.index);
 app.get('/profile', profileController.index);
+app.get('/profile2', profileController2.index);
 app.get('/pdp', pdpController.index);
 app.get('/pdp2', pdpController2.index);
 

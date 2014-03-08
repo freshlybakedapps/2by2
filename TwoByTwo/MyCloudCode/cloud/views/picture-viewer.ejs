@@ -23,12 +23,12 @@
             <nav>
                 <ul>
                     <li>
-                        <span></span> <a href="profile?id=<%= user.id %>"><%= user._serverData.username %></a>
+                        <span></span> <a href="profile?id=<%= user.id %>"><%= username_half %></a>
                     </li>
                     
                     <% if (userFull) { %>
                         <li>
-                        <span></span> <a href="profile?id=<%= userFull.id %>"><%= userFull._serverData.username %></a>
+                        <span></span> <a href="profile?id=<%= userFull.id %>"><%= username_full %></a>
                         </li>
                     <% } %>
                     
@@ -58,15 +58,7 @@
             
             <nav class="comment-list">                                        
                 <ul>                                                                              
-                    <li>
-                        <img src="img/avatar.jpg" class="avatar" />
-                        <div class="comment-data">
-                            <h3><a href="#">John Tubert</a></h3>
-                            <p>
-                                Man, this is the bee’s knees
-                            </p>
-                        </div>
-                    </li>                                        
+                                                      
                 </ul>
                 
             </nav>
