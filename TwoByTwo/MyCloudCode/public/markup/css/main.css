@@ -260,6 +260,7 @@ header.home {
     -moz-webkit-radius: 2px;
     border-radius: 2px;
     font-family: 'Dosis';
+    color: #fffff;
 }
 
 .upload-comment input[type="text"] {
@@ -268,7 +269,7 @@ header.home {
     color: #8d8d8d; 
     font-size: 18px;
     margin: 0;
-    height: 24px;
+    height:45px;
     padding: 0 9px;
     width: 100%;
 }
@@ -283,6 +284,7 @@ header.home {
     position: absolute;
     right: 10px;
     width: 69px;
+    height:65px; 
     top: 10px;
 }
 
