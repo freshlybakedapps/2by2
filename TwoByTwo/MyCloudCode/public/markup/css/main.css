@@ -171,6 +171,7 @@ header.home {
 
 
 .picture > img,
+.picture > a > img,
 .picture-map > img,
 .picture > .picture-wrapper > a > img,
 .picture > .picture-wrapper > img{
@@ -284,7 +285,7 @@ header.home {
     position: absolute;
     right: 10px;
     width: 69px;
-    height: 65px; 
+    height: 45px; 
     top: 10px;
 }
 

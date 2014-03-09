@@ -28,6 +28,7 @@ $(function () {
         init: function () {			
             if (Parse.User.current()) {
             	$("#fullname").html(Parse.User.current().changed.fullName);
+                $("#fullname").attr("href","profile?id="+Parse.User.current().id); 
 
             	if(!this.getUrlVars().u){
             		if(!this.getUrlVars().id){
@@ -122,18 +123,18 @@ $(function () {
         },
 
 		showAsGrid: function (){
-			$(".picture-viewer").css({display : 'block', float: 'left', padding: 5, width : '25%'});
-			$(".picture").css("width","100%");
-			$(".picture-options").hide();
-			$(".picture-map").hide();
-			$("#main-content").css('overflow', 'hidden');
-			this.centerImage();			
-		},
-		
-		showAsList: function (){
-			$(".picture-viewer, .picture, .picture-options, .picture-map, #main-content").removeAttr('style');
-			this.centerImage();	
-		},
+            $(".picture-viewer").css({display : 'block', float: 'left', padding: 5, width : '25%'});
+            $(".picture").css("width","100%");
+            $(".picture-options").hide();
+            $(".picture-map").hide();
+            $("#main-content").css('overflow', 'hidden');
+            this.centerImage();         
+        },
+        
+        showAsList: function (){
+            $(".picture-viewer, .picture, .picture-options, .picture-map, #main-content").removeAttr('style');
+            this.centerImage(); 
+        },
 
 		getUrlVars: function() {
             var vars = [],

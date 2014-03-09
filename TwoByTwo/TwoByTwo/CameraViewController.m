@@ -541,8 +541,14 @@ static CGFloat const kImageSize = 320.0;
         : [NSString stringWithFormat:@"%@:2BY2", [[PFUser currentUser].username uppercaseString]];
         UIImage *picture = [weakSelf.previewView.image imageWithWatermark:watermark];
         
+        NSString* weblink= @"http://2by2.parseapp.com";
+        if(weakSelf.photo){
+            weblink = [NSString stringWithFormat:@"http://2by2.parseapp.com/pdp?id=%@",weakSelf.photo.objectId];
+        }
+        
+        
         NSDictionary *params = @{
-                                 @"message" : message,
+                                 @"message" : [NSString stringWithFormat:@"%@ - %@",message,weblink],
                                  @"picture" : UIImageJPEGRepresentation(picture, 0.8),
                                  };
         [FBRequestConnection startWithGraphPath:@"me/photos"

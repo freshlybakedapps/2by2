@@ -20,37 +20,10 @@
     <body>
         
         <div class="container">
-            <header>
-                <h1 id="logo">
-                    <a href="#">
-                        2 by 2
-                    </a>
-                </h1>
-                <a id="signin" class="facebook-connect" href="#" target="_self"></a>
-                <div class="user-links">
-                    <ul>
-                        <li class="logout">
-                            <a href="#">
-                                Log out
-                            </a>
-                        </li>
-                        <li>
-                            <a id="fullname" href="#"></a>
-                        </li>
-                    </ul>
-                </div>
-            </header>
-
+            <% include header %>
             <a href="#" class="thumb-icon"></a>
-
-            <section id="main-content" role="content">
-                
-                
-            </section>
-            <footer>
-                <p>Taken with 2by2 <a href="#" class="footer-download-app">Download the app</a>
-                <p><a href="#">About 2by2</a> / <a href="#">Terms</a> / <a href="#">Contact</a></p>
-            </footer>
+            <section id="main-content" role="content"></section>
+            <% include footer %>
         </div>
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

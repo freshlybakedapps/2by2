@@ -58,8 +58,9 @@
 
 - (UIImage *)imageWithWatermark:(NSString *)text
 {
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:10], NSForegroundColorAttributeName:[UIColor whiteColor]};
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:11], NSForegroundColorAttributeName:[UIColor whiteColor]};
     
+        
     CGRect rect = [text boundingRectWithSize:CGSizeMake(self.size.width, MAXFLOAT)
                                      options:NSStringDrawingUsesLineFragmentOrigin
                                   attributes:attributes
@@ -68,6 +69,11 @@
     
     UIGraphicsBeginImageContextWithOptions(self.size, YES, 0.0);
     [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+    
+    [[UIColor blackColor] set];
+    CGContextFillRect( UIGraphicsGetCurrentContext(), textRect);
+    
+    
     [text drawInRect:textRect withAttributes:attributes];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

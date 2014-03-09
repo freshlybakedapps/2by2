@@ -27,7 +27,8 @@ $(function () {
     var PDP = {
         init: function () {         
             if (Parse.User.current()) {
-                $("#fullname").html(Parse.User.current().changed.fullName);                
+                $("#fullname").html(Parse.User.current().changed.fullName);
+                $("#fullname").attr("href","profile?id="+Parse.User.current().id);                 
                 $("#signin").hide();
                 $(".logout").show();
                 $("#fullname").show();
@@ -212,6 +213,10 @@ $(function () {
 
                     $('#commentButton').click(function(e){
                         e.preventDefault();
+
+                        if($('#commentText').attr("value") == ""){
+                            return;
+                        }
                         
 
                         var Comment = Parse.Object.extend("Comment");

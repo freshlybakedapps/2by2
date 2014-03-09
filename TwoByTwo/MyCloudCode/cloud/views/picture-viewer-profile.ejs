@@ -2,7 +2,7 @@
     <div class="picture-viewer">               
         <div class="picture">
             
-            <img src="<%= allPhotosData[i].imageURL %>" alt="" />
+            <a href="pdp?id=<%= allPhotosData[i].photoID %>"><img src="<%= allPhotosData[i].imageURL %>" alt="" /></a>
             
             <div class="picture-options">
                 <a href="#" class="likes left">
@@ -22,12 +22,12 @@
                 <nav>
                     <ul>
                         <li>
-                            <span></span> <a href="profile2?id=<%= allPhotosData[i].user.id %>"><%= allPhotosData[i].username_half %></a>
+                            <span></span> <a href="profile?id=<%= allPhotosData[i].user.id %>"><%= allPhotosData[i].username_half %></a>
                         </li>
                         
                         <% if (allPhotosData[i].userFull) { %>
                             <li>
-                            <span></span> <a href="profile2?id=<%= allPhotosData[i].userFull.id %>"><%= allPhotosData[i].username_full %></a>
+                            <span></span> <a href="profile?id=<%= allPhotosData[i].userFull.id %>"><%= allPhotosData[i].username_full %></a>
                             </li>
                         <% } %>
                         
