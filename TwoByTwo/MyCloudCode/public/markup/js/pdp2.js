@@ -115,6 +115,10 @@ $(function () {
                         var url = 'https://graph.facebook.com/'+users[0]._serverData.facebookId+'/picture?type=square';
                         var html = '<li><a href="profile?id='+users[0].id+'"><img src="'+url+'" class="avatar" /></a></li>';
                         $(".like-list").find("ul").append(html);
+
+                        if(users.length > 0){
+                            $(".like-list").find("h3").html("LIKERS");
+                        }
                     },
                     error: function(object, error) {
                         // The object was not retrieved successfully.
@@ -207,6 +211,13 @@ $(function () {
                                 }
                             };
                         }
+
+                        if(photosArr[i]._serverData.likes){
+                            that.getLikesInfo(photosArr[i]._serverData.likes);
+                        }
+
+
+                        
                     }
 
                     
