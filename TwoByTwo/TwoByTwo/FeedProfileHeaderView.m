@@ -79,12 +79,15 @@
         user = nil;
     }
     
+    NSLog(@"updateContent: %@",user);
+    
     if (user) {
 //        self.followButton.hidden = NO; // Keep followButton hidden until the state is loaded.
         self.editButton.hidden = YES;
         self.moreButton.hidden = YES;
     }
     else {
+        NSLog(@"XXXXXXXXXXX");
         user = [PFUser currentUser];
         self.followButton.hidden = YES;
         self.editButton.hidden = NO;
@@ -122,7 +125,12 @@
     [followedByMeQuery whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
     [followedByMeQuery whereKey:@"followingUserID" equalTo:user.objectId];
     [followedByMeQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        weakSelf.followButton.hidden = NO;
+        
+        if(![user.objectId isEqualToString:[PFUser currentUser].objectId]){
+           weakSelf.followButton.hidden = NO;
+        }
+        
+        
         if (number > 0){
             [weakSelf.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
         }
