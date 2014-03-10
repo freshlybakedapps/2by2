@@ -88,13 +88,14 @@ function getPhoto(req,resp,user) {
 	                //http://2by2.parseapp.com/images/red.png
 	                //http://2by2.parseapp.com/images/green.png
 	                
-	                var markers;
+	                var markers = "";
 
 	                if(data.location_half){
 	                    if(data.location_half._longitude == 0){
 	                        username_half+=" (?)";
 	                    }else{
 	                        markers = "&markers=icon:http://2by2.parseapp.com/images/red.png%7Ccolor:0xff3366%7C"+locationHalf._latitude+","+locationHalf._longitude;
+	                        markers += "&visible="+(locationHalf._latitude+0.01)+","+(locationHalf._longitude+0.01);
 	                    }
 	                }                       
 
@@ -104,6 +105,7 @@ function getPhoto(req,resp,user) {
 	                        username_full+=" (?)";
 	                    }else{
 	                        markers+="&markers=icon:http://2by2.parseapp.com/images/green.png%7Ccolor:0x00cc99%7C"+locationFull._latitude+","+locationFull._longitude;
+	                        markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
 	                    }
 	                }
 	                //&center=Brooklyn+Bridge,New+York,NY&zoom=13
