@@ -48,6 +48,7 @@ function getPhoto(req,resp,user) {
 	//query.limit(0);
 	query.include("user");
 	query.include("user_full");
+    query.descending("createdAt");
 
 	if(user2){
 		query.equalTo("user", user2);   
