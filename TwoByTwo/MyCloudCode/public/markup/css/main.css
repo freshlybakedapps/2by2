@@ -26,7 +26,23 @@ html {
     font-family: 'Dosis';
     font-size: 18px;
 }
-
+h1{
+    font-size:36px;
+    padding-bottom: 30px;
+    font-weight:100;
+    line-height: 36px;
+    letter-spacing:-1px;
+}
+p {
+    line-height:24px;
+    letter-spacing:-0.1px;
+}
+a:link {
+    color: #ff3366;
+}
+a:visited {
+    color: #ff3366;
+}
 /* HEADER */
 
 header {
@@ -415,6 +431,13 @@ header.home {
 .user-list a {
     text-decoration: none;
     color: #FFFFFF;
+}
+
+
+/* PAGES */
+
+.sectionLabel{
+    font-weight: 600;
 }
 
 /* FOOTER */
