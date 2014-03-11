@@ -11,6 +11,7 @@
 #import "MKMapView+Utilities.h"
 #import "UIImageView+AFNetworking.h"
 #import "BlocksKit+UIKit.h"
+#import "PDPViewController.h"
 
 
 @interface FeedCell ()
@@ -19,6 +20,8 @@
 @property (nonatomic, weak) IBOutlet UIImageView *secondUserImageView;
 @property (nonatomic, weak) IBOutlet UIButton *firstUserButton;
 @property (nonatomic, weak) IBOutlet UIButton *secondUserButton;
+
+@property (nonatomic, weak) IBOutlet UIButton *detailsButton;
 
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -52,13 +55,23 @@
     self.commentButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.mapSecondUserLabel.font = [UIFont appMediumFontOfSize:14];
     self.mapFirstUserLabel.font = [UIFont appMediumFontOfSize:14];
+    
+    self.detailsButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    
 }
 
 
 #pragma mark - Content
 
+
 - (void)setPhoto:(PFObject *)photo
-{
+{    
+    
+    if(!self.shouldHaveDetailLink){
+        self.detailsButton.hidden = YES;
+    }
+
+    
     _photo = photo;
     __weak typeof(self) weakSelf = self;
     
@@ -206,6 +219,13 @@
 
 
 #pragma mark - Actions
+
+- (IBAction)detailButtonTapped:(id)sender
+{
+    NSLog(@"detailButtonTapped");
+    [self.delegate cell:self showCommentsForPhoto:self.photo];
+}
+
 
 - (IBAction)userButtonTapped:(id)sender
 {

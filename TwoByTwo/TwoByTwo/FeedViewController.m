@@ -35,7 +35,10 @@ static NSUInteger const kQueryBatchSize = 20;
     [super viewDidLoad];
     
     if (self.user) {
-        self.title = [self.user[@"fullName"] uppercaseString];
+        [self.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
+            self.title = [object[@"fullName"] uppercaseString];
+        }];
+        //self.title = [self.user[@"fullName"] uppercaseString];
     }
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
@@ -76,6 +79,7 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)performQuery
 {
+    
     if (self.type == FeedTypeFollowing || self.type == FeedTypeGlobal) {
         [self loadFollowers];
     }
@@ -86,6 +90,7 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)loadFollowers
 {
+   
     PFQuery *query = [PFQuery queryWithClassName:@"Followers"];
     if ([PFUser currentUser]) {
         [query whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
@@ -108,6 +113,8 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)loadPhotos
 {
+    
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
     
     switch (self.type) {
@@ -168,7 +175,8 @@ static NSUInteger const kQueryBatchSize = 20;
             
             break;
         }
-    }
+    } 
+    
     
     [query includeKey:@"user"];
     [query includeKey:@"user_full"];
@@ -267,12 +275,14 @@ static NSUInteger const kQueryBatchSize = 20;
     
     if (!self.showingFeed) {
         ThumbCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ThumbCell" forIndexPath:indexPath];
-        cell.photo = self.objects[indexPath.row];
+        cell.photo = self.objects[indexPath.row];        
         return cell;
     }
     else {
         FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
+        cell.shouldHaveDetailLink = YES;
         cell.photo = self.objects[indexPath.row];
+        
         cell.delegate = self;
         return cell;
     }

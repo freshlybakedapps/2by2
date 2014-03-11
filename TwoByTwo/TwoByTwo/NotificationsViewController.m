@@ -131,17 +131,21 @@
     PFObject *notification = self.objects[indexPath.row];
     NSString* photoID = notification[@"photoID"];
     NSString* byUserID = notification[@"byUserID"];
+    NSLog(@"photoID / byUserID: %@ / %@",photoID,byUserID);
     
     if (![photoID isEqualToString:@"0"] && ![photoID isEqualToString:@""]) {
         PDPViewController *controller = [PDPViewController controller];
         controller.photoID = photoID;
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];        
     }
     else {
         FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
         controller.type = FeedTypeFriend;
         controller.user = [PFUser objectWithoutDataWithObjectId:byUserID];
+        
         [self.navigationController pushViewController:controller animated:YES];
+        
+        
     }
 }
 

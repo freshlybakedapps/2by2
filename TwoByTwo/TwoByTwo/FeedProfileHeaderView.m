@@ -79,7 +79,7 @@
         user = nil;
     }
     
-    NSLog(@"updateContent: %@",user);
+    //NSLog(@"updateContent: %@",user);
     
     if (user) {
 //        self.followButton.hidden = NO; // Keep followButton hidden until the state is loaded.

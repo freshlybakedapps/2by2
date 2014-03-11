@@ -152,6 +152,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     switch (indexPath.section) {
         case CollectionViewSectionMain: {
             FeedCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FeedCell" forIndexPath:indexPath];
+            cell.shouldHaveDetailLink = NO;
             cell.photo = self.photo;
             cell.delegate = self;
             return cell;

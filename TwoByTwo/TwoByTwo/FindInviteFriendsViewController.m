@@ -120,7 +120,7 @@
         controller.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
         [controller setSubject:@"Check out my photos on 2by2"];
         [controller setToRecipients:@[email]];
-        [controller setMessageBody:@"I am inviting you yo check out my photos on 2by2. <a href='http://2by2.parseapp.com'>Download the app, it's tottally free!</a>" isHTML:YES];
+        [controller setMessageBody:@"I am inviting you yo check out my photos on 2by2. <a href='https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8'>Download the app, it's totally free!</a>" isHTML:YES];
         [self presentViewController:controller animated:YES completion:nil];
     }
 }
