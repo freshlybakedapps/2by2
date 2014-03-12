@@ -214,7 +214,7 @@
 - (void)updateLikeButton
 {
     self.likeButton.selected = self.photo.likedByMe;
-    [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.photo.likes.count] forState:UIControlStateNormal];
+    [self.likeButton setTitle:[NSString stringWithFormat:@"%lu", (unsigned long)self.photo.likes.count] forState:UIControlStateNormal];
 }
 
 

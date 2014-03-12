@@ -69,13 +69,13 @@
         }
     }
     
-    self.statusLabel.text = [NSString stringWithFormat:@"Checking %d contacts...", uniqueEmails.count];
+    self.statusLabel.text = [NSString stringWithFormat:@"Checking %lu contacts...", (unsigned long)uniqueEmails.count];
 
     [PFCloud callFunctionInBackground:@"getContactFriends"
                        withParameters:@{@"contacts":uniqueEmails, @"userID":[PFUser currentUser].objectId}
                                 block:^(NSArray *result, NSError *error) {
                                     if (!error) {
-                                        self.statusLabel.text = [NSString stringWithFormat:@"Found %d friends", result.count];
+                                        self.statusLabel.text = [NSString stringWithFormat:@"Found %lu friends", (unsigned long)result.count];
                                         self.friends = result;
                                         [self.tableView reloadData];
                                     }

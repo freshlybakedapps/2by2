@@ -22,8 +22,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateDone,
 };
 
-static CGFloat const kImageSize = 320.0;
-
 
 @interface CameraViewController ()
 @property (nonatomic, weak) IBOutlet GPUImageView *liveView;
@@ -182,7 +180,7 @@ static CGFloat const kImageSize = 320.0;
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/technics/%u/",arc4random_uniform(10)],
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/transport/%u/",arc4random_uniform(10)],
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/abstract/%u/",arc4random_uniform(10)]];
-    int r = arc4random_uniform(arr.count - 1);
+    int r = arc4random_uniform((int)arr.count - 1);
     return arr[r];
 }
 

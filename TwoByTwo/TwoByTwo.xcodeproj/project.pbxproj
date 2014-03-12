@@ -29,7 +29,6 @@
 		1DB0C801184A65F6002626C8 /* FindInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C800184A65F6002626C8 /* FindInviteFriendsViewController.m */; };
 		1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C804184A6B29002626C8 /* FindFacebookFriendsViewController.m */; };
 		1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */; };
-		1DB27B171862533800E5C083 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB27B161862533800E5C083 /* CommentsViewController.m */; };
 		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
 		1DD9715D184BF663001D35CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD9715B184BF663001D35CA /* AddressBook.framework */; };
 		1DD9715E184BF663001D35CA /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD9715C184BF663001D35CA /* AddressBookUI.framework */; };
@@ -136,8 +135,6 @@
 		1DB0C804184A6B29002626C8 /* FindFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFacebookFriendsViewController.m; sourceTree = "<group>"; };
 		1DB0C806184A8D0B002626C8 /* FindFacebookFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindFacebookFriendCell.h; sourceTree = "<group>"; };
 		1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindFacebookFriendCell.m; sourceTree = "<group>"; };
-		1DB27B151862533800E5C083 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
-		1DB27B161862533800E5C083 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		1DCD412618083BA2007A5D56 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1DCD412718083BA2007A5D56 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1DD9715B184BF663001D35CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -446,8 +443,6 @@
 				7C070106187398690011845D /* CommentCell.m */,
 				7CD1380318C4006100D534D7 /* AddCommentCell.h */,
 				7CD1380418C4006100D534D7 /* AddCommentCell.m */,
-				1DB27B151862533800E5C083 /* CommentsViewController.h */,
-				1DB27B161862533800E5C083 /* CommentsViewController.m */,
 			);
 			name = PDP;
 			sourceTree = "<group>";
@@ -806,7 +801,6 @@
 				7CD1380218C3F9E400D534D7 /* AvatarCell.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
 				1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */,
-				1DB27B171862533800E5C083 /* CommentsViewController.m in Sources */,
 				7C0681B918C2F13C00B8BFD6 /* ThumbCell.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,
 			);
@@ -944,15 +938,18 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "TwoByTwo/TwoByTwo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -965,19 +962,22 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = TwoByTwo/TwoByTwo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "TwoByTwo/TwoByTwo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

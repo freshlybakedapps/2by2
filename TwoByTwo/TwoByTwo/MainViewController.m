@@ -125,7 +125,7 @@ NSString * const NoficationUserInfoKeyCount = @"NoficationUserInfoKeyCount";
     [[UIColor blackColor] setFill];
     CGContextFillEllipseInRect (context, rect);
     
-    NSString *text = [NSString stringWithFormat:@"%d", number];
+    NSString *text = [NSString stringWithFormat:@"%ld", (long)number];
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.alignment = NSTextAlignmentCenter;
     [text drawInRect:CGRectOffset(rect, 0, 6) withAttributes:@{
