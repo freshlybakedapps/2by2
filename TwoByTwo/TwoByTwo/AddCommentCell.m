@@ -27,12 +27,12 @@
     sender.enabled = NO;
     __weak typeof(self) weakSelf = self;
     
-    PFObject *comment = [PFObject objectWithClassName:@"Comment"];
+    PFObject *comment = [PFObject objectWithClassName:PFCommentClass];
     comment[@"text"] = self.textField.text;
     comment[@"username"] = [PFUser currentUser].username;
-    comment[@"commentID"] = self.photo.objectId;
+    comment[PFCommentIDKey] = self.photo.objectId;
     comment[@"facebookId"] = [PFUser currentUser][@"facebookId"];
-    comment[@"userID"] = [PFUser currentUser].objectId;
+    comment[PFUserIDKey] = [PFUser currentUser].objectId;
     
     [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {

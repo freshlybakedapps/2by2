@@ -27,6 +27,11 @@
 
 @implementation NotificationsViewController
 
++ (instancetype)controller
+{
+    return [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -83,9 +88,9 @@
 
 - (void)performQuery
 {
-    PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
-    [query whereKey:@"notificationID" equalTo:[PFUser currentUser].objectId];
-    [query orderByDescending:@"createdAt"];
+    PFQuery *query = [PFQuery queryWithClassName:PFNotificationClass];
+    [query whereKey:PFNotificationIDKey equalTo:[PFUser currentUser].objectId];
+    [query orderByDescending:PFCreatedAtKey];
     
     __weak typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -129,7 +134,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PFObject *notification = self.objects[indexPath.row];
-    NSString* photoID = notification[@"photoID"];
+    NSString* photoID = notification[PFPhotoIDKey];
     NSString* byUserID = notification[@"byUserID"];
     NSLog(@"photoID / byUserID: %@ / %@",photoID,byUserID);
     

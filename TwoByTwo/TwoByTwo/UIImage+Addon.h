@@ -13,5 +13,6 @@
 
 - (UIImage *)scaleToSize:(CGSize)size contentMode:(UIViewContentMode)contentMode interpolationQuality:(CGInterpolationQuality)quality;
 - (UIImage *)imageWithWatermark:(NSString *)text;
++ (UIImage *)circleWithNumber:(NSInteger)number radius:(CGFloat)radius;
 
 @end

@@ -14,12 +14,11 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <Parse/Parse.h>
-    #import "TestFlight.h"
     #import "BlocksKit.h"
     #import "BlocksKit+UIKit.h"
-    #import "FacebookSDK.h"
+    #import "ParseConstants.h"
     #import "PFObject+Photo.h"
+    #import "PFObject+User.h"
     #import "UIColor+TwoByTwo.h"
     #import "UIFont+TwoByTwo.h"
-    #import "AppDelegate.h"
 #endif

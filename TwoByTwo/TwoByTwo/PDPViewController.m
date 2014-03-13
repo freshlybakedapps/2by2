@@ -80,10 +80,10 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     
     __weak typeof(self) weakSelf = self;
 
-    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
-    [query whereKey:@"objectId" equalTo:self.photoID];
-    [query includeKey:@"user"];
-    [query includeKey:@"user_full"];
+    PFQuery *query = [PFQuery queryWithClassName:PFPhotoClass];
+    [query whereKey:PFObjectIDKey equalTo:self.photoID];
+    [query includeKey:PFUserKey];
+    [query includeKey:PFUserFullKey];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -103,9 +103,9 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 {
     __weak typeof(self) weakSelf = self;
 
-    PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
-    [query whereKey:@"commentID" equalTo:self.photoID];
-    [query orderByAscending:@"createdAt"];
+    PFQuery *query = [PFQuery queryWithClassName:PFCommentClass];
+    [query whereKey:PFCommentIDKey equalTo:self.photoID];
+    [query orderByAscending:PFCreatedAtKey];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             weakSelf.comments = [objects mutableCopy];
@@ -198,7 +198,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == CollectionViewSectionMain && [self.photo.state isEqualToString:@"half"] && ![self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+    if (indexPath.section == CollectionViewSectionMain && [self.photo.state isEqualToString:PFStateValueHalf] && ![self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
         CameraViewController *controller = [CameraViewController controller];
         controller.photo = self.photo;
         [self presentViewController:controller animated:YES completion:nil];

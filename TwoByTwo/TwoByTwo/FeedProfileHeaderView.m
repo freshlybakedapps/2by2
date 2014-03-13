@@ -10,10 +10,10 @@
 #import "EditProfileViewController.h"
 #import "EverythingElseViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "AppDelegate.h"
 
 
 @interface FeedProfileHeaderView ()
-//@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UIButton *followButton;
 @property (nonatomic, weak) IBOutlet UIButton *editButton;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -23,10 +23,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *followingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followersLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bioLabel;
-//@property (nonatomic, weak) IBOutlet UIView *controlView;
-//@property (nonatomic, weak) IBOutlet UIButton *feedToggleButton;
-//@property (nonatomic, weak) IBOutlet UILabel *exposureLabel;
-//@property (nonatomic, weak) IBOutlet UIButton *exposureToggleButton;
 @end
 
 
@@ -79,15 +75,12 @@
         user = nil;
     }
     
-    //NSLog(@"updateContent: %@",user);
-    
     if (user) {
 //        self.followButton.hidden = NO; // Keep followButton hidden until the state is loaded.
         self.editButton.hidden = YES;
         self.moreButton.hidden = YES;
     }
     else {
-        NSLog(@"XXXXXXXXXXX");
         user = [PFUser currentUser];
         self.followButton.hidden = YES;
         self.editButton.hidden = NO;
@@ -100,20 +93,20 @@
     self.usernameLabel.text = user.username;
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", user, user];
-    PFQuery *query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
+    PFQuery *query = [PFQuery queryWithClassName:PFPhotoClass predicate:predicate];
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         weakSelf.numPhotosLabel.text = [NSString stringWithFormat:@"%d Photos", number];
     }];
     
-    PFQuery *followingQuery = [PFQuery queryWithClassName:@"Followers"];
-    [followingQuery whereKey:@"userID" equalTo:user.objectId];
-    [followingQuery selectKeys:@[@"followingUserID"]];
+    PFQuery *followingQuery = [PFQuery queryWithClassName:PFFollowersClass];
+    [followingQuery whereKey:PFUserIDKey equalTo:user.objectId];
+    [followingQuery selectKeys:@[PFFollowingUserIDKey]];
     [followingQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         weakSelf.followingLabel.text = [NSString stringWithFormat:@"%d Following", number];
     }];
     
-    PFQuery *followerQuery = [PFQuery queryWithClassName:@"Followers"];
-    [followerQuery whereKey:@"followingUserID" equalTo:user.objectId];
+    PFQuery *followerQuery = [PFQuery queryWithClassName:PFFollowersClass];
+    [followerQuery whereKey:PFFollowingUserIDKey equalTo:user.objectId];
     [followerQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         weakSelf.followersLabel.text = [NSString stringWithFormat:@"%d Followers", number];
     }];
@@ -121,15 +114,14 @@
     self.bioLabel.text = user[@"bio"];
     
     
-    PFQuery *followedByMeQuery = [PFQuery queryWithClassName:@"Followers"];
-    [followedByMeQuery whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
-    [followedByMeQuery whereKey:@"followingUserID" equalTo:user.objectId];
+    PFQuery *followedByMeQuery = [PFQuery queryWithClassName:PFFollowersClass];
+    [followedByMeQuery whereKey:PFUserIDKey equalTo:[PFUser currentUser].objectId];
+    [followedByMeQuery whereKey:PFFollowingUserIDKey equalTo:user.objectId];
     [followedByMeQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         
         if(![user.objectId isEqualToString:[PFUser currentUser].objectId]){
            weakSelf.followButton.hidden = NO;
         }
-        
         
         if (number > 0){
             [weakSelf.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
@@ -140,7 +132,7 @@
     }];
 
     
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=normal", user[@"facebookId"]]];
+    NSURL *URL = [NSURL URLWithFacebookUserID:user.facebookID size:160];
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
 }
 
@@ -152,7 +144,7 @@
     __weak typeof(self) weakSelf = self;
     self.followButton.enabled = NO;
     [PFCloud callFunctionInBackground:@"follow"
-                       withParameters:@{@"userID":[PFUser currentUser].objectId,@"username":[PFUser currentUser].username,@"followingUserID":self.user.objectId}
+                       withParameters:@{PFUserIDKey:[PFUser currentUser].objectId, @"username":[PFUser currentUser].username, PFFollowingUserIDKey:self.user.objectId}
                                 block:^(NSNumber *result, NSError *error) {
                                     weakSelf.followButton.enabled = YES;
                                     if (!error) {

@@ -10,6 +10,7 @@
 
 
 @interface ProgressButton : UIButton
+
 @property (nonatomic, strong) UIColor *outerColor;
 @property (nonatomic, strong) UIColor *innerColor;
 @property (nonatomic, strong) UIColor *trackColor;
@@ -17,4 +18,5 @@
 @property (nonatomic) CGFloat trackInset;
 @property (nonatomic) CGFloat trackWidth;
 @property (nonatomic) double progress;
+
 @end

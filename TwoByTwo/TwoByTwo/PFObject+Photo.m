@@ -8,7 +8,6 @@
 
 #import "PFObject+Photo.h"
 
-NSString * const PFPhotoKey         = @"Photo";
 NSString * const PFImageFullKey     = @"image_full";
 NSString * const PFImageHalfKey     = @"image_half";
 NSString * const PFLocationFullKey  = @"location_full";
@@ -122,6 +121,8 @@ static NSString * const kCommentCount = @"comment_count";
     self[PFUserInUseKey] = userInUse;
 }
 
+#pragma mark -
+
 - (BOOL)showMap
 {
     return [self[kShowMap] boolValue];
@@ -142,12 +143,13 @@ static NSString * const kCommentCount = @"comment_count";
     self[kCommentCount] = commentCount;
 }
 
+#pragma mark -
 
 - (BOOL)canDelete
 {
     // You can only delete your own photo that is not double-exposed yet.
     //NSLog(@"user: %@ %@",self.user,[PFUser currentUser]);
-    return ([self.user.username isEqualToString:[PFUser currentUser].username] && [self.state isEqualToString:@"half"]);
+    return ([self.user.username isEqualToString:[PFUser currentUser].username] && [self.state isEqualToString:PFStateValueHalf]);
 }
 
 - (BOOL)likedByMe

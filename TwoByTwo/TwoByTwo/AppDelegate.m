@@ -7,9 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "UIWindow+Animation.h"
 #import "Crittercism.h"
+#import "TestFlight.h"
 #import "FeedViewController.h"
+#import "UIWindow+Animation.h"
 
 
 @implementation AppDelegate
@@ -169,15 +170,10 @@
                                                            NSFontAttributeName:[UIFont appMediumFontOfSize:14],
                                                            }];
     
-    int imageSize = 24;
-    
-    UIImage *barBackBtnImg = [[UIImage imageNamed:@"backArrow"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, imageSize, 0, 0)];
-    
+    UIImage *barBackBtnImg = [[UIImage imageNamed:@"backArrow"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 24.0, 0, 0)];
     [[UINavigationBar appearance] setBackIndicatorImage:barBackBtnImg];
-    
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:barBackBtnImg];
-    
-    [[UIBarButtonItem appearance] setBackButtonBackgroundVerticalPositionAdjustment:5 forBarMetrics:UIBarMetricsDefault];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundVerticalPositionAdjustment:5.0 forBarMetrics:UIBarMetricsDefault];
 }
 
 @end

@@ -50,7 +50,7 @@
 {
     sender.enabled = NO;
     [PFCloud callFunctionInBackground:@"follow"
-                       withParameters:@{@"userID":[PFUser currentUser].objectId, @"username":[PFUser currentUser].username, @"followingUserID":self.data[@"parseID"]}
+                       withParameters:@{PFUserIDKey:[PFUser currentUser].objectId, @"username":[PFUser currentUser].username, PFFollowingUserIDKey:self.data[@"parseID"]}
                                 block:^(NSNumber *result, NSError *error) {
                                     sender.enabled = YES;
                                     if (!error) {

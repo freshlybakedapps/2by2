@@ -72,7 +72,7 @@
     self.statusLabel.text = [NSString stringWithFormat:@"Checking %lu contacts...", (unsigned long)uniqueEmails.count];
 
     [PFCloud callFunctionInBackground:@"getContactFriends"
-                       withParameters:@{@"contacts":uniqueEmails, @"userID":[PFUser currentUser].objectId}
+                       withParameters:@{@"contacts":uniqueEmails, PFUserIDKey:[PFUser currentUser].objectId}
                                 block:^(NSArray *result, NSError *error) {
                                     if (!error) {
                                         self.statusLabel.text = [NSString stringWithFormat:@"Found %lu friends", (unsigned long)result.count];

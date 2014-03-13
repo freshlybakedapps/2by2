@@ -8,7 +8,6 @@
 
 #import <Parse/Parse.h>
 
-extern NSString * const PFPhotoKey;
 extern NSString * const PFImageFullKey;
 extern NSString * const PFImageHalfKey;
 extern NSString * const PFLocationFullKey;

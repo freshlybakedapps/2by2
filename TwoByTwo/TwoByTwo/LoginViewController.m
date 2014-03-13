@@ -9,6 +9,11 @@
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 
+static NSString * const FacebookNameKey = @"name";
+static NSString * const FacebookUsernameKey = @"username";
+static NSString * const FacebookEmailKey = @"email";
+static NSString * const FacebookIDKey = @"id";
+
 
 @interface LoginViewController ()
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
@@ -57,13 +62,14 @@
             [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 
                 if (!error) {
-                    NSString *name = result[@"name"];
-                    NSString *email = result[@"email"];
-                    NSString *username = result[@"username"];
+                    NSString *name = result[FacebookNameKey];
+                    NSString *username = result[FacebookUsernameKey];
+                    NSString *email = result[FacebookEmailKey];
+                    NSString *facebookId = result[FacebookIDKey];
                     
                     if(user.isNew){
                         [PFCloud callFunctionInBackground:@"newUserRegistered"
-                                           withParameters:@{@"userID":[PFUser currentUser].objectId, @"username":name}
+                                           withParameters:@{PFUserIDKey:[PFUser currentUser].objectId, @"username":name}
                                                     block:^(NSString *result, NSError *error) {
                                                         if (!error) {
                                                             NSLog(@"newUserRegistered: %@", result);
@@ -73,42 +79,33 @@
 
                     
                     @try {
-                        [PFUser currentUser][@"facebookId"] = result[@"id"];
                         [PFUser currentUser].email = email;
-                        
-                        if(username){
-                           [PFUser currentUser].username = username;
-                        }else{
-                           [PFUser currentUser].username = name;
-                        }
-                        
+                        [PFUser currentUser].username = (username) ? : name;
+                        [PFUser currentUser].fullName = name;
+                        [PFUser currentUser].facebookID = facebookId;
+
                         //SET SOME DEFAULT VALUES FOR FIRST TIME USERS
-                        [PFUser currentUser][@"notificationWasAccessed"] = [NSDate date];
+                        [PFUser currentUser].notificationWasAccessed = [NSDate date];
                         
-                        [PFUser currentUser][@"likesEmailAlert"] = @(NO);
-                        [PFUser currentUser][@"followsEmailAlert"] = @(NO);
-                        [PFUser currentUser][@"commentsEmailAlert"] = @(NO);
-                        [PFUser currentUser][@"overexposeEmailAlert"] = @(NO);
-                        [PFUser currentUser][@"friendTookPhotoEmailAlert"] = @(NO);
-                        
-                        [PFUser currentUser][@"overexposePushAlert"] = @(YES);
-                        [PFUser currentUser][@"likesPushAlert"] = @(YES);
-                        [PFUser currentUser][@"followsPushAlert"] = @(YES);
-                        [PFUser currentUser][@"commentsPushAlert"] = @(YES);
-                        [PFUser currentUser][@"friendTookPhotoPushAlert"] = @(YES);
-                        
-                        [PFUser currentUser][@"digestEmailAlert"] = @(YES);
-                        
+                        [PFUser currentUser].likesEmailAlert = NO;
+                        [PFUser currentUser].followsEmailAlert = NO;
+                        [PFUser currentUser].commentsEmailAlert = NO;
+                        [PFUser currentUser].overexposeEmailAlert = NO;
+                        [PFUser currentUser].friendTookPhotoEmailAlert = NO;
+                        [PFUser currentUser].digestEmailAlert = YES;
+
+                        [PFUser currentUser].overexposePushAlert = YES;
+                        [PFUser currentUser].likesPushAlert = YES;
+                        [PFUser currentUser].followsPushAlert = YES;
+                        [PFUser currentUser].commentsPushAlert = YES;
+                        [PFUser currentUser].friendTookPhotoPushAlert = YES;
                         
                         
-                        
-                        [PFUser currentUser][@"fullName"] = name;
                         [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             if(error){
                                 NSLog(@"FB login %@",error.description);
                             }
                         }];
-
                     }
                     @catch (NSException *exception) {
                         NSLog(@"login/exception: %@",exception.description);
@@ -116,8 +113,8 @@
                     
                     @try {
                         NSDictionary *dimensions = @{                                                    
-                                                     @"fullName": name,
-                                                     @"facebookId": result[@"id"]
+                                                     PFFullNameKey: name,
+                                                     PFFacebookIDKey: facebookId
                                                      };
                         
                         [PFAnalytics trackEvent:@"new_user" dimensions:dimensions];
