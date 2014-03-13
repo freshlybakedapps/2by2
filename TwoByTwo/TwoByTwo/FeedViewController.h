@@ -15,4 +15,6 @@
 @property (nonatomic) FeedType type;
 @property (nonatomic, strong) PFUser *user;
 
++ (instancetype)controller;
+
 @end

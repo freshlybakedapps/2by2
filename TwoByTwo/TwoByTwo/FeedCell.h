@@ -13,10 +13,13 @@
 
 
 @interface FeedCell : UICollectionViewCell
+
 @property (nonatomic, weak) PFObject *photo;
 @property (nonatomic) BOOL shouldHaveDetailLink;
 @property (nonatomic, weak) id <FeedCellDelegate> delegate;
+
 - (void)showImageOrMapAnimated:(BOOL)animated;
+
 @end
 
 

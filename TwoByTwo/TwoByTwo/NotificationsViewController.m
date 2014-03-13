@@ -12,53 +12,45 @@
 #import "PDPViewController.h"
 #import "NSDate+Addon.h"
 #import "NotificationCell.h"
-#import "NotificationHeader.h"
 
 
 @interface NotificationsViewController ()
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *headerTitleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *headerMessageLabel;
 @property (nonatomic, strong) NSMutableArray *objects;
-@property (nonatomic) int headerHeight;
-@property (nonatomic, strong) NotificationHeader* header;
-
-
 @end
 
 
 @implementation NotificationsViewController
 
++ (instancetype)controller
+{
+    return [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSArray* arr = [[NSBundle mainBundle] loadNibNamed:@"NotificationHeader" owner:self options:nil];
-    self.header = (NotificationHeader*)[arr objectAtIndex:0];
-    self.header.controller = self;
-    self.tableView.tableHeaderView = self.header;
-    
-    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_notification"];
-    
-    //[[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:keyStoreValue];
-    //[[NSUbiquitousKeyValueStore defaultStore] synchronize];
-    
-    if([[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]){
-        [self changeHeaderHeight:NO];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+
+    self.headerTitleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.headerMessageLabel.font = [UIFont appMediumFontOfSize:13];
+
+    NSString *keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_notification"];
+    if ([[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]) {
+        self.tableView.tableHeaderView = nil;
     }
-    
-    
-    self.titleLabel.font = [UIFont appMediumFontOfSize:14];    
     
     
     //Since viewer is seeing the notifications we should set them back to zero
     [[NSNotificationCenter defaultCenter] postNotificationName:NoficationDidUpdatePushNotificationCount object:self userInfo:@{NoficationUserInfoKeyCount:@0}];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     [PFUser currentUser][@"notificationWasAccessed"] = [NSDate date];
     [[PFUser currentUser] saveEventually];
     
     [self performQuery];
 }
-
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
@@ -81,11 +73,30 @@
     }
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - Content
+
+- (IBAction)headerCloseButtonTapped:(id)sender
+{
+    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_notification"];
+    [[NSUbiquitousKeyValueStore defaultStore] setString:@"YES" forKey:keyStoreValue];
+    [[NSUbiquitousKeyValueStore defaultStore] synchronize];
+    
+    [self.tableView beginUpdates];
+    self.tableView.tableHeaderView = nil;
+    [self.tableView endUpdates];
+}
+
 - (void)performQuery
 {
-    PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
-    [query whereKey:@"notificationID" equalTo:[PFUser currentUser].objectId];
-    [query orderByDescending:@"createdAt"];
+    PFQuery *query = [PFQuery queryWithClassName:PFNotificationClass];
+    [query whereKey:PFNotificationIDKey equalTo:[PFUser currentUser].objectId];
+    [query orderByDescending:PFCreatedAtKey];
     
     __weak typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -129,9 +140,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PFObject *notification = self.objects[indexPath.row];
-    NSString* photoID = notification[@"photoID"];
+    NSString* photoID = notification[PFPhotoIDKey];
     NSString* byUserID = notification[@"byUserID"];
-    NSLog(@"photoID / byUserID: %@ / %@",photoID,byUserID);
     
     if (![photoID isEqualToString:@"0"] && ![photoID isEqualToString:@""]) {
         PDPViewController *controller = [PDPViewController controller];
@@ -139,13 +149,10 @@
         [self.navigationController pushViewController:controller animated:YES];        
     }
     else {
-        FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+        FeedViewController *controller = [FeedViewController controller];
         controller.type = FeedTypeFriend;
         controller.user = [PFUser objectWithoutDataWithObjectId:byUserID];
-        
         [self.navigationController pushViewController:controller animated:YES];
-        
-        
     }
 }
 
@@ -153,7 +160,6 @@
 {
     return YES;
 }
-
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -170,26 +176,5 @@
         }];
     }
 }
-
-- (void)changeHeaderHeight:(BOOL)animate {
-    
-    if(animate){
-        [UIView animateWithDuration:0.5 animations:^
-         {
-             CGRect headerFrame = self.tableView.tableHeaderView.frame;
-             headerFrame.size.height = 36.0f;
-             self.header.frame = headerFrame;
-             self.tableView.tableHeaderView = self.header;
-         }];
-    }else{
-        CGRect headerFrame = self.tableView.tableHeaderView.frame;
-        headerFrame.size.height = 36.0f;
-        self.header.frame = headerFrame;
-        self.tableView.tableHeaderView = self.header;
-    }
-    
-}
-
-
 
 @end

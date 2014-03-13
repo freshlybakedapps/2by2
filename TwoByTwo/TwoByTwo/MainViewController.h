@@ -10,6 +10,7 @@
 
 extern NSString * const NoficationDidUpdatePushNotificationCount;
 extern NSString * const NoficationUserInfoKeyCount;
+extern NSString * const NoficationShouldReloadPhotos;
 
 typedef NS_ENUM(NSUInteger, FeedType) {
     FeedTypeSingle = 0,
@@ -22,5 +23,7 @@ typedef NS_ENUM(NSUInteger, FeedType) {
 
 
 @interface MainViewController : UIViewController
+
 - (void)showControllerWithType:(FeedType)type;
+
 @end

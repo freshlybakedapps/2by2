@@ -63,18 +63,23 @@
     ABMultiValueRef emailProperty = ABRecordCopyValue(person, kABPersonEmailProperty);
     ABMultiValueRef phoneProperty = ABRecordCopyValue(person, kABPersonPhoneProperty);
     
-    NSArray *emailArray = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(emailProperty);
-    NSArray *phoneArray = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(phoneProperty);
-    
+    NSArray *emailArray = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(emailProperty));
+    CFRelease(emailProperty);
+
+    NSArray *phoneArray = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(phoneProperty));
+    CFRelease(phoneProperty);
+
     NSString* name;
     NSString* email;
     NSString* phone;
     
     if (fnameProperty != nil) {
         name = [NSString stringWithFormat:@"%@", fnameProperty];
+        CFRelease(fnameProperty);
     }
     if (lnameProperty != nil) {
         name = [name stringByAppendingString:[NSString stringWithFormat:@" %@", lnameProperty]];
+        CFRelease(lnameProperty);
     }
     if ([emailArray count] > 0) {
         email = [NSString stringWithFormat:@"%@", emailArray[0]];

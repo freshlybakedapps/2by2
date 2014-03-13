@@ -19,14 +19,13 @@
 - (void)setPhoto:(PFObject *)photo
 {
     _photo = photo;
-    __weak typeof(self) weakSelf = self;
     
     self.imageView.image = nil;
-    PFFile *file = ([self.photo.state isEqualToString:@"full"]) ? self.photo.imageFull : self.photo.imageHalf;
+    PFFile *file = ([self.photo.state isEqualToString:PFStateValueFull]) ? self.photo.imageFull : self.photo.imageHalf;
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
             UIImage *image = [UIImage imageWithData:data];
-            weakSelf.imageView.image = image;
+            self.imageView.image = image;
         }
         else {
             NSLog(@"getDataInBackgroundWithBlock: %@", error);

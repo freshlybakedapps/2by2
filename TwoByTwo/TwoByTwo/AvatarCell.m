@@ -28,13 +28,13 @@
     _userID = userID;
     
     PFQuery *query = [PFUser query];
-    [query whereKey:@"objectId" equalTo:userID];
+    [query whereKey:PFObjectIDKey equalTo:userID];
     query.limit = 1;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (objects.count > 0) {
             PFObject *user = objects[0];
-            NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", user[@"facebookId"]]];
+            NSURL *URL = [NSURL URLWithFacebookUserID:user.facebookID];
             [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
         }
     }];

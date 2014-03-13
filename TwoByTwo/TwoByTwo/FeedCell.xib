@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -207,6 +207,16 @@
                                     <action selector="commentButtonTapped:" destination="VyA-Z4-b7C" eventType="touchUpInside" id="SXZ-h9-SED"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fdq-DE-CaA">
+                                <rect key="frame" x="125" y="0.0" width="56" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="::Details">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="detailButtonTapped:" destination="VyA-Z4-b7C" eventType="touchUpInside" id="KEa-kV-nRs"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGq-C0-2Eq">
                                 <rect key="frame" x="240" y="0.0" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -238,22 +248,15 @@
                                     <action selector="toolButtonTapped:" destination="VyA-Z4-b7C" eventType="touchUpInside" id="wlg-03-9S3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fdq-DE-CaA">
-                                <rect key="frame" x="108" y="5" width="66" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="::Details">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="detailButtonTapped:" destination="VyA-Z4-b7C" eventType="touchUpInside" id="KEa-kV-nRs"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Fdq-DE-CaA" firstAttribute="top" secondItem="poe-xL-1Zl" secondAttribute="top" id="6im-6p-lVq"/>
+                            <constraint firstItem="Fdq-DE-CaA" firstAttribute="leading" secondItem="BWW-1N-wMk" secondAttribute="trailing" constant="20" id="BdH-Vj-91E"/>
                             <constraint firstItem="BWW-1N-wMk" firstAttribute="top" secondItem="poe-xL-1Zl" secondAttribute="top" id="FcP-ar-Wvd"/>
                             <constraint firstAttribute="bottom" secondItem="CpT-Oz-lgm" secondAttribute="bottom" id="KoL-Dz-Ss4"/>
                             <constraint firstAttribute="bottom" secondItem="BWW-1N-wMk" secondAttribute="bottom" id="RWw-Nd-dIB"/>
+                            <constraint firstAttribute="bottom" secondItem="Fdq-DE-CaA" secondAttribute="bottom" id="SRm-2D-EXK"/>
                             <constraint firstItem="GM5-Ez-IvP" firstAttribute="leading" secondItem="aGq-C0-2Eq" secondAttribute="trailing" id="VMZ-be-XDZ"/>
                             <constraint firstAttribute="height" constant="40" id="YJf-bW-PcB"/>
                             <constraint firstAttribute="trailing" secondItem="GM5-Ez-IvP" secondAttribute="trailing" id="bcq-eR-81c"/>

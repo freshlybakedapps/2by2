@@ -12,6 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "BlocksKit+UIKit.h"
 #import "PDPViewController.h"
+#import "NSURL+Facebook.h"
 
 
 @interface FeedCell ()
@@ -20,8 +21,6 @@
 @property (nonatomic, weak) IBOutlet UIImageView *secondUserImageView;
 @property (nonatomic, weak) IBOutlet UIButton *firstUserButton;
 @property (nonatomic, weak) IBOutlet UIButton *secondUserButton;
-
-@property (nonatomic, weak) IBOutlet UIButton *detailsButton;
 
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -35,6 +34,7 @@
 @property (nonatomic, weak) IBOutlet UIView *footerView;
 @property (nonatomic, weak) IBOutlet UIButton *likeButton;
 @property (nonatomic, weak) IBOutlet UIButton *commentButton;
+@property (nonatomic, weak) IBOutlet UIButton *detailsButton;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
 @end
@@ -53,36 +53,27 @@
     self.secondUserButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.likeButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.commentButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.detailsButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.mapSecondUserLabel.font = [UIFont appMediumFontOfSize:14];
     self.mapFirstUserLabel.font = [UIFont appMediumFontOfSize:14];
-    
-    self.detailsButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
-    
 }
 
 
 #pragma mark - Content
 
-
 - (void)setPhoto:(PFObject *)photo
 {    
-    
-    if(!self.shouldHaveDetailLink){
-        self.detailsButton.hidden = YES;
-    }
-
-    
     _photo = photo;
     __weak typeof(self) weakSelf = self;
     
     
     // User Avatars
-    NSURL *firstURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", self.photo.user[@"facebookId"]]];
+    NSURL *firstURL = [NSURL URLWithFacebookUserID:self.photo.user.facebookID];
     [self.firstUserImageView setImageWithURL:firstURL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     [self.firstUserButton setTitle:self.photo.user.username forState:UIControlStateNormal];
     
     if (self.photo.userFull) {
-        NSURL *secondURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", self.photo.userFull[@"facebookId"]]];
+        NSURL *secondURL = [NSURL URLWithFacebookUserID:self.photo.userFull.facebookID];
         [self.secondUserImageView setImageWithURL:secondURL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
         self.secondUserImageView.hidden = NO;
         [self.secondUserButton setTitle:self.photo.userFull.username forState:UIControlStateNormal];
@@ -108,14 +99,18 @@
         [self.commentButton setTitle:self.photo.commentCount forState:UIControlStateNormal];
     }
     else {
-        PFQuery *query = [PFQuery queryWithClassName:@"Comment"];
-        [query whereKey:@"commentID" equalTo:self.photo.objectId];
+        PFQuery *query = [PFQuery queryWithClassName:PFCommentClass];
+        [query whereKey:PFCommentIDKey equalTo:self.photo.objectId];
         [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             weakSelf.photo.commentCount = [NSString stringWithFormat:@"%d", number];
             [weakSelf.commentButton setTitle:weakSelf.photo.commentCount forState:UIControlStateNormal];
         }];
     }
     
+    
+    // Detail
+    self.detailsButton.hidden = (self.shouldHaveDetailLink) ? NO : YES;
+
     
     // Flag or Delte
     if (photo.canDelete) {
@@ -133,7 +128,7 @@
     __weak typeof(self) weakSelf = self;
 
     self.imageView.image = nil;
-    PFFile *file = ([self.photo.state isEqualToString:@"full"]) ? self.photo.imageFull : self.photo.imageHalf;
+    PFFile *file = ([self.photo.state isEqualToString:PFStateValueFull]) ? self.photo.imageFull : self.photo.imageHalf;
     if (file.isDataAvailable) {
         UIImage *image = [UIImage imageWithData:file.getData];
         self.imageView.image = image;
@@ -157,7 +152,7 @@
     if (self.photo.locationHalf) {
         markers = [NSString stringWithFormat:@"&markers=icon:http://2by2.parseapp.com/images/redMarker@2x.png|color:0x00cc99|%f,%f", self.photo.locationHalf.latitude, self.photo.locationHalf.longitude];
     }
-    if ([self.photo.state isEqualToString:@"full"] && self.photo.locationFull) {
+    if ([self.photo.state isEqualToString:PFStateValueFull] && self.photo.locationFull) {
         markers = [NSString stringWithFormat:@"%@&markers=icon:http://2by2.parseapp.com/images/greenMarker@2x.png|color:0xff3366|%f,%f", markers, self.photo.locationFull.latitude, self.photo.locationFull.longitude];
     }
     
@@ -214,7 +209,7 @@
 - (void)updateLikeButton
 {
     self.likeButton.selected = self.photo.likedByMe;
-    [self.likeButton setTitle:[NSString stringWithFormat:@"%d", self.photo.likes.count] forState:UIControlStateNormal];
+    [self.likeButton setTitle:[NSString stringWithFormat:@"%lu", (unsigned long)self.photo.likes.count] forState:UIControlStateNormal];
 }
 
 
@@ -222,7 +217,6 @@
 
 - (IBAction)detailButtonTapped:(id)sender
 {
-    NSLog(@"detailButtonTapped");
     [self.delegate cell:self showCommentsForPhoto:self.photo];
 }
 
@@ -256,7 +250,7 @@
     
     
     PFUser *user = [PFUser currentUser];
-    NSDictionary *params = @{@"objectid":self.photo.objectId, @"userWhoLikedID":user.objectId, @"userWhoLikedUsername":user.username};
+    NSDictionary *params = @{@"objectid":self.photo.objectId, PFUserWhoLikedIDKey:user.objectId, PFUserWhoLikedUsernameKey:user.username};
     [PFCloud callFunctionInBackground:@"likePhoto" withParameters:params block:^(NSNumber *result, NSError *error) {
         if (error) {
             NSLog(@"likePhoto error: %@", error);
@@ -268,7 +262,7 @@
     
     
     NSDictionary *dimensions = @{
-                                 @"photoID": self.photo.objectId,
+                                 PFPhotoIDKey: self.photo.objectId,
                                  @"userWhoLiked": [PFUser currentUser].username,
                                  @"likeCount": [NSString stringWithFormat:@"%lu",(unsigned long)self.photo.likes.count],
                                  };
@@ -282,7 +276,7 @@
         [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex != alertView.cancelButtonIndex) {
                 [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NoficationShouldReloadPhotos object:nil];
                 }];
             }
         }];
@@ -309,8 +303,8 @@
     
     
     NSDictionary *dimensions = @{
-                                 @"photoID": self.photo.objectId,
-                                 @"user": [PFUser currentUser].username,
+                                 PFPhotoIDKey: self.photo.objectId,
+                                 PFUserKey: [PFUser currentUser].username,
                                  @"flag_or_delete": (self.photo.canDelete) ? @"delete" : @"flag",
                                  };
     [PFAnalytics trackEvent:@"flag_or_delete_photo" dimensions:dimensions];
@@ -362,172 +356,5 @@
         action();
     }
 }
-
-
-/*
-#pragma mark - Map
-- (UIImageView *)mapView
-{
-    if (!_mapView) {
-        
-        _mapView = [[UIImageView alloc] initWithFrame:self.imageView.bounds];
-        
-        NSString* markers;
-        
-        if(self.photo.locationHalf){
-            markers = [NSString stringWithFormat:@"&markers=icon:http://2by2.parseapp.com/images/red.png|color:0x00cc99|%f,%f",self.photo.locationHalf.latitude,self.photo.locationHalf.longitude];
-        }
-        
-        if([self.photo.state isEqualToString:@"full"] && self.photo.locationFull){
-            
-            markers = [NSString stringWithFormat:@"%@&markers=icon:http://2by2.parseapp.com/images/green.png|color:0xff3366|%f,%f",markers,self.photo.locationFull.latitude,self.photo.locationFull.longitude];
-        }
-        
-        //NSInteger niceInt = niceCGFloat + 0.5f;
-        
-        NSInteger w = (NSInteger)self.imageView.frame.size.width;
-        NSInteger h = (NSInteger)self.imageView.frame.size.height;
-        
-        NSString *mapImageURL = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&zoom=12&style=lightness:-57|saturation:-100&size=%ldx%ld&maptype=roadmap%@&sensor=false",(long)w,(long)h,markers];
-        
-        NSString *escappedURL = [mapImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSLog(@"MapImageURL: %@",escappedURL);
-
-        NSURL *URL = [NSURL URLWithString:escappedURL];
-
-        
-        [_mapView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
-        
-        if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
-            if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
-                self.mapOverlayYou.text = @"You!";
-            }else{
-                self.mapOverlayYou.text = self.photo.user.username;
-            }
-            
-        }else{
-            if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
-                self.mapOverlayYou.text = @"You!(?)";
-            }else{
-                self.mapOverlayYou.text = [NSString stringWithFormat:@"%@(?)",self.photo.user.username];
-            }
-        }
-        
-        if (self.photo.locationFull){
-            self.mapOverlayPinRed.hidden = NO;
-            self.mapOverlayUsername.hidden = NO;
-        }
-        
-        if (self.photo.locationFull && self.photo.locationFull.latitude != 0) {
-            if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
-                self.mapOverlayUsername.text = @"You!";
-            }else{
-                self.mapOverlayUsername.text = self.photo.userFull.username;
-            }
-            
-        }else{
-            if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
-                self.mapOverlayUsername.text = @"You!(?)";
-            }else{
-                self.mapOverlayUsername.text = [NSString stringWithFormat:@"%@(?)",self.photo.userFull.username];
-            }
-        }
-
-        
-        
-    }
-    return _mapView;
-}
-
-
-
-
-- (MKMapView *)mapView
-{
-    if (!_mapView) {
- 
-        _mapView = [[MKMapView alloc] initWithFrame:self.imageView.bounds];
-        _mapView.userInteractionEnabled = NO;
-        _mapView.delegate = self;
-        
-        [self addAnnotations];
-    }
-    return _mapView;
-}
-
- 
-- (void)addAnnotations
-{
-    if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
-        UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:self.photo.locationHalf user:self.photo.user];
-        annotation.halfOrFull = @"half";
-        [self.mapView addAnnotation:annotation];
-        
-        if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
-            self.mapOverlayYou.text = @"You!";
-        }else{
-            self.mapOverlayYou.text = self.photo.user.username;
-        }
-        
-    }else{
-        if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId]){
-            self.mapOverlayYou.text = @"You!(?)";
-        }else{
-            self.mapOverlayYou.text = [NSString stringWithFormat:@"%@(?)",self.photo.user.username];
-        }
-    }
-    
-    if (self.photo.locationFull){
-        self.mapOverlayPinRed.hidden = NO;
-        self.mapOverlayUsername.hidden = NO;
-    }
-    
-    if (self.photo.locationFull && self.photo.locationFull.latitude != 0) {
-        UserAnnotation *annotation = [UserAnnotation annotationWithGeoPoint:self.photo.locationFull user:self.photo.userFull];
-        annotation.halfOrFull = @"full";
-        [self.mapView addAnnotation:annotation];
-        
-        //NSLog(@"%@ / %@",self.photo.userFull.objectId,[PFUser currentUser].objectId);
-        
-        if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
-            self.mapOverlayUsername.text = @"You!";
-        }else{
-            self.mapOverlayUsername.text = self.photo.userFull.username;
-        }
-        
-    }else{
-        if([self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
-            self.mapOverlayUsername.text = @"You!(?)";
-        }else{
-            self.mapOverlayUsername.text = [NSString stringWithFormat:@"%@(?)",self.photo.userFull.username];
-        }
-    }
-    
-    [self.mapView zoomToFitAnnotationsAnimated:NO minimumSpan:MKCoordinateSpanMake(0.3, 0.3)];
-}
-
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
-{
-    
-    MKAnnotationView *pin = (id)[mapView dequeueReusableAnnotationViewWithIdentifier:@"Pin"];
-    if (pin == nil) {
-        pin = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Pin"];
-    }
-    
-    UserAnnotation* ua = (UserAnnotation*) annotation;
-    
-    if([ua.halfOrFull isEqualToString:@"half"]){
-        pin.image = [UIImage imageNamed:@"pin_green.png"];
-    }else{
-        pin.image = [UIImage imageNamed:@"pin_red.png"];
-    }
-    
-    
-    pin.annotation = annotation;
-    return pin;
-}
-*/
 
 @end

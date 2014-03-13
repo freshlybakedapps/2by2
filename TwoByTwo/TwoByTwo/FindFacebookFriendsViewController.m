@@ -33,7 +33,7 @@
 - (void)loadFriends
 {
     [PFCloud callFunctionInBackground:@"getFacebookFriends"
-                       withParameters:@{@"user":[PFUser currentUser].objectId}
+                       withParameters:@{PFUserKey:[PFUser currentUser].objectId}
                                 block:^(NSArray *result, NSError *error) {
                                     if (!error) {
                                         NSLog(@"Facebook friends: %@", result);

@@ -30,17 +30,23 @@ static NSUInteger const kQueryBatchSize = 20;
 
 @implementation FeedViewController
 
++ (instancetype)controller
+{
+    return [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performQuery) name:NoficationShouldReloadPhotos object:nil];
+
     if (self.user) {
         [self.user fetchInBackgroundWithBlock:^(PFObject *object, NSError *error){
-            self.title = [object[@"fullName"] uppercaseString];
+            self.title = [object.fullName uppercaseString];
         }];
-        //self.title = [self.user[@"fullName"] uppercaseString];
     }
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView"];
@@ -74,12 +80,16 @@ static NSUInteger const kQueryBatchSize = 20;
     }
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 #pragma mark - Query
 
 - (void)performQuery
 {
-    
     if (self.type == FeedTypeFollowing || self.type == FeedTypeGlobal) {
         [self loadFollowers];
     }
@@ -90,16 +100,15 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)loadFollowers
 {
-   
-    PFQuery *query = [PFQuery queryWithClassName:@"Followers"];
+    PFQuery *query = [PFQuery queryWithClassName:PFFollowersClass];
     if ([PFUser currentUser]) {
-        [query whereKey:@"userID" equalTo:[PFUser currentUser].objectId];
+        [query whereKey:PFUserIDKey equalTo:[PFUser currentUser].objectId];
     }
-    [query selectKeys:@[@"followingUserID"]];
+    [query selectKeys:@[PFFollowingUserIDKey]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.followers = [objects bk_map:^id(id object) {
-                NSString *userID = object[@"followingUserID"];
+                NSString *userID = object[PFFollowingUserIDKey];
                 PFUser *user = [PFUser objectWithoutDataWithObjectId:userID];
                 return user;
             }];
@@ -113,75 +122,62 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)loadPhotos
 {
-    
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Photo"];
+    PFQuery *query = nil;
     
     switch (self.type) {
         case FeedTypeSingle:
-            [query whereKey:@"state" equalTo:@"half"];
-            [query whereKey:@"user" notEqualTo:[PFUser currentUser]];
+            query = [PFQuery queryWithClassName:PFPhotoClass];
+            [query whereKey:PFStateKey equalTo:PFStateValueHalf];
+            [query whereKey:PFUserKey notEqualTo:[PFUser currentUser]];
             break;
             
         case FeedTypeGlobal:
-        default:
-            [query whereKey:@"state" equalTo:@"full"];
-            [query whereKey:@"user" notContainedIn:self.followers];
-            [query whereKey:@"user_full" notContainedIn:self.followers];
-            
+            query = [PFQuery queryWithClassName:PFPhotoClass];
+            [query whereKey:PFStateKey equalTo:PFStateValueFull];
+            [query whereKey:PFUserKey notContainedIn:self.followers];
+            [query whereKey:PFUserFullKey notContainedIn:self.followers];
             break;
             
         case FeedTypeFollowing: {
-            PFQuery *userQuery = [PFQuery queryWithClassName:@"Photo"];
-            [userQuery whereKey:@"user" containedIn:self.followers];
+            PFQuery *userQuery = [PFQuery queryWithClassName:PFPhotoClass];
+            [userQuery whereKey:PFUserKey containedIn:self.followers];
             
-            PFQuery *userFullQuery = [PFQuery queryWithClassName:@"Photo"];
-            [userFullQuery whereKey:@"user_full" containedIn:self.followers];
+            PFQuery *userFullQuery = [PFQuery queryWithClassName:PFPhotoClass];
+            [userFullQuery whereKey:PFUserFullKey containedIn:self.followers];
             
-            query = [PFQuery orQueryWithSubqueries:@[userQuery,userFullQuery]];
-            
-            if(!self.showingDouble){
-                [query whereKey:@"state" equalTo:@"half"];
-            }else{
-                [query whereKey:@"state" equalTo:@"full"];
-            }
+            query = [PFQuery orQueryWithSubqueries:@[userQuery, userFullQuery]];
+            [query whereKey:PFStateKey equalTo:(self.showingDouble) ? PFStateValueFull : PFStateValueHalf];
             
             break;
         }
             
         case FeedTypeYou: {
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", [PFUser currentUser], [PFUser currentUser]];
-            query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
-            
-            if(!self.showingDouble){
-                [query whereKey:@"state" equalTo:@"half"];
-            }else{
-                [query whereKey:@"state" equalTo:@"full"];
-            }
-
+            query = [PFQuery queryWithClassName:PFPhotoClass predicate:predicate];
+            [query whereKey:PFStateKey equalTo:(self.showingDouble) ? PFStateValueFull : PFStateValueHalf];
             break;
         }
             
         case FeedTypeFriend: {
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", self.user, self.user];
-            query = [PFQuery queryWithClassName:@"Photo" predicate:predicate];
-            
-            if(!self.showingDouble){
-                [query whereKey:@"state" equalTo:@"half"];
-            }else{
-                [query whereKey:@"state" equalTo:@"full"];
-            }
-            
-            
+            query = [PFQuery queryWithClassName:PFPhotoClass predicate:predicate];
+            [query whereKey:PFStateKey equalTo:(self.showingDouble) ? PFStateValueFull : PFStateValueHalf];
             break;
         }
-    } 
+            
+        default:
+            break;
+    }
     
     
-    [query includeKey:@"user"];
-    [query includeKey:@"user_full"];
-    [query orderByAscending:@"updatedAt"];
+    if (!query) {
+        return;
+    }
     
+    
+    [query includeKey:PFUserKey];
+    [query includeKey:PFUserFullKey];
+    [query orderByDescending:PFCreatedAtKey];
     
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         
@@ -228,13 +224,13 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     [[PFUser currentUser] fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         
-        NSDate *date = object[@"notificationWasAccessed"];
+        NSDate *date = object.notificationWasAccessed;
         
-        PFQuery *query = [PFQuery queryWithClassName:@"Notification"];
-        [query whereKey:@"notificationID" equalTo:object.objectId];
+        PFQuery *query = [PFQuery queryWithClassName:PFNotificationClass];
+        [query whereKey:PFNotificationIDKey equalTo:object.objectId];
         
         if(date){
-            [query whereKey:@"createdAt" greaterThan:date];
+            [query whereKey:PFCreatedAtKey greaterThan:date];
         }
         
         [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
@@ -293,7 +289,7 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     PFObject *photo = self.objects[indexPath.row];
 
-    if (self.showingFeed && [photo.state isEqualToString:@"half"] && ![photo.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+    if (self.showingFeed && [photo.state isEqualToString:PFStateValueHalf] && ![photo.user.objectId isEqualToString:[PFUser currentUser].objectId]) {
         CameraViewController *controller = [CameraViewController controller];
         controller.photo = photo;
         [self presentViewController:controller animated:YES completion:nil];
@@ -359,7 +355,7 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)cell:(FeedCell *)cell showProfileForUser:(PFUser *)user
 {
-    FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+    FeedViewController *controller = [FeedViewController controller];
     controller.type = FeedTypeFriend;
     controller.user = user;
     [self.navigationController pushViewController:controller animated:YES];

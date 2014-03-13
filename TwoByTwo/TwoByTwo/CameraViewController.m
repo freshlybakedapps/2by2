@@ -14,6 +14,7 @@
 #import <Social/Social.h>
 #import "CustomPickerView.h"
 #import "PDPViewController.h"
+#import "MainViewController.h"
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
@@ -21,8 +22,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateUploading,
     CameraViewStateDone,
 };
-
-static CGFloat const kImageSize = 320.0;
 
 
 @interface CameraViewController ()
@@ -83,11 +82,11 @@ static CGFloat const kImageSize = 320.0;
         };
         
         // Check again to make sure photo is not "in-use"
-        PFQuery *query = [PFQuery queryWithClassName:PFPhotoKey];
+        PFQuery *query = [PFQuery queryWithClassName:PFPhotoClass];
         [query includeKey:PFUserInUseKey];
         [query getObjectInBackgroundWithId:weakSelf.photo.objectId block:^(PFObject *photo, NSError *error) {
             if(!error) {
-                if ([photo.state isEqualToString:@"half"]) {
+                if ([photo.state isEqualToString:PFStateValueHalf]) {
                     // Set state to 'in-use'
                     [weakSelf setPhotoState:@"in-use" completion:^(BOOL succeeded, NSError *error) {
                         
@@ -182,7 +181,7 @@ static CGFloat const kImageSize = 320.0;
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/technics/%u/",arc4random_uniform(10)],
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/transport/%u/",arc4random_uniform(10)],
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/abstract/%u/",arc4random_uniform(10)]];
-    int r = arc4random_uniform(arr.count - 1);
+    int r = arc4random_uniform((int)arr.count - 1);
     return arr[r];
 }
 
@@ -261,7 +260,7 @@ static CGFloat const kImageSize = 320.0;
     switch (self.state) {
         case CameraViewStateTakePhoto:
         {
-            [self setPhotoState:@"half" completion:^(BOOL succeeded, NSError *error) {
+            [self setPhotoState:PFStateValueHalf completion:^(BOOL succeeded, NSError *error) {
                 if (!succeeded) {
                     NSLog(@"CameraViewStateTakePhoto setPhotoState: %@", error);
                 }
@@ -353,16 +352,16 @@ static CGFloat const kImageSize = 320.0;
                     [weakSelf sharePhotoToFacebook];
                 }
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadImagesTable" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NoficationShouldReloadPhotos object:nil];
 
                 NSString *locationFull = [NSString stringWithFormat:@"%f,%f", weakSelf.photo.locationFull.latitude, weakSelf.photo.locationFull.longitude];
                 NSString *locationHalf = [NSString stringWithFormat:@"%f,%f", weakSelf.photo.locationHalf.latitude, weakSelf.photo.locationHalf.longitude];
                 if (weakSelf.photo) {
                     [PFCloud callFunctionInBackground:@"notifyUser"
-                                       withParameters:@{@"photoID":weakSelf.photo.objectId,
+                                       withParameters:@{PFPhotoIDKey:weakSelf.photo.objectId,
                                                         @"user_full_username":weakSelf.photo.userFull.username,
                                                         @"user_full_id":weakSelf.photo.userFull.objectId,
-                                                        @"userID":weakSelf.photo.user.objectId,
+                                                        PFUserIDKey:weakSelf.photo.user.objectId,
                                                         @"url":weakSelf.photo.imageFull.url,
                                                         @"locationFull":locationFull,
                                                         @"location":locationHalf}
@@ -380,7 +379,7 @@ static CGFloat const kImageSize = 320.0;
                 else {
                     [PFCloud callFunctionInBackground:@"newPhotoWasPosted"
                                        withParameters:@{@"username":[PFUser currentUser].username,
-                                                        @"userID":[PFUser currentUser].objectId}
+                                                        PFUserIDKey:[PFUser currentUser].objectId}
                                                 block:^(NSNumber *result, NSError *error) {
                                                     if (!error) {
                                                         NSLog(@"newPhotoWasPosted sucessed: %@", result);
@@ -505,16 +504,16 @@ static CGFloat const kImageSize = 320.0;
                 weakSelf.photo.locationFull = geoPoint;
                 weakSelf.photo.imageFull = photoFile;
                 weakSelf.photo.userFull = [PFUser currentUser];
-                weakSelf.photo.state = @"full";
+                weakSelf.photo.state = PFStateValueFull;
                 weakSelf.photo[@"filter"] = self.blendModeName;
                 [weakSelf.photo saveInBackgroundWithBlock:backgroundTaskCompletion];
             }
             else {
-                weakSelf.uploadedPhoto = [PFObject objectWithClassName:@"Photo"];
+                weakSelf.uploadedPhoto = [PFObject objectWithClassName:PFPhotoClass];
                 weakSelf.uploadedPhoto.locationHalf = geoPoint;
                 weakSelf.uploadedPhoto.imageHalf = photoFile;
                 weakSelf.uploadedPhoto.user = [PFUser currentUser];
-                weakSelf.uploadedPhoto.state = @"half";
+                weakSelf.uploadedPhoto.state = PFStateValueHalf;
                 [weakSelf.uploadedPhoto saveInBackgroundWithBlock:backgroundTaskCompletion];
             }
         }
