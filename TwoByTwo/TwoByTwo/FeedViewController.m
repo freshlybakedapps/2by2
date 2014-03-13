@@ -180,7 +180,7 @@ static NSUInteger const kQueryBatchSize = 20;
     
     [query includeKey:@"user"];
     [query includeKey:@"user_full"];
-    [query orderByDescending:@"createdAt"];
+    [query orderByAscending:@"updatedAt"];
     
     
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
@@ -188,6 +188,7 @@ static NSUInteger const kQueryBatchSize = 20;
         self.totalNumberOfObjects = number;
         query.limit= kQueryBatchSize;
         query.skip = self.objects.count;
+        //[query orderByDescending:@"createdAt"];
         
         [query setCachePolicy:kPFCachePolicyNetworkElseCache];
         
