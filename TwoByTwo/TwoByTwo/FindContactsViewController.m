@@ -59,7 +59,8 @@
     for (int i = 0; i < numberOfContacts; i++) {
         ABRecordRef aPerson = CFArrayGetValueAtIndex(allContacts, i);
         ABMultiValueRef emailProperty = ABRecordCopyValue(aPerson, kABPersonEmailProperty);
-        NSArray *emailArray = (__bridge NSArray *)ABMultiValueCopyArrayOfAllValues(emailProperty);
+        NSArray *emailArray = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(emailProperty));
+        CFRelease(emailProperty);
         
         if (emailArray.count) {
             NSString *email = [emailArray componentsJoinedByString:@"\n"];
@@ -68,7 +69,8 @@
             }
         }
     }
-    
+    CFRelease(allContacts);
+
     self.statusLabel.text = [NSString stringWithFormat:@"Checking %lu contacts...", (unsigned long)uniqueEmails.count];
 
     [PFCloud callFunctionInBackground:@"getContactFriends"
