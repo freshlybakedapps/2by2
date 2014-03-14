@@ -27,6 +27,7 @@ html {
     font-size: 18px;
 }
 h1{
+    color:#636363;
     font-size:36px;
     padding-bottom: 30px;
     font-weight:100;
@@ -34,8 +35,10 @@ h1{
     letter-spacing:-1px;
 }
 p {
+    color:#636363;
     line-height:24px;
     letter-spacing:-0.1px;
+
 }
 a:link {
     color: #ff3366;
