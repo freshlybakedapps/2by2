@@ -17,11 +17,26 @@ exports.index = function(req, resp){
 	  }else{
 	  	getPhoto(req,resp,null);	
 	  }
-	
-
-
-	
 };
+
+exports.withUserID = function(req, resp){
+    if(req.params.u){
+        var currentUserID = req.params.u;
+        Parse.Cloud.useMasterKey();    
+        var query = new Parse.Query(Parse.User);        
+            
+        query.get(currentUserID, {      
+            success: function(user) {               
+                getPhoto(req,resp,user,currentUserID);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+      }else{
+        getPhoto(req,resp,null,null);    
+      }
+}
 
 function getDistance(lat1, lat2, lon1, lon2){
     var R = 6371; // km
