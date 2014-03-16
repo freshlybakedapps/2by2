@@ -56,6 +56,10 @@ $(function () {
 
 			this.getPhotos();	
             this.bind();
+
+            this.showAsGrid();
+            $("body").removeClass("list");
+            $("body").addClass("thumbs");
         },
 
         bind: function () {
