@@ -176,6 +176,45 @@ $(function () {
             return window.location.href.split("/").pop();
         },
 
+        getAllComments: function(){
+            var Comment = Parse.Object.extend("Comment");
+            var query = new Parse.Query(Comment);
+            //query.equalTo("commentID", photosArr[i].id);
+            query.limit(10000);
+            var commentMap = []; 
+
+            query.find({
+                success: function(commentsArr) {
+                    var len = commentsArr.length;
+
+                    for (var i = len - 1; i >= 0; i--) {
+                        var current = commentsArr[i]._serverData;
+                        if(!commentMap[current.commentID]){
+                            commentMap[current.commentID] = [];
+                            
+                        }
+
+                        commentMap[current.commentID].push(current);
+                    };
+
+                    for(var id in commentMap){
+                        if($("#comment_"+id)){
+                            $("#comment_"+id).prev().html("<span></span>"+commentMap[id].length);
+                        }
+                    }
+
+                    //console.log(len);
+                    
+
+                },
+                error: function(object, error) {
+                    // The object was not retrieved successfully.
+                    // error is a Parse.Error with an error code and description.
+                    console.log(error);
+                }
+            });
+
+        },
         
 
         getPhotos: function () {
@@ -268,7 +307,7 @@ $(function () {
 							};
 						}
 
-
+                        /*
 		                var Comment = Parse.Object.extend("Comment");
 						var query = new Parse.Query(Comment);
 						query.equalTo("commentID", photosArr[i].id);						
@@ -286,7 +325,8 @@ $(function () {
 							    console.log(error);
 							  }
 							});
-						})(i,photosArr.length-1);						
+						})(i,photosArr.length-1);
+                        */						
 					}				
 		        },
 		        error: function(object, error) {
@@ -295,6 +335,8 @@ $(function () {
 		            console.log(error);
 		        }
 		    });
+
+            that.getAllComments();
 			
         }
 
