@@ -30,7 +30,19 @@ $(function () {
             	$("#fullname").html(Parse.User.current().changed.fullName);
                 $("#fullname").attr("href","profile?id="+Parse.User.current().id); 
 
-            	if(!this.getUrlVars().u){
+                //console.log(this.getURLLastParam()+" / "+Parse.User.current().id);
+
+                
+                /*
+                if(!this.getUrlVars().u){
+                    //if(this.getURLLastParam() != Parse.User.current().id){
+                        location.href = location.href.replace("#","")+"?u="+Parse.User.current().id;
+                    //}
+                } 
+                */
+
+            	
+                if(!this.getUrlVars().u){
             		if(!this.getUrlVars().id){
             			location.href = location.href.replace("#","")+"?u="+Parse.User.current().id;
             		}else{
@@ -38,6 +50,7 @@ $(function () {
             		}                    
                     
                 }
+                
 							
             }
 
@@ -50,7 +63,13 @@ $(function () {
 			
 			$('.logout').click(function (e) {
 				Parse.User.logOut();
-				location.href = "/";
+				//location.href = "/";
+                if(location.href.indexOf("?") > -1){
+                    location.href = location.href.split("?")[0];
+                }else{
+                    location.reload(true);
+                }
+                
 			}),
 			
 			
@@ -149,12 +168,27 @@ $(function () {
             return vars;
         },
 
+        getURLLastParam: function(){
+            return window.location.href.split("/").pop();
+        },
+
         
 
         getPhotos: function () {
         	var that = this;			
 			var clicking = false;
-			var id = this.getUrlVars()["id"];
+			
+            var id = this.getUrlVars()["id"];
+            
+            /*
+            var id = this.getURLLastParam();
+            if(id.indexOf("?") > -1){
+                id = id.split("?")[0];
+            }
+
+            console.log(id);
+            */
+            
 
             if(id){
             	id = id.split("#")[0];

@@ -8,20 +8,23 @@ exports.index = function(req, resp){
 	  		
 	  	query.get(currentUserID, {      
 			success: function(user) {		    	
-	          	getPhoto(req,resp,user);
+	          	getPhoto(req,resp,user,currentUserID);
 	       	},
 		    error: function(error) {
 		      	console.log(error);
 		    }
 		});
 	  }else{
-	  	getPhoto(req,resp,null);	
+	  	getPhoto(req,resp,null,null);	
 	  }
 };
 
 exports.withUserID = function(req, resp){
-    if(req.params.u){
-        var currentUserID = req.params.u;
+    
+
+
+    if(req.query.u){
+        var currentUserID = req.query.u;
         Parse.Cloud.useMasterKey();    
         var query = new Parse.Query(Parse.User);        
             
@@ -33,8 +36,9 @@ exports.withUserID = function(req, resp){
                 console.log(error);
             }
         });
-      }else{
-        getPhoto(req,resp,null,null);    
+      }else if(req.params.u){
+
+        getPhoto(req,resp,null,req.params.u);    
       }
 }
 
@@ -50,7 +54,7 @@ function getDistance(lat1, lat2, lon1, lon2){
     return R * c;
 }
 
-function getPhoto(req,resp,user) { 
+function getPhoto(req,resp,user,id) { 
 	//console.log("Parse.User.current(): "+user);
 	var id = req.query.id;
 
