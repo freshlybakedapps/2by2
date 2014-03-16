@@ -79,7 +79,8 @@ static CGFloat const kItemSpacing = 10.0;
     [self insertSubview:self.rearContainerView belowSubview:self.frontContainerView];
     
     
-    self.frontCollectionView.contentInset = self.rearCollectionView.contentInset = UIEdgeInsetsMake(0, 144, 0, 144);
+    CGFloat inset = (self.bounds.size.width - kItemSize) / 2;
+    self.frontCollectionView.contentInset = self.rearCollectionView.contentInset = UIEdgeInsetsMake(0, inset, 0, inset);
     
     UIImage *ringImage = [UIImage imageNamed:@"icon-dot-ring"];
     self.ringImageView = [[UIImageView alloc] initWithImage:ringImage];
@@ -102,13 +103,10 @@ static CGFloat const kItemSpacing = 10.0;
     [super layoutSubviews];
     
     // Mask top and bottom table views.
-//    CGRect rect = CGRectInset(self.bounds, 0.5 * (CGRectGetWidth(self.frame) - kItemSize), 0);
-    
     UIImage *dotImage = [UIImage imageNamed:@"icon-dot-on"];
     CALayer *topMask = [CALayer layer];
     topMask.frame = CGRectMake((self.bounds.size.width - dotImage.size.width) / 2, (self.bounds.size.height - dotImage.size.height) / 2, dotImage.size.width, dotImage.size.height);
     topMask.contents = (id)dotImage.CGImage;
-//    topMask.backgroundColor = [UIColor blackColor].CGColor;
     self.frontContainerView.layer.mask = topMask;
 }
 

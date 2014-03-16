@@ -18,7 +18,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Wk-wn-Vgy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-668" y="69"/>
+            <point key="canvasLocation" x="471" y="-691"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="J3s-OE-Kce">
@@ -39,7 +39,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="vVh-uF-8fn" kind="modal" identifier="" id="rQK-3z-u2A"/>
+                                    <action selector="cameraButtonTapped:" destination="kXQ-kM-6nA" eventType="touchUpInside" id="Qdd-uK-Zy0"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -72,131 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DWP-Nj-xW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-105" y="69"/>
-        </scene>
-        <!--Camera View Controller-->
-        <scene sceneID="G2m-cp-LJH">
-            <objects>
-                <viewController storyboardIdentifier="CameraViewController" id="vVh-uF-8fn" customClass="CameraViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3Us-8c-95t"/>
-                        <viewControllerLayoutGuide type="bottom" id="sAS-9Y-mbp"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qK4-2w-Del">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vZe-BE-PZL">
-                                <rect key="frame" x="10" y="70" width="300" height="300"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.94984137199999996" blue="0.72376825199999995" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3r-Er-iE6" userLabel="Preview View" customClass="GPUImageView">
-                                <rect key="frame" x="10" y="70" width="300" height="300"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="L2p-Bv-zsX"/>
-                                    <constraint firstAttribute="width" constant="300" id="hM1-mt-3lx"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKa-8F-6M9" userLabel="Top Left Button">
-                                <rect key="frame" x="20" y="30" width="26" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="0Jg-SS-v6E"/>
-                                    <constraint firstAttribute="width" constant="26" id="mqt-Wl-O1F"/>
-                                </constraints>
-                                <state key="normal" image="button-close">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="topLeftButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="2uX-ub-B1v"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJz-kY-2FM" userLabel="Top Right Button">
-                                <rect key="frame" x="274" y="30" width="26" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="26" id="Rxr-Lt-IPG"/>
-                                    <constraint firstAttribute="height" constant="26" id="xOO-eE-CWU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" image="button-selfie">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" image="button-selfie"/>
-                                <connections>
-                                    <action selector="topRightButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="33O-A6-SAz"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLB-bE-VZL" userLabel="Bottom Button" customClass="ProgressButton">
-                                <rect key="frame" x="128" y="484" width="64" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="EzE-CL-Mjv"/>
-                                    <constraint firstAttribute="height" constant="64" id="rsD-rH-Zwa"/>
-                                </constraints>
-                                <state key="normal" image="button-shutter-black">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="bottomButtonTapped:" destination="vVh-uF-8fn" eventType="touchUpInside" id="aAH-Ag-qwL"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lighten" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqK-ZB-v0m">
-                                <rect key="frame" x="132" y="422" width="57" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lUn-CM-cf2" customClass="CustomPickerView">
-                                <rect key="frame" x="0.0" y="380" width="320" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="jl6-1n-oNg"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="vVh-uF-8fn" id="NJC-k1-wws"/>
-                                </connections>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="sAS-9Y-mbp" firstAttribute="top" secondItem="mLB-bE-VZL" secondAttribute="bottom" constant="20" id="0dZ-3F-V5J"/>
-                            <constraint firstAttribute="centerX" secondItem="mLB-bE-VZL" secondAttribute="centerX" id="5ym-jJ-i1C"/>
-                            <constraint firstAttribute="trailing" secondItem="lUn-CM-cf2" secondAttribute="trailing" id="Fz3-vj-H2P"/>
-                            <constraint firstItem="b3r-Er-iE6" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="50" id="Iqe-HO-xWn"/>
-                            <constraint firstItem="TJz-kY-2FM" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="10" id="NUq-ys-J0b"/>
-                            <constraint firstItem="nKa-8F-6M9" firstAttribute="leading" secondItem="qK4-2w-Del" secondAttribute="leading" constant="20" id="O7J-ev-8Ze"/>
-                            <constraint firstItem="lUn-CM-cf2" firstAttribute="top" secondItem="b3r-Er-iE6" secondAttribute="bottom" constant="10" id="S09-Rh-LXu"/>
-                            <constraint firstItem="lUn-CM-cf2" firstAttribute="leading" secondItem="qK4-2w-Del" secondAttribute="leading" id="SPy-Lk-Eof"/>
-                            <constraint firstAttribute="centerX" secondItem="SqK-ZB-v0m" secondAttribute="centerX" id="ejl-0a-3yz"/>
-                            <constraint firstItem="vZe-BE-PZL" firstAttribute="bottom" secondItem="b3r-Er-iE6" secondAttribute="bottom" id="iOR-w2-bQH"/>
-                            <constraint firstItem="nKa-8F-6M9" firstAttribute="top" secondItem="3Us-8c-95t" secondAttribute="bottom" constant="10" id="jcY-Al-Drj"/>
-                            <constraint firstItem="vZe-BE-PZL" firstAttribute="leading" secondItem="b3r-Er-iE6" secondAttribute="leading" id="kSd-Un-j2r"/>
-                            <constraint firstItem="vZe-BE-PZL" firstAttribute="trailing" secondItem="b3r-Er-iE6" secondAttribute="trailing" id="m6X-b7-MY0"/>
-                            <constraint firstAttribute="centerX" secondItem="b3r-Er-iE6" secondAttribute="centerX" id="oat-dr-DyB"/>
-                            <constraint firstItem="SqK-ZB-v0m" firstAttribute="top" secondItem="lUn-CM-cf2" secondAttribute="bottom" constant="10" id="uLo-yz-WMH"/>
-                            <constraint firstItem="vZe-BE-PZL" firstAttribute="top" secondItem="b3r-Er-iE6" secondAttribute="top" id="vtf-y4-CcO"/>
-                            <constraint firstAttribute="trailing" secondItem="TJz-kY-2FM" secondAttribute="trailing" constant="20" id="xCv-8p-lJq"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="blendModeLabel" destination="SqK-ZB-v0m" id="RTE-Gj-0F5"/>
-                        <outlet property="blendModePickerView" destination="lUn-CM-cf2" id="p3u-Hx-M72"/>
-                        <outlet property="bottomButton" destination="mLB-bE-VZL" id="4jj-ua-c8O"/>
-                        <outlet property="liveView" destination="b3r-Er-iE6" id="jAU-Mt-Ivj"/>
-                        <outlet property="previewView" destination="vZe-BE-PZL" id="QVN-C0-i41"/>
-                        <outlet property="topLeftButton" destination="nKa-8F-6M9" id="68C-m2-ePY"/>
-                        <outlet property="topRightButton" destination="TJz-kY-2FM" id="2eb-PD-Kfv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KRt-tr-coo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="471" y="904"/>
+            <point key="canvasLocation" x="925" y="-691"/>
         </scene>
         <!--Feed View Controller-->
         <scene sceneID="dB4-Kk-aPc">
@@ -493,10 +369,10 @@ Characters)</string>
             </objects>
             <point key="canvasLocation" x="1401" y="69"/>
         </scene>
-        <!--View Controller-->
+        <!--PDP View Controller-->
         <scene sceneID="gAe-XV-xGI">
             <objects>
-                <collectionViewController storyboardIdentifier="PDPViewController" autoresizesArchivedViewToFullSize="NO" id="3lQ-h6-k34" customClass="PDPViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="PDPViewController" autoresizesArchivedViewToFullSize="NO" id="3lQ-h6-k34" userLabel="PDP View Controller" customClass="PDPViewController" sceneMemberID="viewController">
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="kQL-mk-KHo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1288,8 +1164,6 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
     <resources>
         <image name="add_photo" width="72" height="72"/>
         <image name="button-close" width="44" height="44"/>
-        <image name="button-selfie" width="25" height="25"/>
-        <image name="button-shutter-black" width="64" height="64"/>
         <image name="button-shutter-green" width="70" height="70"/>
         <image name="defaultUserImage" width="72" height="72"/>
         <image name="icon-double" width="30" height="30"/>

@@ -10,6 +10,7 @@
 #import "FeedViewController.h"
 #import "EditProfileViewController.h"
 #import "NotificationsViewController.h"
+#import "CameraViewController.h"
 #import "UIImage+Addon.h"
 
 NSString * const NoficationDidUpdatePushNotificationCount = @"NoficationDidUpdatePushNotificationCount";
@@ -58,6 +59,15 @@ NSString * const NoficationShouldReloadPhotos = @"NoficationShouldReloadPhotos";
         [self showControllerWithType:sender.selectedSegmentIndex];
     }
 }
+
+- (IBAction)cameraButtonTapped:(id)sender
+{
+    CameraViewController *controller = [CameraViewController controller];
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+
+#pragma mark - Child Controller
 
 - (void)showControllerWithType:(FeedType)type
 {

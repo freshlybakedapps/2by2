@@ -50,7 +50,8 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 
 + (instancetype)controller
 {
-    CameraViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    NSString *identifier = ([UIScreen mainScreen].bounds.size.height < 568) ? @"CameraViewController3_5" : @"CameraViewController";
+    CameraViewController *controller = [[UIStoryboard storyboardWithName:@"Camera" bundle:nil] instantiateViewControllerWithIdentifier:identifier];
     return controller;
 }
 
@@ -258,16 +259,15 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 {
     __weak typeof(self) weakSelf = self;
     switch (self.state) {
-        case CameraViewStateTakePhoto:
-        {
+        case CameraViewStateTakePhoto: {
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
             [self setPhotoState:PFStateValueHalf completion:^(BOOL succeeded, NSError *error) {
                 if (!succeeded) {
                     NSLog(@"CameraViewStateTakePhoto setPhotoState: %@", error);
                 }
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }];
-        }
             break;
+        }
             
         case CameraViewStateReadyToUpload:
             self.state = CameraViewStateTakePhoto;

@@ -29,12 +29,5 @@
 #define PFStateValueHalf @"half"
 #define PFStateValueFull @"full"
 
-//#define PFClass @""
-//#define PFKey @""
-//
-//
-//#define PFClass @""
-//#define PFKey @""
-
 
 #endif
