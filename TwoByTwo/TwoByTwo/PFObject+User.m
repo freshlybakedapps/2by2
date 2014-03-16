@@ -62,7 +62,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)commentsEmailAlert
 {
-    return self[PFCommentsEmailAlertKey];
+    return [self[PFCommentsEmailAlertKey] boolValue];
 }
 
 - (void)setCommentsEmailAlert:(BOOL)commentsEmailAlert
@@ -72,7 +72,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)digestEmailAlert
 {
-    return self[PFDigestEmailAlertKey];
+    return [self[PFDigestEmailAlertKey] boolValue];
 }
 
 - (void)setDigestEmailAlert:(BOOL)digestEmailAlert
@@ -82,7 +82,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)followsEmailAlert
 {
-    return self[PFFollowsEmailAlertKey];
+    return [self[PFFollowsEmailAlertKey] boolValue];
 }
 
 - (void)setFollowsEmailAlert:(BOOL)followsEmailAlert
@@ -92,7 +92,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)friendTookPhotoEmailAlert
 {
-    return self[PFFriendTookPhotoEmailAlertKey];
+    return [self[PFFriendTookPhotoEmailAlertKey] boolValue];
 }
 
 - (void)setFriendTookPhotoEmailAlert:(BOOL)friendTookPhotoEmailAlert
@@ -102,7 +102,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)likesEmailAlert
 {
-    return self[PFLikesEmailAlertKey];
+    return [self[PFLikesEmailAlertKey] boolValue];
 }
 
 - (void)setLikesEmailAlert:(BOOL)likesEmailAlert
@@ -112,7 +112,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)overexposeEmailAlert
 {
-    return self[PFOverexposeEmailAlertKey];
+    return [self[PFOverexposeEmailAlertKey] boolValue];
 }
 
 - (void)setOverexposeEmailAlert:(BOOL)overexposeEmailAlert
@@ -124,7 +124,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)commentsPushAlert
 {
-    return self[PFCommentsPushAlertKey];
+    return [self[PFCommentsPushAlertKey] boolValue];
 }
 
 - (void)setCommentsPushAlert:(BOOL)commentsPushAlert
@@ -134,7 +134,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)followsPushAlert
 {
-    return self[PFFollowsPushAlertKey];
+    return [self[PFFollowsPushAlertKey] boolValue];
 }
 
 - (void)setFollowsPushAlert:(BOOL)followsPushAlert
@@ -144,7 +144,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)friendTookPhotoPushAlert
 {
-    return self[PFFriendTookPhotoPushAlertKey];
+    return [self[PFFriendTookPhotoPushAlertKey] boolValue];
 }
 
 - (void)setFriendTookPhotoPushAlert:(BOOL)friendTookPhotoPushAlert
@@ -154,7 +154,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)likesPushAlert
 {
-    return self[PFLikesPushAlertKey];
+    return [self[PFLikesPushAlertKey] boolValue];
 }
 
 - (void)setLikesPushAlert:(BOOL)likesPushAlert
@@ -164,7 +164,7 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 
 - (BOOL)overexposePushAlert
 {
-    return self[PFOverexposePushAlertKey];
+    return [self[PFOverexposePushAlertKey] boolValue];
 }
 
 - (void)setOverexposePushAlert:(BOOL)overexposePushAlert
