@@ -22,8 +22,7 @@ app.get('/', indexController.index);
 app.get('/index', indexController.index);
 //app.get('/profile', profileController.index);
 app.get('/profile', profileController2.index);
-
-//app.get('/profile/:u', profileController2.withUserID);
+app.get('/profile/:u', profileController2.withUserID);
 
 
 

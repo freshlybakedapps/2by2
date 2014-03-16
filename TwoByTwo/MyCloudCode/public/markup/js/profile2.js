@@ -30,7 +30,19 @@ $(function () {
             	$("#fullname").html(Parse.User.current().changed.fullName);
                 $("#fullname").attr("href","profile?id="+Parse.User.current().id); 
 
-            	if(!this.getUrlVars().u){
+                //console.log(this.getURLLastParam()+" / "+Parse.User.current().id);
+
+                
+                /*
+                if(!this.getUrlVars().u){
+                    //if(this.getURLLastParam() != Parse.User.current().id){
+                        location.href = location.href.replace("#","")+"?u="+Parse.User.current().id;
+                    //}
+                } 
+                */
+
+            	
+                if(!this.getUrlVars().u){
             		if(!this.getUrlVars().id){
             			location.href = location.href.replace("#","")+"?u="+Parse.User.current().id;
             		}else{
@@ -38,11 +50,16 @@ $(function () {
             		}                    
                     
                 }
+                
 							
             }
 
 			this.getPhotos();	
             this.bind();
+
+            this.showAsGrid();
+            $("body").removeClass("list");
+            $("body").addClass("thumbs");
         },
 
         bind: function () {
@@ -50,7 +67,13 @@ $(function () {
 			
 			$('.logout').click(function (e) {
 				Parse.User.logOut();
-				location.href = "/";
+				//location.href = "/";
+                if(location.href.indexOf("?") > -1){
+                    location.href = location.href.split("?")[0];
+                }else{
+                    location.reload(true);
+                }
+                
 			}),
 			
 			
@@ -149,12 +172,80 @@ $(function () {
             return vars;
         },
 
+        getURLLastParam: function(){
+            return window.location.href.split("/").pop();
+        },
+
+        getAllComments: function(){
+            var Comment = Parse.Object.extend("Comment");
+            var query = new Parse.Query(Comment);
+            //query.equalTo("commentID", photosArr[i].id);
+            query.limit(10000);
+            var commentMap = []; 
+
+            query.find({
+                success: function(commentsArr) {
+                    var len = commentsArr.length;
+
+                    for (var i = len - 1; i >= 0; i--) {
+                        var current = commentsArr[i]._serverData;
+                        if(!commentMap[current.commentID]){
+                            commentMap[current.commentID] = [];
+                            
+                        }
+
+                        commentMap[current.commentID].push(current);
+                    };
+
+                    for(var id in commentMap){
+                        if($("#comment_"+id)){
+                            $("#comment_"+id).prev().html("<span></span>"+commentMap[id].length);
+                        }
+                    }
+
+                    //console.log(len);
+                    
+
+                },
+                error: function(object, error) {
+                    // The object was not retrieved successfully.
+                    // error is a Parse.Error with an error code and description.
+                    console.log(error);
+                }
+            });
+
+        },
+
+        likePhoto: function(objectid){
+            var userWhoLikedID = Parse.User.current().id;
+            var userWhoLikedUsername = Parse.User.current()._serverData.username;
+
+            Parse.Cloud.run('LikePhoto', { objectid: objectid, userWhoLikedID: userWhoLikedID, userWhoLikedUsername:userWhoLikedUsername}, {
+              success: function(str) {        
+                console.log(str);
+              },
+              error: function(error) {
+                console.log(error);
+              }
+            });
+        },
         
 
         getPhotos: function () {
         	var that = this;			
 			var clicking = false;
-			var id = this.getUrlVars()["id"];
+			
+            var id = this.getUrlVars()["id"];
+            
+            /*
+            var id = this.getURLLastParam();
+            if(id.indexOf("?") > -1){
+                id = id.split("?")[0];
+            }
+
+            console.log(id);
+            */
+            
 
             if(id){
             	id = id.split("#")[0];
@@ -212,25 +303,45 @@ $(function () {
                         $(window).smartresize(that.centerImage);
                     }
 
-					//ADD COMMENT COUNTER
-					//photosArr.length					
+					//ADD LIKE PICTURES
+								
 		            for(var i=0;i<photosArr.length;i++){
+
+                        var index = i*2;
+
+                        
 
 		            	var data = photosArr[i].attributes;
 						if(Parse.User.current() && data.likes){
+
+                            //console.log($(".picture-options > a > span").length+" / "+photosArr.length);
+
 							for (var j = data.likes.length - 1; j >= 0; j--) {
 								
 
 								if(data.likes[j] == Parse.User.current().id){
-									//console.log(data.likes[j],Parse.User.current().id);
-									//$(".picture-options").find().css("background-position","-32px");
-									var el = $(".picture-options > a > span")[i];
+									var el = $(".picture-options > a > span")[index];
 									$(el).css("background-position","-32px");
 								}
+
+
 							};
 						}
 
+                        /*
+                        var el = $(".picture-options > a")[index];
+                                    
+                        console.log($(el));
 
+                        $(el).click(function (e) {
+                            //that.likePhoto(photosArr[i].id);
+                            console.log(photosArr[i].id);
+                            return false;
+                        })
+                        */
+
+                        
+                        /*
 		                var Comment = Parse.Object.extend("Comment");
 						var query = new Parse.Query(Comment);
 						query.equalTo("commentID", photosArr[i].id);						
@@ -248,7 +359,8 @@ $(function () {
 							    console.log(error);
 							  }
 							});
-						})(i,photosArr.length-1);						
+						})(i,photosArr.length-1);
+                        */						
 					}				
 		        },
 		        error: function(object, error) {
@@ -257,6 +369,8 @@ $(function () {
 		            console.log(error);
 		        }
 		    });
+
+            that.getAllComments();
 			
         }
 
