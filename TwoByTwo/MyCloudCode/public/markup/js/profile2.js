@@ -215,6 +215,20 @@ $(function () {
             });
 
         },
+
+        likePhoto: function(objectid){
+            var userWhoLikedID = Parse.User.current().id;
+            var userWhoLikedUsername = Parse.User.current()._serverData.username;
+
+            Parse.Cloud.run('LikePhoto', { objectid: objectid, userWhoLikedID: userWhoLikedID, userWhoLikedUsername:userWhoLikedUsername}, {
+              success: function(str) {        
+                console.log(str);
+              },
+              error: function(error) {
+                console.log(error);
+              }
+            });
+        },
         
 
         getPhotos: function () {
@@ -289,24 +303,44 @@ $(function () {
                         $(window).smartresize(that.centerImage);
                     }
 
-					//ADD COMMENT COUNTER
-					//photosArr.length					
+					//ADD LIKE PICTURES
+								
 		            for(var i=0;i<photosArr.length;i++){
+
+                        var index = i*2;
+
+                        
 
 		            	var data = photosArr[i].attributes;
 						if(Parse.User.current() && data.likes){
+
+                            //console.log($(".picture-options > a > span").length+" / "+photosArr.length);
+
 							for (var j = data.likes.length - 1; j >= 0; j--) {
 								
 
 								if(data.likes[j] == Parse.User.current().id){
-									//console.log(data.likes[j],Parse.User.current().id);
-									//$(".picture-options").find().css("background-position","-32px");
-									var el = $(".picture-options > a > span")[i];
+									var el = $(".picture-options > a > span")[index];
 									$(el).css("background-position","-32px");
 								}
+
+
 							};
 						}
 
+                        /*
+                        var el = $(".picture-options > a")[index];
+                                    
+                        console.log($(el));
+
+                        $(el).click(function (e) {
+                            //that.likePhoto(photosArr[i].id);
+                            console.log(photosArr[i].id);
+                            return false;
+                        })
+                        */
+
+                        
                         /*
 		                var Comment = Parse.Object.extend("Comment");
 						var query = new Parse.Query(Comment);
