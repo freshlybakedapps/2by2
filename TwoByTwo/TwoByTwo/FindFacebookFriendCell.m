@@ -12,6 +12,8 @@
 
 @interface FindFacebookFriendCell ()
 @property (nonatomic, strong) UIButton *followButton;
+@property (nonatomic, weak) IBOutlet UILabel *textLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @end
 
 
@@ -27,20 +29,25 @@
 {
     _data = data;
     
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", data[@"facebookID"]]];
+    NSURL *URL = [NSURL URLWithFacebookUserID:data[@"facebookID"]];
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
-    self.imageView.layer.cornerRadius = 15;
+    self.imageView.layer.cornerRadius = CGRectGetHeight(self.imageView.frame) * 0.5;  
     
+    self.textLabel.font = [UIFont appFontOfSize:14];
     self.textLabel.text = data[@"name"];
     
     
     if (!self.followButton) {
-        self.followButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 90, 40)];
-        self.followButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        [self.followButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        self.followButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+        self.followButton.titleLabel.font = [UIFont appFontOfSize:14];
+        UIImage *btnImage = [UIImage imageNamed:@"button-red"];
+        [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+        [self.followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.followButton addTarget:self action:@selector(followButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         self.accessoryView = self.followButton;
     }
+    
+    
     
     NSString *buttonTitle = ([data[@"following"] boolValue]) ? @"Unfollow" : @"Follow";
     [self.followButton setTitle:buttonTitle forState:UIControlStateNormal];

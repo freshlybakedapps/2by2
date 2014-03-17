@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A5F661867616E0086FE1C /* NotificationsViewController.m */; };
 		1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EC181B203800E6F26A /* UIImage+Addon.m */; };
+		1D24D30F18D7383E005C196B /* FindFacebookFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D24D30E18D7383E005C196B /* FindFacebookFriendsCell.xib */; };
 		1D4207C517E6AB1E008A7F98 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */; };
 		1D4207C717E6AB2D008A7F98 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */; };
 		1D4207C917E6AB42008A7F98 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C817E6AB42008A7F98 /* libz.1.1.3.dylib */; };
@@ -103,6 +104,7 @@
 		1D0A5F661867616E0086FE1C /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		1D1B34EB181B203800E6F26A /* UIImage+Addon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addon.h"; sourceTree = "<group>"; };
 		1D1B34EC181B203800E6F26A /* UIImage+Addon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addon.m"; sourceTree = "<group>"; };
+		1D24D30E18D7383E005C196B /* FindFacebookFriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFacebookFriendsCell.xib; sourceTree = "<group>"; };
 		1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -339,6 +341,7 @@
 				1DB0C804184A6B29002626C8 /* FindFacebookFriendsViewController.m */,
 				1DB0C806184A8D0B002626C8 /* FindFacebookFriendCell.h */,
 				1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */,
+				1D24D30E18D7383E005C196B /* FindFacebookFriendsCell.xib */,
 			);
 			name = "Find Facebook friends";
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */,
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
 				7C0681BB18C2F14600B8BFD6 /* ThumbCell.xib in Resources */,
+				1D24D30F18D7383E005C196B /* FindFacebookFriendsCell.xib in Resources */,
 				7CF39DE917E0070A003A859F /* InfoPlist.strings in Resources */,
 				7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */,
 				7CA4902018D66A28001D5537 /* Camera.storyboard in Resources */,

@@ -22,6 +22,10 @@
     [super viewDidLoad];
     self.title = @"Facebook";
     
+    [self.tableView registerNib:[UINib nibWithNibName:@"FindFacebookFriendsCell" bundle:nil] forCellReuseIdentifier:@"FindFacebookFriendsCell"];
+    
+    
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     NSDictionary *normalAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont appFontOfSize:18], NSFontAttributeName,nil];
@@ -53,7 +57,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FindFacebookFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FindFacebookFriendCell" forIndexPath:indexPath];
+    FindFacebookFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FindFacebookFriendsCell" forIndexPath:indexPath];
     cell.data = self.friends[indexPath.row];
     cell.backgroundColor = (indexPath.row % 2 == 0) ? [UIColor colorWithWhite:0.98 alpha:1.0] : [UIColor colorWithWhite:0.95 alpha:1.0];
     return cell;
