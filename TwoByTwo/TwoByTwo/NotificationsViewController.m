@@ -12,6 +12,7 @@
 #import "PDPViewController.h"
 #import "NSDate+Addon.h"
 #import "NotificationCell.h"
+#import "UserDefaultsManager.h"
 
 
 @interface NotificationsViewController ()
@@ -36,8 +37,9 @@
     self.headerTitleLabel.font = [UIFont appMediumFontOfSize:14];
     self.headerMessageLabel.font = [UIFont appMediumFontOfSize:13];
 
-    NSString *keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_notification"];
-    if ([[NSUbiquitousKeyValueStore defaultStore] stringForKey:keyStoreValue]) {
+    
+    BOOL value = [UserDefaultsManager headerMessageDismissedForType:FeedTypeNotifications];
+    if (value) {
         self.tableView.tableHeaderView = nil;
     }
     
@@ -83,9 +85,7 @@
 
 - (IBAction)headerCloseButtonTapped:(id)sender
 {
-    NSString* keyStoreValue = [NSString stringWithFormat:@"messageWasSeen_notification"];
-    [[NSUbiquitousKeyValueStore defaultStore] setString:@"YES" forKey:keyStoreValue];
-    [[NSUbiquitousKeyValueStore defaultStore] synchronize];
+    [UserDefaultsManager setHeaderMessageDismissed:YES forType:FeedTypeNotifications];
     
     [self.tableView beginUpdates];
     self.tableView.tableHeaderView = nil;

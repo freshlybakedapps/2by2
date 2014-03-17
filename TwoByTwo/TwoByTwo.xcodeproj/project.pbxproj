@@ -64,6 +64,7 @@
 		7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293F18306DD30036557E /* PFObject+Photo.m */; };
 		7CA4902018D66A28001D5537 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CA4901F18D66A28001D5537 /* Camera.storyboard */; };
 		7CA4902118D66FC4001D5537 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE217E0070A003A859F /* UIKit.framework */; };
+		7CA4902418D67121001D5537 /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4902318D67121001D5537 /* UserDefaultsManager.m */; };
 		7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */; };
 		7CD137FF18C3F43400D534D7 /* LikersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD137FE18C3F43400D534D7 /* LikersCell.m */; };
 		7CD1380218C3F9E400D534D7 /* AvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD1380118C3F9E400D534D7 /* AvatarCell.m */; };
@@ -192,6 +193,8 @@
 		7C7E293E18306DD30036557E /* PFObject+Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+Photo.h"; sourceTree = "<group>"; };
 		7C7E293F18306DD30036557E /* PFObject+Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Photo.m"; sourceTree = "<group>"; };
 		7CA4901F18D66A28001D5537 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		7CA4902218D67121001D5537 /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
+		7CA4902318D67121001D5537 /* UserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsManager.m; sourceTree = "<group>"; };
 		7CBC37351874F8830016B6E4 /* NotificationSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationSettingCell.h; sourceTree = "<group>"; };
 		7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationSettingCell.m; sourceTree = "<group>"; };
 		7CD137FD18C3F43400D534D7 /* LikersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikersCell.h; sourceTree = "<group>"; };
@@ -389,6 +392,8 @@
 				7C7B354B18D1128A00563569 /* PFObject+User.m */,
 				7C7E2935183052120036557E /* UserAnnotation.h */,
 				7C7E2936183052120036557E /* UserAnnotation.m */,
+				7CA4902218D67121001D5537 /* UserDefaultsManager.h */,
+				7CA4902318D67121001D5537 /* UserDefaultsManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -650,10 +655,10 @@
 					7CF39DDA17E0070A003A859F = {
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iOS = {
 								enabled = 0;
@@ -771,6 +776,7 @@
 				1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */,
 				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,
 				7C7657901825AE920053483B /* FeedCell.m in Sources */,
+				7CA4902418D67121001D5537 /* UserDefaultsManager.m in Sources */,
 				7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */,
 				7CD1380518C4006100D534D7 /* AddCommentCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
@@ -932,7 +938,6 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_RECEIVER_WEAK = NO;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -963,8 +968,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_RECEIVER_WEAK = NO;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
