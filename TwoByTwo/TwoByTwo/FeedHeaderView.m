@@ -43,6 +43,12 @@ static CGFloat const kHeaderHeightWithoutMessage = 80.0;
 {
     sender.selected = !sender.selected;
     [self.delegate setShowingDouble:sender.selected];
+    
+    if(!sender.selected){
+        self.exposureLabel.text = @"SINGLE EXPOSURE";
+    }else{
+        self.exposureLabel.text = @"DOUBLE EXPOSURE";
+    }
 }
 
 - (IBAction)messageCloseButtonTapped:(id)sender
