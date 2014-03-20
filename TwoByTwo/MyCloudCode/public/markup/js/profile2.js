@@ -75,6 +75,35 @@ $(function () {
                 }
                 
 			}),
+
+            $('.previous').click(function (e) {
+                e.preventDefault();
+
+                var page = Number($.query.get('page'));
+                if(page > 0){
+                    page--;
+                }
+
+                var newQuery = $.query.set('page',page);   
+                var newURL = location.pathname+newQuery.toString();       
+                location.href = newURL;
+                //console.log(newURL);
+                
+            }),
+
+            $('.next').click(function (e) {
+                e.preventDefault();
+
+                var page = Number($.query.get('page'));
+                //dont' know how many pages I have yet
+                page++;                
+
+                var newQuery = $.query.set('page',page);   
+                var newURL = location.pathname+newQuery.toString();       
+                location.href = newURL;
+                //console.log(newURL);
+                
+            }),
 			
 			
 			$('.thumb-icon').click(function (e) {				
