@@ -75,17 +75,27 @@ function getPhoto(req,resp,user,id) {
     }
             
 	var Photo = Parse.Object.extend("Photo");
-	var query = new Parse.Query(Photo);
-	//query.limit(0);
-	query.include("user");
-	query.include("user_full");
-    query.descending("createdAt");
+	var query;
+    var query1 = new Parse.Query(Photo);
+    var query2 = new Parse.Query(Photo);
+
+	
 
 	if(user2){
-		query.equalTo("user", user2);   
+        query1.equalTo("user", user2);
+        query2.equalTo("user_full", user2);    
+        query = Parse.Query.or(query1, query2);		 
 	}else{
-		query.equalTo("user", user);   
+		query1.equalTo("user", user);
+        query2.equalTo("user_full", user);    
+        query = Parse.Query.or(query1, query2);   
 	} 
+
+    query.include("user");
+    query.include("user_full");
+    query.descending("createdAt");
+    //query.limit(20);
+    //query.skip(0);
 	  
 	        
 	query.find({
