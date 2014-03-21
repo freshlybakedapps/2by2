@@ -91,7 +91,7 @@ $(function () {
                         var liLength = $(".like-list").find("li").length;
 
                         if(liLength == 0){
-                            $(".like-list").find("h3").remove();
+                            $(".like-list").find("h3").html("");
                         }
 
 
@@ -101,6 +101,15 @@ $(function () {
                         $(this).html("<span></span>"+likeCount);
                         var el = $(this).find("span")[0];  
                         $(el).css("background-position","-32px");
+
+                        var liLength = $(".like-list").find("li").length;
+                        if(liLength == 0){
+                            that.getLikesInfo([Parse.User.current().id]);
+                        }
+
+                        $(".like-list").find("h3").html("LIKERS");
+
+                        
 
                     }
                 }
@@ -169,6 +178,7 @@ $(function () {
 
         getLikesInfo: function (arr) {
             //console.log("getLikesInfo",arr);
+            $(".like-list").find("ul").html("");
 
             for (var i = arr.length - 1; i >= 0; i--) {
                 var User = Parse.Object.extend("User");
