@@ -1,0 +1,8 @@
+<section id="pagination">
+	<% if(page > 0){ %>              
+	    <a class="previous" totalPhotos="<%= totalPhotos %>" totalPages="<%= totalPages %>" href=""><- previous</a>
+	<% } %> 
+	<% if(page < totalPages){ %>              
+	    <a class="next" totalPhotos="<%= totalPhotos %>" totalPages="<%= totalPages %>" href=""> next -></a>
+	<% } %>
+</section>

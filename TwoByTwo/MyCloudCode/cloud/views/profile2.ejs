@@ -23,13 +23,7 @@
                     <% include picture-viewer-profile %>
                 <% } %>   
             </section>
-
-            <% if(page > 0){ %>              
-                <a class="previous" href=""><- previous</a>
-            <% } %> 
-            <% if(page < totalPages){ %>              
-                <a class="next" href=""> next -></a>
-            <% } %> 
+            <% include pagination %>            
             <% include footer %>
         </div>
 

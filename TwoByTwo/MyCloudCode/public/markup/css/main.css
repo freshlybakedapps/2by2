@@ -46,6 +46,20 @@ a:link {
 a:visited {
     color: #ff3366;
 }
+
+/* PAGINATION */
+
+#pagination {
+    margin-bottom: 35px;
+    padding-top: 20px;
+    position: relative;
+    text-align: center;
+}
+
+#pagination > a{
+    margin-left: 5px;
+}
+
 /* HEADER */
 
 header {

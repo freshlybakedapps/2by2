@@ -101,7 +101,8 @@ $(function () {
                 var newQuery = $.query.set('page',page);   
                 var newURL = location.pathname+newQuery.toString();       
                 location.href = newURL;
-                //console.log(newURL);
+                
+                console.log("totalPages: "+$('.next').attr("totalPages"));
                 
             }),
 			
