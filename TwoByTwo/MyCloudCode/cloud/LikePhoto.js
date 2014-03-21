@@ -1,35 +1,24 @@
 var Notifications = require('cloud/Notifications.js');
 
 exports.main = function(request, response){
-
-    console.log(arguments);
-
   var query = new Parse.Query("Photo");
   query.include("user");
   query.include("user_full");
 
   var objid = request.params.objectid;
   var userWhoLikedID = request.params.userWhoLikedID;
-  var userWhoLikedUsername = request.params.userWhoLikedUsername;
-
-
-  
+  var userWhoLikedUsername = request.params.userWhoLikedUsername;  
 
   query.get(objid, {
-    success: function(photo) { 
-
+    success: function(photo) {
         //console.log(userWhoLikedUsername);   	
     	var likesArray = photo.get("likes");
         var state = photo.get("state");
-        var user = photo.get("user");
-        
+        var user = photo.get("user");     
 
-        var likesEmailAlert = user.get("likesEmailAlert");
-        var likesPushAlert = user.get("likesPushAlert");
+        
         var username = user.get("username");
         var email = user.get("email");
-
-
 
     	var likesCounter = 0
 
@@ -98,12 +87,6 @@ exports.main = function(request, response){
 
             }
         }
-            
-            
-
-            //response.success(likesCounter); 
-
-
 	},    
     error: function(error) {
       //console.error("Got an error " + error.code + " : " + error.message);

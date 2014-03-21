@@ -33,8 +33,9 @@ $(function () {
                 $(".logout").show();
                 $("#fullname").show();
 
-                if(!this.getUrlVars().u){                    
-                    location.href = location.href.replace("#","")+"&u="+Parse.User.current().id;
+                if(!$.query.get("u")){
+                    var q =  $.query.set("u",Parse.User.current().id);                
+                    location.href = location.pathname+q;
                 }
                 this.getPhoto();                            
             }else{                
@@ -51,8 +52,64 @@ $(function () {
             
             $('.logout').click(function (e) {
                 Parse.User.logOut();
-                window.location.reload();
+
+                var q = $.query.REMOVE("u");
+
+                location.href = location.pathname+q;
+
+                $(".picture-data").html("");
+                //window.location.reload();
             }),
+
+            $('.likes').click(function (e) {
+                e.preventDefault();
+                
+                if (Parse.User.current()) {
+                    var photoID = $(this).attr("data");
+                    that.likePhoto(photoID);
+                    var el = $(this).find("span")[0];                    
+
+                    var pos = $(el).css("background-position");
+                    var likeCount = Number($(this).attr("likeLength"));
+
+                    if(pos.indexOf("-32px") > -1){
+                        //unlike
+                        likeCount--;
+                        $(this).html("<span></span>"+likeCount);
+                        var el = $(this).find("span")[0];  
+                        $(el).css("background-position","0px");
+
+                        var liArr = $(".like-list").find("li");
+                        
+                        for (var i = liArr.length - 1; i >= 0; i--) {
+                            var data = $(liArr[i]).find("a").attr("data");
+                            if(data == Parse.User.current().id){
+                                $(liArr[i]).remove();
+                            }
+                        };
+
+                        var liLength = $(".like-list").find("li").length;
+
+                        if(liLength == 0){
+                            $(".like-list").find("h3").remove();
+                        }
+
+
+                    }else{
+                        //like
+                        likeCount++;
+                        $(this).html("<span></span>"+likeCount);
+                        var el = $(this).find("span")[0];  
+                        $(el).css("background-position","-32px");
+
+                    }
+                }
+                
+                //console.log("likePhoto: "+);
+                return false;
+            }),
+
+            
 
             $('#signin').click(function (e) {
 
@@ -61,9 +118,13 @@ $(function () {
                         $("#fullname").html(Parse.User.current().changed.fullName);
                         $('#signin').hide();
                         $(".logout").show();
-                        $("#fullname").show();             
+                        $("#fullname").show(); 
+                        $(".need-to-log-in").hide();            
                         //that.getPhoto();
 
+                        var q =  $.query.set("u",Parse.User.current().id);                
+                        location.href = location.pathname+q;
+                        /*
                         // If it's a new user, let's fetch their name from FB
                         if (!user.existed()) {
                             //NEW USER
@@ -73,10 +134,12 @@ $(function () {
                                     console.log(response.name);
                                     $("#fullname").html(response.name);
                                     //$('.logout').text(response.name + " - logout");
+                                   
                                 }
                             });
                             
                         }
+                        */
                     },
                     error: function (user, error) {
                         console.log("Oops, something went wrong.");
@@ -87,22 +150,25 @@ $(function () {
             }); 
            
         },
+        
+        likePhoto: function(objectid){
+            var userWhoLikedID = Parse.User.current().id;
+            var userWhoLikedUsername = Parse.User.current().changed.username;
 
-        getUrlVars: function() {
-            var vars = [],
-                hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            var i;
-            for (i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
-            }
-            return vars;
+            console.log("likePhoto: "+userWhoLikedUsername);
+
+            Parse.Cloud.run('likePhoto', { objectid: objectid, userWhoLikedID: userWhoLikedID, userWhoLikedUsername:userWhoLikedUsername}, {
+              success: function(str) {        
+                console.log("LikePhoto"+str);
+              },
+              error: function(error) {
+                console.log("likePhoto error: ",error);
+              }
+            });
         },
 
         getLikesInfo: function (arr) {
-            console.log("getLikesInfo",arr);
+            //console.log("getLikesInfo",arr);
 
             for (var i = arr.length - 1; i >= 0; i--) {
                 var User = Parse.Object.extend("User");
@@ -113,7 +179,7 @@ $(function () {
                     success: function(users) {
                         //console.log(users[0]);
                         var url = 'https://graph.facebook.com/'+users[0]._serverData.facebookId+'/picture?type=square';
-                        var html = '<li><a href="profile?id='+users[0].id+'"><img src="'+url+'" class="avatar" /></a></li>';
+                        var html = '<li><a data="'+users[0].id+'" href="profile?id='+users[0].id+'"><img src="'+url+'" class="avatar" /></a></li>';
                         $(".like-list").find("ul").append(html);
 
                         if(users.length > 0){
@@ -160,7 +226,7 @@ $(function () {
             var query = new Parse.Query(Photo);
             //query.limit(0);            
             
-            var id = this.getUrlVars()["id"];
+            var id = $.query.get("id");
 
             if(!id){
                 location.href = "profile";
@@ -213,11 +279,10 @@ $(function () {
                         }
 
                         if(photosArr[i]._serverData.likes){
-                            that.getLikesInfo(photosArr[i]._serverData.likes);
-                        }
-
-
-                        
+                            if(Parse.User.current()){
+                                that.getLikesInfo(photosArr[i]._serverData.likes);
+                            }                            
+                        }                        
                     }
 
                     
@@ -301,33 +366,38 @@ $(function () {
                         (function(index, length) { 
                             query.find({
                               success: function(arr) {
-                                console.log(arr);
+                                //console.log(arr);
 
                                 // The count request succeeded. Show the count
                                 //$("#comment_"+photosArr[index].id).html(" "+count);
                                 $("#comment_"+photosArr[index].id).prev().html("<span></span>"+arr.length);
 
-                                var html = "";
+                                
 
-                                for (var i = arr.length - 1; i >= 0; i--) {
-                                    var serverData = arr[i]._serverData;
-                                    console.log("photo comment: ",serverData.text,serverData.username,serverData.facebookId);
-                                    html+='<li>';
-                                        ////<a href="profile?id='+data.user.id+'">'+username_half+'</a>'
-                                    
-                                        html+='<a href="profile?id='+serverData.userID+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
-                                        html+='<div class="comment-data">';
-                                            html+='<h3><a href="#">'+serverData.username+'</a></h3>';
-                                            html+='<p>';
-                                                html+=serverData.text;
-                                            html+='</p>';
-                                        html+='</div>';
-                                    html+='</li>';
-                                };
+                                if(Parse.User.current()){
+                                    var html = "";
 
-                                //html+="</ul>";
+                                    for (var i = arr.length - 1; i >= 0; i--) {
+                                        var serverData = arr[i]._serverData;
+                                        console.log("photo comment: ",serverData.text,serverData.username,serverData.facebookId);
+                                        html+='<li>';
+                                            ////<a href="profile?id='+data.user.id+'">'+username_half+'</a>'
+                                        
+                                            html+='<a href="profile?id='+serverData.userID+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
+                                            html+='<div class="comment-data">';
+                                                html+='<h3><a href="#">'+serverData.username+'</a></h3>';
+                                                html+='<p>';
+                                                    html+=serverData.text;
+                                                html+='</p>';
+                                            html+='</div>';
+                                        html+='</li>';
+                                    };
 
-                                $(".comment-list").find("ul").html(html);
+                                    //html+="</ul>";
+
+                                    $(".comment-list").find("ul").html(html);
+
+                                }
                                 
 
                                 

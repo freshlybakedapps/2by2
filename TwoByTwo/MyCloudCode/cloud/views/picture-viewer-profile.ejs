@@ -5,7 +5,7 @@
             <a href="pdp?id=<%= allPhotosData[i].photoID %>"><img src="<%= allPhotosData[i].imageURL %>" alt="" /></a>
             
             <div class="picture-options">
-                <a href="#" class="likes left">
+                <a href="#" data="<%= allPhotosData[i].photoID %>" likeLength="<%= allPhotosData[i].likeLength %>" class="likes left">
                     <span></span><%= allPhotosData[i].likeLength %>
                 </a>
                 <a href="#" class="comments left">

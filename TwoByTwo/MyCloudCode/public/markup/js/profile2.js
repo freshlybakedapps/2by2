@@ -64,10 +64,44 @@ $(function () {
 
         bind: function () {
 			var that = this;
+
+            $('.likes').click(function (e) {
+                e.preventDefault();
+                
+                if (Parse.User.current()) {
+                    var photoID = $(this).attr("data");
+                    that.likePhoto(photoID);
+                    var el = $(this).find("span")[0];                    
+
+                    var pos = $(el).css("background-position");
+                    var likeCount = Number($(this).attr("likeLength"));
+
+                    if(pos.indexOf("-32px") > -1){
+                        //unlike
+                        likeCount--;
+                        $(this).html("<span></span>"+likeCount);
+                        var el = $(this).find("span")[0];  
+                        $(el).css("background-position","0px");
+                    }else{
+                        //like
+                        likeCount++;
+                        $(this).html("<span></span>"+likeCount);
+                        var el = $(this).find("span")[0];  
+                        $(el).css("background-position","-32px");
+
+                    }
+                }
+                
+                //console.log("likePhoto: "+);
+                return false;
+            }),
 			
 			$('.logout').click(function (e) {
 				Parse.User.logOut();
 				//location.href = "/";
+
+                //var q = $.query.REMOVE("u");
+
                 if(location.href.indexOf("?") > -1){
                     location.href = location.href.split("?")[0];
                 }else{
@@ -248,18 +282,20 @@ $(function () {
 
         likePhoto: function(objectid){
             var userWhoLikedID = Parse.User.current().id;
-            var userWhoLikedUsername = Parse.User.current()._serverData.username;
+            var userWhoLikedUsername = Parse.User.current().changed.username;
 
-            Parse.Cloud.run('LikePhoto', { objectid: objectid, userWhoLikedID: userWhoLikedID, userWhoLikedUsername:userWhoLikedUsername}, {
+            console.log("likePhoto: "+userWhoLikedUsername);
+
+            Parse.Cloud.run('likePhoto', { objectid: objectid, userWhoLikedID: userWhoLikedID, userWhoLikedUsername:userWhoLikedUsername}, {
               success: function(str) {        
-                console.log(str);
+                console.log("LikePhoto"+str);
               },
               error: function(error) {
-                console.log(error);
+                console.log("likePhoto error: ",error);
               }
             });
         },
-        
+
 
         getPhotos: function () {
         	var that = this;			
