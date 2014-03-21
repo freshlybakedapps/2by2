@@ -105,6 +105,18 @@ $(function () {
                         var liLength = $(".like-list").find("li").length;
                         if(liLength == 0){
                             that.getLikesInfo([Parse.User.current().id]);
+                        }else{
+                            var liArr = $(".like-list").find("li");
+                            var arr = [];
+                        
+                            for (var i = liArr.length - 1; i >= 0; i--) {
+                                var data = $(liArr[i]).find("a").attr("data");
+                                arr.push(data);
+                            };
+
+                            arr.push(Parse.User.current().id);
+
+                            that.getLikesInfo(arr);
                         }
 
                         $(".like-list").find("h3").html("LIKERS");
