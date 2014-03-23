@@ -70,7 +70,7 @@ $(function () {
                     var el = $(this).find("span")[0];                    
 
                     var pos = $(el).css("background-position");
-                    var likeCount = Number($(this).attr("likeLength"));
+                    var likeCount = Number($(this).attr("likelength"));
 
                     if(pos.indexOf("-32px") > -1){
                         //unlike
@@ -90,9 +90,12 @@ $(function () {
 
                         var liLength = $(".like-list").find("li").length;
 
+                        
                         if(liLength == 0){
                             $(".like-list").find("h3").html("");
                         }
+
+                        $(this).attr("likelength",likeCount);
 
 
                     }else{
@@ -117,7 +120,11 @@ $(function () {
                             arr.push(Parse.User.current().id);
 
                             that.getLikesInfo(arr);
+
+
                         }
+
+                        $(this).attr("likelength",likeCount);
 
                         $(".like-list").find("h3").html("LIKERS");
 

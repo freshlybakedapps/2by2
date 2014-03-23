@@ -23,7 +23,9 @@
                     <% include picture-viewer-profile %>
                 <% } %>   
             </section>
-            <% include pagination %>            
+            <% if(page){ %>  
+                <% include pagination %>
+            <% } %>               
             <% include footer %>
         </div>
 

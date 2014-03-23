@@ -74,7 +74,7 @@ $(function () {
                     var el = $(this).find("span")[0];                    
 
                     var pos = $(el).css("background-position");
-                    var likeCount = Number($(this).attr("likeLength"));
+                    var likeCount = Number($(this).attr("likelength"));
 
                     if(pos.indexOf("-32px") > -1){
                         //unlike
@@ -82,12 +82,16 @@ $(function () {
                         $(this).html("<span></span>"+likeCount);
                         var el = $(this).find("span")[0];  
                         $(el).css("background-position","0px");
+
+                        $(this).attr("likelength",likeCount);
                     }else{
                         //like
                         likeCount++;
                         $(this).html("<span></span>"+likeCount);
                         var el = $(this).find("span")[0];  
                         $(el).css("background-position","-32px");
+
+                        $(this).attr("likelength",likeCount);
 
                     }
                 }

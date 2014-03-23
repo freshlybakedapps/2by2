@@ -1,4 +1,5 @@
 var photosPerPage = 30;
+var page = 0;
 
 exports.index = function(req, resp){
 	//console.log(req);
@@ -68,8 +69,11 @@ function getPhoto(req,resp,user,id) {
     	}else{
     		//if there is no ID or U, the backend doesn't know which user is signed in and cannot display data
     		resp.render('profile2', { 
-				allPhotosData: null
-			});
+                    allPhotosData: null,
+                    page: 0,
+                    totalPhotos: 0,
+                    totalPages: 0
+                }); 
     	}   	
     }
             
@@ -101,9 +105,14 @@ function getPhoto(req,resp,user,id) {
         query.include("user");
         query.include("user_full");
         query.descending("createdAt");    
-        //if(req.query.page){
+        
         query.limit(photosPerPage);
-        query.skip(req.query.page*photosPerPage);
+
+        if(req.query.page){
+            page = req.query.page;
+        }
+
+        query.skip(page*photosPerPage);
         //}
         query.find({
             success: function(photosArr) {
@@ -200,11 +209,8 @@ function getPhoto(req,resp,user,id) {
                     
                 }
 
-                var page = 0;
 
-                if(req.query.page){
-                    page = req.query.page;
-                }
+                
 
                 resp.render('profile2', { 
                     allPhotosData: allPhotosData,
