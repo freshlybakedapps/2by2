@@ -42,12 +42,9 @@ $(function () {
                 */
 
             	
-                if(!this.getUrlVars().u){
-            		if(!this.getUrlVars().id){
-            			location.href = location.href.replace("#","")+"?u="+Parse.User.current().id;
-            		}else{
-            			location.href = location.href.replace("#","")+"&u="+Parse.User.current().id;
-            		}                    
+                if(!$.query.get("u")){
+            		var q =  $.query.set("u",Parse.User.current().id);                
+                    location.href = location.pathname+q;                 
                     
                 }
                 
@@ -64,6 +61,26 @@ $(function () {
 
         bind: function () {
 			var that = this;
+
+            
+
+            $("a").each(function( index ) {
+                var href = $(this).attr("href");
+
+                if(href && (href.indexOf(location.host) > -1 || href.indexOf("http") == -1)){
+                    if($.query.get("u")){
+                        if(href.indexOf("?") > -1){
+                            $(this).attr("href",href+"&u="+$.query.get("u"));
+                        }else{
+                            $(this).attr("href",href+"?u="+$.query.get("u"));
+                        }
+
+                        
+                    }
+                }
+
+                
+            }),
 
             $('.likes').click(function (e) {
                 e.preventDefault();

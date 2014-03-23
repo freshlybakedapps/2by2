@@ -1,4 +1,4 @@
-var photosPerPage = 30;
+var photosPerPage = 32;
 var page = 0;
 
 exports.index = function(req, resp){

@@ -48,7 +48,25 @@ $(function () {
         },
 
         bind: function () {
-            var that = this;            
+            var that = this;
+
+            $("a").each(function( index ) {
+                var href = $(this).attr("href");
+
+                if(href && (href.indexOf(location.host) > -1 || href.indexOf("http") == -1)){
+                    if($.query.get("u")){
+                        if(href.indexOf("?") > -1){
+                            $(this).attr("href",href+"&u="+$.query.get("u"));
+                        }else{
+                            $(this).attr("href",href+"?u="+$.query.get("u"));
+                        }
+
+                        
+                    }
+                }
+
+                
+            }),            
             
             $('.logout').click(function (e) {
                 Parse.User.logOut();
@@ -91,7 +109,7 @@ $(function () {
                         var liLength = $(".like-list").find("li").length;
 
                         
-                        if(liLength == 0){
+                        if(likeCount == 0){
                             $(".like-list").find("h3").html("");
                         }
 
@@ -208,7 +226,15 @@ $(function () {
                     success: function(users) {
                         //console.log(users[0]);
                         var url = 'https://graph.facebook.com/'+users[0]._serverData.facebookId+'/picture?type=square';
-                        var html = '<li><a data="'+users[0].id+'" href="profile?id='+users[0].id+'"><img src="'+url+'" class="avatar" /></a></li>';
+
+                        var href = "profile?id="+users[0].id;
+
+                        if($.query.get("u")){
+                            href+="&u="+$.query.get("u");
+                        }
+
+
+                        var html = '<li><a data="'+users[0].id+'" href="'+href+'"><img src="'+url+'" class="avatar" /></a></li>';
                         $(".like-list").find("ul").append(html);
 
                         if(users.length > 0){
