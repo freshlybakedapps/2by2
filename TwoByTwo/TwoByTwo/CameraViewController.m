@@ -225,7 +225,7 @@ static CGFloat const kImageSize = 320.0;
         case CameraViewStateUploading:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
-            self.topLeftButton.hidden = YES;
+            self.topLeftButton.alpha = .2;
             self.topRightButton.alpha = .2;
             [self.bottomButton setImage:nil forState:UIControlStateNormal];
             self.bottomButton.outerColor = [UIColor appBlackishColor];
@@ -242,7 +242,7 @@ static CGFloat const kImageSize = 320.0;
         case CameraViewStateDone:
             self.liveView.hidden = YES;
             self.previewView.hidden = NO;
-            self.topLeftButton.hidden = YES;
+            self.topLeftButton.alpha = 0.2;
             self.topRightButton.hidden = YES;
             [self.bottomButton setImage:[UIImage imageNamed:@"button-done"] forState:UIControlStateNormal];
             self.blendModePickerView.alpha = self.blendModeLabel.alpha = 0.5;
