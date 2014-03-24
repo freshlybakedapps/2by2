@@ -188,7 +188,7 @@
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="icon-like-on">
+                                <state key="selected" image="liked">
                                     <color key="titleColor" white="0.55000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -315,8 +315,8 @@
         <image name="icon-flag-off" width="30" height="30"/>
         <image name="icon-flag-on" width="30" height="30"/>
         <image name="icon-like-off" width="30" height="30"/>
-        <image name="icon-like-on" width="30" height="30"/>
         <image name="icon-location-on" width="30" height="30"/>
+        <image name="liked" width="24" height="21"/>
         <image name="map" width="22" height="26"/>
         <image name="pin_green_small" width="15" height="15"/>
         <image name="pin_red_small" width="15" height="15"/>

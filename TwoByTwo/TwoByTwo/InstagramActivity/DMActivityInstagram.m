@@ -58,6 +58,8 @@
         self.resizeController = [[DMResizerViewController alloc] initWithImage:self.shareImage];
         self.resizeController.delegate = self;
         
+        
+        
         if ([self imageIsSquare:self.shareImage]) {
             self.resizeController.skipCropping = YES;
         }
