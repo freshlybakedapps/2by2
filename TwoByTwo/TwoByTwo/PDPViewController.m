@@ -14,6 +14,7 @@
 #import "CommentCell.h"
 #import "AddCommentCell.h"
 #import "DAKeyboardControl.h"
+#import "DMActivityInstagram.h"
 
 typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     CollectionViewSectionMain = 0,
@@ -27,6 +28,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 @interface PDPViewController () <FeedCellDelegate>
 @property (nonatomic, strong) PFObject *photo;
 @property (nonatomic, strong) NSArray *comments;
+@property (nonatomic, strong) UIButton *shareButton;
 @end
 
 
@@ -43,6 +45,23 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     [super viewDidLoad];
 
     self.title = @"Details";
+    
+    
+    if (!self.shareButton) {
+        self.shareButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+        self.shareButton.titleLabel.font = [UIFont appFontOfSize:14];
+        
+        UIImage *btnImage = [UIImage imageNamed:@"button-red"];
+        [self.shareButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+        [self.shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.shareButton addTarget:self action:@selector(shareButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.shareButton setTitle:@"Share" forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.shareButton];
+    }
+
+    
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
@@ -51,7 +70,6 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     __weak typeof(self) weakSelf = self;
     [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
         CGRect rect = weakSelf.view.frame;
@@ -68,6 +86,44 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     [self.view removeKeyboardControl];
     [super viewDidDisappear:animated];
 }
+
+
+#pragma mark - share
+    
+- (void) shareButtonTapped{
+    
+    PFFile *file = ([self.photo.state isEqualToString:PFStateValueFull]) ? self.photo.imageFull : self.photo.imageHalf;
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            UIImage *image = [UIImage imageWithData:data];
+            DMActivityInstagram *instagramActivity = [[DMActivityInstagram alloc] init];
+            
+            NSString *textToShare = @"I made this image with #2by2";
+            
+            NSURL *urlToShare = [NSURL URLWithString:@"https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8"];
+            NSArray *activityItems = @[textToShare, image, urlToShare];
+            
+            NSArray *applicationActivities = @[instagramActivity];
+            NSArray *excludeActivities = @[];
+            
+            
+            UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:applicationActivities];
+            
+            activityVC.excludedActivityTypes = excludeActivities;
+            
+            [activityVC setValue:@"I made this image with #2by2" forKey:@"subject"];
+            
+            [self presentViewController:activityVC animated:TRUE completion:nil];
+            
+        }
+        else {
+            NSLog(@"shareButtonTapped: %@", error);
+        }
+    }];
+    
+    
+    }
+
 
 
 #pragma mark - Query

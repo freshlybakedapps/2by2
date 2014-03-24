@@ -10,6 +10,13 @@
 		1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A5F661867616E0086FE1C /* NotificationsViewController.m */; };
 		1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EC181B203800E6F26A /* UIImage+Addon.m */; };
 		1D24D30F18D7383E005C196B /* FindFacebookFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D24D30E18D7383E005C196B /* FindFacebookFriendsCell.xib */; };
+		1D2A4B2518DF72F100D9BDF9 /* DMActivityInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2A4B1D18DF72F100D9BDF9 /* DMActivityInstagram.m */; };
+		1D2A4B2618DF72F100D9BDF9 /* DMResizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2A4B1F18DF72F100D9BDF9 /* DMResizerViewController.m */; };
+		1D2A4B2718DF72F100D9BDF9 /* DMResizerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D2A4B2018DF72F100D9BDF9 /* DMResizerViewController.xib */; };
+		1D2A4B2818DF72F100D9BDF9 /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D2A4B2118DF72F100D9BDF9 /* instagram.png */; };
+		1D2A4B2918DF72F100D9BDF9 /* instagram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D2A4B2218DF72F100D9BDF9 /* instagram@2x.png */; };
+		1D2A4B2A18DF72F100D9BDF9 /* instagram~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D2A4B2318DF72F100D9BDF9 /* instagram~ipad.png */; };
+		1D2A4B2B18DF72F100D9BDF9 /* instagram~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D2A4B2418DF72F100D9BDF9 /* instagram~ipad@2x.png */; };
 		1D4207C517E6AB1E008A7F98 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */; };
 		1D4207C717E6AB2D008A7F98 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */; };
 		1D4207C917E6AB42008A7F98 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C817E6AB42008A7F98 /* libz.1.1.3.dylib */; };
@@ -105,6 +112,15 @@
 		1D1B34EB181B203800E6F26A /* UIImage+Addon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addon.h"; sourceTree = "<group>"; };
 		1D1B34EC181B203800E6F26A /* UIImage+Addon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addon.m"; sourceTree = "<group>"; };
 		1D24D30E18D7383E005C196B /* FindFacebookFriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFacebookFriendsCell.xib; sourceTree = "<group>"; };
+		1D2A4B1C18DF72F100D9BDF9 /* DMActivityInstagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMActivityInstagram.h; sourceTree = "<group>"; };
+		1D2A4B1D18DF72F100D9BDF9 /* DMActivityInstagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMActivityInstagram.m; sourceTree = "<group>"; };
+		1D2A4B1E18DF72F100D9BDF9 /* DMResizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMResizerViewController.h; sourceTree = "<group>"; };
+		1D2A4B1F18DF72F100D9BDF9 /* DMResizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMResizerViewController.m; sourceTree = "<group>"; };
+		1D2A4B2018DF72F100D9BDF9 /* DMResizerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DMResizerViewController.xib; sourceTree = "<group>"; };
+		1D2A4B2118DF72F100D9BDF9 /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
+		1D2A4B2218DF72F100D9BDF9 /* instagram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram@2x.png"; sourceTree = "<group>"; };
+		1D2A4B2318DF72F100D9BDF9 /* instagram~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram~ipad.png"; sourceTree = "<group>"; };
+		1D2A4B2418DF72F100D9BDF9 /* instagram~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram~ipad@2x.png"; sourceTree = "<group>"; };
 		1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -277,6 +293,22 @@
 				1DF6A7201884ABD900FB913D /* NotificationCell.m */,
 			);
 			name = Notifications;
+			sourceTree = "<group>";
+		};
+		1D2A4B1B18DF72F100D9BDF9 /* InstagramActivity */ = {
+			isa = PBXGroup;
+			children = (
+				1D2A4B1C18DF72F100D9BDF9 /* DMActivityInstagram.h */,
+				1D2A4B1D18DF72F100D9BDF9 /* DMActivityInstagram.m */,
+				1D2A4B1E18DF72F100D9BDF9 /* DMResizerViewController.h */,
+				1D2A4B1F18DF72F100D9BDF9 /* DMResizerViewController.m */,
+				1D2A4B2018DF72F100D9BDF9 /* DMResizerViewController.xib */,
+				1D2A4B2118DF72F100D9BDF9 /* instagram.png */,
+				1D2A4B2218DF72F100D9BDF9 /* instagram@2x.png */,
+				1D2A4B2318DF72F100D9BDF9 /* instagram~ipad.png */,
+				1D2A4B2418DF72F100D9BDF9 /* instagram~ipad@2x.png */,
+			);
+			path = InstagramActivity;
 			sourceTree = "<group>";
 		};
 		1D4A81071854431B007227BB /* EditProfile */ = {
@@ -455,6 +487,7 @@
 		7CD9507417E657BC00C70956 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				1D2A4B1B18DF72F100D9BDF9 /* InstagramActivity */,
 				7C7657891825962A0053483B /* UIWindow+Animation.h */,
 				7C76578A1825962A0053483B /* UIWindow+Animation.m */,
 				7C1BFA4218762A6D0076EFF2 /* UIFont+TwoByTwo.h */,
@@ -701,8 +734,11 @@
 				7C3964A8189D9AF2000FB989 /* ImageCell.xib in Resources */,
 				1DD9716A184CCDD9001D35CA /* Terms.html in Resources */,
 				7C76578D182597930053483B /* Login.storyboard in Resources */,
+				1D2A4B2718DF72F100D9BDF9 /* DMResizerViewController.xib in Resources */,
+				1D2A4B2B18DF72F100D9BDF9 /* instagram~ipad@2x.png in Resources */,
 				7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */,
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
+				1D2A4B2918DF72F100D9BDF9 /* instagram@2x.png in Resources */,
 				7C0681BB18C2F14600B8BFD6 /* ThumbCell.xib in Resources */,
 				1D24D30F18D7383E005C196B /* FindFacebookFriendsCell.xib in Resources */,
 				7CF39DE917E0070A003A859F /* InfoPlist.strings in Resources */,
@@ -713,8 +749,10 @@
 				7C0681AE18C2E4D200B8BFD6 /* FeedCell.xib in Resources */,
 				7CF39DF217E0070A003A859F /* Main.storyboard in Resources */,
 				1D568E97189756CC0043AB04 /* FeedFooterView.xib in Resources */,
+				1D2A4B2A18DF72F100D9BDF9 /* instagram~ipad.png in Resources */,
 				7C508F57188B035C00C1334E /* FeedProfileHeaderView.xib in Resources */,
 				7C508F55188B028700C1334E /* FeedHeaderView.xib in Resources */,
+				1D2A4B2818DF72F100D9BDF9 /* instagram.png in Resources */,
 				1DD97168184CCDD9001D35CA /* aboutUs.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -781,6 +819,7 @@
 				1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */,
 				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,
 				7C7657901825AE920053483B /* FeedCell.m in Sources */,
+				1D2A4B2618DF72F100D9BDF9 /* DMResizerViewController.m in Sources */,
 				7CA4902418D67121001D5537 /* UserDefaultsManager.m in Sources */,
 				7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */,
 				7CD1380518C4006100D534D7 /* AddCommentCell.m in Sources */,
@@ -791,6 +830,7 @@
 				7C1BFA4418762A6D0076EFF2 /* UIFont+TwoByTwo.m in Sources */,
 				1DB0C801184A65F6002626C8 /* FindInviteFriendsViewController.m in Sources */,
 				7C7E2937183052120036557E /* UserAnnotation.m in Sources */,
+				1D2A4B2518DF72F100D9BDF9 /* DMActivityInstagram.m in Sources */,
 				1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */,
 				7CF39E1E17E00D30003A859F /* CameraViewController.m in Sources */,
 				7C070107187398690011845D /* CommentCell.m in Sources */,
