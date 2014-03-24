@@ -28,7 +28,7 @@ function weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations){
   
   msg += "<br>Thanks, the 2by2 team.<br>";  
   //msg += "<a href='mailTo:2by2app@gmail.com'>Tell a friend about 2by2</a><br><br>";
-  msg += '<A HREF="mailto:?subject=Invitation to join 2by2&body=Hey, 2by2 Is a fun and easy to make unexpected double exposure photos with friends (or with total strangers.) %0DHere is a link to download the app, it is totally free:%0D http://2by2.parseapp.com">Tell a friend about 2by2</A><br><br>'
+  msg += '<A HREF="mailto:?subject=Invitation to join 2by2&body=Hey, 2by2 Is a fun and easy to make unexpected double exposure photos with friends (or with total strangers.) %0DHere is a link to download the app, it is totally free:%0D https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8">Tell a friend about 2by2</A><br><br>'
   
   msg += "PS: To stop receiving this email, turn weekly notification email off, in the app settings page.";
 

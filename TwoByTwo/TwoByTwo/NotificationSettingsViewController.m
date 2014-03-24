@@ -45,6 +45,11 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
 
     self.title = @"Notification Settings";
     
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                          NSForegroundColorAttributeName:[UIColor appGrayColor],
+                                                          NSFontAttributeName:[UIFont appMediumFontOfSize:14],
+                                                          }];
+    
     NSDictionary *normalAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont appFontOfSize:18], NSFontAttributeName,nil];
     self.navigationController.navigationBar.titleTextAttributes = normalAttributes;
     

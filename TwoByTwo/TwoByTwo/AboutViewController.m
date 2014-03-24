@@ -21,6 +21,12 @@
     [super viewDidLoad];
     self.title = @"About";
     
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName:[UIColor appGrayColor],
+                                                           NSFontAttributeName:[UIFont appMediumFontOfSize:14],
+                                                           }];
+
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     NSDictionary *normalAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont appFontOfSize:18], NSFontAttributeName,nil];

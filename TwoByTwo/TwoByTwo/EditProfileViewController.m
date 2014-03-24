@@ -38,6 +38,12 @@
     [super viewDidLoad];
     
 	self.title = @"Profile";
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName:[UIColor appGrayColor],
+                                                           NSFontAttributeName:[UIFont appMediumFontOfSize:14],
+                                                           }];
+
 
     self.nameLabel.text = [PFUser currentUser][@"fullName"];
     self.emailLabel.text = [PFUser currentUser][@"email"];

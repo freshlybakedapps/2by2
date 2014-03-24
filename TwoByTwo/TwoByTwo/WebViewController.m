@@ -20,6 +20,12 @@
 {
     [super viewDidLoad];
     
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName:[UIColor appGrayColor],
+                                                           NSFontAttributeName:[UIFont appMediumFontOfSize:14],
+                                                           }];
+
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:self.page ofType:@"html"];
     [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:path isDirectory:NO]]];
 }

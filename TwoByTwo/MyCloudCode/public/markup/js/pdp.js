@@ -360,7 +360,7 @@ $(function () {
                     }
 
                     if(!Parse.User.current()){
-                       $("#main-content").append('<div class="need-to-log-in"><p>You must be logged in too see and leave comments.</p></div>');
+                       $("#main-content").append('<div class="need-to-log-in"><p>You must be logged in to see and leave comments.</p></div>');
    
                     }
                     

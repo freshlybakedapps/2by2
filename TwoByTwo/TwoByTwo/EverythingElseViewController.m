@@ -31,6 +31,12 @@ typedef NS_ENUM(NSUInteger, TableViewRow) {
 {
     [super viewDidLoad];
     self.title = @"Everything else";
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName:[UIColor appGrayColor],
+                                                           NSFontAttributeName:[UIFont appMediumFontOfSize:14],
+                                                           }];
+
+    
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 }

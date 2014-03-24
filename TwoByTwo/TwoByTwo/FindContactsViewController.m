@@ -24,6 +24,11 @@
 {
     [super viewDidLoad];
     self.title = @"Contacts";
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName:[UIColor appGrayColor],
+                                                           NSFontAttributeName:[UIFont appMediumFontOfSize:14],
+                                                           }];
+
     
     [self.tableView registerNib:[UINib nibWithNibName:@"FindFacebookFriendsCell" bundle:nil] forCellReuseIdentifier:@"FindFacebookFriendsCell"];
     

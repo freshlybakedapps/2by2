@@ -51,7 +51,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
         self.shareButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
         self.shareButton.titleLabel.font = [UIFont appFontOfSize:14];
         
-        UIImage *btnImage = [UIImage imageNamed:@"button-red"];
+        UIImage *btnImage = [UIImage imageNamed:@"button-green"];
         [self.shareButton setBackgroundImage:btnImage forState:UIControlStateNormal];
         [self.shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.shareButton addTarget:self action:@selector(shareButtonTapped) forControlEvents:UIControlEventTouchUpInside];
