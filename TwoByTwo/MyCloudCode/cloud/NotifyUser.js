@@ -58,7 +58,7 @@ exports.main = function(request, response){
             
             //var htmlMsg = msg+ "<br><img src='"+ url + "'></img>";
             var htmlMsg = "Check it out!, you and "+user_full_username+" just created some art together!";  
-            htmlMsg += "<br><br>See photo.";
+            htmlMsg += "<br><br><a href='http://2by2.parseapp.com/pdp?id="+photoID+"'>See photo.</a>";
             htmlMsg += "<br><br>";
             htmlMsg += "Thanks,";
             htmlMsg += "<br>Team 2by2";
