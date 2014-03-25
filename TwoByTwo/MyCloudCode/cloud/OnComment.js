@@ -18,7 +18,7 @@ function notifyUser(response,photo,user_id,photoUsername,comment,isYourPhoto){
     htmlMsg = "Your friend " + username + ", just joined the conversation, he said:'"+ commentText + "'";
   }
   
-  htmlMsg += "<br>See photo.";
+  htmlMsg += "<br><a href='http://2by2.parseapp.com/pdp?id="+commentID+"'>See photo.</a>";
   htmlMsg += "<br><br>";
   htmlMsg += "Thanks,";
   htmlMsg += "<br>Team 2by2";
