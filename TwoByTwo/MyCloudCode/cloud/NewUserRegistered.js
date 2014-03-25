@@ -51,7 +51,9 @@ exports.main = function(request, response){
                             var msg = "Sneak attack!, your friend "+newRegisteredUser_username+" just joined 2by2.";
                             var subject = msg;
                             var htmlMsg = "Your friend " + newRegisteredUser_username + ", just joined the party.";  
-                            htmlMsg += "<br>Check out his profile.";
+                            
+                            htmlMsg += "<br><a href='http://2by2.parseapp.com/pdp?profile="+_user.id+"'>Check out his profile..</a>";
+
                             htmlMsg += "<br><br>";
                             htmlMsg += "Thanks,";
                             htmlMsg += "<br>Team 2by2";
