@@ -30,25 +30,20 @@ $(function () {
             	$("#fullname").html(Parse.User.current().changed.fullName);
                 $("#fullname").attr("href","profile?id="+Parse.User.current().id); 
 
-                //console.log(this.getURLLastParam()+" / "+Parse.User.current().id);
-
-                
-                /*
-                if(!this.getUrlVars().u){
-                    //if(this.getURLLastParam() != Parse.User.current().id){
-                        location.href = location.href.replace("#","")+"?u="+Parse.User.current().id;
-                    //}
-                } 
-                */
 
             	
-                if(!$.query.get("u")){
+                if(!$.query.get("u") || ($.query.get("u") != Parse.User.current().id)){
             		var q =  $.query.set("u",Parse.User.current().id);                
                     location.href = location.pathname+q;                 
                     
                 }
                 
 							
+            }else{
+                if($.query.get("u")){
+                    var q =  $.query.remove("u");                
+                    location.href = location.pathname+q;  
+                }
             }
 
 			this.getPhotos();	
