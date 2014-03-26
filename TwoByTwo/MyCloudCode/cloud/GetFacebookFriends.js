@@ -11,17 +11,15 @@ exports.main = function(request, response){
   userQuery.each(function(u) {
     var obj = {fullName:u.get("fullName"),id:u.id};
     twoByTwoUsers.push(obj);
-  });
-
-  var followQuery = new Parse.Query("Followers");
-  followQuery.equalTo("userID", user);
-  followQuery.each(function(f) {
-    followers.push(f.get("followingUserID"));
-  });
-
-    //   
-  
-  query.get(user, {
+    return twoByTwoUsers;
+  }).then(function(_users) {
+    var followQuery = new Parse.Query("Followers");
+    followQuery.equalTo("userID", user);
+    followQuery.each(function(f) {
+      followers.push(f.get("followingUserID"));
+      return followers;
+    }).then(function(_followers) {
+      query.get(user, {
     success: function(user) {
       var email = user.get("email");
       var username = user.get("username");
@@ -29,9 +27,11 @@ exports.main = function(request, response){
         url:'https://graph.facebook.com/me/friends?access_token='+user.get('authData').facebook.access_token,
         success:function(httpResponse){
           var followersStr = followers.join();
-          //console.log(user.get('authData').facebook.access_token);
+          //console.log("getFacebookFriends: "+httpResponse.data.data.length);
           //response.success("getFacebookFriends: "+httpResponse.data.data.length);
           var friends = httpResponse.data.data;
+
+          console.log("getFacebookFriends: "+friends.length);
 
           for (var i = friends.length - 1; i >= 0; i--) {
             var n1 = friends[i].name;
@@ -63,4 +63,12 @@ exports.main = function(request, response){
         response.error(error);
     }
   });
+    });
+  });  
+
+  
+
+    //   
+  
+  
 }
