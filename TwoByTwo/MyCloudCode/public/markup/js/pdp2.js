@@ -224,6 +224,7 @@ $(function () {
             $(".like-list").find("ul").html("");
 
             for (var i = arr.length - 1; i >= 0; i--) {
+            //for (var i = 0; i < arr.length; i++) {
                 var User = Parse.Object.extend("User");
                 var query = new Parse.Query(User);
                 query.equalTo("objectId", arr[i]);
@@ -438,7 +439,9 @@ $(function () {
                                 if(Parse.User.current()){
                                     var html = "";
 
-                                    for (var i = arr.length - 1; i >= 0; i--) {
+                                    //for (var i = arr.length - 1; i >= 0; i--) {
+                                    for (var i = 0; i < arr.length; i++) {
+                                        
                                         var serverData = arr[i]._serverData;
                                         console.log("photo comment: ",serverData.text,serverData.username,serverData.facebookId);
                                         html+='<li>';
