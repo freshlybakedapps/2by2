@@ -60,15 +60,24 @@ static CGFloat const kImageSize = 320.0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
+    
+    // Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+
+    
+    // Location
     self.locationManager = [CLLocationManager new];
     [self.locationManager startMonitoringSignificantLocationChanges];
     
+
+    // View Content
     self.state = CameraViewStateTakePhoto;
     self.liveView.fillMode = kGPUImageFillModePreserveAspectRatioAndFill;
     self.blendModeLabel.font = [UIFont appFontOfSize:14];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     if (self.photo) {
         
@@ -153,10 +162,7 @@ static CGFloat const kImageSize = 320.0;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.filter = nil;
-    self.sourcePicture = nil;
-    self.stillCamera = nil;
-    self.photo = nil;
+    [self.stillCamera stopCameraCapture];
     [self.locationManager stopMonitoringSignificantLocationChanges];
     [super viewWillDisappear:animated];
 }
@@ -164,6 +170,16 @@ static CGFloat const kImageSize = 320.0;
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)appWillResignActive:(NSNotification *)notification
+{
+    [self.stillCamera stopCameraCapture];
+}
+
+- (void)appDidBecomeActive:(NSNotification *)notification
+{
+    [self.stillCamera startCameraCapture];
 }
 
 
