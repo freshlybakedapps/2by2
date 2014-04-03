@@ -18,6 +18,7 @@ var aboutController = require('cloud/routes/about.js');
 var contactController = require('cloud/routes/contact.js');
 var termsController = require('cloud/routes/terms.js');
 var locationsController = require('cloud/routes/locations.js');
+var featuredController = require('cloud/routes/featured.js');
 
 app.get('/', indexController.index);
 app.get('/index', indexController.index);
@@ -33,6 +34,7 @@ app.get('/about', aboutController.index);
 app.get('/contact', contactController.index);
 app.get('/terms', termsController.index);
 app.get('/locations',locationsController.index);
+app.get('/featured',featuredController.index);
 
 
 

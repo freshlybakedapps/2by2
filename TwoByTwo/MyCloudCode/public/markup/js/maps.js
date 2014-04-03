@@ -245,7 +245,7 @@ function initialize() {
     for (var level in markers) {
       for (var i = 0; i < markers[level].length; i++) {
         var details = markers[level][i];
-        var details2 = markers[level][i+1];
+        //var details2 = markers[level][i+1];
 
         markers[level][i] = new google.maps.Marker({
           title: details.level,
@@ -255,10 +255,11 @@ function initialize() {
           draggable: false,
           flat: true
         });
-
+        /*
         if(details.location && details2.location){
-            //connectSingleDoublePhoto(map,details.location[0],details.location[1],details2.location[0],details2.location[1]);
+            connectSingleDoublePhoto(map,details.location[0],details.location[1],details2.location[0],details2.location[1]);
         }
+        */
         //var infowindow = new google.maps.InfoWindow();
         //infowindow.setContent(details.name);
         //infowindow.open(map, markers[level][i]);
