@@ -319,30 +319,6 @@ $(function () {
         	var that = this;			
 			var clicking = false;
 			
-            var id = this.getUrlVars()["id"];
-            
-            /*
-            var id = this.getURLLastParam();
-            if(id.indexOf("?") > -1){
-                id = id.split("?")[0];
-            }
-
-            console.log(id);
-            */
-            
-
-            if(id){
-            	id = id.split("#")[0];
-            	id = id.replace("#","");   
-            }else{
-            	if(Parse.User.current()){
-            		id = Parse.User.current().id;
-            	}else{
-            		//location.href = "/";
-            	}
-            	
-            }
-
             if(!Parse.User.current()){
             	$(".logout").hide();
             	$("#signin").show();
@@ -351,18 +327,11 @@ $(function () {
             	$("#signin").hide();
             }
             
-            var user = new Parse.User();
-			user.id = id;
-			    
             
-            
-                
-			
             var Photo = Parse.Object.extend("Photo");
             var query = new Parse.Query(Photo);
 			//query.limit(0);
-			
-			query.equalTo("user", user);
+			query.equalTo("featured", true);
 			//query.equalTo("objectId", id);
             query.descending("createdAt");
 			

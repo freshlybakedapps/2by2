@@ -2,45 +2,8 @@ var photosPerPage = 32;
 var page = 0;
 
 exports.index = function(req, resp){
-	//console.log(req);
-	
-	if(req.query.u){
-		var currentUserID = req.query.u;
-		Parse.Cloud.useMasterKey();    
-		var query = new Parse.Query(Parse.User);  		
-	  		
-	  	query.get(currentUserID, {      
-			success: function(user) {		    	
-	          	getPhoto(req,resp,user,currentUserID);
-	       	},
-		    error: function(error) {
-		      	console.log(error);
-		    }
-		});
-	  }else{
-	  	getPhoto(req,resp,null,null);	
-	  }
+	getPhoto(req,resp);
 };
-
-exports.withUserID = function(req, resp){
-    if(req.query.u){
-        var currentUserID = req.query.u;
-        Parse.Cloud.useMasterKey();    
-        var query = new Parse.Query(Parse.User);        
-            
-        query.get(currentUserID, {      
-            success: function(user) {               
-                getPhoto(req,resp,user,currentUserID);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-      }else if(req.params.u){
-
-        getPhoto(req,resp,null,req.params.u);    
-      }
-}
 
 function getDistance(lat1, lat2, lon1, lon2){
     var R = 6371; // km
@@ -54,7 +17,7 @@ function getDistance(lat1, lat2, lon1, lon2){
     return R * c;
 }
 
-function getPhoto(req,resp,user,id) { 
+function getPhoto(req,resp) { 
 	//console.log("Parse.User.current(): "+user);
 	
 	var Photo = Parse.Object.extend("Photo");
@@ -100,19 +63,13 @@ function getPhoto(req,resp,user,id) {
                     var username_half = data.user._serverData.username;
                     var username_full = "";
 
-                    if(user && username_half == user._serverData.username){
-                        username_half = "You!";
-                    }
+                    
 
                     if(data.user_full){
                         username_full = data.user_full._serverData.username;
                     }
 
-                    //console.log(username_full+" / "+user._serverData.username);
-
-                    if(user && username_full == user._serverData.username){
-                        username_full = "You!";
-                    }
+                    
                     
                     var imageURL = image._url;//.url                       
                     var likeLength = 0;

@@ -18,6 +18,7 @@ static NSString * const FacebookIDKey = @"id";
 @interface LoginViewController ()
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UIButton *facebookButton;
+@property (nonatomic, weak) IBOutlet UIButton *twitterButton;
 @property (nonatomic, weak) IBOutlet UIButton *termsButton;
 @end
 
@@ -33,6 +34,117 @@ static NSString * const FacebookIDKey = @"id";
     self.termsButton.titleLabel.font = [UIFont appMediumFontOfSize:12];
     self.termsButton.titleLabel.numberOfLines = 2;
     self.termsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+}
+
+- (IBAction)twitterLoginButtonTouchHandler:(id)sender
+{
+    [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
+        
+        NSLog(@"user: %@ %@",[PFTwitterUtils twitter].screenName,[PFTwitterUtils twitter].userId);
+        
+        if (!user) {
+            NSLog(@"Uh oh. The user cancelled the Twitter login.");
+            return;
+        } else if (user.isNew) {
+            NSLog(@"User signed up and logged in with Twitter!");
+            NSString * requestString = [NSString stringWithFormat:@"https://api.twitter.com/1.1/users/show.json?screen_name=%@", [PFTwitterUtils twitter].screenName];
+            
+            
+            NSURL *verify = [NSURL URLWithString:requestString];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
+            [[PFTwitterUtils twitter] signRequest:request];
+            NSURLResponse *response = nil;
+            NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                                 returningResponse:&response
+                                                             error:&error];
+            
+            
+            if ( error == nil){
+                NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+                //NSLog(@"%@",result);
+                
+                //NSLog(@"name: %@",[result objectForKey:@"name"]);
+                //NSLog(@"description: %@",[result objectForKey:@"description"]);
+                //NSLog(@"profile_image_url: %@",[result objectForKey:@"profile_image_url"]);
+                
+                //[PFUser currentUser].email = email;
+                [PFUser currentUser].username = [result objectForKey:@"name"];//[PFTwitterUtils twitter].screenName;
+                [PFUser currentUser].fullName = [result objectForKey:@"name"];
+                [[PFUser currentUser] setObject:[result objectForKey:@"description"] forKey:@"bio"];
+                
+                NSString* imageURL = [[result objectForKey:@"profile_image_url"] stringByReplacingOccurrencesOfString:@"_normal.jpeg" withString:@"_bigger.jpeg"];
+                
+                [[PFUser currentUser] setObject:imageURL forKey:@"TwitterProfileImage"];
+                //[PFUser currentUser].facebookID = facebookId;
+                
+                //SET SOME DEFAULT VALUES FOR FIRST TIME USERS
+                [PFUser currentUser].notificationWasAccessed = [NSDate date];
+                
+                [PFUser currentUser].likesEmailAlert = NO;
+                [PFUser currentUser].followsEmailAlert = NO;
+                [PFUser currentUser].commentsEmailAlert = NO;
+                [PFUser currentUser].overexposeEmailAlert = NO;
+                [PFUser currentUser].friendTookPhotoEmailAlert = NO;
+                [PFUser currentUser].digestEmailAlert = NO;
+                
+                [PFUser currentUser].overexposePushAlert = YES;
+                [PFUser currentUser].likesPushAlert = YES;
+                [PFUser currentUser].followsPushAlert = YES;
+                [PFUser currentUser].commentsPushAlert = YES;
+                [PFUser currentUser].friendTookPhotoPushAlert = YES;
+                
+                
+                [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if(error){
+                        NSLog(@"Twitter login %@",error.description);
+                    }
+                }];
+                
+                
+                /*
+                 [user setObject:[result objectForKey:@"profile_image_url_https"]
+                 forKey:@"picture"];
+                 // does this thign help?
+                 [user setUsername:[result objectForKey:@"screen_name"]];
+                 
+                 NSString * names = [result objectForKey:@"name"];
+                 NSMutableArray * array = [NSMutableArray arrayWithArray:[names componentsSeparatedByString:@" "]];
+                 if ( array.count > 1){
+                 [user setObject:[array lastObject]
+                 forKey:@"last_name"];
+                 
+                 [array removeLastObject];
+                 [user setObject:[array componentsJoinedByString:@" " ]
+                 forKey:@"first_name"];
+                 }
+                 
+                 [user saveInBackground];
+                 */
+            }
+
+            
+        } else {
+            NSLog(@"User logged in with Twitter!");
+        }
+        
+        
+        
+        
+        [[AppDelegate delegate] showMainViewController];
+        
+        
+    }];
+    
+    /*
+    if (![PFTwitterUtils isLinkedWithUser:user]) {
+        [PFTwitterUtils linkUser:user block:^(BOOL succeeded, NSError *error) {
+            if ([PFTwitterUtils isLinkedWithUser:user]) {
+                NSLog(@"Woohoo, user logged in with Twitter!");
+            }
+        }];
+    }
+    */
+    
 }
 
 - (IBAction)loginButtonTouchHandler:(id)sender

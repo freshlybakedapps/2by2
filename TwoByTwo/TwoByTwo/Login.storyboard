@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2kw-39-nlh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2kw-39-nlh">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -63,7 +63,7 @@ one unexpected  unique image. </string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K1H-T7-Lmy">
-                                <rect key="frame" x="60" y="452" width="200" height="36"/>
+                                <rect key="frame" x="60" y="492" width="200" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="v1U-7U-1qV"/>
@@ -76,15 +76,26 @@ QnkgY3JlYXRpbmcgYW4gYWNjb3VudCB5b3UgYWdyZWUgdG8gb3VyCgN0ZXJtcyAmIGNvbmRpdGlvbnM
                                     <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9q-K2-M37">
+                                <rect key="frame" x="67" y="446" width="186" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Twitter" backgroundImage="button-facebook-large">
+                                    <color key="titleColor" red="0.97647058819999999" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="twitterLoginButtonTouchHandler:" destination="NpQ-lY-3oP" eventType="touchUpInside" id="WdX-tA-Z2v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="K1H-T7-Lmy" secondAttribute="centerX" id="2C7-dW-ezp"/>
                             <constraint firstAttribute="centerX" secondItem="tL2-Ns-1Lo" secondAttribute="centerX" id="Mqi-Fn-jPc"/>
                             <constraint firstItem="Iml-HH-ahS" firstAttribute="leading" secondItem="ypO-cp-i31" secondAttribute="leading" id="ZbS-LG-hy9"/>
-                            <constraint firstItem="K1H-T7-Lmy" firstAttribute="top" secondItem="jWb-Hw-1aw" secondAttribute="bottom" constant="20" id="cFN-5T-A8c"/>
+                            <constraint firstItem="K1H-T7-Lmy" firstAttribute="top" secondItem="jWb-Hw-1aw" secondAttribute="bottom" constant="60" id="cFN-5T-A8c"/>
                             <constraint firstItem="jWb-Hw-1aw" firstAttribute="top" secondItem="tL2-Ns-1Lo" secondAttribute="bottom" constant="20" id="h5t-O9-5N3"/>
-                            <constraint firstItem="AXK-Ob-vKL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K1H-T7-Lmy" secondAttribute="bottom" constant="20" id="pKc-33-xeZ"/>
+                            <constraint firstItem="AXK-Ob-vKL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K1H-T7-Lmy" secondAttribute="bottom" constant="40" id="pKc-33-xeZ"/>
                             <constraint firstAttribute="centerX" secondItem="jWb-Hw-1aw" secondAttribute="centerX" id="pfq-Ag-hxh"/>
                             <constraint firstItem="tL2-Ns-1Lo" firstAttribute="top" secondItem="Iml-HH-ahS" secondAttribute="bottom" constant="20" id="rxS-4w-nW6"/>
                             <constraint firstItem="Iml-HH-ahS" firstAttribute="top" secondItem="ypO-cp-i31" secondAttribute="top" id="uY2-ee-hC0"/>
@@ -96,6 +107,7 @@ QnkgY3JlYXRpbmcgYW4gYWNjb3VudCB5b3UgYWdyZWUgdG8gb3VyCgN0ZXJtcyAmIGNvbmRpdGlvbnM
                         <outlet property="facebookButton" destination="jWb-Hw-1aw" id="oQ8-wj-OEp"/>
                         <outlet property="termsButton" destination="K1H-T7-Lmy" id="fnZ-cx-T1e"/>
                         <outlet property="titleLabel" destination="tL2-Ns-1Lo" id="kGm-Z1-b7s"/>
+                        <outlet property="twitterButton" destination="c9q-K2-M37" id="OmW-RG-JRf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVd-4b-ZsR" userLabel="First Responder" sceneMemberID="firstResponder"/>

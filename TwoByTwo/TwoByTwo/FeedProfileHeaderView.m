@@ -131,8 +131,13 @@
         }
     }];
 
+    NSURL *URL = nil;
+    if([[PFUser currentUser] objectForKey:@"TwitterProfileImage"] ){
+        URL = [NSURL URLWithString:[[PFUser currentUser] objectForKey:@"TwitterProfileImage"]];
+    }else{
+        URL = [NSURL URLWithFacebookUserID:user.facebookID size:160];
+    }
     
-    NSURL *URL = [NSURL URLWithFacebookUserID:user.facebookID size:160];
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
 }
 
