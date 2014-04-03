@@ -492,6 +492,12 @@ static CGFloat const kImageSize = 320.0;
         return;
     }
     
+    //save to camera roll
+    if([[PFUser currentUser] objectForKey:@"saveImageToCamera"]){
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    }
+    
+    
     NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
     if (!imageData) {
         completion(NO, nil);

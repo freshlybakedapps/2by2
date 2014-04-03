@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, TableViewSection) {
     TableViewSectionEmail = 0,
     TableViewSectionPush,
     TableViewSectionDigest,
+    TableViewSectionSaveToCameraRoll,
     TableViewSectionCount,
 };
 
@@ -22,6 +23,7 @@ typedef NS_ENUM(NSUInteger, TableViewRow) {
     TableViewRowFollow,
     TableViewRowComment,
     TableViewRowFriendPhoto,
+    TableViewRowSaveToCameraRoll,
     TableViewRowCount,
     
 };
@@ -76,8 +78,10 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
 
         case TableViewSectionPush:
             return TableViewRowCount;
-
+            
+        case TableViewSectionSaveToCameraRoll:
         case TableViewSectionDigest:
+        
         default:
             return TableViewDigestRowCount;
     }
@@ -91,6 +95,9 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
             
         case TableViewSectionPush:
             return @"Send me a push notification when someone:";
+        
+        case TableViewSectionSaveToCameraRoll:
+            return @"Automatically save image to:";
             
         case TableViewSectionDigest:
         default:
@@ -157,6 +164,15 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
                     break;
             }
             break;
+        case TableViewSectionSaveToCameraRoll:
+            switch (indexPath.row) {
+                case TableViewRowSaveToCameraRoll:
+                default:
+                    cell.textLabel.text = @"Camera roll";
+                    cell.key = @"saveImageToCamera";
+                    break;
+            }
+            break;
 
         case TableViewSectionDigest:
         default:
@@ -168,6 +184,7 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
                     break;
             }
             break;
+        
     }
 
     return cell;
