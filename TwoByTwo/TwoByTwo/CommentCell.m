@@ -26,6 +26,11 @@
     _comment = comment;
 
     NSURL *URL = [NSURL URLWithFacebookUserID:comment.facebookID];
+    
+    if(comment.twitterProfileImageURL){
+        URL = [NSURL URLWithString:comment.twitterProfileImageURL];
+    }
+    
     [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) * 0.5;
     

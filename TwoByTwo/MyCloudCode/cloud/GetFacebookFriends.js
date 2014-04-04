@@ -9,7 +9,7 @@ exports.main = function(request, response){
 
   var userQuery = new Parse.Query(Parse.User);
   userQuery.each(function(u) {
-    var obj = {fullName:u.get("fullName"),id:u.id};
+    var obj = {twitterProfileImage:u.get("twitterProfileImage"),fullName:u.get("fullName"),id:u.id};
     twoByTwoUsers.push(obj);
     return twoByTwoUsers;
   }).then(function(_users) {
@@ -43,7 +43,7 @@ exports.main = function(request, response){
                   following = true;
                 }
 
-                var obj ={name:friends[i].name,parseID:twoByTwoUsers[j].id,facebookID:friends[i].id,following:following};
+                var obj ={twitterProfileImage:twoByTwoUsers[j].twitterProfileImage,name:friends[i].name,parseID:twoByTwoUsers[j].id,facebookID:friends[i].id,following:following};
                 items.push(obj);
               }
             };

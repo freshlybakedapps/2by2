@@ -45,7 +45,7 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
 {
     [super viewDidLoad];
 
-    self.title = @"Notification Settings";
+    self.title = @"Settings";
     
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                           NSForegroundColorAttributeName:[UIColor appGrayColor],
@@ -116,7 +116,7 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
         case TableViewSectionEmail:
             switch (indexPath.row) {
                 case TableViewRowOverexpose:
-                    cell.textLabel.text = @"Overexposes my photo";
+                    cell.textLabel.text = @"Double expose my photo";
                     cell.key = @"overexposeEmailAlert";
                     break;
                 case TableViewRowLike:
@@ -142,7 +142,7 @@ typedef NS_ENUM(NSUInteger, TableViewDigestRow) {
         case TableViewSectionPush:
             switch (indexPath.row) {
                 case TableViewRowOverexpose:
-                    cell.textLabel.text = @"Overexposes my photo";
+                    cell.textLabel.text = @"Double expose my photo";
                     cell.key = @"overexposePushAlert";
                     break;
                 case TableViewRowLike:

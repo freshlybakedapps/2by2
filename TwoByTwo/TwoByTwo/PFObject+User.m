@@ -10,6 +10,7 @@
 
 NSString * const PFFullNameKey = @"fullName";
 NSString * const PFFacebookIDKey = @"facebookId";
+NSString * const PFTwitterProfileImageKey = @"TwitterProfileImage";
 NSString * const PFNotificationWasAccessedKey = @"notificationWasAccessed";
 
 NSString * const PFCommentsEmailAlertKey = @"commentsEmailAlert";
@@ -46,6 +47,16 @@ NSString * const PFOverexposePushAlertKey = @"overexposePushAlert";
 - (void)setFacebookID:(NSString *)facebookID
 {
     self[PFFacebookIDKey] = facebookID;
+}
+
+- (NSString *)twitterProfileImageURL
+{
+    return self[PFTwitterProfileImageKey];
+}
+
+- (void)setTwitterProfileImageURL:(NSString *)twitterProfileImageURL
+{
+    self[PFTwitterProfileImageKey] = twitterProfileImageURL;
 }
 
 - (NSDate *)notificationWasAccessed

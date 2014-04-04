@@ -11,6 +11,7 @@
 
 extern NSString * const PFFullNameKey;
 extern NSString * const PFFacebookIDKey;
+extern NSString * const PFTwitterProfileImageKey;
 extern NSString * const PFNotificationWasAccessedKey;
 
 extern NSString * const PFCommentsEmailAlertKey;
@@ -31,6 +32,8 @@ extern NSString * const PFOverexposePushAlertKey;
 
 @property (nonatomic, strong) NSString *fullName;
 @property (nonatomic, strong) NSString *facebookID;
+@property (nonatomic, strong) NSString *twitterProfileImageURL;
+
 @property (nonatomic, strong) NSDate *notificationWasAccessed;
 
 @property (nonatomic) BOOL commentsEmailAlert;

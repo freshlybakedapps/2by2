@@ -23,6 +23,7 @@
  following = 1;
  name = "Gabriela Tubert";
  parseID = zqRi8FTL8j;
+ twitterProfileImage = "http://pbs.twimg.com/profile_images/378800000139726237/6e41ef19d7fb264a073b9954fe4aecab_bigger.jpeg";
  */
 
 - (void)setData:(NSDictionary *)data
@@ -30,6 +31,11 @@
     _data = data;
     
     NSURL *URL = [NSURL URLWithFacebookUserID:data[@"facebookID"]];
+    
+    if(data[@"twitterProfileImage"]){
+        URL = [NSURL URLWithString:data[@"twitterProfileImage"]];
+    }
+    
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     self.imageView.layer.cornerRadius = CGRectGetHeight(self.imageView.frame) * 0.5;  
     

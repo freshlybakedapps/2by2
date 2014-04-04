@@ -35,6 +35,12 @@
         if (objects.count > 0) {
             PFObject *user = objects[0];
             NSURL *URL = [NSURL URLWithFacebookUserID:user.facebookID];
+            
+            //if user is using twitter, pull the twitter profile image URL
+            if(user.twitterProfileImageURL){
+                URL = [NSURL URLWithString:user.twitterProfileImageURL];
+            }
+            
             [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
         }
     }];

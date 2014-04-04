@@ -69,11 +69,24 @@
     
     // User Avatars
     NSURL *firstURL = [NSURL URLWithFacebookUserID:self.photo.user.facebookID];
+    
+    //if user is using twitter, pull the twitter profile image URL
+    if(self.photo.user.twitterProfileImageURL){
+        firstURL = [NSURL URLWithString:self.photo.user.twitterProfileImageURL];
+    }
+    
     [self.firstUserImageView setImageWithURL:firstURL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     [self.firstUserButton setTitle:self.photo.user.username forState:UIControlStateNormal];
     
     if (self.photo.userFull) {
         NSURL *secondURL = [NSURL URLWithFacebookUserID:self.photo.userFull.facebookID];
+        
+        //if user is using twitter, pull the twitter profile image URL
+        if(self.photo.userFull.twitterProfileImageURL){
+            secondURL = [NSURL URLWithString:self.photo.userFull.twitterProfileImageURL];
+        }
+        
+        
         [self.secondUserImageView setImageWithURL:secondURL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
         self.secondUserImageView.hidden = NO;
         [self.secondUserButton setTitle:self.photo.userFull.username forState:UIControlStateNormal];

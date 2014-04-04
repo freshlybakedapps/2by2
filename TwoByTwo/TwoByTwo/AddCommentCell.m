@@ -31,8 +31,15 @@
     comment[@"text"] = self.textField.text;
     comment[@"username"] = [PFUser currentUser].username;
     comment[PFCommentIDKey] = self.photo.objectId;
-    comment[@"facebookId"] = [PFUser currentUser][@"facebookId"];
+    if([PFUser currentUser].facebookID){
+        comment[@"facebookId"] = [PFUser currentUser].facebookID;
+    }
+    
     comment[PFUserIDKey] = [PFUser currentUser].objectId;
+    
+    if([PFUser currentUser].twitterProfileImageURL){
+        comment[@"TwitterProfileImage"] = [PFUser currentUser].twitterProfileImageURL;
+    }
     
     [comment saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
