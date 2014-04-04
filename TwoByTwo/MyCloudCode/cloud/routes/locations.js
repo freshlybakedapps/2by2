@@ -4,6 +4,7 @@ var counter = [];
 var usersArr = [];
 var photoCounter = [];
 var namesArr = [];
+var likesArr = [];
 
 exports.index = function(req, resp){
   var Photo = Parse.Object.extend("Photo");
@@ -25,6 +26,7 @@ function getLocations(resp,count,skip){
     var photoquery = new Parse.Query(Photo);
     Parse.Cloud.useMasterKey();
     photoquery.include("user");
+    //photoquery.include("likes");
     photoquery.include("user_full");
     photoquery.limit(1000); 
     photoquery.skip(skip);
@@ -52,6 +54,16 @@ function getLocations(resp,count,skip){
               photoCounter[userFull.id] = (photoCounter[userFull.id] || 0) + 1;
               namesArr[userFull.id] = name_full;
             }
+
+            //get likes information
+            if(photo.get("likes")){
+              var obj = {};
+              obj.counter = photo.get("likes").length;
+              obj.photo = photo;
+              obj.filter = photo.get("filter");
+              likesArr.push(obj);
+            }
+            
             
 
 
@@ -110,8 +122,11 @@ function getLocations(resp,count,skip){
               uniqueUserArr[i] = obj;
             };
 
+            
+            
 
-            resp.render('locations', { users:uniqueUserArr.sort(compare),latLongArr:latLongArr,mapURL: getMapURL(uniqueArr.sort(compare)), locations:  uniqueArr.sort(compare),totalPhotos:count});
+
+            resp.render('locations', { likesArr:likesArr.sort(compare),users:uniqueUserArr.sort(compare),latLongArr:latLongArr,mapURL: getMapURL(uniqueArr.sort(compare)), locations:  uniqueArr.sort(compare),totalPhotos:count});
           }            
         
       },

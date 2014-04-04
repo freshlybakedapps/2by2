@@ -48,10 +48,10 @@
         <script>
             /*
             //uncomment this to get number of photos per user
-
+            //users.length
             var users = {
               'users': [
-                <% for(var i=0; i<users.length; i++) {%>
+                <% for(var i=0; i<20; i++) {%>
                     <% if(users[i]){ %>                    
                         {
                           'info': "<%= users[i].name %> (<%= users[i].id %>) - <%= users[i].counter %>",
@@ -61,6 +61,18 @@
               ]
             }
             */
+            //likesArr.length
+            var likes = {
+              'likes': [
+                <% for(var i=0; i<20; i++) {%>
+                                      
+                        {
+                          'info': "http://2by2.parseapp.com/pdp?id=<%= likesArr[i].photo.id %> (<%= likesArr[i].filter %>) - <%= likesArr[i].counter %>",
+                        },
+                                                        
+                <% }%>                
+              ]
+            }
 
             var markers = {
               'locations': [
