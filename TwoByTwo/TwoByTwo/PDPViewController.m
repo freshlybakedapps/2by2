@@ -15,6 +15,7 @@
 #import "AddCommentCell.h"
 #import "DAKeyboardControl.h"
 #import "DMActivityInstagram.h"
+#import "UIImage+Addon.h"
 
 typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     CollectionViewSectionMain = 0,
@@ -92,19 +93,34 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     
 - (void) shareButtonTapped{
     
+    
+    
     PFFile *file = ([self.photo.state isEqualToString:PFStateValueFull]) ? self.photo.imageFull : self.photo.imageHalf;
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         if (!error) {
             UIImage *image = [UIImage imageWithData:data];
-            DMActivityInstagram *instagramActivity = [[DMActivityInstagram alloc] init];
+            
+            
+            NSString *watermark = ([self.photo.state isEqualToString:@"full"])
+            ? [NSString stringWithFormat:@"%@/%@:2BY2", [self.photo.user.username uppercaseString], [[PFUser currentUser].username uppercaseString]]
+            : [NSString stringWithFormat:@"%@:2BY2", [self.photo.user.username uppercaseString]];
+            
+            UIImage *picture = [image imageWithWatermark:watermark];
+            
+            NSString* weblink = [NSString stringWithFormat:@"http://2by2.parseapp.com/pdp?id=%@",self.photo.objectId];
+            
             
             NSString *textToShare = @"I made this image with #2by2";
+
+            DMActivityInstagram *instagramActivity = [[DMActivityInstagram alloc] init];
             
-            NSURL *urlToShare = [NSURL URLWithString:@"https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8"];
-            NSArray *activityItems = @[textToShare, image, urlToShare];
+            
+            
+            NSURL *urlToShare = [NSURL URLWithString:weblink];
+            NSArray *activityItems = @[textToShare, picture, urlToShare];
             
             NSArray *applicationActivities = @[instagramActivity];
-            NSArray *excludeActivities = @[];
+            NSArray *excludeActivities = @[UIActivityTypeAssignToContact,UIActivityTypeAddToReadingList,UIActivityTypeAirDrop,UIActivityTypeCopyToPasteboard,UIActivityTypePrint];
             
             
             UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:applicationActivities];
@@ -120,9 +136,9 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             NSLog(@"shareButtonTapped: %@", error);
         }
     }];
-    
-    
-    }
+}
+
+
 
 
 

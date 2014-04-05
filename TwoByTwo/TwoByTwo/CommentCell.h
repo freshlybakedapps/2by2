@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMAttributedHighlightLabel.h"
 
 
-@interface CommentCell : UICollectionViewCell
+@interface CommentCell : UICollectionViewCell <AMAttributedHighlightLabelDelegate>
 
 @property (nonatomic, strong) PFObject *comment;
 

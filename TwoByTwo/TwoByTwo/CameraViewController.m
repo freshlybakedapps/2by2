@@ -98,7 +98,7 @@ static CGFloat const kImageSize = 320.0;
         [query includeKey:PFUserInUseKey];
         [query getObjectInBackgroundWithId:weakSelf.photo.objectId block:^(PFObject *photo, NSError *error) {
             if(!error) {
-                if ([photo.state isEqualToString:PFStateValueHalf]) {
+                if ([photo.state isEqualToString:PFStateValueHalf] || ([photo.state isEqualToString:@"in-use"] && photo.userInUse == [PFUser currentUser])) {
                     // Set state to 'in-use'
                     [weakSelf setPhotoState:@"in-use" completion:^(BOOL succeeded, NSError *error) {
                         
@@ -282,6 +282,8 @@ static CGFloat const kImageSize = 320.0;
             [self setPhotoState:PFStateValueHalf completion:^(BOOL succeeded, NSError *error) {
                 if (!succeeded) {
                     NSLog(@"CameraViewStateTakePhoto setPhotoState: %@", error);
+                }else{
+                    NSLog(@"SET STATE BACK TO HALF!!!!");
                 }
             }];
             break;
