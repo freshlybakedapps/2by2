@@ -119,13 +119,23 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             NSURL *urlToShare = [NSURL URLWithString:weblink];
             NSArray *activityItems = @[textToShare, picture, urlToShare];
             
+            
+            
             NSArray *applicationActivities = @[instagramActivity];
             NSArray *excludeActivities = @[UIActivityTypeAssignToContact,UIActivityTypeAddToReadingList,UIActivityTypeAirDrop,UIActivityTypeCopyToPasteboard,UIActivityTypePrint];
+            
+            NSArray *excludeActivities2 = @[UIActivityTypeAssignToContact,UIActivityTypeAddToReadingList,UIActivityTypeAirDrop,UIActivityTypeCopyToPasteboard,UIActivityTypePrint, UIActivityTypeSaveToCameraRoll,UIActivityTypeMessage,UIActivityTypeMail];
             
             
             UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:applicationActivities];
             
-            activityVC.excludedActivityTypes = excludeActivities;
+            if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId] || [self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
+                activityVC.excludedActivityTypes = excludeActivities;
+            }else{
+                activityVC.excludedActivityTypes = excludeActivities2;
+            }
+            
+            
             
             [activityVC setValue:@"I made this image with #2by2" forKey:@"subject"];
             

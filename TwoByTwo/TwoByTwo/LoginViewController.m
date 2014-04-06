@@ -31,6 +31,8 @@ static NSString * const FacebookIDKey = @"id";
     
     self.titleLabel.font = [UIFont appMediumFontOfSize:16];
     self.facebookButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.twitterButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    
     self.termsButton.titleLabel.font = [UIFont appMediumFontOfSize:12];
     self.termsButton.titleLabel.numberOfLines = 2;
     self.termsButton.titleLabel.textAlignment = NSTextAlignmentCenter;

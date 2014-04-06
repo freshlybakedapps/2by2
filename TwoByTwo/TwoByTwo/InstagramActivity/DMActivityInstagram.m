@@ -15,11 +15,17 @@
 }
 
 - (NSString *)activityTitle {
+    
     return @"Instagram";
 }
 
 - (UIImage *)activityImage {
     return [UIImage imageNamed:@"instagram.png"];
+}
+
++ (UIActivityCategory)activityCategory
+{
+    return UIActivityCategoryShare;
 }
 
 
