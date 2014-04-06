@@ -77,7 +77,6 @@ one unexpected  unique image. </string>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginButtonTouchHandler:" destination="NpQ-lY-3oP" eventType="touchUpInside" id="S0N-hp-1fb"/>
                                     <action selector="twitterLoginButtonTouchHandler:" destination="NpQ-lY-3oP" eventType="touchUpInside" id="qzG-Ch-bSp"/>
                                 </connections>
                             </button>
