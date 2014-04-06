@@ -373,11 +373,13 @@ $(function () {
 		            // The object was retrieved successfully.
 		            //console.log(photosArr);
 					var result = "";
-		
+		              
+                    /*
 					if(photosArr.length == 0){
 						$("#main-content").html("<br><p>You have no photos.</p>");
 						return;
-					}		
+					}
+                    */		
 
 
 					if($('.picture > .picture-wrapper').length){
