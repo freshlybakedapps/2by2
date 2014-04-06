@@ -357,14 +357,16 @@ $(function () {
                 
 			
             var Photo = Parse.Object.extend("Photo");
-            var query = new Parse.Query(Photo);
+            var query1 = new Parse.Query(Photo);
+            var query2 = new Parse.Query(Photo);
 			//query.limit(0);
+            query1.equalTo("user", user);
+            query2.equalTo("user_full", user);    
+            
+            query = Parse.Query.or(query1, query2);  
 			
-			query.equalTo("user", user);
-			//query.equalTo("objectId", id);
-            query.descending("createdAt");
+			query.descending("createdAt");
 			
-			//query.equalTo("image", "8c6b2872-43f9-404b-b1fe-e756a1cec608-file");
 			$("#images").html("");
 			$("#images").show();
             
@@ -374,12 +376,17 @@ $(function () {
 		            //console.log(photosArr);
 					var result = "";
 		              
-                    /*
+                    
 					if(photosArr.length == 0){
-						$("#main-content").html("<br><p>You have no photos.</p>");
+                        if(Parse.User.current().id == that.getUrlVars()["id"]){
+                            $("#main-content").html("<br><p>You have no photos yet!, take your first photo with the app</p>");
+                        }else{
+                            $("#main-content").html("<br><p>This person has no photos yet, swing by later</p>");
+
+                        }
 						return;
 					}
-                    */		
+                    		
 
 
 					if($('.picture > .picture-wrapper').length){
