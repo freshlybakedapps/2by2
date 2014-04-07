@@ -11,6 +11,7 @@
 
 
 @interface FindFacebookFriendsViewController ()
+@property (nonatomic, weak) IBOutlet UILabel *statusLabel;
 @property (strong,nonatomic) NSArray* friends;
 @end
 
@@ -42,11 +43,16 @@
 
 - (void)loadFriends
 {
+    self.statusLabel.text = @"Checking Facebook contacts...";
+    
     [PFCloud callFunctionInBackground:@"getFacebookFriends"
                        withParameters:@{PFUserKey:[PFUser currentUser].objectId}
                                 block:^(NSArray *result, NSError *error) {
                                     if (!error) {
                                         NSLog(@"Facebook friends: %@", result);
+                                        
+                                        self.statusLabel.text = [NSString stringWithFormat:@"Found %lu results", (unsigned long)result.count];
+                                        
                                         self.friends = result;
                                         [self.tableView reloadData];
                                     }

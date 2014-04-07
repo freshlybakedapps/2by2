@@ -30,7 +30,12 @@
 {
     _data = data;
     
-    NSURL *URL = [NSURL URLWithFacebookUserID:data[@"facebookID"]];
+    NSURL *URL;
+    
+    if([data objectForKey:@"facebookID"]){
+        URL = [NSURL URLWithFacebookUserID:data[@"facebookID"]];
+    }
+    
     
     if(data[@"twitterProfileImage"]){
         URL = [NSURL URLWithString:data[@"twitterProfileImage"]];

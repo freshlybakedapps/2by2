@@ -27,6 +27,7 @@
 		1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A81091854433D007227BB /* EditProfileViewController.m */; };
 		1D568E95189756930043AB04 /* FeedFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D568E94189756930043AB04 /* FeedFooterView.m */; };
 		1D568E97189756CC0043AB04 /* FeedFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D568E96189756CC0043AB04 /* FeedFooterView.xib */; };
+		1D79631D18F315C90022EFD1 /* FindTwitterFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D79631C18F315C90022EFD1 /* FindTwitterFriendsViewController.m */; };
 		1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */; };
 		1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7F818467EF1002626C8 /* NotificationSettingsViewController.m */; };
 		1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7FC184A636A002626C8 /* AboutViewController.m */; };
@@ -135,6 +136,8 @@
 		1D568E94189756930043AB04 /* FeedFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedFooterView.m; sourceTree = "<group>"; };
 		1D568E96189756CC0043AB04 /* FeedFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedFooterView.xib; sourceTree = "<group>"; };
 		1D74B5701809A681005A4937 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1D79631B18F315C90022EFD1 /* FindTwitterFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindTwitterFriendsViewController.h; sourceTree = "<group>"; };
+		1D79631C18F315C90022EFD1 /* FindTwitterFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindTwitterFriendsViewController.m; sourceTree = "<group>"; };
 		1DB0C7AF18464DED002626C8 /* EverythingElseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverythingElseViewController.h; sourceTree = "<group>"; };
 		1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverythingElseViewController.m; sourceTree = "<group>"; };
 		1DB0C7F718467EF1002626C8 /* NotificationSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationSettingsViewController.h; sourceTree = "<group>"; };
@@ -320,6 +323,15 @@
 			name = EditProfile;
 			sourceTree = "<group>";
 		};
+		1D79631A18F3158F0022EFD1 /* Find Twitter Friends */ = {
+			isa = PBXGroup;
+			children = (
+				1D79631B18F315C90022EFD1 /* FindTwitterFriendsViewController.h */,
+				1D79631C18F315C90022EFD1 /* FindTwitterFriendsViewController.m */,
+			);
+			name = "Find Twitter Friends";
+			sourceTree = "<group>";
+		};
 		1DB0C7AE18464DB1002626C8 /* EverythingElse */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +372,7 @@
 			children = (
 				1DB0C7FF184A65F6002626C8 /* FindInviteFriendsViewController.h */,
 				1DB0C800184A65F6002626C8 /* FindInviteFriendsViewController.m */,
+				1D79631A18F3158F0022EFD1 /* Find Twitter Friends */,
 				1DB0C802184A6B05002626C8 /* Find Facebook friends */,
 				1DD9715F184BF68D001D35CA /* Find Contact Friends */,
 			);
@@ -843,6 +856,7 @@
 				7C7B354F18D11E1900563569 /* NSURL+Facebook.m in Sources */,
 				1DD9718A184CD290001D35CA /* WebViewController.m in Sources */,
 				1DD97162184C065D001D35CA /* FindContactsViewController.m in Sources */,
+				1D79631D18F315C90022EFD1 /* FindTwitterFriendsViewController.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
 				7CD137FF18C3F43400D534D7 /* LikersCell.m in Sources */,

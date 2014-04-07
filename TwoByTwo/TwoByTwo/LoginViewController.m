@@ -77,6 +77,10 @@ static NSString * const FacebookIDKey = @"id";
                 NSString* imageURL = [[result objectForKey:@"profile_image_url"] stringByReplacingOccurrencesOfString:@"_normal.jpeg" withString:@"_bigger.jpeg"];
                 
                 [[PFUser currentUser] setObject:imageURL forKey:@"TwitterProfileImage"];
+                [[PFUser currentUser] setObject:[PFTwitterUtils twitter].userId forKey:@"twitterId"];
+                
+                
+                
                 //[PFUser currentUser].facebookID = facebookId;
                 
                 //SET SOME DEFAULT VALUES FOR FIRST TIME USERS
