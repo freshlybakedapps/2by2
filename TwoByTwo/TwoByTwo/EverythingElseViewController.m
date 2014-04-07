@@ -20,6 +20,11 @@ typedef NS_ENUM(NSUInteger, TableViewRow) {
     TableViewRowCount,
 };
 
+static NSString * const FacebookNameKey = @"name";
+static NSString * const FacebookUsernameKey = @"username";
+static NSString * const FacebookEmailKey = @"email";
+static NSString * const FacebookIDKey = @"id";
+
 
 @interface EverythingElseViewController ()
 @end
@@ -39,6 +44,59 @@ typedef NS_ENUM(NSUInteger, TableViewRow) {
     
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+}
+
+
+- (IBAction)linkAccountButtonTapped:(id)sender
+{
+    
+    /*
+    [PFFacebookUtils unlinkUserInBackground:[PFUser currentUser] block:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            [PFUser currentUser].email = @"";
+            [PFUser currentUser].facebookID = @"";
+            
+            [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if(error){
+                    NSLog(@"FB unlinkUser: %@",error.description);
+                }
+            }];
+        }
+
+    }];
+    */
+    
+    
+    if(![PFUser currentUser].facebookID || [[PFUser currentUser].facebookID isEqualToString:@""]){
+        
+        [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[@"user_about_me", @"email"] block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                FBRequest *request = [FBRequest requestForGraphPath:@"me"];
+                [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    
+                    if (!error) {
+                        
+                        NSString *email = result[FacebookEmailKey];
+                        NSString *facebookId = result[FacebookIDKey];
+                        [PFUser currentUser].email = email;
+                        [PFUser currentUser].facebookID = facebookId;
+                        
+                        [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                            if(error){
+                                NSLog(@"FB login %@",error.description);
+                            }
+                        }];
+                    }
+                }];
+            }
+        }];
+        
+    }
+    
+    if(![PFTwitterUtils twitter].screenName){
+        
+    }
+
 }
 
 - (IBAction)logoutButtonTapped:(id)sender

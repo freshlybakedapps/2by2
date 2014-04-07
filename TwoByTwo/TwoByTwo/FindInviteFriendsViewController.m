@@ -17,6 +17,8 @@
 
 @interface FindInviteFriendsViewController () <ABPeoplePickerNavigationControllerDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
 @property (nonatomic, weak) IBOutlet UITableViewCell *inviteCell;
+@property (nonatomic, weak) IBOutlet UITableViewCell *twitterCell;
+@property (nonatomic, weak) IBOutlet UITableViewCell *facebookCell;
 @end
 
 
@@ -39,9 +41,25 @@
     self.navigationController.navigationBar.titleTextAttributes = normalAttributes;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if((cell == self.facebookCell && ![PFUser currentUser].facebookID) || (cell == self.twitterCell && ![PFTwitterUtils twitter].screenName)){
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.userInteractionEnabled = NO;
+        //cell.textLabel.text = [NSString stringWithFormat:@"%@ (DISABLED)",cell.textLabel.text];
+        [cell setAlpha:0.35];
+    }
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    
+    
+    
     if (cell == self.inviteCell) {
         ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
         picker.peoplePickerDelegate = self;
