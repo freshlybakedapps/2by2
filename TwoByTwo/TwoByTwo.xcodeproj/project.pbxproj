@@ -702,7 +702,7 @@
 				ORGANIZATIONNAME = "Joseph Lin";
 				TargetAttributes = {
 					7CF39DDA17E0070A003A859F = {
-						DevelopmentTeam = V2T3S29RQ2;
+						DevelopmentTeam = M84Z3ZNVBH;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -1028,7 +1028,7 @@
 				CLANG_WARN_OBJC_RECEIVER_WEAK = NO;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TwoByTwo/TwoByTwo-Prefix.pch";

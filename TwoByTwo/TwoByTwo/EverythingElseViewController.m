@@ -55,12 +55,21 @@ static NSString * const FacebookIDKey = @"id";
     }
 }
 
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
+    }
+    return params;
+}
+
 
 - (IBAction)linkAccountButtonTapped:(id)sender
 {
-    
-    
-    
     /*
     [PFTwitterUtils unlinkUserInBackground:[PFUser currentUser] block:^(BOOL succeeded, NSError *error) {
         if (!error) {
@@ -76,6 +85,9 @@ static NSString * const FacebookIDKey = @"id";
         
     }];
     */
+    
+    
+    
     
     if(![PFUser currentUser].facebookID || [[PFUser currentUser].facebookID isEqualToString:@""]){
         

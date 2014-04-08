@@ -19,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet UITableViewCell *inviteCell;
 @property (nonatomic, weak) IBOutlet UITableViewCell *twitterCell;
 @property (nonatomic, weak) IBOutlet UITableViewCell *facebookCell;
+@property (nonatomic, weak) IBOutlet UITableViewCell *invitefacebookCell;
 @end
 
 
@@ -64,6 +65,27 @@
         ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
         picker.peoplePickerDelegate = self;
         [self presentViewController:picker animated:YES completion:nil];
+    }else if(cell == self.invitefacebookCell){
+        NSMutableDictionary* params =   [NSMutableDictionary dictionaryWithObjectsAndKeys: nil];
+        
+        [FBWebDialogs presentRequestsDialogModallyWithSession:nil
+                                                      message:@"Hey, inviting you to check out my pics on 2by2, join and we can make double exposures together. Download the app here: https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8"
+                                                        title:@"2by2!"
+                                                   parameters:params
+                                                      handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                          if (error) {
+                                                              // Case A: Error launching the dialog or sending request.
+                                                              NSLog(@"Error sending request.");
+                                                          } else {
+                                                              if (result == FBWebDialogResultDialogNotCompleted) {
+                                                                  // Case B: User clicked the "x" icon
+                                                                  NSLog(@"User canceled request.");
+                                                              } else {
+                                                                  NSLog(@"Request Sent. %@",resultURL);
+                                                              }
+                                                          }}
+                                                  friendCache:nil];
+
     }
 }
 
@@ -112,11 +134,11 @@
         phone = [NSString stringWithFormat:@"%@", phoneArray[0]];
     }
     
-    NSString *msg = [NSString stringWithFormat:@"Inviting %@ to 2by2", name];
+    NSString *msg = @"I am inviting you to check out my photos on 2by2. Download the app, it's totally free! https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8";
     
     [self dismissViewControllerAnimated:YES completion:^{
         if (email && phone) {
-            UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:nil message:msg];
+            UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:nil message:@"Send message by:"];
             [alert bk_addButtonWithTitle:@"BY EMAIL" handler:^{
                 [self sendEmail:email];
             }];
