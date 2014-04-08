@@ -27,6 +27,7 @@ static NSString * const FacebookIDKey = @"id";
 
 
 @interface EverythingElseViewController ()
+@property (nonatomic, weak) IBOutlet UIButton *linkButton;
 @end
 
 
@@ -44,17 +45,27 @@ static NSString * const FacebookIDKey = @"id";
     
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    if(![PFUser currentUser].facebookID || [[PFUser currentUser].facebookID isEqualToString:@""]){        
+        [self.linkButton setTitle:@"Link Facebook account" forState:UIControlStateNormal];
+    }else if(![PFTwitterUtils twitter].screenName || [[PFTwitterUtils twitter].screenName isEqualToString:@""]){
+        [self.linkButton setTitle:@"Link Twitter account" forState:UIControlStateNormal];
+    }else{
+        [self.linkButton setTitle:@"Unlink Facebook account" forState:UIControlStateNormal];
+    }
 }
 
 
 - (IBAction)linkAccountButtonTapped:(id)sender
 {
     
+    
+    
     /*
-    [PFFacebookUtils unlinkUserInBackground:[PFUser currentUser] block:^(BOOL succeeded, NSError *error) {
+    [PFTwitterUtils unlinkUserInBackground:[PFUser currentUser] block:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            [PFUser currentUser].email = @"";
-            [PFUser currentUser].facebookID = @"";
+            [[PFUser currentUser] setObject:@"" forKey:@"TwitterProfileImage"];
+            [[PFUser currentUser] setObject:@"" forKey:@"twitterId"];
             
             [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if(error){
@@ -62,12 +73,12 @@ static NSString * const FacebookIDKey = @"id";
                 }
             }];
         }
-
+        
     }];
     */
     
-    
     if(![PFUser currentUser].facebookID || [[PFUser currentUser].facebookID isEqualToString:@""]){
+        
         
         [PFFacebookUtils linkUser:[PFUser currentUser] permissions:@[@"user_about_me", @"email"] block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
@@ -91,10 +102,50 @@ static NSString * const FacebookIDKey = @"id";
             }
         }];
         
-    }
-    
-    if(![PFTwitterUtils twitter].screenName){
+    }else if(![PFTwitterUtils twitter].screenName || [[PFTwitterUtils twitter].screenName isEqualToString:@""]){
         
+        
+        [PFTwitterUtils linkUser:[PFUser currentUser] block:^(BOOL succeeded, NSError *error) {
+            NSString * requestString = [NSString stringWithFormat:@"https://api.twitter.com/1.1/users/show.json?screen_name=%@", [PFTwitterUtils twitter].screenName];
+            
+            
+            NSURL *verify = [NSURL URLWithString:requestString];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
+            [[PFTwitterUtils twitter] signRequest:request];
+            NSURLResponse *response = nil;
+            NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                                 returningResponse:&response
+                                                             error:&error];
+            
+            if ( error == nil){
+                NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+                NSString* imageURL = [[result objectForKey:@"profile_image_url"] stringByReplacingOccurrencesOfString:@"_normal.jpeg" withString:@"_bigger.jpeg"];
+                [[PFUser currentUser] setObject:imageURL forKey:@"TwitterProfileImage"];
+                [[PFUser currentUser] setObject:[PFTwitterUtils twitter].userId forKey:@"twitterId"];
+                
+                [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if(error){
+                        NSLog(@"Twitter login %@",error.description);
+                    }
+                }];                
+            }
+        }];
+    }else{
+        
+        [PFFacebookUtils unlinkUserInBackground:[PFUser currentUser] block:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                [PFUser currentUser].email = @"";
+                [PFUser currentUser].facebookID = @"";
+                
+                [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if(error){
+                        NSLog(@"FB unlinkUser: %@",error.description);
+                    }
+                }];
+            }
+            
+        }];
+
     }
 
 }

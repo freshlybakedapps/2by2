@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 };
 
 
-@interface PDPViewController () <FeedCellDelegate>
+@interface PDPViewController () <FeedCellDelegate, LikersCellDelegate>
 @property (nonatomic, strong) PFObject *photo;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) UIButton *shareButton;
@@ -243,6 +243,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
         case CollectionViewSectionLikers: {
             LikersCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LikersCell" forIndexPath:indexPath];
             cell.likers = self.photo.likes;
+            cell.delegate = self;
             return cell;
         }
             

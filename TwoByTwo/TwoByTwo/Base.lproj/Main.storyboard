@@ -604,8 +604,8 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                             <rect key="frame" x="0.0" y="196" width="320" height="90"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6H-PH-PqG">
-                                    <rect key="frame" x="10" y="10" width="300" height="40"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6H-PH-PqG">
+                                    <rect key="frame" x="10" y="10" width="300" height="29"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -632,7 +632,6 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                             <constraints>
                                 <constraint firstItem="d6H-PH-PqG" firstAttribute="top" secondItem="qnW-jP-v2f" secondAttribute="top" constant="10" id="Jac-8u-DMy"/>
                                 <constraint firstItem="d6H-PH-PqG" firstAttribute="leading" secondItem="qnW-jP-v2f" secondAttribute="leading" constant="10" id="buU-aI-q2L"/>
-                                <constraint firstAttribute="bottom" secondItem="d6H-PH-PqG" secondAttribute="bottom" constant="10" id="g30-Xd-0Jj"/>
                                 <constraint firstAttribute="trailing" secondItem="d6H-PH-PqG" secondAttribute="trailing" constant="10" id="v3g-TQ-xhU"/>
                             </constraints>
                         </view>
@@ -708,6 +707,9 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                         </connections>
                     </tableView>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="linkButton" destination="AOd-6N-i78" id="QGv-he-8cR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syh-eo-xP5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
