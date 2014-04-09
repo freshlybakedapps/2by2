@@ -11,6 +11,8 @@
 NSString * const PFImageFullKey     = @"image_full";
 NSString * const PFImageHalfKey     = @"image_half";
 NSString * const PFLocationFullKey  = @"location_full";
+NSString * const PFLocationFullStrKey  = @"location_full_str";
+NSString * const PFLocationHalfStrKey  = @"location_half_str";
 NSString * const PFLocationHalfKey  = @"location_half";
 NSString * const PFStateKey         = @"state";
 NSString * const PFUserKey          = @"user";
@@ -69,6 +71,27 @@ static NSString * const kCommentCount = @"comment_count";
 - (void)setLocationFull:(PFGeoPoint *)locationFull
 {
     self[PFLocationFullKey] = locationFull;
+}
+
+- (NSString *)locationFullStr
+{
+    return self[PFLocationFullStrKey];
+}
+
+- (void)setLocationFullStr:(NSString *)locationFullStr
+{
+    self[PFLocationFullStrKey] = locationFullStr;
+}
+
+- (NSString *)locationHalfStr
+{
+    return self[PFLocationHalfStrKey];
+}
+
+- (void)setLocationHalfStr:(NSString *)locationHalfStr
+{
+    NSLog(@"setLocationHalfStr %@", locationHalfStr);
+    self[PFLocationHalfStrKey] = locationHalfStr;
 }
 
 - (PFGeoPoint *)locationHalf

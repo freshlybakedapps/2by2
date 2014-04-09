@@ -3,21 +3,21 @@ exports.main = function(request, status){
   var Photo = Parse.Object.extend("Photo");
   var photoquery = new Parse.Query(Photo);
 
-  photoquery.doesNotExist("location_full_str");
+  photoquery.doesNotExist("location_half_str");
 
   var counter = 0;
   var locCounter = 0;
   
 
   photoquery.each(function(photo) {
-    var location_full = photo.get("location_full"); 
+    var location_half = photo.get("location_half"); 
     counter++;   
 
     
-    if(location_full.latitude != 0){
+    if(location_half.latitude != 0){
           
       Parse.Cloud.httpRequest({
-        url:'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+location_full.latitude + "," + location_full.longitude
+        url:'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+location_half.latitude + "," + location_half.longitude
       }).then(function(httpResponse){
         locCounter++;
 
@@ -36,10 +36,10 @@ exports.main = function(request, status){
           }else if(httpResponse.data.results[0].address_components[3]){
             str += ", "+httpResponse.data.results[0].address_components[3].short_name;
           }
-          photo.set("location_full_str", str);
+          photo.set("location_half_str", str);
           return photo.save();
         }else{
-          console.log('http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+location_full.latitude + "," + location_full.longitude);
+          console.log('http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+location_half.latitude + "," + location_half.longitude);
         }
       },function(error){
         console.log(error);

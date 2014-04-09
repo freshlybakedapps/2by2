@@ -524,24 +524,53 @@ static CGFloat const kImageSize = 320.0;
 
         if (succeeded) {
             CLLocation *location = self.locationManager.location;
-            PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+            CLGeocoder *reverseGeocoder = [[CLGeocoder alloc] init];
             
-            if (weakSelf.photo) {
-                weakSelf.photo.locationFull = geoPoint;
-                weakSelf.photo.imageFull = photoFile;
-                weakSelf.photo.userFull = [PFUser currentUser];
-                weakSelf.photo.state = PFStateValueFull;
-                weakSelf.photo[@"filter"] = self.blendModeName;
-                [weakSelf.photo saveInBackgroundWithBlock:backgroundTaskCompletion];
-            }
-            else {
-                weakSelf.uploadedPhoto = [PFObject objectWithClassName:PFPhotoClass];
-                weakSelf.uploadedPhoto.locationHalf = geoPoint;
-                weakSelf.uploadedPhoto.imageHalf = photoFile;
-                weakSelf.uploadedPhoto.user = [PFUser currentUser];
-                weakSelf.uploadedPhoto.state = PFStateValueHalf;
-                [weakSelf.uploadedPhoto saveInBackgroundWithBlock:backgroundTaskCompletion];
-            }
+            [reverseGeocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error){
+                CLPlacemark *myPlacemark;
+                
+                if (error){
+                    NSLog(@"Geocode failed with error: %@", error);                    
+                }else{
+                    myPlacemark = [placemarks objectAtIndex:0];
+                    //NSString *countryName = myPlacemark.country;
+                    //NSString *city1 = myPlacemark.subLocality;
+                }
+                
+                PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+                
+                if (weakSelf.photo) {
+                    if(myPlacemark){
+                        NSString *countryCode = myPlacemark.ISOcountryCode;
+                        NSString *city2 = myPlacemark.locality;
+                        weakSelf.photo.locationFullStr =[NSString stringWithFormat:@"%@, %@",city2,countryCode];
+                    }
+                    weakSelf.photo.locationFull = geoPoint;
+                    weakSelf.photo.imageFull = photoFile;
+                    weakSelf.photo.userFull = [PFUser currentUser];
+                    weakSelf.photo.state = PFStateValueFull;
+                    weakSelf.photo[@"filter"] = self.blendModeName;
+                    [weakSelf.photo saveInBackgroundWithBlock:backgroundTaskCompletion];
+                }
+                else {
+                    weakSelf.uploadedPhoto = [PFObject objectWithClassName:PFPhotoClass];
+                    
+                    if(myPlacemark){
+                        NSString *countryCode = myPlacemark.ISOcountryCode;
+                        NSString *city2 = myPlacemark.locality;
+                        weakSelf.uploadedPhoto.locationHalfStr =[NSString stringWithFormat:@"%@, %@",city2,countryCode];
+                        NSLog(@"[[[[[[[[[[[[[[[[%@ %@",city2,countryCode);
+                    }
+                    
+                    weakSelf.uploadedPhoto.locationHalf = geoPoint;
+                    weakSelf.uploadedPhoto.imageHalf = photoFile;
+                    weakSelf.uploadedPhoto.user = [PFUser currentUser];
+                    weakSelf.uploadedPhoto.state = PFStateValueHalf;
+                    [weakSelf.uploadedPhoto saveInBackgroundWithBlock:backgroundTaskCompletion];
+                }
+                
+            }];
+            
         }
         else {
             backgroundTaskCompletion(NO, error);

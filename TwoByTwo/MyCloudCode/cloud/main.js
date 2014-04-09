@@ -103,6 +103,11 @@ Parse.Cloud.job("addLocationStrings", function(request, status) {
   AddLocationStrings.main(request, status);
 });
 
+var AddLocationStringsHalf = require('cloud/AddLocationStringsHalf.js');
+Parse.Cloud.job("addLocationStringsHalf", function(request, status) {
+  AddLocationStringsHalf.main(request, status);
+});
+
 var CreateAllthumbnails = require('cloud/CreateAllthumbnails.js');
 Parse.Cloud.job("CreateAllthumbnails", function(request, status) {
   CreateAllthumbnails.main(request, status);
@@ -113,11 +118,12 @@ Parse.Cloud.afterSave("Comment", function(request, response) {
   OnComment.main(request, response);
 });
 
+/*
 var OnPhotoCreated = require('cloud/OnPhotoCreated.js');
 Parse.Cloud.afterSave("Photo", function(request, response) {
   OnPhotoCreated.main(request, response);
 });
-
+*/
 
 /*
 
