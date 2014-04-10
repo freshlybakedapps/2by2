@@ -10,7 +10,8 @@ exports.index = function(req, resp){
   var Photo = Parse.Object.extend("Photo");
   var photoquery = new Parse.Query(Photo);
   photoquery.count({
-      success: function(count) {      
+      success: function(count) {
+
           getLocations(resp,count,0);  
       },
       error: function(error) {
@@ -24,10 +25,22 @@ exports.index = function(req, resp){
 function getLocations(resp,count,skip){
     var Photo = Parse.Object.extend("Photo");
     var photoquery = new Parse.Query(Photo);
+
+    //photoquery.equalTo("state", "half");
+
+    //photoquery.doesNotExist("location_half_str");
+
     Parse.Cloud.useMasterKey();
-    photoquery.include("user");
+    //photoquery.include("user");
+    //photoquery.include("user_full");
+
+    //photoquery.include(["user.id"]);
+    //photoquery.include(["user_full.id"]);
+    //photoquery.include(["user.fullName"]);
+    //photoquery.include(["user_full.fullName"]);
+
     //photoquery.include("likes");
-    photoquery.include("user_full");
+    
     photoquery.limit(1000); 
     photoquery.skip(skip);
     
@@ -40,21 +53,32 @@ function getLocations(resp,count,skip){
             var photo = arr[i];
             var loc = photo.get("location_full_str");
 
-            var user = photo.get("user");
-            var userFull = photo.get("user_full");
-            var name = user.get("fullName");
-            usersArr.push(user.id);
-            photoCounter[user.id] = (photoCounter[user.id] || 0) + 1;
-            namesArr[user.id] = name; 
+            if(photo.get("state") == "half"){
+              var user = photo.get("user");
+              
+              var name = user.get("fullName");
+              usersArr.push(user.id);
+              photoCounter[user.id] = (photoCounter[user.id] || 0) + 1;
+              namesArr[user.id] = name; 
+            }
 
 
             if(photo.get("state") == "full"){
-              var name_full = userFull.get("fullName");
-              usersArr.push(userFull.id);
-              photoCounter[userFull.id] = (photoCounter[userFull.id] || 0) + 1;
-              namesArr[userFull.id] = name_full;
+
+              var userFull = photo.get("user_full");
+              if(userFull){
+                var name_full = userFull.get("fullName");
+
+                //console.log("xxxxxxxxxx: "+name_full);  
+
+                usersArr.push(userFull.id);
+                photoCounter[userFull.id] = (photoCounter[userFull.id] || 0) + 1;
+                namesArr[userFull.id] = name_full;
+              }
+              
             }
 
+            
             //get likes information
             if(photo.get("likes")){
               var obj = {};
@@ -62,9 +86,7 @@ function getLocations(resp,count,skip){
               obj.photo = photo;
               obj.filter = photo.get("filter");
               likesArr.push(obj);
-            }
-            
-            
+            }        
 
 
             //.get("username")
@@ -123,15 +145,20 @@ function getLocations(resp,count,skip){
             };
 
             
-            
+            //resp.render('locations',{});
 
+            //resp.render('locations', { likesArr:null,users:null,latLongArr:latLongArr,mapURL: getMapURL(uniqueArr.sort(compare)), locations:  uniqueArr.sort(compare),totalPhotos:count});
 
-            resp.render('locations', { likesArr:likesArr.sort(compare),users:uniqueUserArr.sort(compare),latLongArr:latLongArr,mapURL: getMapURL(uniqueArr.sort(compare)), locations:  uniqueArr.sort(compare),totalPhotos:count});
+            resp.render('locations', { likesArr:likesArr.sort(compare),
+              users:uniqueUserArr.sort(compare),
+              latLongArr:latLongArr,mapURL: getMapURL(uniqueArr.sort(compare)), 
+              locations:  uniqueArr.sort(compare),
+              totalPhotos:count});
           }            
         
       },
       error: function(error) {        
-        console.log(error);
+        console.log("ERRRRRRRRRRRROR: "+error.message);
       }
     });           
 }
@@ -140,7 +167,10 @@ function getMapURL(arr){
   var markers = "&markers=";
 
   for (var i = 0; i < 50; i++) {
-    markers += encodeURIComponent(arr[i].loc)+"|";
+    if(arr[i]){
+      markers += encodeURIComponent(arr[i].loc)+"|";
+    }
+    
    
   };
                     

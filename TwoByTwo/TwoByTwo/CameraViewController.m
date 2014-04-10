@@ -526,6 +526,7 @@ static CGFloat const kImageSize = 320.0;
             CLLocation *location = self.locationManager.location;
             CLGeocoder *reverseGeocoder = [[CLGeocoder alloc] init];
             
+            //this was added for https://github.com/amintorres/2by2/issues/239
             [reverseGeocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error){
                 CLPlacemark *myPlacemark;
                 
@@ -533,12 +534,9 @@ static CGFloat const kImageSize = 320.0;
                     NSLog(@"Geocode failed with error: %@", error);                    
                 }else{
                     myPlacemark = [placemarks objectAtIndex:0];
-                    //NSString *countryName = myPlacemark.country;
-                    //NSString *city1 = myPlacemark.subLocality;
                 }
                 
-                PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
-                
+                PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];                
                 if (weakSelf.photo) {
                     if(myPlacemark){
                         NSString *countryCode = myPlacemark.ISOcountryCode;
@@ -559,7 +557,6 @@ static CGFloat const kImageSize = 320.0;
                         NSString *countryCode = myPlacemark.ISOcountryCode;
                         NSString *city2 = myPlacemark.locality;
                         weakSelf.uploadedPhoto.locationHalfStr =[NSString stringWithFormat:@"%@, %@",city2,countryCode];
-                        NSLog(@"[[[[[[[[[[[[[[[[%@ %@",city2,countryCode);
                     }
                     
                     weakSelf.uploadedPhoto.locationHalf = geoPoint;

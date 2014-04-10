@@ -23,6 +23,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *followingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *followersLabel;
 @property (nonatomic, weak) IBOutlet UILabel *bioLabel;
+
+@property (nonatomic, weak) IBOutlet UIButton *followingButton;
+
 @end
 
 
@@ -143,6 +146,15 @@
 
 
 #pragma mark - IBActions
+
+- (IBAction)followingButtonTapped:(UIButton *)sender
+{
+    //FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+    //controller.type = FeedTypeFriend;
+    //controller.user = user;
+    UINavigationController *navController = (id)[AppDelegate delegate].window.rootViewController;
+    [navController pushViewController:controller animated:YES];
+}
 
 - (IBAction)followButtonTapped:(UIButton *)sender
 {

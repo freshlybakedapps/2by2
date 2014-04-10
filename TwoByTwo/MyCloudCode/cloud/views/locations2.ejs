@@ -40,71 +40,15 @@
           margin-left: 8px;
         }    
         </style>
-
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markermanager/1.0/src/markermanager.js"></script>
         <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer_compiled.js"></script>
 
-        <script>
-            
-            //uncomment this to get number of photos per user
-            //users.length
-
-            <% if(users){ %> 
-
-              var users = {
-                'users': [
-                  <% for(var i=0; i<20; i++) {%>
-                      <% if(users[i]){ %>                    
-                          {
-                            'info': "<%= users[i].name %> (<%= users[i].id %>) - <%= users[i].counter %>",
-                          },
-                      <% }%>                                     
-                  <% }%>                
-                ]
-              }
-
-            <% }%> 
-            
-            //likesArr.length
-
-            <% if(likesArr){ %> 
-
-              var likes = {
-                'likes': [
-                  <% for(var i=0; i<20; i++) {%>
-                                        
-                          {
-                            'info': "http://2by2.parseapp.com/pdp?id=<%= likesArr[i].photo.id %> (<%= likesArr[i].filter %>) - <%= likesArr[i].counter %>",
-                          },
-                                                          
-                  <% }%>                
-                ]
-              }
-
-            <% }%>
-
-            var markers = {
-              'locations': [
-                <% for(var i=0; i<latLongArr.length; i++) {%>                    
-                    <% if(latLongArr[i].half){ %>
-                        {
-                          'name': '<%= latLongArr[i].half.filter %>',
-                          'location': [<%= latLongArr[i].half.lat %>,<%= latLongArr[i].half.lon %>]
-                        },
-                    <% }%>
-                    <% if(latLongArr[i].full){ %>
-                        {
-                          'name': '<%= latLongArr[i].full.filter %>',
-                          'location': [<%= latLongArr[i].full.lat %>,<%= latLongArr[i].full.lon %>]
-                        },
-                    <% }%>
-                <% }%>                
-              ]
-          }
-        </script>
         
-        <script src="markup/js/maps.js"></script>   
+        <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>   
+        <script src="markup/js/maps2.js"></script>
+        <script src="markup/js/location2.js"></script>   
         
 
         
@@ -139,34 +83,10 @@
               </li>
             </ul>
 
-            <!--img src="<%= mapURL %>"/> <br-->
-
-            <table style="width:100%">
-                <tr>
-                    <td><b>Count (<%= totalPhotos %>)</b></td>
-                    <td><b>Location (<%= locations.length %>)</b></td>  
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>  
-                </tr>
+            <table id="thetable" style="width:100%">
                 
-                <% for(var i=0; i<locations.length; i++) {%>
-                    <tr>
-                    <td><%= locations[i].counter %></td><td><%= locations[i].loc %></td>
-                    </tr>
-                <% }%>           
-            
             </table> 
-
-            <ul>
-
             
-
-            </ul>
-
-        
         
             <% include footer %>
 
