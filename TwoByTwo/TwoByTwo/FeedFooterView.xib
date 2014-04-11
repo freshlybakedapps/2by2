@@ -10,17 +10,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1h1-ol-Gwf">
-                    <rect key="frame" x="20" y="8" width="280" height="54"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1h1-ol-Gwf">
+                    <rect key="frame" x="20" y="8" width="280" height="86"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="y21-K2-7ij">
-                    <rect key="frame" x="43" y="75" width="235" height="30"/>
+                    <rect key="frame" x="43" y="109" width="235" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Invite from contact list">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -30,7 +30,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SeX-Yx-cYQ">
-                    <rect key="frame" x="43" y="113" width="235" height="30"/>
+                    <rect key="frame" x="43" y="154" width="235" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.26666666666666666" green="0.37647058823529411" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Invite Facebook Friends">
@@ -43,7 +43,8 @@
                 </button>
             </subviews>
             <connections>
-                <outlet property="inviteFacebookButton" destination="y21-K2-7ij" id="rqS-eh-AYd"/>
+                <outlet property="inviteContanctButton" destination="y21-K2-7ij" id="oCu-Ec-GJD"/>
+                <outlet property="inviteFacebookButton" destination="SeX-Yx-cYQ" id="YGW-56-Ggt"/>
                 <outlet property="textLabel" destination="1h1-ol-Gwf" id="jCk-Sk-NoL"/>
             </connections>
         </collectionReusableView>

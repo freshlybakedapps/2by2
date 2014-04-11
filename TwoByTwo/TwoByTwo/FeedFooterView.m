@@ -16,6 +16,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *textLabel;
 
 @property (nonatomic, weak) IBOutlet UIButton *inviteFacebookButton;
+@property (nonatomic, weak) IBOutlet UIButton *inviteContanctButton;
 @end
 
 
@@ -25,6 +26,8 @@
 {
     [super awakeFromNib];
     self.textLabel.font = [UIFont appMediumFontOfSize:14];
+    self.inviteFacebookButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
+    self.inviteContanctButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
 }
 
 - (IBAction)inviteEmailButtonTapped:(id)sender
@@ -75,7 +78,7 @@
             }
             break;
         case FeedTypeFollowing:
-            self.textLabel.text = @"Nothing to show here yet, swing by later.";
+            self.textLabel.text = @"Nothing to show here yet, swing by later. \n\n2by2 is more fun with friends and family, invite them to join";
             break;
         case FeedTypeFriend:
             if(!self.showingDouble){

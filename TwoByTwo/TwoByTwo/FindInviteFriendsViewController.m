@@ -44,7 +44,8 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if((cell == self.facebookCell && ![PFUser currentUser].facebookID) || (cell == self.twitterCell && ![PFTwitterUtils twitter].screenName)){
+    //disable cells 
+    if((cell == self.invitefacebookCell && ![PFUser currentUser].facebookID) || (cell == self.facebookCell && ![PFUser currentUser].facebookID) || (cell == self.twitterCell && ![PFTwitterUtils twitter].screenName)){
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.userInteractionEnabled = NO;

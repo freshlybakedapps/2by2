@@ -37,7 +37,7 @@
     
     comment[PFUserIDKey] = [PFUser currentUser].objectId;
     
-    if([PFUser currentUser].twitterProfileImageURL){
+    if([PFUser currentUser].twitterProfileImageURL && ![[PFUser currentUser].twitterProfileImageURL isEqualToString:@""]){
         comment[@"TwitterProfileImage"] = [PFUser currentUser].twitterProfileImageURL;
     }
     

@@ -40,6 +40,8 @@ function getLocations(resp,count,skip){
     //photoquery.include(["user_full.fullName"]);
 
     //photoquery.include("likes");
+
+    photoquery.select("location_half", "location_full");
     
     photoquery.limit(1000); 
     photoquery.skip(skip);

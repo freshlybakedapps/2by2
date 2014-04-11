@@ -37,7 +37,7 @@
             NSURL *URL = [NSURL URLWithFacebookUserID:user.facebookID];
             
             //if user is using twitter, pull the twitter profile image URL
-            if(user.twitterProfileImageURL){
+            if(user.twitterProfileImageURL && ![user.twitterProfileImageURL isEqualToString:@""]){
                 URL = [NSURL URLWithString:user.twitterProfileImageURL];
             }
             

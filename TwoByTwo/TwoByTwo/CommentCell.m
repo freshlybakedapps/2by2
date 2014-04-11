@@ -28,7 +28,7 @@
 
     NSURL *URL = [NSURL URLWithFacebookUserID:comment.facebookID];
     
-    if(comment.twitterProfileImageURL){
+    if(comment.twitterProfileImageURL && ![comment.twitterProfileImageURL isEqualToString:@""]){
         URL = [NSURL URLWithString:comment.twitterProfileImageURL];
     }
     
@@ -64,8 +64,30 @@
 }
 
 - (void)selectedMention:(NSString *)string {
+    /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Selected" message:string delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
+    */
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    if ([PFUser currentUser]) {
+        [query whereKey:@"username" equalTo:@"jtubert";
+    }
+    [query selectKeys:@[PFFollowingUserIDKey]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.followers = [objects bk_map:^id(id object) {
+                NSString *userID = object[PFFollowingUserIDKey];
+                PFUser *user = [PFUser objectWithoutDataWithObjectId:userID];
+                return user;
+            }];
+            [self loadPhotos];
+        }
+        else {
+            NSLog(@"loadFollowers error: %@", error);
+        }
+    }];
+
 }
 - (void)selectedHashtag:(NSString *)string {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Selected" message:string delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];

@@ -17,14 +17,14 @@
                         <rect key="frame" x="7" y="7" width="30" height="30"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="30" id="0oZ-QT-hZ1"/>
+                            <constraint firstAttribute="width" constant="30" id="pjM-bc-34p"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2gK-sQ-hvF">
                         <rect key="frame" x="45" y="11" width="161" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="161" id="rC8-d9-aS1"/>
+                            <constraint firstAttribute="width" constant="161" id="xID-DX-DoA"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -32,11 +32,11 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ltC-aK-5wY" firstAttribute="top" secondItem="fMv-XR-BFw" secondAttribute="top" constant="7" id="18q-Fn-py3"/>
-                    <constraint firstAttribute="bottom" secondItem="ltC-aK-5wY" secondAttribute="bottom" constant="6" id="72x-tO-Yuj"/>
-                    <constraint firstItem="2gK-sQ-hvF" firstAttribute="centerY" secondItem="fMv-XR-BFw" secondAttribute="centerY" id="Rj5-AU-gd5"/>
-                    <constraint firstItem="ltC-aK-5wY" firstAttribute="leading" secondItem="fMv-XR-BFw" secondAttribute="leading" constant="7" id="af3-8B-E5l"/>
-                    <constraint firstItem="2gK-sQ-hvF" firstAttribute="leading" secondItem="ltC-aK-5wY" secondAttribute="trailing" constant="8" symbolic="YES" id="q8I-Zo-v7H"/>
+                    <constraint firstItem="ltC-aK-5wY" firstAttribute="top" secondItem="fMv-XR-BFw" secondAttribute="top" constant="7" id="15a-bJ-a0E"/>
+                    <constraint firstAttribute="bottom" secondItem="ltC-aK-5wY" secondAttribute="bottom" constant="6" id="1aH-dv-Ql3"/>
+                    <constraint firstItem="2gK-sQ-hvF" firstAttribute="leading" secondItem="ltC-aK-5wY" secondAttribute="trailing" constant="8" symbolic="YES" id="BL9-ay-1VG"/>
+                    <constraint firstItem="ltC-aK-5wY" firstAttribute="leading" secondItem="fMv-XR-BFw" secondAttribute="leading" constant="7" id="T6d-b4-smp"/>
+                    <constraint firstItem="2gK-sQ-hvF" firstAttribute="centerY" secondItem="fMv-XR-BFw" secondAttribute="centerY" id="TPp-Vb-Zh5"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

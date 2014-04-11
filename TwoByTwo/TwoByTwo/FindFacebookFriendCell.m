@@ -41,8 +41,11 @@
         URL = [NSURL URLWithString:data[@"twitterProfileImage"]];
     }
     
+    
     [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
-    self.imageView.layer.cornerRadius = CGRectGetHeight(self.imageView.frame) * 0.5;  
+    self.imageView.layer.cornerRadius = CGRectGetHeight(self.imageView.frame) * 0.5;
+    
+    
     
     self.textLabel.font = [UIFont appFontOfSize:14];
     self.textLabel.text = data[@"name"];
@@ -50,9 +53,8 @@
     
     if (!self.followButton) {
         self.followButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
-        self.followButton.titleLabel.font = [UIFont appFontOfSize:14];
-        UIImage *btnImage = [UIImage imageNamed:@"button-red"];
-        [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+        //self.followButton.titleLabel.font = [UIFont appFontOfSize:14];
+        
         [self.followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.followButton addTarget:self action:@selector(followButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         self.accessoryView = self.followButton;
@@ -60,8 +62,15 @@
     
     
     
-    NSString *buttonTitle = ([data[@"following"] boolValue]) ? @"Unfollow" : @"Follow";
-    [self.followButton setTitle:buttonTitle forState:UIControlStateNormal];
+    //NSString *buttonTitle = ([data[@"following"] boolValue]) ? @"Unfollow" : @"Follow";
+    //[self.followButton setTitle:buttonTitle forState:UIControlStateNormal];
+    if([data[@"following"] boolValue]){
+        UIImage *btnImage = [UIImage imageNamed:@"Following"];
+        [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+    }else{
+        UIImage *btnImage = [UIImage imageNamed:@"Follow"];
+        [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)followButtonTapped:(UIButton *)sender
@@ -73,11 +82,15 @@
                                     sender.enabled = YES;
                                     if (!error) {
                                         if ([result isEqual:@0]){
-                                            [sender setTitle:@"Follow" forState:UIControlStateNormal];
+                                            //[sender setTitle:@"Follow" forState:UIControlStateNormal];
+                                            UIImage *btnImage = [UIImage imageNamed:@"Follow"];
+                                            [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
                                         }
                                         else {
                                             // In this case, result == @"Notifications sent"
-                                            [sender setTitle:@"Unfollow" forState:UIControlStateNormal];
+                                            //[sender setTitle:@"Unfollow" forState:UIControlStateNormal];
+                                            UIImage *btnImage = [UIImage imageNamed:@"Following"];
+                                            [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
                                         }
                                     }
                                 }];

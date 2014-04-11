@@ -171,18 +171,6 @@
                         <constraint firstAttribute="centerY" secondItem="hJC-6d-bLw" secondAttribute="centerY" id="z9O-jI-Ri7"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIN-wT-hPE">
-                    <rect key="frame" x="105" y="126" width="150" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <state key="normal" title="following">
-                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="followingButtonTapped:" destination="jEN-KA-6NF" eventType="touchUpInside" id="VwF-0u-Pdj"/>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="ytc-sv-eXm" firstAttribute="trailing" secondItem="kgz-7D-PaU" secondAttribute="trailing" id="0Uf-8m-x4s"/>
@@ -235,7 +223,6 @@
                 <outlet property="feedToggleButton" destination="u4U-Da-XSs" id="euo-cH-8qq"/>
                 <outlet property="followButton" destination="kgz-7D-PaU" id="Acv-6d-S1D"/>
                 <outlet property="followersLabel" destination="VE5-EN-iP5" id="Slb-3u-zv7"/>
-                <outlet property="followingButton" destination="WIN-wT-hPE" id="H3a-GC-QQT"/>
                 <outlet property="followingLabel" destination="3Ib-V7-R5i" id="jOJ-7U-H1t"/>
                 <outlet property="imageView" destination="koQ-Ss-VV3" id="EhL-5w-O4C"/>
                 <outlet property="moreButton" destination="VcM-76-VhQ" id="TGB-BV-Eq7"/>

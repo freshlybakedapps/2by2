@@ -71,7 +71,7 @@
     NSURL *firstURL = [NSURL URLWithFacebookUserID:self.photo.user.facebookID];
     
     //if user is using twitter, pull the twitter profile image URL
-    if(self.photo.user.twitterProfileImageURL){
+    if(self.photo.user.twitterProfileImageURL && ![self.photo.user.twitterProfileImageURL isEqualToString:@""]){
         firstURL = [NSURL URLWithString:self.photo.user.twitterProfileImageURL];
     }
     
@@ -82,7 +82,7 @@
         NSURL *secondURL = [NSURL URLWithFacebookUserID:self.photo.userFull.facebookID];
         
         //if user is using twitter, pull the twitter profile image URL
-        if(self.photo.userFull.twitterProfileImageURL){
+        if(self.photo.userFull.twitterProfileImageURL && ![self.photo.userFull.twitterProfileImageURL isEqualToString:@""]){
             secondURL = [NSURL URLWithString:self.photo.userFull.twitterProfileImageURL];
         }
         

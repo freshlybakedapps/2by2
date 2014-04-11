@@ -601,13 +601,16 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="qnW-jP-v2f">
-                            <rect key="frame" x="0.0" y="196" width="320" height="90"/>
+                            <rect key="frame" x="0.0" y="284" width="320" height="328"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6H-PH-PqG">
-                                    <rect key="frame" x="10" y="10" width="300" height="29"/>
+                                    <rect key="frame" x="10" y="235" width="301" height="37"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="37" id="OS5-Cx-tr4"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" title="Log out (But comeback soon)">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -617,22 +620,12 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                                         <action selector="logoutButtonTapped:" destination="Nyo-qa-vaa" eventType="touchUpInside" id="4PD-Tr-fPe"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AOd-6N-i78">
-                                    <rect key="frame" x="20" y="53" width="280" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Link Facebook account">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="linkAccountButtonTapped:" destination="Nyo-qa-vaa" eventType="touchUpInside" id="19o-gx-dd8"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="d6H-PH-PqG" firstAttribute="top" secondItem="qnW-jP-v2f" secondAttribute="top" constant="10" id="Jac-8u-DMy"/>
-                                <constraint firstItem="d6H-PH-PqG" firstAttribute="leading" secondItem="qnW-jP-v2f" secondAttribute="leading" constant="10" id="buU-aI-q2L"/>
-                                <constraint firstAttribute="trailing" secondItem="d6H-PH-PqG" secondAttribute="trailing" constant="10" id="v3g-TQ-xhU"/>
+                                <constraint firstAttribute="bottom" secondItem="d6H-PH-PqG" secondAttribute="bottom" constant="56" id="jLz-uA-2k0"/>
+                                <constraint firstItem="d6H-PH-PqG" firstAttribute="leading" secondItem="qnW-jP-v2f" secondAttribute="leading" constant="10" id="uvU-i0-cOJ"/>
+                                <constraint firstItem="d6H-PH-PqG" firstAttribute="centerX" secondItem="qnW-jP-v2f" secondAttribute="centerX" id="xPh-J6-BDo"/>
                             </constraints>
                         </view>
                         <sections>
@@ -698,6 +691,40 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                                             <segue destination="fww-Ta-6vI" kind="push" id="Rh7-UZ-r4e"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Oye-A4-iAX" style="IBUITableViewCellStyleDefault" id="g4Q-av-wJx">
+                                        <rect key="frame" x="0.0" y="196" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g4Q-av-wJx" id="OAP-HE-c50">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Connect Twitter account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Oye-A4-iAX">
+                                                    <rect key="frame" x="15" y="0.0" width="290" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="bJj-wZ-1QL" style="IBUITableViewCellStyleDefault" id="Aqr-LK-lcB">
+                                        <rect key="frame" x="0.0" y="240" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aqr-LK-lcB" id="SRK-wr-ALM">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Connect Facebook accout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bJj-wZ-1QL">
+                                                    <rect key="frame" x="15" y="0.0" width="290" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.97999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -708,7 +735,8 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                     </tableView>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="linkButton" destination="AOd-6N-i78" id="QGv-he-8cR"/>
+                        <outlet property="linkCell1" destination="g4Q-av-wJx" id="WNb-Xz-0Mw"/>
+                        <outlet property="linkCell2" destination="Aqr-LK-lcB" id="WNF-7p-mFO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syh-eo-xP5" userLabel="First Responder" sceneMemberID="firstResponder"/>
