@@ -71,17 +71,12 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"User"];
     if ([PFUser currentUser]) {
-        [query whereKey:@"username" equalTo:@"jtubert";
+        [query whereKey:@"username" equalTo:@"jtubert"];
     }
     [query selectKeys:@[PFFollowingUserIDKey]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            self.followers = [objects bk_map:^id(id object) {
-                NSString *userID = object[PFFollowingUserIDKey];
-                PFUser *user = [PFUser objectWithoutDataWithObjectId:userID];
-                return user;
-            }];
-            [self loadPhotos];
+            
         }
         else {
             NSLog(@"loadFollowers error: %@", error);

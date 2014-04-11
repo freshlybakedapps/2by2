@@ -34,7 +34,7 @@ app.get('/pdp', pdpController2.index);
 app.get('/about', aboutController.index);
 app.get('/contact', contactController.index);
 app.get('/terms', termsController.index);
-//app.get('/locations2',locationsController.index);
+app.get('/locations2',locationsController.index);
 app.get('/locations',locationsController2.index);
 app.get('/featured',featuredController.index);
 

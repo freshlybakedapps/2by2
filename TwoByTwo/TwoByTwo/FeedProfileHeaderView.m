@@ -127,10 +127,14 @@
         }
         
         if (number > 0){
-            [weakSelf.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+            //[weakSelf.followButton setTitle:@"Unfollow" forState:UIControlStateNormal];
+            UIImage *btnImage = [UIImage imageNamed:@"Following"];
+            [weakSelf.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
         }
         else {
-            [weakSelf.followButton setTitle:@"Follow" forState:UIControlStateNormal];
+            //[weakSelf.followButton setTitle:@"Follow" forState:UIControlStateNormal];
+            UIImage *btnImage = [UIImage imageNamed:@"Follow"];
+            [weakSelf.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
         }
     }];
 

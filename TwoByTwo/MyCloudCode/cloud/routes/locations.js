@@ -149,13 +149,18 @@ function getLocations(resp,count,skip){
             
             //resp.render('locations',{});
 
-            //resp.render('locations', { likesArr:null,users:null,latLongArr:latLongArr,mapURL: getMapURL(uniqueArr.sort(compare)), locations:  uniqueArr.sort(compare),totalPhotos:count});
+            resp.render('locations', { likesArr:null,users:null,latLongArr:latLongArr, locations:  uniqueArr.sort(compare),totalPhotos:count});
 
-            resp.render('locations', { likesArr:likesArr.sort(compare),
+            /*
+            resp.render('locations', { 
+              likesArr:likesArr.sort(compare),
               users:uniqueUserArr.sort(compare),
-              latLongArr:latLongArr,mapURL: getMapURL(uniqueArr.sort(compare)), 
+              latLongArr:latLongArr,
+              mapURL: getMapURL(uniqueArr.sort(compare)), 
               locations:  uniqueArr.sort(compare),
-              totalPhotos:count});
+              totalPhotos:count
+            });
+            */
           }            
         
       },
@@ -165,21 +170,6 @@ function getLocations(resp,count,skip){
     });           
 }
 
-function getMapURL(arr){
-  var markers = "&markers=";
-
-  for (var i = 0; i < 50; i++) {
-    if(arr[i]){
-      markers += encodeURIComponent(arr[i].loc)+"|";
-    }
-    
-   
-  };
-                    
-  
-  return "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
-
-}
 
 
 function compare(a,b) {
