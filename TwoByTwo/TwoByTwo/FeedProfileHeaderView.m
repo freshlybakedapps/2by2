@@ -152,8 +152,8 @@
     //FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
     //controller.type = FeedTypeFriend;
     //controller.user = user;
-    UINavigationController *navController = (id)[AppDelegate delegate].window.rootViewController;
-    [navController pushViewController:controller animated:YES];
+    //UINavigationController *navController = (id)[AppDelegate delegate].window.rootViewController;
+    //[navController pushViewController:controller animated:YES];
 }
 
 - (IBAction)followButtonTapped:(UIButton *)sender

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface FindInviteFriendsViewController : UITableViewController
+
+@interface FindInviteFriendsViewController : UITableViewController 
 
 @end

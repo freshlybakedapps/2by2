@@ -15,6 +15,7 @@
 #import "FeedProfileHeaderView.h"
 #import "FeedFooterView.h"
 
+
 static NSUInteger const kQueryBatchSize = 20;
 
 
@@ -320,7 +321,7 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    return (self.totalNumberOfObjects == 0) ? CGSizeMake(0, 80) : CGSizeMake(0, 1); // Setting CGSizeZero causes crash
+    return (self.totalNumberOfObjects == 0) ? CGSizeMake(0, 300) : CGSizeMake(0, 1); // Setting CGSizeZero causes crash
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -345,6 +346,7 @@ static NSUInteger const kQueryBatchSize = 20;
     }
     else {
         FeedFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView" forIndexPath:indexPath];
+        footerView.controller = self;
         footerView.showingDouble = self.showingDouble;
         footerView.type = self.type;
         return footerView;
@@ -391,5 +393,125 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     [self.collectionView performBatchUpdates:nil completion:nil];
 }
+
+#pragma mark - ABPeoplePickerNavigationControllerDelegate
+
+- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
+{
+    return NO;
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person
+{
+    ABMultiValueRef fnameProperty = ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    ABMultiValueRef lnameProperty = ABRecordCopyValue(person, kABPersonLastNameProperty);
+    ABMultiValueRef emailProperty = ABRecordCopyValue(person, kABPersonEmailProperty);
+    ABMultiValueRef phoneProperty = ABRecordCopyValue(person, kABPersonPhoneProperty);
+    
+    NSArray *emailArray = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(emailProperty));
+    CFRelease(emailProperty);
+    
+    NSArray *phoneArray = CFBridgingRelease(ABMultiValueCopyArrayOfAllValues(phoneProperty));
+    CFRelease(phoneProperty);
+    
+    NSString* name;
+    NSString* email;
+    NSString* phone;
+    
+    if (fnameProperty != nil) {
+        name = [NSString stringWithFormat:@"%@", fnameProperty];
+        CFRelease(fnameProperty);
+    }
+    if (lnameProperty != nil) {
+        name = [name stringByAppendingString:[NSString stringWithFormat:@" %@", lnameProperty]];
+        CFRelease(lnameProperty);
+    }
+    if ([emailArray count] > 0) {
+        email = [NSString stringWithFormat:@"%@", emailArray[0]];
+    }
+    if ([phoneArray count] > 0) {
+        phone = [NSString stringWithFormat:@"%@", phoneArray[0]];
+    }
+    
+    NSString *msg = @"I am inviting you to check out my photos on 2by2. Download the app, it's totally free! https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8";
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (email && phone) {
+            UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:nil message:@"Send message by:"];
+            [alert bk_addButtonWithTitle:@"BY EMAIL" handler:^{
+                [self sendEmail:email];
+            }];
+            [alert bk_addButtonWithTitle:@"BY TEXT" handler:^{
+                [self sendSMS:msg recipientList:@[phone]];
+            }];
+            [alert bk_setCancelButtonWithTitle:@"CANCEL" handler:^{
+                //cancel
+            }];
+            [alert show];
+        }
+        else if(email) {
+            [self sendEmail:email];
+        }
+        else if(phone) {
+            [self sendSMS:msg recipientList:@[phone]];
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry that contact didn't contain any email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
+    
+    return NO;
+}
+
+- (void)sendEmail:(NSString *)email
+{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+        controller.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
+        [controller setSubject:@"Check out my photos on 2by2"];
+        [controller setToRecipients:@[email]];
+        [controller setMessageBody:@"I am inviting you to check out my photos on 2by2. <a href='https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8'>Download the app, it's totally free!</a>" isHTML:YES];
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+}
+
+- (void)sendSMS:(NSString *)bodyOfMessage recipientList:(NSArray *)recipients
+{
+    if([MFMessageComposeViewController canSendText]) {
+        MFMessageComposeViewController *controller = [[MFMessageComposeViewController alloc] init];
+        controller.messageComposeDelegate = self;
+        controller.recipients = recipients;
+        controller.body = bodyOfMessage;
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    
+    if (result == MessageComposeResultCancelled) {
+        NSLog(@"Message cancelled");
+    }
+    else if (result == MessageComposeResultSent) {
+        NSLog(@"Message sent");
+        
+    }
+    else {
+        NSLog(@"Message failed");
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 
 @end

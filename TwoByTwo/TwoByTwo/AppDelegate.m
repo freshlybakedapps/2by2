@@ -21,7 +21,7 @@
     [Crittercism enableWithAppID:@"52a0a4f04002054d18000001"];
 
     // TestFlight
-    [TestFlight takeOff:@"d2f2ed31-a333-476b-b821-aa259759a131"];
+    [TestFlight takeOff:@"f14b6606-f5bd-460a-be98-4da27a654296"];
     
     // Parse
     [Parse setApplicationId:@"6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg" clientKey:@"CdsYZN5y9Tuum2IlHhvipft0rWItCON6JoXeqYJL"];

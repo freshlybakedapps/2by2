@@ -7,9 +7,15 @@
 //
 
 #import "FeedFooterView.h"
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 @interface FeedFooterView ()
 @property (nonatomic, weak) IBOutlet UILabel *textLabel;
+
+@property (nonatomic, weak) IBOutlet UIButton *inviteFacebookButton;
 @end
 
 
@@ -19,6 +25,38 @@
 {
     [super awakeFromNib];
     self.textLabel.font = [UIFont appMediumFontOfSize:14];
+}
+
+- (IBAction)inviteEmailButtonTapped:(id)sender
+{
+    
+    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self.controller;
+    [self.controller presentViewController:picker animated:YES completion:nil];
+
+}
+
+- (IBAction)inviteFacebookButtonTapped:(UIButton *)sender
+{
+    NSMutableDictionary* params =   [NSMutableDictionary dictionaryWithObjectsAndKeys: nil];
+    
+    [FBWebDialogs presentRequestsDialogModallyWithSession:nil
+                                                  message:@"Hey, inviting you to check out my pics on 2by2, join and we can make double exposures together. Download the app here: https://itunes.apple.com/us/app/2by2!/id836711608?ls=1&mt=8"
+                                                    title:@"2by2!"
+                                               parameters:params
+                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                      if (error) {
+                                                          // Case A: Error launching the dialog or sending request.
+                                                          NSLog(@"Error sending request.");
+                                                      } else {
+                                                          if (result == FBWebDialogResultDialogNotCompleted) {
+                                                              // Case B: User clicked the "x" icon
+                                                              NSLog(@"User canceled request.");
+                                                          } else {
+                                                              NSLog(@"Request Sent. %@",resultURL);
+                                                          }
+                                                      }}
+                                              friendCache:nil];
 }
 
 
@@ -57,6 +95,7 @@
             break;
     }
 }
+
 
 
 
