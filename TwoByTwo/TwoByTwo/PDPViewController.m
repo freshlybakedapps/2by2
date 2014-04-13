@@ -250,6 +250,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
         case CollectionViewSectionComments: {
             CommentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CommentCell" forIndexPath:indexPath];
             cell.comment = self.comments[indexPath.item];
+            cell.nav = self.navigationController;
             return cell;
         }
             

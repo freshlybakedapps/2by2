@@ -45,7 +45,12 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //disable cells 
-    if((cell == self.invitefacebookCell && ![PFUser currentUser].facebookID) || (cell == self.facebookCell && ![PFUser currentUser].facebookID) || (cell == self.twitterCell && ![PFTwitterUtils twitter].screenName)){
+    if((cell == self.invitefacebookCell &&
+        (![PFUser currentUser].facebookID || [[PFUser currentUser].facebookID isEqualToString:@""])) ||
+       (cell == self.facebookCell &&
+        (![PFUser currentUser].facebookID || [[PFUser currentUser].facebookID isEqualToString:@""])) ||
+       (cell == self.twitterCell &&
+        (![PFTwitterUtils twitter].screenName || [[PFTwitterUtils twitter].screenName isEqualToString:@""]))){
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.userInteractionEnabled = NO;

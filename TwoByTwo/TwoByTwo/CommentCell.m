@@ -9,6 +9,8 @@
 #import "CommentCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "NSDate+Addon.h"
+#import "FeedViewController.h"
+#import "MainViewController.h"
 
 
 
@@ -64,29 +66,53 @@
 }
 
 - (void)selectedMention:(NSString *)string {
+     __weak typeof(self) weakSelf = self;
+    
+    PFQuery *query = [PFUser query];
+    
+    string = [string stringByReplacingOccurrencesOfString:@"@" withString:@""];
+    [query whereKey:@"username" equalTo:string];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(!error){
+            if(objects.count > 0){
+                PFUser* user = [objects objectAtIndex:0];
+                
+                @try {
+                    FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+                    controller.type = FeedTypeFriend;
+                    controller.user = user;
+                    [weakSelf.nav pushViewController:controller animated:YES];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"error: %@",exception);
+                }
+                
+                
+            }else{
+                NSString* msg = [NSString stringWithFormat:@"Username %@, doesn't exsist.",string];
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alert show];
+            }
+            
+        }
+        
+        
+        
+    }];
+
+    
+    
+   
+    
+}
+
+- (void)selectedHashtag:(NSString *)string {
     /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Selected" message:string delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
     */
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    if ([PFUser currentUser]) {
-        [query whereKey:@"username" equalTo:@"jtubert"];
-    }
-    [query selectKeys:@[PFFollowingUserIDKey]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            
-        }
-        else {
-            NSLog(@"loadFollowers error: %@", error);
-        }
-    }];
-
-}
-- (void)selectedHashtag:(NSString *)string {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Selected" message:string delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
 }
 - (void)selectedLink:(NSString *)string {
     NSURL *url = [NSURL URLWithString:string];

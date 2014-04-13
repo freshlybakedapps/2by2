@@ -15,10 +15,14 @@ exports.main = function(request, response){
         for (var i = 0; i < userArr.length; i++) {
         	var twitterId = userArr[i].get("twitterId");
 
-        	if(twitterFriendsStr.indexOf(twitterId) != -1){             
-		  		var obj = {twitterProfileImage:userArr[i].get("TwitterProfileImage"),twitterId:twitterId,name:userArr[i].get("fullName"),id:userArr[i].id};
-		    	twoByTwoUsers.push(obj);
-			}		  	   
+          if(twitterId != ""){
+            if(twitterFriendsStr.indexOf(twitterId) != -1){             
+              var obj = {twitterProfileImage:userArr[i].get("TwitterProfileImage"),twitterId:twitterId,name:userArr[i].get("fullName"),id:userArr[i].id};
+              twoByTwoUsers.push(obj);
+            }          
+          }
+
+        	
         }
 
         response.success(twoByTwoUsers);

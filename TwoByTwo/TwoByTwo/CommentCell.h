@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) PFObject *comment;
 
+@property (nonatomic,strong) UINavigationController *nav;
+
 + (CGFloat)heightForComment:(PFObject *)comment;
 
 @end
