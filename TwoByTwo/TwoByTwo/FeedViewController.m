@@ -93,8 +93,12 @@ static NSUInteger const kQueryBatchSize = 20;
 
 #pragma mark - Query
 
+
 - (void)performQuery
 {
+    
+    NSLog(@"performQuery");
+    
     if (self.type == FeedTypeFollowing || self.type == FeedTypeGlobal) {
         [self loadFollowers];
     }
@@ -197,6 +201,8 @@ static NSUInteger const kQueryBatchSize = 20;
             
             if (!error) {
                 
+                NSLog(@"RELOADINGGGGGGGGGG %i / %u",objects.count,self.type);
+                
                 if (!self.objects) {
                     self.objects = [NSMutableArray array];
                 }
@@ -211,6 +217,8 @@ static NSUInteger const kQueryBatchSize = 20;
                     
                     [self.objects addObjectsFromArray:objects];
                     [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                    
+                    //[self.collectionView deleteItemsAtIndexPaths:indexPaths];
                    
                 } completion:nil];
             }

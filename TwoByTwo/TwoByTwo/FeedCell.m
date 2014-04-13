@@ -289,6 +289,7 @@
         [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex != alertView.cancelButtonIndex) {
                 [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    NSLog(@"DELETE");
                     [[NSNotificationCenter defaultCenter] postNotificationName:NoficationShouldReloadPhotos object:nil];
                 }];
             }

@@ -1,3 +1,7 @@
+if(location.host == "2by2.parseapp.com"){
+  location.href = "http://www.2by2app.com"+location.pathname+location.search;
+}
+
 // Avoid `console` errors in browsers that lack a console.
 (function() {
     var method;

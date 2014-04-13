@@ -94,6 +94,9 @@
 
 - (void)performQuery
 {
+    
+    NSLog(@"performQuery");
+    
     PFQuery *query = [PFQuery queryWithClassName:PFNotificationClass];
     [query whereKey:PFNotificationIDKey equalTo:[PFUser currentUser].objectId];
     [query orderByDescending:PFCreatedAtKey];
