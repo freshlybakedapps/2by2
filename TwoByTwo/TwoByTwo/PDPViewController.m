@@ -110,7 +110,11 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             NSString* weblink = [NSString stringWithFormat:@"http://2by2.parseapp.com/pdp?id=%@",self.photo.objectId];
             
             
-            NSString *textToShare = @"I made this image with #2by2";
+            NSString *textToShare = [NSString stringWithFormat:@"I found this nice photo on #2by2 by %@ & %@",self.photo.user.username ,self.photo.userFull.username];
+            
+            if([self.photo.user.objectId isEqualToString:[PFUser currentUser].objectId] || [self.photo.userFull.objectId isEqualToString:[PFUser currentUser].objectId]){
+                textToShare = @"I made this image with #2by2";
+            }
 
             DMActivityInstagram *instagramActivity = [[DMActivityInstagram alloc] init];
             
