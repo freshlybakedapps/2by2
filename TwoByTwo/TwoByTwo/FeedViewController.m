@@ -26,6 +26,8 @@ static NSUInteger const kQueryBatchSize = 20;
 @property (nonatomic) NSUInteger queryOffset;
 @property (nonatomic) BOOL showingFeed;
 @property (nonatomic) BOOL showingDouble;
+
+@property (nonatomic, strong) FeedFooterView* footerView;
 @end
 
 
@@ -321,6 +323,13 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
+    if(self.totalNumberOfObjects == 0){
+        self.footerView.hidden = NO;
+    }else{
+        self.footerView.hidden = YES;
+    }
+    
+    
     return (self.totalNumberOfObjects == 0) ? CGSizeMake(0, 300) : CGSizeMake(0, 1); // Setting CGSizeZero causes crash
 }
 
@@ -345,11 +354,12 @@ static NSUInteger const kQueryBatchSize = 20;
         }
     }
     else {
-        FeedFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView" forIndexPath:indexPath];
-        footerView.controller = self;
-        footerView.showingDouble = self.showingDouble;
-        footerView.type = self.type;
-        return footerView;
+        self.footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView" forIndexPath:indexPath];
+        self.footerView.controller = self;
+        self.footerView.showingDouble = self.showingDouble;
+        self.footerView.type = self.type;
+        self.footerView.hidden = YES;
+        return self.footerView;
     }
     return nil;
 }
