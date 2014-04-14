@@ -52,7 +52,7 @@ exports.main = function(request, response){
                             var subject = msg;
                             var htmlMsg = "Your friend " + newRegisteredUser_username + ", just joined the party.";  
                             
-                            htmlMsg += "<br><a href='http://2by2.parseapp.com/pdp?profile="+_user.id+"'>Check out his profile..</a>";
+                            htmlMsg += "<br><a href='http://www.2by2app.com/pdp?profile="+_user.id+"'>Check out his profile..</a>";
 
                             htmlMsg += "<br><br>";
                             htmlMsg += "Thanks,";

@@ -8,7 +8,7 @@ exports.main = function(request, response){
       success: function(arr) {        
         for (var i = arr.length - 1; i >= 0; i--) {            
             var msg = "Hey "+arr[i].name+", "+username+" just posted a photo.";
-            var htmlMsg = "Hey "+arr[i].name+", <a href='http://2by2.parseapp.com/pdp?profile="+userID+"'>"+username+"</a> just posted a photo.";  
+            var htmlMsg = "Hey "+arr[i].name+", <a href='http://www.2by2app.com/pdp?profile="+userID+"'>"+username+"</a> just posted a photo.";  
             htmlMsg += "<br>Collaborate by double exposing it... or not!.";
             htmlMsg += "<br><br>";
             htmlMsg += "Thanks,";

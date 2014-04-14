@@ -64,7 +64,7 @@ exports.main = function(request, response){
         //if user liked a photo, this service is unlikning the photo so we should only send notifications if liking the photo
         if(!didUserLikedPhoto){
             var msg = userWhoLikedUsername+ " just liked your photo." ;            
-            var htmlMsg = "<br><a href='http://2by2.parseapp.com/pdp?id="+photo.id+"'>See photo.</a>";
+            var htmlMsg = "<br><a href='http://www.2by2app.com/pdp?id="+photo.id+"'>See photo.</a>";
             htmlMsg += "<br><br>";
             htmlMsg += "Thanks,";
             htmlMsg += "<br>Team 2by2";

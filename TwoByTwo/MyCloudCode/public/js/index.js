@@ -120,7 +120,7 @@ $(function () {
                       },
                       error: function(error) {
                         Parse.User.logOut();
-                        var dialog_url= "https://www.facebook.com/dialog/oauth?"+"client_id=217295185096733&redirect_uri=" + encodeURIComponent("http://2by2.parseapp.com");
+                        var dialog_url= "https://www.facebook.com/dialog/oauth?"+"client_id=217295185096733&redirect_uri=" + encodeURIComponent("http://www.2by2app.com");
                         location.href = dialog_url;
                         console.log(dialog_url);
                         
@@ -137,7 +137,7 @@ $(function () {
                 
                 /*
                 Parse.User.logOut();
-                var dialog_url= "https://www.facebook.com/dialog/oauth?"+"client_id=217295185096733&redirect_uri=" + encodeURIComponent("http://2by2.parseapp.com");
+                var dialog_url= "https://www.facebook.com/dialog/oauth?"+"client_id=217295185096733&redirect_uri=" + encodeURIComponent("http://www.2by2app.com");
                 location.href = dialog_url;
                 console.log(dialog_url); 
                 */
