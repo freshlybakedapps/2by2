@@ -14,7 +14,7 @@ exports.main = function(request, status){
     counter++;   
 
     
-    if(location_full.latitude != 0){
+    if(location_full && location_full.latitude != 0){
           
       Parse.Cloud.httpRequest({
         url:'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng='+location_full.latitude + "," + location_full.longitude

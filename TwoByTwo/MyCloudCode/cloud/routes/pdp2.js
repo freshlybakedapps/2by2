@@ -78,6 +78,7 @@ function getPhoto(req,resp,user) {
 
 
 	                var locationHalf = data.location_half;
+	                var location_half_str = data.location_half_str;
 
 
 	                //static maps doc: https://developers.google.com/maps/documentation/staticmaps/?csw=1#StyledMaps
@@ -90,6 +91,7 @@ function getPhoto(req,resp,user) {
 	                
 	                var markers = "";
 
+	                /*
 	                if(data.location_half){
 	                    if(data.location_half._longitude == 0){
 	                        username_half+=" (?)";
@@ -108,6 +110,34 @@ function getPhoto(req,resp,user) {
 	                        markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
 	                    }
 	                }
+	                */
+
+	                if(data.location_half){
+                        if(data.location_half._longitude == 0){
+                            username_half+=" (?)";
+                        }else{
+                            if(location_half_str && location_half_str != ""){
+                                markers = "&markers=icon:http://www.2by2app.com/images/red.png%7Ccolor:0xff3366%7C"+encodeURIComponent(location_half_str);
+ 
+                            }
+                            //markers += "&visible="+(locationHalf._latitude+0.01)+","+(locationHalf._longitude+0.01);
+                        }
+                    }                       
+
+                    if(data.state == "full" && data.location_full){
+                        var locationFull = data.location_full;
+                        if(locationFull._longitude == 0){
+                            username_full+=" (?)";
+                        }else{
+                            var location_full_str = data.location_full_str;
+
+                            if(location_full_str && location_full_str != ""){
+                                markers+="&markers=icon:http://www.2by2app.com/images/green.png%7Ccolor:0x00cc99%7C"+encodeURIComponent(location_full_str);
+                            }
+                            //markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
+                        }
+                    }
+
 	                //&center=Brooklyn+Bridge,New+York,NY&zoom=13
                 	var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
             		
