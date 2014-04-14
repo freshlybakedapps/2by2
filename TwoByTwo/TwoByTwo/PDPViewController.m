@@ -107,7 +107,7 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
             
             UIImage *picture = [image imageWithWatermark:watermark];
             
-            NSString* weblink = [NSString stringWithFormat:@"http://2by2.parseapp.com/pdp?id=%@",self.photo.objectId];
+            NSString* weblink = [NSString stringWithFormat:@"http://www.2by2app.com/pdp?id=%@",self.photo.objectId];
             
             
             NSString *textToShare = [NSString stringWithFormat:@"I found this nice photo on #2by2 by %@ & %@",self.photo.user.username ,self.photo.userFull.username];

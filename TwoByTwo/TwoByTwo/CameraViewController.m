@@ -592,9 +592,9 @@ static CGFloat const kImageSize = 320.0;
         : [NSString stringWithFormat:@"%@:2BY2", [[PFUser currentUser].username uppercaseString]];
         UIImage *picture = [weakSelf.previewView.image imageWithWatermark:watermark];
         
-        NSString* weblink= @"http://2by2.parseapp.com";
+        NSString* weblink= @"http://www.2by2app.com";
         if(weakSelf.photo){
-            weblink = [NSString stringWithFormat:@"http://2by2.parseapp.com/pdp?id=%@",weakSelf.photo.objectId];
+            weblink = [NSString stringWithFormat:@"http://www.2by2app.com/pdp?id=%@",weakSelf.photo.objectId];
         }
         
         

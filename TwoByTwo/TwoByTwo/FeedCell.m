@@ -163,10 +163,10 @@
 {
     NSString *markers;
     if (self.photo.locationHalf) {
-        markers = [NSString stringWithFormat:@"&markers=icon:http://2by2.parseapp.com/images/redMarker@2x.png|color:0x00cc99|%f,%f", self.photo.locationHalf.latitude, self.photo.locationHalf.longitude];
+        markers = [NSString stringWithFormat:@"&markers=icon:http://www.2by2app.com/images/redMarker@2x.png|color:0x00cc99|%f,%f", self.photo.locationHalf.latitude, self.photo.locationHalf.longitude];
     }
     if ([self.photo.state isEqualToString:PFStateValueFull] && self.photo.locationFull) {
-        markers = [NSString stringWithFormat:@"%@&markers=icon:http://2by2.parseapp.com/images/greenMarker@2x.png|color:0xff3366|%f,%f", markers, self.photo.locationFull.latitude, self.photo.locationFull.longitude];
+        markers = [NSString stringWithFormat:@"%@&markers=icon:http://www.2by2app.com/images/greenMarker@2x.png|color:0xff3366|%f,%f", markers, self.photo.locationFull.latitude, self.photo.locationFull.longitude];
     }
     
     NSString *mapURLString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&style=lightness:-57|saturation:-100&size=640x640&maptype=roadmap%@&sensor=false", markers];
