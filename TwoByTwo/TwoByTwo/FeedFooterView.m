@@ -86,9 +86,9 @@
             break;
         case FeedTypeFriend:
             if(!self.showingDouble){
-                self.textLabel.text = @"This person doesn't have any single exposed photos.";
+                self.textLabel.text = @"This person has no single shots to double expose right now. \n\nThis is a great time to invite new friends to join 2by2";
             }else{
-                self.textLabel.text = @"This person doesn't have any double exposed photos.";
+                self.textLabel.text = @"This person has no double shots right now. \n\nThis is a great time to invite new friends to join 2by2";
             }
             break;
         case FeedTypeSingle:
