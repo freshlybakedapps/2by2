@@ -78,7 +78,11 @@
             }
             break;
         case FeedTypeFollowing:
-            self.textLabel.text = @"Nothing to show here yet, swing by later. \n\n2by2 is more fun with friends and family, invite them to join";
+            if(!self.showingDouble){
+                self.textLabel.text = @"There are no single exposure photos from your friends right now. \n\n2by2 is more fun with friends and family, invite them to join";
+            }else{
+                self.textLabel.text = @"There are no double exposure photos from your friends right now. \n\n2by2 is more fun with friends and family, invite them to join";
+            }
             break;
         case FeedTypeFriend:
             if(!self.showingDouble){
@@ -88,10 +92,10 @@
             }
             break;
         case FeedTypeSingle:
-            self.textLabel.text = @"Single exposed photos ran out, swing by later.";
+            self.textLabel.text = @"There are no single exposure photos right now. \n\n2by2 is more fun with friends and family, invite them to join.";
             break;
         case FeedTypeGlobal:
-            self.textLabel.text = @"Nothing to show here yet, swing by later.";
+            self.textLabel.text = @"There are no double exposure photos right now. \n\n2by2 is more fun with friends and family, invite them to join.";
             break;
         default:
             self.textLabel.text = @"";
