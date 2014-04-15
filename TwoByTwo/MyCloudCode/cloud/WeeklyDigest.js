@@ -23,7 +23,7 @@ function weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations){
 
   if(fullPhotos == 0 && totalLikes == 0 && followers.length == 0 && arr.length == 0){
     msg += "What? no new activity?<br>";
-    msg += "How about you take a new photo right now and show 'em how is done!<br>";
+    msg += "How about you take a new photo right now and show 'em how it's done!<br>";
   }  
   
   msg += "<br>Thanks, the 2by2 team.<br>";  
