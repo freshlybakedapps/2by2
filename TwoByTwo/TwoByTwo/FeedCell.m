@@ -37,6 +37,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *detailsButton;
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UIButton *toolButton;
+
+@property (nonatomic, weak) IBOutlet UIButton *featuredButton;
 @end
 
 
@@ -56,6 +58,8 @@
     self.detailsButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.mapSecondUserLabel.font = [UIFont appMediumFontOfSize:14];
     self.mapFirstUserLabel.font = [UIFont appMediumFontOfSize:14];
+    
+    
 }
 
 
@@ -65,6 +69,24 @@
 {    
     _photo = photo;
     __weak typeof(self) weakSelf = self;
+    
+    if([[PFUser currentUser].email isEqualToString:@"jtubert@hotmail.com"] || [[PFUser currentUser].email isEqualToString:@"amin@amintorres.com"]){
+        self.featuredButton.hidden = NO;
+        
+        BOOL b = [self.photo[@"featured"] boolValue];
+        
+        //NSLog(@"XXXXXXXXXX %ld",(long)[self.photo[@"featured"] integerValue]);
+        
+        if(b == YES){
+            [self.featuredButton setTitle:@"Featured" forState:UIControlStateNormal];
+        }else{
+            [self.featuredButton setTitle:@"Not Featured" forState:UIControlStateNormal];
+        }
+        
+        
+    }else{
+        self.featuredButton.hidden = YES;
+    }
     
     
     // User Avatars
@@ -231,6 +253,28 @@
 - (IBAction)detailButtonTapped:(id)sender
 {
     [self.delegate cell:self showCommentsForPhoto:self.photo];
+}
+
+- (IBAction)featuredButtonTapped:(id)sender
+{
+    BOOL b = [self.photo[@"featured"] boolValue];
+    
+    //[NSNumber numberWithBool:NO]
+    
+    
+    
+    if(b == YES){
+        self.photo[@"featured"] = [NSNumber numberWithBool:NO];
+        [self.featuredButton setTitle:@"Not Featured" forState:UIControlStateNormal];
+    }else{
+        self.photo[@"featured"] = [NSNumber numberWithBool:YES];
+        [self.featuredButton setTitle:@"Featured" forState:UIControlStateNormal];
+    }
+    
+    
+    [self.photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"featured photo saved");
+    }];
 }
 
 

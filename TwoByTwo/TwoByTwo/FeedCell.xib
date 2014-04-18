@@ -162,6 +162,17 @@
                                     <constraint firstAttribute="centerY" secondItem="a3B-l5-UeV" secondAttribute="centerY" id="usP-dv-ojg"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dhx-gx-iLy">
+                                <rect key="frame" x="20" y="18" width="123" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Featured">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="featuredButtonTapped:" destination="VyA-Z4-b7C" eventType="touchUpInside" id="ta1-0v-ZYL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -289,6 +300,7 @@
                 <outlet property="commentButton" destination="BWW-1N-wMk" id="zIK-tg-FCL"/>
                 <outlet property="containerView" destination="6nV-Wv-aUZ" id="uJb-mB-pdY"/>
                 <outlet property="detailsButton" destination="Fdq-DE-CaA" id="YRr-lZ-ytl"/>
+                <outlet property="featuredButton" destination="Dhx-gx-iLy" id="F38-Xd-4B2"/>
                 <outlet property="firstUserButton" destination="2hZ-Oy-Cwz" id="kbc-ia-mEj"/>
                 <outlet property="firstUserImageView" destination="vDt-u8-9ou" id="VtF-N6-eMY"/>
                 <outlet property="footerView" destination="poe-xL-1Zl" id="4L8-Vg-c8K"/>
