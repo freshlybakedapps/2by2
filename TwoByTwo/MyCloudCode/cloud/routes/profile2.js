@@ -23,11 +23,27 @@ exports.index = function(req, resp){
 };
 
 exports.withUserID = function(req, resp){
-    if(req.query.u){
-        var currentUserID = req.query.u;
+    if(req.params.u){
+        var currentUserID = req.params.u;
         Parse.Cloud.useMasterKey();    
-        var query = new Parse.Query(Parse.User);        
-            
+        var query = new Parse.Query(Parse.User);
+
+        console.log(currentUserID);
+
+        query.equalTo("username", currentUserID);
+
+        query.find({
+            success: function(userArr) {
+                console.log(userArr.length);
+                getPhoto(req,resp,userArr[0],userArr[0].id);
+            },
+            error: function(object, error) {
+                // The object was not retrieved successfully.
+                // error is a Parse.Error with an error code and description.
+                console.log("error: ",error);
+            }
+        });        
+        /*    
         query.get(currentUserID, {      
             success: function(user) {               
                 getPhoto(req,resp,user,currentUserID);
@@ -36,9 +52,7 @@ exports.withUserID = function(req, resp){
                 console.log(error);
             }
         });
-      }else if(req.params.u){
-
-        getPhoto(req,resp,null,req.params.u);    
+        */
       }
 }
 
@@ -134,7 +148,7 @@ function getPhoto(req,resp,user,id) {
                     var username_full = "";
 
                     if(user && username_half == user._serverData.username){
-                        username_half = "You!";
+                        //username_half = "You!";
                     }
 
                     if(data.user_full){
@@ -144,7 +158,7 @@ function getPhoto(req,resp,user,id) {
                     //console.log(username_full+" / "+user._serverData.username);
 
                     if(user && username_full == user._serverData.username){
-                        username_full = "You!";
+                        //username_full = "You!";
                     }
                     
                     var imageURL = image._url;//.url                       
