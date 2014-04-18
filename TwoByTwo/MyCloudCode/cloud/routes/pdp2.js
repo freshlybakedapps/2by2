@@ -163,7 +163,8 @@ function getPhoto(req,resp,user) {
 							userFull:data.user_full,							
 							currentUser:user,
 							username_half:username_half,
-							username_full:username_full
+							username_full:username_full,
+							socialImage:imageURL
 						});
             	}
                 
