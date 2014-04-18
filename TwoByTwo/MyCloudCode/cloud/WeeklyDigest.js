@@ -43,7 +43,10 @@ Array.prototype.pushUnique = function (item){
     return false;
 }
 
-exports.main = function(request, status) {
+//exports.main = function(request, status) {
+
+function main(request, status,limit,skip) {
+  
   
 
    // Set up to modify user data
@@ -53,12 +56,22 @@ exports.main = function(request, status) {
   var query = new Parse.Query(Parse.User);
   //query.include("email");
   //query.include("fullName");
+  
+  if(limit){
+    query.limit(limit);
+  }
+
+  if(skip){
+    query.skip(skip);
+  }
+  
+  
 
   query.find({
     success: function(userArr) {
       for (var i = 0; i < userArr.length; i++) {
         
-        console.log(userArr[i].get('username')+": "+userArr[i].get('authData').facebook.id);
+        //console.log(userArr[i].get('username')+": "+userArr[i].get('authData').facebook.id);
         /*
         var userQuery = new Parse.Query(Photo);
         userQuery.equalTo("user", user);
