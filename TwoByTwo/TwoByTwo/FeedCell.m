@@ -183,18 +183,38 @@
 
 - (void)showMap
 {
+    
+    int locations = 0;
+    
+    
+    
     NSString *markers;
-    if (self.photo.locationHalf) {
+    if (self.photo.locationHalf && self.photo.locationHalf.longitude != 0) {
         markers = [NSString stringWithFormat:@"&markers=icon:http://www.2by2app.com/images/redMarker@2x.png|color:0x00cc99|%f,%f", self.photo.locationHalf.latitude, self.photo.locationHalf.longitude];
+        locations++;
     }
-    if ([self.photo.state isEqualToString:PFStateValueFull] && self.photo.locationFull) {
+    if ([self.photo.state isEqualToString:PFStateValueFull] && self.photo.locationFull && self.photo.locationFull.longitude != 0) {
         markers = [NSString stringWithFormat:@"%@&markers=icon:http://www.2by2app.com/images/greenMarker@2x.png|color:0xff3366|%f,%f", markers, self.photo.locationFull.latitude, self.photo.locationFull.longitude];
+        locations++;
     }
     
     NSString *mapURLString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDG_mNGbYeKU_UHS5n5CbreCkJ-Qo18A_M&style=lightness:-57|saturation:-100&size=640x640&maptype=roadmap%@&sensor=false", markers];
     mapURLString = [mapURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *URL = [NSURL URLWithString:mapURLString];
-    [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
+    
+    
+    if(locations == 0){
+        if([self.photo.state isEqualToString:@"full"]){
+            [self.imageView setImage:[UIImage imageNamed:@"NoLocationSharedBoth"]];
+        }else{
+            [self.imageView setImage:[UIImage imageNamed:@"NoLocationShared"]];
+        }
+        
+    }else{
+        [self.imageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"NoLocationShared"]];
+    }
+    
+    
     
     
     if (self.photo.locationHalf && self.photo.locationHalf.latitude != 0) {
@@ -258,10 +278,6 @@
 - (IBAction)featuredButtonTapped:(id)sender
 {
     BOOL b = [self.photo[@"featured"] boolValue];
-    
-    //[NSNumber numberWithBool:NO]
-    
-    
     
     if(b == YES){
         self.photo[@"featured"] = [NSNumber numberWithBool:NO];
