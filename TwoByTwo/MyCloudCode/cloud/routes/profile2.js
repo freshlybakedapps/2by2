@@ -193,6 +193,8 @@ function getPhoto(req,resp,user,id) {
                     }
                     */
 
+                    var locations = 0;
+
                     
                     if(data.location_half){
                         if(data.location_half._longitude == 0){
@@ -200,7 +202,7 @@ function getPhoto(req,resp,user,id) {
                         }else{
                             if(location_half_str && location_half_str != ""){
                                 markers = "&markers=icon:http://www.2by2app.com/images/red.png%7Ccolor:0xff3366%7C"+encodeURIComponent(location_half_str);
- 
+                                locations++;
                             }
                             //markers += "&visible="+(locationHalf._latitude+0.01)+","+(locationHalf._longitude+0.01);
                         }
@@ -215,6 +217,7 @@ function getPhoto(req,resp,user,id) {
 
                             if(location_full_str && location_full_str != ""){
                                 markers+="&markers=icon:http://www.2by2app.com/images/green.png%7Ccolor:0x00cc99%7C"+encodeURIComponent(location_full_str);
+                                locations++;
                             }
                             //markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
                         }
@@ -225,6 +228,15 @@ function getPhoto(req,resp,user,id) {
                     //&center=Brooklyn+Bridge,New+York,NY&zoom=13
                     var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
                     
+                    if(locations == 0){
+                        if(data.state == "full"){
+                            mapImageURL = "/markup/img/NoLocationSharedBoth@2x.png";
+                        }else{
+                            mapImageURL = "/markup/img/NoLocationShared@2x.png";
+                        }
+                        
+                    }
+
 
                     photoData.imageURL = imageURL;
                     photoData.likeLength = likeLength;
