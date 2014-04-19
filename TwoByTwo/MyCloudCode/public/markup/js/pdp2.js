@@ -304,7 +304,14 @@ $(function () {
                 query.find({
                 success: function(photosArr) {
                     // The object was retrieved successfully.
+                    var featured = photosArr[0].featured;
+                    var isFeatured = (featured == true)?true:false;
+
+                    if(Parse.User.current().id == "SREzPjOawD"){
+                        $(".picture-options").append('<div class="left"><label><input type="checkbox" name="checkbox" value="value">featured</label></div>');
+                    }
                     
+
                     
                     /*
                     if(photosArr.length == 0){

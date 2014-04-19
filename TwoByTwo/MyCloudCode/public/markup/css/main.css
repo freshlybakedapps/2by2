@@ -5,7 +5,12 @@
 }
 
 .social-media-button-1 { float:left; width:60px; }
-.social-media-button-2 { float:left; width:92px; }
+.social-media-button-2 { float:left; width:92px;}
+
+.fb_edge_widget_with_comment span.fb_edge_comment_widget {
+top: 15px !important;
+left: -250px !important;}
+
 .social-media-button-3 { float:left; width:25px; }
 
 .left {
@@ -150,7 +155,7 @@ header.home {
 }
 
 .picture-viewer {
-    overflow: hidden;
+    overflow: visible;
 }
 
 .picture, .picture-map {
