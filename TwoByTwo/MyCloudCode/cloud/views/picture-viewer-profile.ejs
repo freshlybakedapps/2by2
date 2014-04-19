@@ -2,7 +2,7 @@
     <div class="picture-viewer">               
         <div class="picture">
             
-            <a href="pdp?id=<%= allPhotosData[i].photoID %>"><img src="<%= allPhotosData[i].imageURL %>" alt="" /></a>
+            <a href="/pdp?id=<%= allPhotosData[i].photoID %>"><img src="<%= allPhotosData[i].imageURL %>" alt="" /></a>
             
             <div class="picture-options">
                 <a href="#" data="<%= allPhotosData[i].photoID %>" likeLength="<%= allPhotosData[i].likeLength %>" class="likes left">
@@ -10,7 +10,9 @@
                 </a>
                 <a href="#" class="comments left">
                     <span></span>0<a id="comment_<%= allPhotosData[i].photoID %>"></a>
-                </a>                                
+                </a>
+
+                <% include social-profile %>                              
                 
                 <br class="clr" />
             </div>

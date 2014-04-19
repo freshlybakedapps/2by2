@@ -34,7 +34,7 @@ $(function () {
             	
                 if(!$.query.get("u") || ($.query.get("u") != Parse.User.current().id)){
             		var q =  $.query.set("u",Parse.User.current().id);                
-                    location.href = location.pathname+q;                 
+                    //location.href = location.pathname+q;                 
                     
                 }
                 
@@ -42,7 +42,7 @@ $(function () {
             }else{
                 if($.query.get("u")){
                     var q =  $.query.remove("u");                
-                    location.href = location.pathname+q;  
+                    //location.href = location.pathname+q;  
                 }
             }
 

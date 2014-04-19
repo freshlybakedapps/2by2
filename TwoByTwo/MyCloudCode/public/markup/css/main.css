@@ -4,6 +4,10 @@
     -webkit-box-sizing: border-box;
 }
 
+.social-media-button-1 { float:left; width:60px; }
+.social-media-button-2 { float:left; width:92px; }
+.social-media-button-3 { float:left; width:25px; }
+
 .left {
     float: left;
 }
