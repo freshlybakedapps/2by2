@@ -53,7 +53,9 @@
     
     if (!self.followButton) {
         self.followButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
-        //self.followButton.titleLabel.font = [UIFont appFontOfSize:14];
+        self.followButton.titleLabel.font = [UIFont appFontOfSize:14];
+        
+        [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
         
         [self.followButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.followButton addTarget:self action:@selector(followButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -67,9 +69,11 @@
     if([data[@"following"] boolValue]){
         UIImage *btnImage = [UIImage imageNamed:@"Following"];
         [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+        [self.followButton setTitle:@"Following" forState:UIControlStateNormal];
     }else{
         UIImage *btnImage = [UIImage imageNamed:@"Follow"];
         [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+        [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
     }
 }
 
@@ -84,12 +88,14 @@
                                         if ([result isEqual:@0]){
                                             //[sender setTitle:@"Follow" forState:UIControlStateNormal];
                                             UIImage *btnImage = [UIImage imageNamed:@"Follow"];
+                                            [self.followButton setTitle:@"Follow" forState:UIControlStateNormal];
                                             [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
                                         }
                                         else {
                                             // In this case, result == @"Notifications sent"
                                             //[sender setTitle:@"Unfollow" forState:UIControlStateNormal];
                                             UIImage *btnImage = [UIImage imageNamed:@"Following"];
+                                            [self.followButton setTitle:@"Following" forState:UIControlStateNormal];
                                             [self.followButton setBackgroundImage:btnImage forState:UIControlStateNormal];
                                         }
                                     }
