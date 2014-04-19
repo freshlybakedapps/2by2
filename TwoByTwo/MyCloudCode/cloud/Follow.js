@@ -24,7 +24,7 @@ exports.main = function(request, response){
         success: function(follower) {
           
           var msg = username+" started to follow you on 2by2. " + phrases[Math.floor(Math.random()*phrases.length)];
-          var htmlMsg = "See <a href='http://www.2by2app.com/profile?id="+userID+"'>"+username+"’s</a> profile.";
+          var htmlMsg = "See <a href='http://www.2by2app.com/profile/"+username+"'>"+username+"’s</a> profile.";
           htmlMsg += "<br><br>";
           htmlMsg += "Thanks,";
           htmlMsg += "<br>Team 2by2";

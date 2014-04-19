@@ -1,6 +1,6 @@
 <div class="picture-viewer">               
     <div class="picture">                       
-        <a href="pdp?id=<%= photoID %>"><img src="<%= imageURL %>" alt="" /></a>
+        <a href="pdp/<%= photoID %>"><img src="<%= imageURL %>" alt="" /></a>
 
         
         <div class="picture-options">
@@ -23,12 +23,12 @@
             <nav>
                 <ul>
                     <li>
-                        <span></span> <a href="profile?id=<%= user.id %>"><%= username_half %></a>
+                        <span></span> <a href="/profile/<%= user._serverData.username %>"><%= username_half %></a>
                     </li>
                     
                     <% if (userFull) { %>
                         <li>
-                        <span></span> <a href="profile?id=<%= userFull.id %>"><%= username_full %></a>
+                        <span></span> <a href="/profile/<%= userFull._serverData.username %>"><%= username_full %></a>
                         </li>
                     <% } %>
                     
@@ -40,7 +40,7 @@
     </div>
 
     
-     <% if (currentUser) { %>
+     
         <div class="picture-data">
             <form class="upload-comment" action="">
                 <input id="commentText" type="text" placeholder="Type a nice comment here..." value="" />
@@ -67,4 +67,4 @@
             </nav>
             
         </div>
-    <% } %>
+    

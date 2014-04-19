@@ -214,7 +214,7 @@ $(function () {
               var likesArr = window.likesArr.sort(compare)
               window.likes = [];                
               for(var i=0; i<20; i++) {
-                window.likes.push({'info': "http://www.2by2app.com/pdp?id="+likesArr[i].photo.id +"("+likesArr[i].filter +") - "+likesArr[i].counter});
+                window.likes.push({'info': "http://www.2by2app.com/pdp/"+likesArr[i].photo.id +"("+likesArr[i].filter +") - "+likesArr[i].counter});
               }
 
               window.markers = {};

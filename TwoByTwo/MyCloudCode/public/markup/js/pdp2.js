@@ -79,13 +79,7 @@ $(function () {
             
             $('.logout').click(function (e) {
                 Parse.User.logOut();
-
-                var q = $.query.REMOVE("u");
-
-                location.href = location.pathname+q;
-
-                $(".picture-data").html("");
-                //window.location.reload();
+                window.location.reload();
             }),
 
             $('.likes').click(function (e) {
@@ -174,27 +168,15 @@ $(function () {
                         $('#signin').hide();
                         $(".logout").show();
                         $("#fullname").show(); 
-                        $(".need-to-log-in").hide();            
-                        //that.getPhoto();
+                        $(".need-to-log-in").hide();
 
-                        var q =  $.query.set("u",Parse.User.current().id);                
-                        location.href = location.pathname+q;
-                        /*
-                        // If it's a new user, let's fetch their name from FB
-                        if (!user.existed()) {
-                            //NEW USER
-                        }else {
-                            FB.api('/me', function (response) {
-                                if (!response.error) {
-                                    console.log(response.name);
-                                    $("#fullname").html(response.name);
-                                    //$('.logout').text(response.name + " - logout");
-                                   
-                                }
-                            });
-                            
-                        }
-                        */
+                        if(!Parse.User.current()){
+                            $(".picture-data").hide();
+                        }else{
+                            $(".picture-data").show();
+                        }            
+                        
+                        that.getPhoto();
                     },
                     error: function (user, error) {
                         console.log("Oops, something went wrong.");
@@ -204,6 +186,10 @@ $(function () {
                 return false;
             }); 
            
+        },
+
+        getURLLastParam: function(){
+            return window.location.href.split("/").pop();
         },
         
         likePhoto: function(objectid){
@@ -237,7 +223,7 @@ $(function () {
                         //console.log(users[0]);
                         var url = 'https://graph.facebook.com/'+users[0]._serverData.facebookId+'/picture?type=square';
 
-                        var href = "profile?id="+users[0].id;
+                        var href = "profile/"+users[0]._serverData.username;
 
                         if($.query.get("u")){
                             href+="&u="+$.query.get("u");
@@ -282,7 +268,13 @@ $(function () {
 
         
 
-        getPhoto: function () { 
+        getPhoto: function () {
+            if(!Parse.User.current()){
+                $(".picture-data").hide();
+            }else{
+                $(".picture-data").show();
+            }
+
             var that = this;
             //$("#main-content").html("");           
             var clicking = false;
@@ -291,7 +283,8 @@ $(function () {
             var query = new Parse.Query(Photo);
             //query.limit(0);            
             
-            var id = $.query.get("id");
+            var id = $.query.get("id") || this.getURLLastParam();
+
 
             if(!id){
                 location.href = "profile";
@@ -312,7 +305,7 @@ $(function () {
 
                     console.log(featured,isFeatured);
 
-                    if(Parse.User.current().id == "SREzPjOawD" || Parse.User.current().id == "YzWCzyVrKQ"){
+                    if(Parse.User.current() && (Parse.User.current().id == "SREzPjOawD" || Parse.User.current().id == "YzWCzyVrKQ")){
                         if(isFeatured){
                             $(".picture-options").append('<div class="left"><label id="checkboxLabel"><input class="checkbox" type="checkbox" name="checkbox" value="value" checked><span>featured</span></label></div>');
 
@@ -419,7 +412,7 @@ $(function () {
                                 console.log("Comment saved success",Parse.User.current());
                                 var html = "";
                                 html+='<li>';
-                                    html+='<a href="profile?id='+Parse.User.current().id+'"><img src="https://graph.facebook.com/'+Parse.User.current().changed.facebookId+'/picture?type=square" class="avatar" /></a>';
+                                    html+='<a href="profile/'+Parse.User.current().changed.username+'"><img src="https://graph.facebook.com/'+Parse.User.current().changed.facebookId+'/picture?type=square" class="avatar" /></a>';
                                     html+='<div class="comment-data">';
                                         html+='<h3><a href="#">'+Parse.User.current().changed.username+'</a></h3>';
                                         html+='<p>';
@@ -492,7 +485,7 @@ $(function () {
                                         html+='<li>';
                                             ////<a href="profile?id='+data.user.id+'">'+username_half+'</a>'
                                         
-                                            html+='<a href="profile?id='+serverData.userID+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
+                                            html+='<a href="profile/'+sserverData.username+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
                                             html+='<div class="comment-data">';
                                                 html+='<h3><a href="#">'+serverData.username+'</a></h3>';
                                                 html+='<p>';
@@ -526,7 +519,7 @@ $(function () {
             });
             }else{
                 console.log("no id");
-                location.href = "profile";
+                location.href = "/";
             }          
             
             

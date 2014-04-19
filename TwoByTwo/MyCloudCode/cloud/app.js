@@ -31,6 +31,7 @@ app.get('/profile/:u', profileController2.withUserID);
 
 //app.get('/pdp', pdpController.index);
 app.get('/pdp', pdpController2.index);
+app.get('/pdp/:id', pdpController2.index);
 app.get('/about', aboutController.index);
 app.get('/contact', contactController.index);
 app.get('/terms', termsController.index);

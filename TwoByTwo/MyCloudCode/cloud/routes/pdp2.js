@@ -17,10 +17,6 @@ exports.index = function(req, resp){
 	  }else{
 	  	getPhoto(req,resp,null);	
 	  }
-	
-
-
-	
 };
 
 function getPhoto(req,resp,user) { 
@@ -33,7 +29,7 @@ function getPhoto(req,resp,user) {
 	query.include("user");
 	query.include("user_full");  
 
-	var id = req.query.id;        
+	var id = req.query.id || req.params.id;        
 	        
 
 	if(id){

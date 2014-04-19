@@ -1,7 +1,7 @@
 <div class="social right">
 
 <span class="social-media-button-1">
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://2by2app.com/pdp?id=<%= allPhotosData[i].photoID %>" data-via="2by2app" data-count="none" data-hashtags="2by2">Tweet</a>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://2by2app.com/pdp/<%= allPhotosData[i].photoID %>" data-via="2by2app" data-count="none" data-hashtags="2by2">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </span>
 
@@ -17,7 +17,7 @@
             var tumblr_photo_caption = "2by2 photo by <%= allPhotosData[i].user._serverData.username %> and <%= allPhotosData[i].userFull._serverData.username %>";
             <% } %>
 
-            var tumblr_photo_click_thru = "http://2by2app.com/pdp?id=<%= allPhotosData[i].photoID %>";
+            var tumblr_photo_click_thru = "http://2by2app.com/pdp/<%= allPhotosData[i].photoID %>";
             
             var tumblr_button = document.createElement("a");
             tumblr_button.setAttribute("href", "//www.tumblr.com/share/photo?source=" + encodeURIComponent(tumblr_photo_source) + "&caption=" + encodeURIComponent(tumblr_photo_caption) + "&click_thru=" + encodeURIComponent(tumblr_photo_click_thru));
@@ -29,7 +29,7 @@
 </span>
 
 <span class="social-media-button-2">
-<div class="fb-like" data-layout="button" data-href="http://2by2app.com/pdp?id=<%= allPhotosData[i].photoID %>" data-action="like" data-show-faces="false" data-share="true"></div>
+<div class="fb-like" data-layout="button" data-href="http://2by2app.com/pdp/<%= allPhotosData[i].photoID %>" data-action="like" data-show-faces="false" data-share="true"></div>
 </span>
 
 

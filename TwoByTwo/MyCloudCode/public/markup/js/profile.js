@@ -234,14 +234,14 @@ $(function () {
 		                result+='<div class="picture-viewer">';               
 		                result+='<div class="picture">';
 	                        result+='<div class="picture-wrapper">';
-	                        	result+='<a href="pdp?id='+photosArr[i].id+'"><img src="'+imageURL+'" alt="" /></a>';
+	                        	result+='<a href="pdp/'+photosArr[i].id+'"><img src="'+imageURL+'" alt="" /></a>';
                             result+='</div>';
 	                        result+='<div class="picture-options">';
 	                            result+='<a href="#" class="likes left">';
 	                                result+='<span></span>'+likeLength;
 	                            result+='</a>';
 	                            result+='<a href="#" class="comments left">';
-	                                result+='<span></span><a id="comment_'+photosArr[i].id+'"></a> :: <b><a href="pdp?id='+photosArr[i].id+'">View details</a></b>';
+	                                result+='<span></span><a id="comment_'+photosArr[i].id+'"></a> :: <b><a href="pdp/'+photosArr[i].id+'">View details</a></b>';
 	                            result+='</a>';
 	                            /*
 	                            result+='<a href="#" class="delete right">';

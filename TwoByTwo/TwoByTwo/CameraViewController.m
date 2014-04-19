@@ -594,7 +594,7 @@ static CGFloat const kImageSize = 320.0;
         
         NSString* weblink= @"http://www.2by2app.com";
         if(weakSelf.photo){
-            weblink = [NSString stringWithFormat:@"http://www.2by2app.com/pdp?id=%@",weakSelf.photo.objectId];
+            weblink = [NSString stringWithFormat:@"http://www.2by2app.com/pdp/%@",weakSelf.photo.objectId];
         }
         
         
