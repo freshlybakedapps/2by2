@@ -25,7 +25,9 @@ $(function () {
     Parse.$ = jQuery;	
 
     var List = {
-        init: function () {			
+        init: function () {
+            var that = this;
+
             if (Parse.User.current()) {
             	$("#fullname").html(Parse.User.current().changed.fullName);
                 
@@ -46,7 +48,28 @@ $(function () {
                 }
             }
 
-			this.getPhotos();	
+			if(Parse.User.current() || $.query.get("id")){
+                this.getPhotos();
+                
+            }else{
+                var username = this.getURLLastParam();
+                var User = Parse.Object.extend("User");
+                var query = new Parse.Query(User);
+                query.equalTo("username", username);
+
+                query.find({
+                    success: function(users) {
+                        that.getPhotos(users[0].id);
+                    },
+                    error: function(object, error) {
+                        // The object was not retrieved successfully.
+                        // error is a Parse.Error with an error code and description.
+                        console.log(error);
+                    }
+                });
+
+            }
+            	
             this.bind();
 
             this.showAsGrid();
@@ -314,11 +337,17 @@ $(function () {
         },
 
 
-        getPhotos: function () {
+        getPhotos: function (id) {
         	var that = this;			
 			var clicking = false;
 			
-            var id = this.getUrlVars()["id"];
+            if(!id){
+                id = this.getUrlVars()["id"];
+            }
+            
+             
+
+            console.log("iddddddd "+id);
             
             /*
             var id = this.getURLLastParam();
