@@ -28,21 +28,20 @@ $(function () {
         init: function () {         
             if (Parse.User.current()) {
                 $("#fullname").html(Parse.User.current().changed.fullName);
-                $("#fullname").attr("href","profile?id="+Parse.User.current().id);                 
                 $("#signin").hide();
                 $(".logout").show();
                 $("#fullname").show();
 
                 if(!$.query.get("u") || ($.query.get("u") != Parse.User.current().id)){
                     var q =  $.query.set("u",Parse.User.current().id);                
-                    location.href = location.pathname+q;                 
+                    //location.href = location.pathname+q;                 
                     
                 }
                 this.getPhoto();                            
             }else{
                 if($.query.get("u")){
                     var q =  $.query.remove("u");                
-                    location.href = location.pathname+q;  
+                    //location.href = location.pathname+q;  
                 }
                                 
                 $(".logout").hide();
@@ -56,6 +55,9 @@ $(function () {
         bind: function () {
             var that = this;
 
+            
+
+            /*
             $("a").each(function( index ) {
                 var href = $(this).attr("href");
 
@@ -72,7 +74,8 @@ $(function () {
                 }
 
                 
-            }),            
+            }),
+            */            
             
             $('.logout').click(function (e) {
                 Parse.User.logOut();

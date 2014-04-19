@@ -79,7 +79,9 @@ $(function () {
         },
 
         gotoProfile: function(){
-        	location.href = "/profile";
+          if(Parse.User.current()){
+              location.href = "/profile/"+Parse.User.current().attributes.username;
+          }
         }		
     }
 

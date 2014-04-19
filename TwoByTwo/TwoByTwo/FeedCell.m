@@ -70,7 +70,7 @@
     _photo = photo;
     __weak typeof(self) weakSelf = self;
     
-    if([[PFUser currentUser].email isEqualToString:@"jtubert@hotmail.com"] || [[PFUser currentUser].email isEqualToString:@"amin@amintorres.com"]){
+    if([[PFUser currentUser].email isEqualToString:@"jtubert@hotmail.com"]){
         self.featuredButton.hidden = NO;
         
         BOOL b = [self.photo[@"featured"] boolValue];

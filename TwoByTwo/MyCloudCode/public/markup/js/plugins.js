@@ -1,5 +1,13 @@
+Parse.initialize("6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg", "qlOiXmQEpBNU2i9Ictj0zfKtHlgTzCDm2c0uImMu");
+
+
 if(location.host == "2by2.parseapp.com"){
   location.href = "http://www.2by2app.com"+location.pathname+location.search;
+}
+
+if(Parse.User.current()){
+    $("#logo > a").attr("href","/profile/"+Parse.User.current().attributes.username);
+    $("#fullname").attr("href","/profile/"+Parse.User.current().attributes.username); 
 }
 
 // Avoid `console` errors in browsers that lack a console.

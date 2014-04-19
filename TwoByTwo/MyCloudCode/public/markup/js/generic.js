@@ -29,7 +29,7 @@ $(function () {
             if (user) {
                 if (Parse.FacebookUtils.isLinked(user)) {
                     $("#fullname").html(Parse.User.current().changed.fullName); 
-                    $("#fullname").attr("href","profile?id="+Parse.User.current().id);                
+                    //$("#fullname").attr("href","profile?id="+Parse.User.current().id);                
                                    
                     $('#signin').hide();    
                 }else{
