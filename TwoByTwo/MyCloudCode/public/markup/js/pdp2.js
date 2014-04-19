@@ -304,12 +304,46 @@ $(function () {
                 query.find({
                 success: function(photosArr) {
                     // The object was retrieved successfully.
-                    var featured = photosArr[0].featured;
+                    var featured = photosArr[0]._serverData.featured;
                     var isFeatured = (featured == true)?true:false;
 
-                    if(Parse.User.current().id == "SREzPjOawD"){
-                        $(".picture-options").append('<div class="left"><label><input type="checkbox" name="checkbox" value="value">featured</label></div>');
+                    console.log(featured,isFeatured);
+
+                    if(Parse.User.current().id == "SREzPjOawD" || Parse.User.current().id == "YzWCzyVrKQ"){
+                        if(isFeatured){
+                            $(".picture-options").append('<div class="left"><label id="checkboxLabel"><input class="checkbox" type="checkbox" name="checkbox" value="value" checked><span>featured</span></label></div>');
+
+                        }else{
+                            $(".picture-options").append('<div class="left"><label id="checkboxLabel"><input class="checkbox" type="checkbox" name="checkbox" value="value"><span>Not featured</span></label></div>');
+
+                        }
                     }
+
+
+
+                    $('.checkbox').click(function() {
+                        var $this = $(this);
+                        // $this will contain a reference to the checkbox   
+                        if ($this.is(':checked')) {
+                            photosArr[0].set("featured", true);
+                            $("#checkboxLabel > span").html("featured");
+                        } else {
+                            // the checkbox was unchecked
+                            photosArr[0].set("featured", false);
+                            $("#checkboxLabel > span").html("Not featured");
+                        }
+                        photosArr[0].save(null, {
+                            success: function (n) {
+                                console.log("saved successfully");
+
+                            },
+                            error: function (item,error) {
+                                console.log("Comment save error: " + error.message);
+                            }
+                        });
+                    });
+
+
                     
 
                     
