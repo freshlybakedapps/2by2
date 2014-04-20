@@ -702,7 +702,7 @@
 				ORGANIZATIONNAME = "Joseph Lin";
 				TargetAttributes = {
 					7CF39DDA17E0070A003A859F = {
-						DevelopmentTeam = V2T3S29RQ2;
+						DevelopmentTeam = 62ZQN87A2T;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
