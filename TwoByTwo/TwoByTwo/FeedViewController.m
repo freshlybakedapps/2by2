@@ -51,6 +51,10 @@ static NSUInteger const kQueryBatchSize = 20;
         }];
     }
     
+    if (self.hashtag) {
+        self.title = self.hashtag;
+    }
+    
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedProfileHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView"];
@@ -174,6 +178,13 @@ static NSUInteger const kQueryBatchSize = 20;
             break;
         }
             
+        case FeedTypeHashtag: {
+            query = [PFQuery queryWithClassName:PFPhotoClass];
+            [query whereKey:PFStateKey equalTo:PFStateValueHalf];
+            [query whereKey:PFUserKey notEqualTo:[PFUser currentUser]];
+            break;
+        }
+            
         default:
             break;
     }
@@ -200,8 +211,6 @@ static NSUInteger const kQueryBatchSize = 20;
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             
             if (!error) {
-                
-                NSLog(@"RELOADINGGGGGGGGGG %i / %u",objects.count,self.type);
                 
                 if (!self.objects) {
                     self.objects = [NSMutableArray array];

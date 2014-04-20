@@ -223,7 +223,7 @@ $(function () {
                         //console.log(users[0]);
                         var url = 'https://graph.facebook.com/'+users[0]._serverData.facebookId+'/picture?type=square';
 
-                        var href = "profile/"+users[0]._serverData.username;
+                        var href = "/profile/"+users[0]._serverData.username;
 
                         if($.query.get("u")){
                             href+="&u="+$.query.get("u");
@@ -287,7 +287,7 @@ $(function () {
 
 
             if(!id){
-                location.href = "profile";
+                location.href = "/";
             }
             
             id = id.split("#")[0];
@@ -412,7 +412,7 @@ $(function () {
                                 console.log("Comment saved success",Parse.User.current());
                                 var html = "";
                                 html+='<li>';
-                                    html+='<a href="profile/'+Parse.User.current().changed.username+'"><img src="https://graph.facebook.com/'+Parse.User.current().changed.facebookId+'/picture?type=square" class="avatar" /></a>';
+                                    html+='<a href="/profile/'+Parse.User.current().changed.username+'"><img src="https://graph.facebook.com/'+Parse.User.current().changed.facebookId+'/picture?type=square" class="avatar" /></a>';
                                     html+='<div class="comment-data">';
                                         html+='<h3><a href="#">'+Parse.User.current().changed.username+'</a></h3>';
                                         html+='<p>';
@@ -485,7 +485,7 @@ $(function () {
                                         html+='<li>';
                                             ////<a href="profile?id='+data.user.id+'">'+username_half+'</a>'
                                         
-                                            html+='<a href="profile/'+sserverData.username+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
+                                            html+='<a href="/profile/'+sserverData.username+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
                                             html+='<div class="comment-data">';
                                                 html+='<h3><a href="#">'+serverData.username+'</a></h3>';
                                                 html+='<p>';

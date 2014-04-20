@@ -18,6 +18,7 @@
 
 @property (nonatomic) FeedType type;
 @property (nonatomic, strong) PFUser *user;
+@property (nonatomic, strong) NSString *hashtag;
 
 + (instancetype)controller;
 

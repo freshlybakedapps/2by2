@@ -61,7 +61,7 @@
     self.commentLabel.userInteractionEnabled = YES;
     self.commentLabel.numberOfLines = 0;
     self.commentLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    [self.commentLabel setString:comment[@"text" ]];
+    [self.commentLabel setString:comment[@"text"]];
     
 }
 
@@ -108,12 +108,15 @@
     
 }
 
+
 - (void)selectedHashtag:(NSString *)string {
-    /*
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Selected" message:string delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
-    */
+    NSLog(@"selectedHashtag");
+    FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+    controller.type = FeedTypeHashtag;
+    controller.hashtag = string;
+    [self.nav pushViewController:controller animated:YES];
 }
+
 - (void)selectedLink:(NSString *)string {
     NSURL *url = [NSURL URLWithString:string];
     
