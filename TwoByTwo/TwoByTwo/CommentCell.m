@@ -11,6 +11,8 @@
 #import "NSDate+Addon.h"
 #import "FeedViewController.h"
 #import "MainViewController.h"
+#import <STTweetLabel.h>
+
 
 
 
@@ -18,7 +20,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *avatarImageView;
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
-@property (nonatomic, weak) IBOutlet AMAttributedHighlightLabel *commentLabel;
+@property (nonatomic, strong) STTweetLabel *commentLabel;
 @end
 
 
@@ -26,6 +28,8 @@
 
 - (void)setComment:(PFObject *)comment
 {
+    __weak typeof(self) weakSelf = self;
+    
     _comment = comment;
 
     NSURL *URL = [NSURL URLWithFacebookUserID:comment.facebookID];
@@ -36,33 +40,49 @@
     
     [self.avatarImageView setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"defaultUserImage"]];
     self.avatarImageView.layer.cornerRadius = CGRectGetHeight(self.avatarImageView.frame) * 0.5;
-    
     self.nameLabel.text = comment[@"username"];
-    //self.commentLabel.text = comment[@"text" ];
     self.dateLabel.text = [comment.createdAt timeAgoString];
-    
     self.nameLabel.font = [UIFont appFontOfSize:14];
-    self.commentLabel.font = [UIFont appFontOfSize:14];
     self.dateLabel.font = [UIFont appFontOfSize:14];
-    
     self.nameLabel.textColor = [UIColor appGreenColor];
     
+    if(self.commentLabel && self.commentLabel.superview){
+        [self.commentLabel removeFromSuperview];
+    }
+
     
-    //self.commentLabel.textColor = [UIColor lightGrayColor];
-    self.commentLabel.mentionTextColor = [UIColor appGreenColor];
-    self.commentLabel.hashtagTextColor = [UIColor appGreenColor];
-    self.commentLabel.linkTextColor = [UIColor appGreenColor];
-    //self.commentLabel.selectedMentionTextColor = [UIColor blackColor];
-    //self.commentLabel.selectedHashtagTextColor = [UIColor blackColor];
-    //self.commentLabel.selectedLinkTextColor = UIColorFromRGB(0x4099FF);
+    self.commentLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(50.0, 37.0, 260.0, 300.0)];
     
-    
-    self.commentLabel.delegate = self;
-    self.commentLabel.userInteractionEnabled = YES;
     self.commentLabel.numberOfLines = 0;
-    self.commentLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    [self.commentLabel setString:comment[@"text"]];
+    self.commentLabel.textAlignment = NSTextAlignmentLeft;
+    self.commentLabel.font = [UIFont appFontOfSize:14];
+    [self.commentLabel setText:comment[@"text"]];
+    CGSize size = [self.commentLabel suggestedFrameSizeToFitEntireStringConstraintedToWidth:self.commentLabel.frame.size.width];
+    CGRect frame = self.commentLabel.frame;
+    frame.size.width = 260.0;
+    frame.size.height = size.height;
+    [self.commentLabel setFrame:frame];
     
+    [self addSubview:self.commentLabel];
+    
+    NSDictionary* hashAttr = @{NSForegroundColorAttributeName: [UIColor appGreenColor]};
+    NSDictionary* generalAttr = @{NSForegroundColorAttributeName: [UIColor appGrayColor],NSFontAttributeName: [UIFont appFontOfSize:12]};
+    
+    
+    [self.commentLabel setAttributes:hashAttr hotWord:0];
+    [self.commentLabel setAttributes:hashAttr hotWord:1];
+    [self.commentLabel setAttributes:hashAttr hotWord:2];
+    [self.commentLabel setAttributes:generalAttr];
+    
+    [self.commentLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
+        if(hotWord == 0){
+            [weakSelf selectedMention:string];
+        }else if(hotWord == 1){
+            [weakSelf selectedHashtag:string];
+        }else if(hotWord == 2){
+            [weakSelf selectedLink:string];
+        }
+    }];
 }
 
 - (void)selectedMention:(NSString *)string {

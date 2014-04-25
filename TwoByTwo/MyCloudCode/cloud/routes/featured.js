@@ -140,7 +140,8 @@ function getPhoto(req,resp) {
                     allPhotosData: allPhotosData,
                     page: page,
                     totalPhotos: count,
-                    totalPages: Math.floor(count/photosPerPage)
+                    totalPages: Math.floor(count/photosPerPage),
+                    socialImage: "http://www.2by2app.com/img?featured=true"
                 });             
             },
             error: function(object, error) {

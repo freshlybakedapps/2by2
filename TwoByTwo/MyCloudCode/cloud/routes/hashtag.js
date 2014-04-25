@@ -2,59 +2,31 @@ var photosPerPage = 32;
 var page = 0;
 
 exports.index = function(req, resp){
-	//console.log(req);
-	
-	if(req.query.u){
-		var currentUserID = req.query.u;
-		Parse.Cloud.useMasterKey();    
-		var query = new Parse.Query(Parse.User);  		
-	  		
-	  	query.get(currentUserID, {      
-			success: function(user) {		    	
-	          	getPhoto(req,resp,user,currentUserID);
-	       	},
-		    error: function(error) {
-		      	console.log(error);
-		    }
-		});
-	  }else{
-	  	getPhoto(req,resp,null,null);	
-	  }
-};
+	var Comment = Parse.Object.extend("Comment");
+	var commentQuery = new Parse.Query(Comment);
+	commentQuery.contains("text", "#"+req.params.hash);
 
-exports.withUserID = function(req, resp){
-    if(req.params.u){
-        var currentUserID = req.params.u;
-        Parse.Cloud.useMasterKey();    
-        var query = new Parse.Query(Parse.User);
+	commentQuery.find({
+            success: function(commentsArr) {
+            	var idArray = [];
 
-        console.log(currentUserID);
+            	
 
-        query.equalTo("username", currentUserID);
+            	for (var i = commentsArr.length - 1; i >= 0; i--) {
+            		//console.log(commentsArr[i].attributes.commentID);
+            		idArray.push(commentsArr[i].attributes.commentID);
+            	};
+            	getPhoto(req,resp,idArray);
 
-        query.find({
-            success: function(userArr) {
-                console.log(userArr.length);
-                getPhoto(req,resp,userArr[0],userArr[0].id);
             },
             error: function(object, error) {
                 // The object was not retrieved successfully.
                 // error is a Parse.Error with an error code and description.
                 console.log("error: ",error);
             }
-        });        
-        /*    
-        query.get(currentUserID, {      
-            success: function(user) {               
-                getPhoto(req,resp,user,currentUserID);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
-        */
-      }
-}
+    });
+	
+};
 
 function getDistance(lat1, lat2, lon1, lon2){
     var R = 6371; // km
@@ -68,45 +40,11 @@ function getDistance(lat1, lat2, lon1, lon2){
     return R * c;
 }
 
-function getPhoto(req,resp,user,id) { 
+function getPhoto(req,resp,idArray) { 
 	//console.log("Parse.User.current(): "+user);
-	var id = req.query.id;
-
-	var user2;
-
-    if(id){
-    	user2 = new Parse.User();
-		user2.id = id;  
-    }else{
-    	if(user){
-    		id = user.id;
-    	}else{
-    		//if there is no ID or U, the backend doesn't know which user is signed in and cannot display data
-    		resp.render('profile2', { 
-                    allPhotosData: null,
-                    page: 0,
-                    totalPhotos: 0,
-                    totalPages: 0
-                }); 
-    	}   	
-    }
-            
 	var Photo = Parse.Object.extend("Photo");
-	var query;
-    var query1 = new Parse.Query(Photo);
-    var query2 = new Parse.Query(Photo);
-
-	
-
-	if(user2){
-        query1.equalTo("user", user2);
-        query2.equalTo("user_full", user2);    
-        query = Parse.Query.or(query1, query2);		 
-	}else{
-		query1.equalTo("user", user);
-        query2.equalTo("user_full", user);    
-        query = Parse.Query.or(query1, query2);   
-	}    
+	var query = new Parse.Query(Photo);
+	query.containedIn("objectId", idArray);       
 
     query.count({
         success: function(count) {      
@@ -147,19 +85,13 @@ function getPhoto(req,resp,user,id) {
                     var username_half = data.user._serverData.username;
                     var username_full = "";
 
-                    if(user && username_half == user._serverData.username){
-                        //username_half = "You!";
-                    }
+                    
 
                     if(data.user_full){
                         username_full = data.user_full._serverData.username;
                     }
 
-                    //console.log(username_full+" / "+user._serverData.username);
-
-                    if(user && username_full == user._serverData.username){
-                        //username_full = "You!";
-                    }
+                    
                     
                     var imageURL = image._url;//.url                       
                     var likeLength = 0;
@@ -172,8 +104,6 @@ function getPhoto(req,resp,user,id) {
 
 
                     var locationHalf = data.location_half;
-                    var location_half_str = data.location_half_str;
-                    //location_half_str.replace(" ","");
 
 
                     //static maps doc: https://developers.google.com/maps/documentation/staticmaps/?csw=1#StyledMaps
@@ -181,12 +111,11 @@ function getPhoto(req,resp,user,id) {
                     //style map: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
                     //Get API key: https://cloud.google.com/console/project
 
-                    
+                    //http://www.2by2app.com/images/red.png
+                    //http://www.2by2app.com/images/green.png
                     
                     var markers = "";
 
-                    /*
-                    
                     if(data.location_half){
                         if(data.location_half._longitude == 0){
                             username_half+=" (?)";
@@ -205,52 +134,9 @@ function getPhoto(req,resp,user,id) {
                             markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
                         }
                     }
-                    */
-
-                    var locations = 0;
-
-                    
-                    if(data.location_half){
-                        if(data.location_half._longitude == 0){
-                            username_half+=" (?)";
-                        }else{
-                            if(location_half_str && location_half_str != ""){
-                                markers = "&markers=icon:http://www.2by2app.com/images/red.png%7Ccolor:0xff3366%7C"+encodeURIComponent(location_half_str);
-                                locations++;
-                            }
-                            //markers += "&visible="+(locationHalf._latitude+0.01)+","+(locationHalf._longitude+0.01);
-                        }
-                    }                       
-
-                    if(data.state == "full" && data.location_full){
-                        var locationFull = data.location_full;
-                        if(locationFull._longitude == 0){
-                            username_full+=" (?)";
-                        }else{
-                            var location_full_str = data.location_full_str;
-
-                            if(location_full_str && location_full_str != ""){
-                                markers+="&markers=icon:http://www.2by2app.com/images/green.png%7Ccolor:0x00cc99%7C"+encodeURIComponent(location_full_str);
-                                locations++;
-                            }
-                            //markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
-                        }
-                    }
-                    
-
-                    //markers = encodeURIComponent(markers);
                     //&center=Brooklyn+Bridge,New+York,NY&zoom=13
                     var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
                     
-                    if(locations == 0){
-                        if(data.state == "full"){
-                            mapImageURL = "/markup/img/NoLocationSharedBoth@2x.png";
-                        }else{
-                            mapImageURL = "/markup/img/NoLocationShared@2x.png";
-                        }
-                        
-                    }
-
 
                     photoData.imageURL = imageURL;
                     photoData.likeLength = likeLength;
@@ -258,7 +144,7 @@ function getPhoto(req,resp,user,id) {
                     photoData.mapImageURL = mapImageURL;
                     photoData.user = data.user;                         
                     photoData.userFull = data.user_full;                            
-                    photoData.currentUser = user;
+                    photoData.currentUser = null;
                     photoData.username_half = username_half;
                     photoData.username_full = username_full;
 
@@ -272,12 +158,12 @@ function getPhoto(req,resp,user,id) {
 
                 
 
-                resp.render('profile2', { 
+                resp.render('hashtag', { 
                     allPhotosData: allPhotosData,
                     page: page,
                     totalPhotos: count,
                     totalPages: Math.floor(count/photosPerPage),
-                    socialImage:allPhotosData[0].imageURL
+                    socialImage: "http://www.2by2app.com/img?featured=true"
                 });             
             },
             error: function(object, error) {

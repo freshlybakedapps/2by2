@@ -485,7 +485,7 @@ $(function () {
                                         html+='<li>';
                                             ////<a href="profile?id='+data.user.id+'">'+username_half+'</a>'
                                         
-                                            html+='<a href="/profile/'+sserverData.username+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
+                                            html+='<a href="/profile/'+serverData.username+'"><img src="https://graph.facebook.com/'+serverData.facebookId+'/picture?type=square" class="avatar" /></a>';
                                             html+='<div class="comment-data">';
                                                 html+='<h3><a href="#">'+serverData.username+'</a></h3>';
                                                 html+='<p>';

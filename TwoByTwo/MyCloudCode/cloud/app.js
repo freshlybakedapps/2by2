@@ -20,6 +20,9 @@ var termsController = require('cloud/routes/terms.js');
 var locationsController = require('cloud/routes/locations.js');
 var locationsController2 = require('cloud/routes/locations2.js');
 var featuredController = require('cloud/routes/featured.js');
+var imageController = require('cloud/routes/img.js');
+
+var hashtagController = require('cloud/routes/hashtag.js');
 
 app.get('/', indexController.index);
 app.get('/index', indexController.index);
@@ -38,6 +41,9 @@ app.get('/terms', termsController.index);
 app.get('/locations2',locationsController.index);
 app.get('/locations',locationsController2.index);
 app.get('/featured',featuredController.index);
+
+app.get('/img',imageController.index);
+app.get('/hashtag/:hash',hashtagController.index);
 
 
 
