@@ -97,6 +97,12 @@
         case FeedTypeGlobal:
             self.textLabel.text = @"There are no double exposure photos right now. \n\n2by2 is more fun with friends and family, invite them to join.";
             break;
+        case FeedTypeHashtag:
+            if(!self.showingDouble){
+                self.textLabel.text = @"There are no single shots to double expose right now. \n\nThis is a great time to invite new friends to join 2by2";
+            }else{
+                self.textLabel.text = @"This hashtag has no double shots right now. \n\nThis is a great time to invite new friends to join 2by2";
+            }            break;
         default:
             self.textLabel.text = @"";
             break;

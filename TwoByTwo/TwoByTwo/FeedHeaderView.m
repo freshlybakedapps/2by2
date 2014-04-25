@@ -92,6 +92,12 @@ static CGFloat const kHeaderHeightWithoutMessage = 80.0;
             self.exposureLabel.hidden = YES;
             self.exposureToggleButton.hidden = YES;
             break;
+        case FeedTypeHashtag:
+            self.titleLabel.text = @"#hashtag";
+            //self.messageLabel.text = @"All of your activity is collected here to help keep track of who and from where people are interacting with your photos. (This notice will go away upon closing)";
+            self.exposureLabel.hidden = NO;
+            self.exposureToggleButton.hidden = NO;
+            break;
             
         default:
             self.titleLabel.text = @"";
@@ -99,6 +105,10 @@ static CGFloat const kHeaderHeightWithoutMessage = 80.0;
             self.exposureLabel.hidden = YES;
             self.exposureToggleButton.hidden = YES;
             break;
+    }
+    
+    if(self.title){
+        self.titleLabel.text = self.title;
     }
     
     self.titleLabel.text = [self.titleLabel.text uppercaseString];

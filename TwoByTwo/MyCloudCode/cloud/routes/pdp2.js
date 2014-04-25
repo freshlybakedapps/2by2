@@ -19,6 +19,7 @@ exports.index = function(req, resp){
 	  }
 };
 
+
 function getPhoto(req,resp,user) { 
 	console.log("Parse.User.current(): "+user);
 

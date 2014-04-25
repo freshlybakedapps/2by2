@@ -21,6 +21,7 @@ static NSUInteger const kQueryBatchSize = 20;
 
 @interface FeedViewController () <FeedCellDelegate, FeedHeaderViewDelegate>
 @property (nonatomic, strong) NSMutableArray *objects;
+@property (nonatomic, strong) NSMutableArray *hashPhotoIds;
 @property (nonatomic, strong) NSArray *followers;
 @property (nonatomic) NSUInteger totalNumberOfObjects;
 @property (nonatomic) NSUInteger queryOffset;
@@ -51,8 +52,10 @@ static NSUInteger const kQueryBatchSize = 20;
         }];
     }
     
+    self.showingDouble = YES;
+    
     if (self.hashtag) {
-        self.title = self.hashtag;
+        self.title = @"Hashtag";//self.hashtag;
     }
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView"];
@@ -106,10 +109,35 @@ static NSUInteger const kQueryBatchSize = 20;
     if (self.type == FeedTypeFollowing || self.type == FeedTypeGlobal) {
         [self loadFollowers];
     }
-    else {
+    else if(self.type == FeedTypeHashtag){
+        [self loadComments];
+    }else{
         [self loadPhotos];
     }
 }
+
+
+- (void)loadComments
+{
+    self.hashPhotoIds = [NSMutableArray new];
+    
+    PFQuery *query = [PFQuery queryWithClassName:PFCommentClass];
+    [query whereKey:@"text" containsString:self.hashtag];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (int i=0; i<objects.count; i++) {
+                PFObject* comment = [objects objectAtIndex:i];
+                [self.hashPhotoIds addObject:[comment objectForKey:@"commentID"]];
+            }
+            [self loadPhotos];
+        }
+        else {
+            NSLog(@"loadFollowers error: %@", error);
+        }
+    }];
+}
+
 
 - (void)loadFollowers
 {
@@ -180,8 +208,9 @@ static NSUInteger const kQueryBatchSize = 20;
             
         case FeedTypeHashtag: {
             query = [PFQuery queryWithClassName:PFPhotoClass];
-            [query whereKey:PFStateKey equalTo:PFStateValueHalf];
-            [query whereKey:PFUserKey notEqualTo:[PFUser currentUser]];
+            NSLog(@"hashPhotoIds: %@",self.hashPhotoIds);
+            [query whereKey:@"objectId" containedIn:self.hashPhotoIds];
+            [query whereKey:PFStateKey equalTo:(self.showingDouble) ? PFStateValueFull : PFStateValueHalf];
             break;
         }
             
@@ -364,8 +393,15 @@ static NSUInteger const kQueryBatchSize = 20;
                 
             default: {
                 FeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView" forIndexPath:indexPath];
+                
+                
+                if(self.type == FeedTypeHashtag && self.hashtag){
+                    headerView.title = [NSString stringWithFormat:@"%@",self.hashtag];
+                }
+                
                 headerView.type = self.type;
                 headerView.delegate = self;
+                
                 return headerView;
             }
         }

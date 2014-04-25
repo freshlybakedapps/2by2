@@ -163,7 +163,8 @@ function getPhoto(req,resp,idArray) {
                     page: page,
                     totalPhotos: count,
                     totalPages: Math.floor(count/photosPerPage),
-                    socialImage: "http://www.2by2app.com/img?featured=true"
+                    socialImage: "http://www.2by2app.com/img?featured=true",
+                    hasgtag:req.params.hash
                 });             
             },
             error: function(object, error) {

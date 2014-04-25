@@ -10,6 +10,8 @@ if(Parse.User.current()){
     $("#fullname").attr("href","/profile/"+Parse.User.current().attributes.username); 
 }
 
+
+
 // Avoid `console` errors in browsers that lack a console.
 (function() {
     var method;

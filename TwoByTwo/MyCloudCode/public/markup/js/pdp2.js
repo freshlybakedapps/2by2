@@ -246,6 +246,44 @@ $(function () {
             }
         },
 
+        // convert twitter links in messages to text
+        twitterLinks: function(text) {
+            var base_url = 'http://www.2by2app.com';   // identica: 'http://identi.ca/'
+            var hashtag_part = '/hashtag/';        // identica: 'tag/'
+            var mention_part = '/profile/';
+            // convert URLs into links
+            text = text.replace(
+                /(>|<a[^<>]+href=['"])?(https?:\/\/([-a-z0-9]+\.)+[a-z]{2,5}(\/[-a-z0-9!#()\/?&.,]*[^ !#?().,])?)/gi,
+                function($0, $1, $2) {
+                    return ($1 ? $0 : '<a href="' + $2 + '" target="_blank">' + $2 + '</a>');
+                });
+            // convert protocol-less URLs into links        
+            text = text.replace(
+                /(:\/\/|>)?\b(([-a-z0-9]+\.)+[a-z]{2,5}(\/[-a-z0-9!#()\/?&.]*[^ !#?().,])?)/gi,
+                function($0, $1, $2) {
+                    return ($1 ? $0 : '<a href="http://' + $2 + '">' + $2 + '</a>');
+                });
+            // convert @mentions into follow links
+            text = text.replace(
+                /(:\/\/|>)?(@([_a-z0-9\-]+))/gi,
+                function($0, $1, $2, $3) {
+                    return ($1 ? $0 : '<a href="' + base_url + mention_part + $3
+                        + '" title="Follow ' + $3 + '" target="_blank">@' + $3
+                        + '</a>');
+                });
+            // convert #hashtags into tag search links
+            text = text.replace(
+                /(:\/\/[^ <]*|>)?(\#([_a-z0-9\-]+))/gi,
+                function($0, $1, $2, $3) {
+                    //$3.replace("#","");
+                    return ($1 ? $0 : '<a href="' + base_url + hashtag_part + $3
+                        + '" title="Search tag: ' + $3 + '" target="_blank">#' + $3
+                        + '</a>');
+                });
+            return text;
+        },
+
+
         centerImage: function(){
             $('.picture > .picture-wrapper').each(function(){
                 var width = $(this).width();
@@ -481,6 +519,8 @@ $(function () {
                                     for (var i = 0; i < arr.length; i++) {
                                         
                                         var serverData = arr[i]._serverData;
+                                        var c = that.twitterLinks(serverData.text);
+
                                         console.log("photo comment: ",serverData.text,serverData.username,serverData.facebookId);
                                         html+='<li>';
                                             ////<a href="profile?id='+data.user.id+'">'+username_half+'</a>'
@@ -489,7 +529,7 @@ $(function () {
                                             html+='<div class="comment-data">';
                                                 html+='<h3><a href="#">'+serverData.username+'</a></h3>';
                                                 html+='<p>';
-                                                    html+=serverData.text;
+                                                    html+=c;
                                                 html+='</p>';
                                             html+='</div>';
                                         html+='</li>';

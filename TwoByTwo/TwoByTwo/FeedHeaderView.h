@@ -28,6 +28,8 @@
 @property (nonatomic) FeedType type;
 @property (nonatomic, weak) id <FeedHeaderViewDelegate> delegate;
 
+@property (nonatomic,weak) NSString *title;
+
 + (CGFloat)headerHeightForType:(FeedType)type;
 
 @end
