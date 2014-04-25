@@ -21,18 +21,13 @@ var locationsController = require('cloud/routes/locations.js');
 var locationsController2 = require('cloud/routes/locations2.js');
 var featuredController = require('cloud/routes/featured.js');
 var imageController = require('cloud/routes/img.js');
-
 var hashtagController = require('cloud/routes/hashtag.js');
+var feedController = require('cloud/routes/feed.js');
 
 app.get('/', indexController.index);
 app.get('/index', indexController.index);
-//app.get('/profile', profileController.index);
 app.get('/profile', profileController2.index);
 app.get('/profile/:u', profileController2.withUserID);
-
-
-
-//app.get('/pdp', pdpController.index);
 app.get('/pdp', pdpController2.index);
 app.get('/pdp/:id', pdpController2.index);
 app.get('/about', aboutController.index);
@@ -41,9 +36,9 @@ app.get('/terms', termsController.index);
 app.get('/locations2',locationsController.index);
 app.get('/locations',locationsController2.index);
 app.get('/featured',featuredController.index);
-
 app.get('/img',imageController.index);
 app.get('/hashtag/:hash',hashtagController.index);
+app.get('/feed/:type',feedController.index);
 
 
 
