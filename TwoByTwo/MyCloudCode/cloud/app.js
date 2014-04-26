@@ -39,6 +39,7 @@ app.get('/featured',featuredController.index);
 app.get('/img',imageController.index);
 app.get('/hashtag/:hash',hashtagController.index);
 app.get('/feed/:type',feedController.index);
+app.get('/feed/:type/:extra',feedController.index);
 
 
 

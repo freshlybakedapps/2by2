@@ -5,4 +5,6 @@
 	<% if(page < totalPages){ %>              
 	    <a class="next" totalPhotos="<%= totalPhotos %>" totalPages="<%= totalPages %>" href=""> next -></a>
 	<% } %>
+
+	<br>Page <%= Number(page)+1 %> out of <%= Number(totalPages)+1 %> (<%= totalPhotos %> photos)
 </section>

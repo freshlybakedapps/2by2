@@ -23,13 +23,15 @@
             <div class="user-list">
                 <nav>
                     <ul>
-                        <li>
-                            <span></span> <a href="/profile/<%= allPhotosData[i].user._serverData.username %>"><%= allPhotosData[i].username_half %></a>
-                        </li>
+                        <% if (allPhotosData[i].user) { %>
+                            <li>
+                                <span></span> <a href="/profile/<%= allPhotosData[i].user._serverData.username %>"><%= allPhotosData[i].username_half %></a>
+                            </li>
+                        <% } %>
                         
                         <% if (allPhotosData[i].userFull) { %>
                             <li>
-                            <span></span> <a href="/profile/<%= allPhotosData[i].userFull._serverData.username %>"><%= allPhotosData[i].username_full %></a>
+                                <span></span> <a href="/profile/<%= allPhotosData[i].userFull._serverData.username %>"><%= allPhotosData[i].username_full %></a>
                             </li>
                         <% } %>
                         

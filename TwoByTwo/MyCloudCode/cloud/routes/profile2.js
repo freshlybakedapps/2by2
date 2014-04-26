@@ -144,26 +144,35 @@ function getPhoto(req,resp,user,id) {
                         image = data.image_half;
                     }
                     
-                    var username_half = data.user._serverData.username;
+                    var username_half = "";
+                    
+                    if(data.user && data.user._serverData){
+                        username_half = data.user._serverData.username;
+                    }
+                    
                     var username_full = "";
 
+                    /*
                     if(user && username_half == user._serverData.username){
                         //username_half = "You!";
                     }
+                    */
 
-                    if(data.user_full){
+                    if(data.user_full && data.user_full._serverData){
                         username_full = data.user_full._serverData.username;
                     }
 
                     //console.log(username_full+" / "+user._serverData.username);
 
+                    /*
                     if(user && username_full == user._serverData.username){
                         //username_full = "You!";
                     }
+                    */
                     
                     var imageURL = image._url;//.url                       
                     var likeLength = 0;
-                    if(photosArr[i]._serverData.likes){
+                    if(photosArr[i] && photosArr[i]._serverData.likes){
                         likeLength = photosArr[i]._serverData.likes.length;
 
                         //that.getLikesInfo(photosArr[i]._serverData.likes);

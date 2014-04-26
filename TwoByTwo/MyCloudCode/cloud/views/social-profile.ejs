@@ -11,10 +11,14 @@
 	<script type="text/javascript">
             var tumblr_photo_source = "<%= allPhotosData[i].imageURL %>";
 
-            var tumblr_photo_caption = "2by2 photo by <%= allPhotosData[i].user._serverData.username %>";
+            var tumblr_photo_caption = "";
 
-            <% if(allPhotosData[i].userFull){ %> 
-            var tumblr_photo_caption = "2by2 photo by <%= allPhotosData[i].user._serverData.username %> and <%= allPhotosData[i].userFull._serverData.username %>";
+            <% if(allPhotosData[i].user){ %> 
+            tumblr_photo_caption = "2by2 photo by <%= allPhotosData[i].user._serverData.username %>";
+            <% } %>
+
+            <% if(allPhotosData[i].userFull && allPhotosData[i].user){ %> 
+            tumblr_photo_caption = "2by2 photo by <%= allPhotosData[i].user._serverData.username %> and <%= allPhotosData[i].userFull._serverData.username %>";
             <% } %>
 
             var tumblr_photo_click_thru = "http://2by2app.com/pdp/<%= allPhotosData[i].photoID %>";

@@ -73,10 +73,11 @@
               var likes = {
                 'likes': [
                   <% for(var i=0; i<20; i++) {%>
-                                        
+                          <% if(likesArr[i]){ %>               
                           {
                             'info': "http://www.2by2app.com/pdp/<%= likesArr[i].photo.id %> (<%= likesArr[i].filter %>) - <%= likesArr[i].counter %>",
                           },
+                          <% }%>
                                                           
                   <% }%>                
                 ]

@@ -31,8 +31,8 @@ function getLocations(resp,count,skip){
     //photoquery.doesNotExist("location_half_str");
 
     Parse.Cloud.useMasterKey();
-    //photoquery.include("user");
-    //photoquery.include("user_full");
+    photoquery.include("user");
+    photoquery.include("user_full");
 
     //photoquery.include(["user.id"]);
     //photoquery.include(["user_full.id"]);
@@ -41,7 +41,7 @@ function getLocations(resp,count,skip){
 
     //photoquery.include("likes");
 
-    photoquery.select("location_half", "location_full");
+    //photoquery.select("location_half", "location_full");
     
     photoquery.limit(1000); 
     photoquery.skip(skip);
@@ -149,18 +149,18 @@ function getLocations(resp,count,skip){
             
             //resp.render('locations',{});
 
-            resp.render('locations', { likesArr:null,users:null,latLongArr:latLongArr, locations:  uniqueArr.sort(compare),totalPhotos:count});
+            resp.render('locations', { likesArr:likesArr.sort(compare),users:uniqueUserArr.sort(compare),latLongArr:latLongArr, locations:  uniqueArr.sort(compare),totalPhotos:count});
 
             /*
             resp.render('locations', { 
               likesArr:likesArr.sort(compare),
               users:uniqueUserArr.sort(compare),
               latLongArr:latLongArr,
-              mapURL: getMapURL(uniqueArr.sort(compare)), 
               locations:  uniqueArr.sort(compare),
               totalPhotos:count
             });
             */
+            
           }            
         
       },

@@ -7,12 +7,25 @@ exports.index = function(req, resp){
 
 function getPhoto(req,resp,user,id) { 
 	var Photo = Parse.Object.extend("Photo");	
+    var query1 = new Parse.Query(Photo);
+    var query2 = new Parse.Query(Photo);
     var query = new Parse.Query(Photo);
     
     if(req.params.type && req.params.type == "single"){
         query.equalTo("state", "half");
     }else if(req.params.type && req.params.type == "public"){
         query.equalTo("state", "full");
+    }else if(req.params.type && req.params.extra && req.params.type == "filter"){
+        query.contains("filter", req.params.extra);
+    }else if(req.params.type && req.params.extra && req.params.type == "comments"){
+        //query.contains("filter", req.params.extra);
+        query.greaterThanOrEqualTo("comment_count", req.params.extra);
+    }else if(req.params.type && req.params.type == "featured"){
+        query.equalTo("featured", true);
+    }else if(req.params.type && req.params.extra && req.params.type == "location"){
+        query1.contains("location_half_str", req.params.extra);
+        query2.contains("location_full_str", req.params.extra);
+        query = Parse.Query.or(query1, query2); 
     }
 
     query.count({
@@ -25,8 +38,7 @@ function getPhoto(req,resp,user,id) {
     }).then(function(count) {
         query.include("user");
         query.include("user_full");
-        query.descending("createdAt");    
-        
+        query.descending("createdAt");  
         query.limit(photosPerPage);
 
         if(req.query.page){
@@ -51,7 +63,11 @@ function getPhoto(req,resp,user,id) {
                         image = data.image_half;
                     }
                     
-                    var username_half = data.user._serverData.username;
+                    var username_half = "";
+                    if(data.user){
+                        data.user._serverData.username;
+                    }
+                    
                     var username_full = "";
 
                     if(user && username_half == user._serverData.username){
@@ -154,15 +170,19 @@ function getPhoto(req,resp,user,id) {
                 }
 
 
-                
+                if(allPhotosData.length > 0){
+                        resp.render('profile2', { 
+                        allPhotosData: allPhotosData,
+                        page: page,
+                        totalPhotos: count,
+                        totalPages: Math.floor(count/photosPerPage),
+                        socialImage:allPhotosData[0].imageURL
+                    });   
+                }else{
+                    resp.send("No photos available for this query");
+                }
 
-                resp.render('profile2', { 
-                    allPhotosData: allPhotosData,
-                    page: page,
-                    totalPhotos: count,
-                    totalPages: Math.floor(count/photosPerPage),
-                    socialImage:allPhotosData[0].imageURL
-                });             
+                          
             },
             error: function(object, error) {
                 // The object was not retrieved successfully.
