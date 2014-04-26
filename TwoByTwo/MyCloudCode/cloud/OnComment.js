@@ -42,6 +42,9 @@ exports.main = function(request, response){
 
   console.log("objid: "+objid);
 
+
+
+
   
   /*
   comment[@"text"] = t;
@@ -60,6 +63,18 @@ exports.main = function(request, response){
       var user = photo.get("user");
       
       var photoUserID = user.id;
+
+      var mentionArray = commentText.match(/(:\/\/|>)?(@([_a-z0-9\-]+))/gi);
+
+      if(mentionArray.length > 0){
+        for (var i = mentionArray.length - 1; i >= 0; i--) {
+          var mention = mentionArray[i].replace("#","");
+          
+          var msg = username + " just mentioned you on a photo.";
+          
+          Notifications.sendNotifications(null,"comment",photoUserID,msg,msg,msg,commentID,"",userID,username,msg);
+        };
+      }
 
 
       //if we need to know if commenter is a facebook friend

@@ -48,7 +48,9 @@ $(function () {
                 }
             }
 
-			if(Parse.User.current() || $.query.get("id")){
+
+
+			if($.query.get("id")){
                 this.getPhotos();
                 
             }else{
