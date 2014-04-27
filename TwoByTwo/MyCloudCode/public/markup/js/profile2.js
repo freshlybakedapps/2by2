@@ -61,7 +61,12 @@ $(function () {
 
                 query.find({
                     success: function(users) {
-                        that.getPhotos(users[0].id);
+                        if(users.length > 0){
+                            that.getPhotos(users[0].id);
+                        }else{
+                            that.getPhotos();
+                        }
+                        
                     },
                     error: function(object, error) {
                         // The object was not retrieved successfully.
@@ -395,7 +400,10 @@ $(function () {
             query1.equalTo("user", user);
             query2.equalTo("user_full", user);    
             
-            query = Parse.Query.or(query1, query2);  
+            query = Parse.Query.or(query1, query2);
+
+            query.include("user");
+            query.include("user_full");
 			
 			query.descending("createdAt");
 			

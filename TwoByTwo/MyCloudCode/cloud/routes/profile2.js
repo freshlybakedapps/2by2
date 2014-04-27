@@ -144,7 +144,7 @@ function getPhoto(req,resp,user,id) {
                         image = data.image_half;
                     }
                     
-                    var username_half = "";
+                    var username_half = ".";
                     
                     if(data.user && data.user._serverData){
                         username_half = data.user._serverData.username;
