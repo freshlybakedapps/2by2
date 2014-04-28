@@ -18,14 +18,21 @@ function getPhoto(req,resp,user,id) {
     }else if(req.params.type && req.params.extra && req.params.type == "filter"){
         query.contains("filter", req.params.extra);
     }else if(req.params.type && req.params.extra && req.params.type == "comments"){
-        //query.contains("filter", req.params.extra);
         query.greaterThanOrEqualTo("comment_count", req.params.extra);
+    }else if(req.params.type && req.params.extra && req.params.type == "likes"){
+        query.greaterThanOrEqualTo("likes", req.params.extra);
     }else if(req.params.type && req.params.type == "featured"){
         query.equalTo("featured", true);
     }else if(req.params.type && req.params.extra && req.params.type == "location"){
         query1.contains("location_half_str", req.params.extra);
         query2.contains("location_full_str", req.params.extra);
         query = Parse.Query.or(query1, query2); 
+    }else if(req.params.type && req.params.extra && req.params.type == "user"){
+        var userQuery = new Parse.Query(Parse.User);
+        userQuery.equalTo("username", req.params.extra);
+        query1.matchesQuery("user", userQuery);
+        query2.matchesQuery("user_full", userQuery);
+        query = Parse.Query.or(query1, query2);
     }
 
     query.count({

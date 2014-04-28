@@ -78,37 +78,15 @@ Parse.Cloud.define("CreateThumbnails", function(request, response) {
 //CRON JOBS
 ///////////////////////////////////////////////////////////////////
 
-var WeeklyDigest1 = require('cloud/WeeklyDigest_0_to_1000.js');
-Parse.Cloud.job("weeklyDigestEmail1", function(request, status) {
+var WeeklyDigestXXX = require('cloud/WeeklyDigestXXX.js');
+Parse.Cloud.job("weeklyDigestEmailXXX", function(request, status) {
   //if Monday
   if(new Date().getDay() == 1){
-    WeeklyDigest1.main(request, status);
+    WeeklyDigestXXX.main(request, status);
   }else{
     status.success("Only run this on Sundays and today is not Sunday");
   } 
 });
-
-var WeeklyDigest2 = require('cloud/WeeklyDigest_1000_to_2000.js');
-Parse.Cloud.job("weeklyDigestEmail2", function(request, status) {
-  //if Monday
-  if(new Date().getDay() == 1){
-    WeeklyDigest2.main(request, status);
-  }else{
-    status.success("Only run this on Sundays and today is not Sunday");
-  } 
-});
-
-var WeeklyDigest3 = require('cloud/WeeklyDigest_2000_to_3000.js');
-Parse.Cloud.job("weeklyDigestEmail3", function(request, status) {
-  //if Monday
-  if(new Date().getDay() == 1){
-    WeeklyDigest3.main(request, status);
-  }else{
-    status.success("Only run this on Sundays and today is not Sunday");
-  } 
-});
-
-
 
 var FixPhotoState = require('cloud/FixPhotoState.js');
 Parse.Cloud.job("fixPhotoState", function(request, status) {

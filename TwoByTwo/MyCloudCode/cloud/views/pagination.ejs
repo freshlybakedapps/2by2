@@ -6,5 +6,7 @@
 	    <a class="next" totalPhotos="<%= totalPhotos %>" totalPages="<%= totalPages %>" href=""> next -></a>
 	<% } %>
 
-	<br>Page <%= page %> out of <%= totalPages %> (<%= totalPhotos %> photos)
+	<% if(totalPages > 0){ %>   
+		<br>Page <%= page %> out of <%= totalPages %> (<%= totalPhotos %> photos)
+	<% } %>
 </section>
