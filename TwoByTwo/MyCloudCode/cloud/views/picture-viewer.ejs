@@ -22,13 +22,23 @@
         <div class="user-list">
             <nav>
                 <ul>
-                    <li>
-                        <span></span> <a href="/profile/<%= user._serverData.username %>"><%= username_half %></a>
-                    </li>
+                    <% if (user) { %>
+                        <li>
+                            <span></span> <a href="/profile/<%= user._serverData.username %>"><%= username_half %></a>
+                        </li>
+                    <% }else{ %>
+                        <li>
+                            <span></span> <a href="#">unknown</a>
+                        </li>
+                    <% } %>
                     
                     <% if (userFull) { %>
                         <li>
                         <span></span> <a href="/profile/<%= userFull._serverData.username %>"><%= username_full %></a>
+                        </li>
+                    <% }else{ %>
+                        <li>
+                            <span></span> <a href="#">unknown</a>
                         </li>
                     <% } %>
                     

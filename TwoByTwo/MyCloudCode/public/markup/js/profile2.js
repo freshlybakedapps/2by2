@@ -215,7 +215,23 @@ $(function () {
 
                         // If it's a new user, let's fetch their name from FB
                         if (!user.existed()) {
-                            //NEW USER
+                            FB.api('/me', null, function(response) {
+                                console.log(response);
+
+                                user.set("username", response.first_name+response.last_name);
+                                user.set("email", response.email);
+                                user.set("facebookId", response.id);
+
+                                user.save(null, {
+                                    success: function (n) {
+                                        console.log("saved successfully");
+
+                                    },
+                                    error: function (item,error) {
+                                        console.log("User save error: " + error.message);
+                                    }
+                                });
+                            });                            
                         }else {
                             FB.api('/me', function (response) {
                                 if (!response.error) {

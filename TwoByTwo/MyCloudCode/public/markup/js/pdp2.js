@@ -162,7 +162,7 @@ $(function () {
 
             $('#signin').click(function (e) {
 
-                Parse.FacebookUtils.logIn(null, {
+                Parse.FacebookUtils.logIn('email,user_about_me', {
                     success: function (user) {
                         $("#fullname").html(Parse.User.current().changed.fullName);
                         $('#signin').hide();
@@ -174,12 +174,36 @@ $(function () {
                             $(".picture-data").hide();
                         }else{
                             $(".picture-data").show();
+                        }
+
+                        //console.log(response);
+
+                        if (!user.existed()) {
+                            
+
+                            FB.api('/me', null, function(response) {
+                                console.log(response);
+
+                                user.set("username", response.first_name+response.last_name);
+                                user.set("email", response.email);
+                                user.set("facebookId", response.id);
+
+                                user.save(null, {
+                                    success: function (n) {
+                                        console.log("saved successfully");
+
+                                    },
+                                    error: function (item,error) {
+                                        console.log("User save error: " + error.message);
+                                    }
+                                });
+                            });
                         }            
                         
                         that.getPhoto();
                     },
                     error: function (user, error) {
-                        console.log("Oops, something went wrong.");
+                        console.log("Oops, something went wrong.", error);
                     }
                 });
 

@@ -75,7 +75,7 @@ function main(request, status,count,skip) {
   query.limit(1000);
   query.skip(skip);
   
-  
+  //http://stackoverflow.com/questions/22275508/parse-com-cloud-job-promise-with-nested-query
   
   query.find().then(function(users) {
       if(users == 0){
@@ -139,6 +139,8 @@ function main(request, status,count,skip) {
                           var msg = "You took "+arr.length+" photos this week";
                           var htmlMsg = weeklyMsg(fullName,arr,fullPhotos,totalLikes,followers,locations);
                           var subject = "2by2 weekly digest";
+
+
 
 
                           Parse.Cloud.httpRequest({ method: 'POST', headers: {

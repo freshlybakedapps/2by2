@@ -9,9 +9,13 @@
 	<script type="text/javascript">
             var tumblr_photo_source = "<%= imageURL %>";
 
-            var tumblr_photo_caption = "2by2 photo by <%= user._serverData.username %>";
+            var tumblr_photo_caption = "2by2 photo";
 
-            <% if(userFull){ %> 
+            <% if(user){ %> 
+            var tumblr_photo_caption = "2by2 photo by <%= user._serverData.username %>";
+            <% } %>
+
+            <% if(userFull && user){ %> 
             var tumblr_photo_caption = "2by2 photo by <%= user._serverData.username %> and <%= userFull._serverData.username %>";
             <% } %>
 

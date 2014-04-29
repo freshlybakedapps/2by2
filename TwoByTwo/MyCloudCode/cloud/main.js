@@ -84,7 +84,7 @@ Parse.Cloud.job("weeklyDigestEmailXXX", function(request, status) {
   if(new Date().getDay() == 1){
     WeeklyDigestXXX.main(request, status);
   }else{
-    status.success("Only run this on Sundays and today is not Sunday");
+    status.success("Only run this on Monday and today is not Monday");
   } 
 });
 
