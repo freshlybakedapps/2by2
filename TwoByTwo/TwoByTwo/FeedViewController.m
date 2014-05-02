@@ -14,6 +14,7 @@
 #import "FeedHeaderView.h"
 #import "FeedProfileHeaderView.h"
 #import "FeedFooterView.h"
+#import "AppDelegate.h"
 
 
 static NSUInteger const kQueryBatchSize = 20;
@@ -65,8 +66,18 @@ static NSUInteger const kQueryBatchSize = 20;
     [self.collectionView registerNib:[UINib nibWithNibName:@"ThumbCell" bundle:nil] forCellWithReuseIdentifier:@"ThumbCell"];
     
     
-    // Load Data
-    [self performQuery];
+    // Load Data    
+    AppDelegate* delegate = [AppDelegate delegate];
+    if(delegate.pdpID){
+        PDPViewController *controller = [PDPViewController controller];
+        controller.photoID = delegate.pdpID;
+        [self.navigationController pushViewController:controller animated:YES];
+        delegate.pdpID = nil;
+    }else{
+        [self performQuery];
+    }
+    
+    
 }
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
@@ -257,6 +268,8 @@ static NSUInteger const kQueryBatchSize = 20;
                     [self.collectionView insertItemsAtIndexPaths:indexPaths];
                     
                     //[self.collectionView deleteItemsAtIndexPaths:indexPaths];
+                    
+                    
                    
                 } completion:nil];
             }

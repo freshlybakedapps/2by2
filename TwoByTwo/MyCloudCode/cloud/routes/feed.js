@@ -40,7 +40,8 @@ function getPhoto(req,resp,user,id) {
             return count;
         },
         error: function(error) {
-            console.log("Uh oh, something went wrong.");
+            resp.render('error', {error: error});
+            //console.log("Uh oh, something went wrong.");
         }
     }).then(function(count) {
         query.include("user");
@@ -186,7 +187,8 @@ function getPhoto(req,resp,user,id) {
                         socialImage:allPhotosData[0].imageURL
                     });   
                 }else{
-                    resp.send("No photos available for this query");
+                    //resp.send("No photos available for this query");
+                    resp.render('error', {error: "No photos available for this query"});
                 }
 
                           
@@ -194,7 +196,8 @@ function getPhoto(req,resp,user,id) {
             error: function(object, error) {
                 // The object was not retrieved successfully.
                 // error is a Parse.Error with an error code and description.
-                console.log("error: ",error);
+                //console.log("error: ",error);
+                resp.render('error', {error: error});
             }
         });
     });  

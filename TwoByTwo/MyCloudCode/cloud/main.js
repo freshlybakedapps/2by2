@@ -88,6 +88,21 @@ Parse.Cloud.job("weeklyDigestEmailXXX", function(request, status) {
   } 
 });
 
+var TurnOffWeeklyDigest = require('cloud/TurnOffWeeklyDigest.js');
+Parse.Cloud.job("TurnOffWeeklyDigest", function(request, status) {
+  TurnOffWeeklyDigest.main(request, status);
+});
+
+var FixUserNames = require('cloud/FixUserNames.js');
+Parse.Cloud.job("FixUserNames", function(request, status) {
+  FixUserNames.main(request, status);
+});
+
+var EncodeUserNames = require('cloud/EncodeUserNames.js');
+Parse.Cloud.job("EncodeUserNames", function(request, status) {
+  EncodeUserNames.main(request, status);
+});
+
 var FixPhotoState = require('cloud/FixPhotoState.js');
 Parse.Cloud.job("fixPhotoState", function(request, status) {
   FixPhotoState.main(request, status);

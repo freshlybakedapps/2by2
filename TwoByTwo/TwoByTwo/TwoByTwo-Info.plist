@@ -30,6 +30,14 @@
 				<string>fb217295185096733</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.freshlybakedapps.TwoByTwo</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>twobytwo</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.02</string>

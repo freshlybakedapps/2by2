@@ -210,7 +210,7 @@ static NSString * const FacebookIDKey = @"id";
                         [PFUser currentUser].commentsEmailAlert = NO;
                         [PFUser currentUser].overexposeEmailAlert = NO;
                         [PFUser currentUser].friendTookPhotoEmailAlert = NO;
-                        [PFUser currentUser].digestEmailAlert = YES;
+                        [PFUser currentUser].digestEmailAlert = NO;
 
                         [PFUser currentUser].overexposePushAlert = YES;
                         [PFUser currentUser].likesPushAlert = YES;

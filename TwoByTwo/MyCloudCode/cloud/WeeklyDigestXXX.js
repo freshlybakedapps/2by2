@@ -78,7 +78,7 @@ function main(request, status,count,skip) {
   //http://stackoverflow.com/questions/22275508/parse-com-cloud-job-promise-with-nested-query
   
   query.find().then(function(users) {
-      if(users == 0){
+      if(users.length == 0){
         status.success('WeeklyDigest sent- '+ counter+" / "+count);
       }
 

@@ -9,7 +9,12 @@
 
 <span id="tumblr<%=i%>" class="social-media-button-3">
 	<script type="text/javascript">
-            var tumblr_photo_source = "<%= allPhotosData[i].imageURL %>";
+            var tumblr_photo_source = "";
+
+            if(allPhotosData[i] && allPhotosData[i].imageURL){
+                  tumblr_photo_source = "<%= allPhotosData[i].imageURL %>";
+            }
+            
 
             var tumblr_photo_caption = "";
 

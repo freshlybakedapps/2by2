@@ -11,7 +11,8 @@ exports.index = function(req, resp){
 	          	getPhoto(req,resp,user);
 	       	},
 		    error: function(error) {
-		      	console.log(error);
+		    	resp.render('error', {error: error});
+		      	//console.log(error);
 		    }
 		});
 	  }else{
@@ -50,7 +51,7 @@ function getPhoto(req,resp,user) {
 	                var username_half = "";
                     
                     if(data.user && data.user._serverData){
-                        username_half = data.user._serverData.username;
+                        username_half = (data.user._serverData.username);
                     }
                     
                     var username_full = "";
@@ -62,7 +63,7 @@ function getPhoto(req,resp,user) {
                     */
 
                     if(data.user_full && data.user_full._serverData){
-                        username_full = data.user_full._serverData.username;
+                        username_full = (data.user_full._serverData.username);
                     }
 
                     //console.log(username_full+" / "+user._serverData.username);
@@ -181,10 +182,11 @@ function getPhoto(req,resp,user) {
 	        error: function(object, error) {
 	            // The object was not retrieved successfully.
 	            // error is a Parse.Error with an error code and description.
-	            console.log("error: ",error);
+	            resp.render('error', {error: error});
 	        }
 		});
 	}else{
+	    resp.render('error', {error: "No username or id"});
 	    console.log("no id");                
 	}
 }

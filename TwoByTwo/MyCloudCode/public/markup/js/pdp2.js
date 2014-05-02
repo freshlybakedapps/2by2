@@ -478,7 +478,7 @@ $(function () {
                                     html+='<div class="comment-data">';
                                         html+='<h3><a href="#">'+Parse.User.current().changed.username+'</a></h3>';
                                         html+='<p>';
-                                            html+=$('#commentText').attr("value");
+                                            html+=that.twitterLinks($('#commentText').attr("value"));
                                         html+='</p>';
                                     html+='</div>';
                                 html+='</li>';

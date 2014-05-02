@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) UIWindow *window;
 
+@property (nonatomic, strong) NSString *pdpID;
+
 + (AppDelegate *)delegate;
 - (void)showLoginViewController;
 - (void)showMainViewController;

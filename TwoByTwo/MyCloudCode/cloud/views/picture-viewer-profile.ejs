@@ -27,22 +27,13 @@
                             <li>
                                 <span></span> <a href="/profile/<%= allPhotosData[i].user._serverData.username %>"><%= allPhotosData[i].user._serverData.username %></a>
                             </li>
-                        <% }else{ %>
-                            <li>
-                                <span></span> <a href="#">unknown</a>
-                            </li>
-                        <% } %>
+                        <% } %>                            
                         
                         <% if (allPhotosData[i].userFull) { %>
                             <li>
                                 <span></span> <a href="/profile/<%= allPhotosData[i].userFull._serverData.username %>"><%= allPhotosData[i].username_full %></a>
                             </li>
-                        <% }else{ %>
-                            <li>
-                                <span></span> <a href="#">unknown</a>
-                            </li>
-                        <% } %>
-                        
+                        <% } %>                        
                     </ul>
                 </nav>
             </div>

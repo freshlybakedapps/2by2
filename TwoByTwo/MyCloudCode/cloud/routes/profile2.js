@@ -34,13 +34,20 @@ exports.withUserID = function(req, resp){
 
         query.find({
             success: function(userArr) {
-                console.log(userArr.length);
-                getPhoto(req,resp,userArr[0],userArr[0].id);
+                if(userArr.length == 0){
+                    resp.render('error', {error: "Username: "+currentUserID+" cannot be found."});
+                    //resp.send("Username: "+currentUserID+" cannot be found.");
+                }else{
+                    getPhoto(req,resp,userArr[0],userArr[0].id);
+                }
+                
+                
             },
             error: function(object, error) {
                 // The object was not retrieved successfully.
                 // error is a Parse.Error with an error code and description.
-                console.log("error: ",error);
+                //console.log("error: ",error);
+                resp.render('error', {error: error});
             }
         });        
         /*    
@@ -286,13 +293,14 @@ function getPhoto(req,resp,user,id) {
                     page: page,
                     totalPhotos: count,
                     totalPages: Math.floor(count/photosPerPage),
-                    socialImage:allPhotosData[0].imageURL
+                    socialImage:(allPhotosData[0])?allPhotosData[0].imageURL:""
                 });             
             },
             error: function(object, error) {
                 // The object was not retrieved successfully.
                 // error is a Parse.Error with an error code and description.
-                console.log("error: ",error);
+                //console.log("error: ",error);
+                resp.render('error', {error: error});
             }
         });
     });  
