@@ -22,9 +22,7 @@ exports.index = function(req, resp){
 
 
 function getPhoto(req,resp,user) { 
-	console.log("Parse.User.current(): "+user);
-
-            
+	//console.log("Parse.User.current(): "+user);
 	var Photo = Parse.Object.extend("Photo");
 	var query = new Parse.Query(Photo);
 	//query.limit(0);

@@ -55,6 +55,31 @@ $(function () {
         bind: function () {
             var that = this;
 
+            var data;
+
+            $('#commentText').prop('disabled', true);
+            $('#commentText').attr("placeholder", "Please wait...");
+            $('#commentText').css("background-color", "#F1F1F1");
+
+            $.getJSON('/usernames', function(responseData) {
+                data = responseData;
+
+                $('#commentText').prop('disabled', false);
+                $('#commentText').attr("placeholder", "Type a nice comment here...");
+                $('#commentText').css("background-color", "white");
+
+                console.log("data loaded!!!");
+                $('#commentText').mentionsInput({
+                onDataRequest:function (mode, query, callback) {
+                    var filteredData = _.filter(data, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
+                    callback.call(this, filteredData);
+                  }
+            });
+
+            $('.mentions').remove();
+            });
+
+            
             
 
             /*

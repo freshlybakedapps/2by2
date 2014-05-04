@@ -55,6 +55,8 @@
                                         
                                         self.friends = result;
                                         [self.tableView reloadData];
+                                    }else{
+                                        self.statusLabel.text = @"Sorry but there was an error, try again later.";
                                     }
                                 }];
 }

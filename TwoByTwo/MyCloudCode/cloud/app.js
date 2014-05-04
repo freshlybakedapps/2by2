@@ -25,6 +25,7 @@ var hashtagController = require('cloud/routes/hashtag.js');
 var feedController = require('cloud/routes/feed.js');
 var topUsersController = require('cloud/routes/topUsers.js');
 var topLikesController = require('cloud/routes/topLikes.js');
+var usernamesController = require('cloud/routes/usernames.js');
 
 
 var auth = express.basicAuth('admin', 'Nelson12345');
@@ -49,6 +50,10 @@ app.get('/feed/:type/:extra',feedController.index);
 
 app.get('/topUsers',auth,topUsersController.index);
 app.get('/topLikes',auth,topLikesController.index);
+
+app.get('/usernames',usernamesController.index);
+
+
 
 
 
