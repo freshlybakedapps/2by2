@@ -3,6 +3,7 @@ var Buffer = require('buffer').Buffer;
 exports.index = function(req, resp){
 	var Grid = Parse.Object.extend("Grid");
 	var query = new Parse.Query(Grid);
+	query.descending("createdAt");  
 
 
 	if(req.query.username){

@@ -34,6 +34,7 @@
 		1DB0C801184A65F6002626C8 /* FindInviteFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C800184A65F6002626C8 /* FindInviteFriendsViewController.m */; };
 		1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C804184A6B29002626C8 /* FindFacebookFriendsViewController.m */; };
 		1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C807184A8D0B002626C8 /* FindFacebookFriendCell.m */; };
+		1DB4232E19142DE20093470D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE217E0070A003A859F /* UIKit.framework */; };
 		1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DCD412618083BA2007A5D56 /* LoginViewController.m */; };
 		1DD9715D184BF663001D35CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD9715B184BF663001D35CA /* AddressBook.framework */; };
 		1DD9715E184BF663001D35CA /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD9715C184BF663001D35CA /* AddressBookUI.framework */; };
@@ -72,7 +73,6 @@
 		7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293918305ACA0036557E /* MKMapView+Utilities.m */; };
 		7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293F18306DD30036557E /* PFObject+Photo.m */; };
 		7CA4902018D66A28001D5537 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CA4901F18D66A28001D5537 /* Camera.storyboard */; };
-		7CA4902118D66FC4001D5537 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DE217E0070A003A859F /* UIKit.framework */; };
 		7CA4902418D67121001D5537 /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4902318D67121001D5537 /* UserDefaultsManager.m */; };
 		7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */; };
 		7CD137FF18C3F43400D534D7 /* LikersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD137FE18C3F43400D534D7 /* LikersCell.m */; };
@@ -258,7 +258,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CA4902118D66FC4001D5537 /* UIKit.framework in Frameworks */,
+				1DB4232E19142DE20093470D /* UIKit.framework in Frameworks */,
 				1DD9715D184BF663001D35CA /* AddressBook.framework in Frameworks */,
 				1DD9715E184BF663001D35CA /* AddressBookUI.framework in Frameworks */,
 				1D4207D317E6AB78008A7F98 /* SystemConfiguration.framework in Frameworks */,
@@ -1013,6 +1013,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

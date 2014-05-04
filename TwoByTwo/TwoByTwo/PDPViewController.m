@@ -72,12 +72,12 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 {
     [super viewWillAppear:animated];
     __weak typeof(self) weakSelf = self;
-    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView, BOOL opening, BOOL closing) {
         CGRect rect = weakSelf.view.frame;
         rect.size.height = keyboardFrameInView.origin.y;
         weakSelf.view.frame = rect;
     }];
-    
+     
     // Load Data
     [self performPhotoQuery];
 }

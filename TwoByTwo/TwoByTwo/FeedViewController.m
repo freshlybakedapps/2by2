@@ -76,8 +76,30 @@ static NSUInteger const kQueryBatchSize = 20;
     }else{
         [self performQuery];
     }
-    
-    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showPdp) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+
+
+- (void) showPdp{
+    AppDelegate* delegate = [AppDelegate delegate];    
+    if(delegate.pdpID){
+        PDPViewController *controller = [PDPViewController controller];
+        controller.photoID = delegate.pdpID;
+        [self.navigationController pushViewController:controller animated:YES];
+        delegate.pdpID = nil;
+    }
 }
 
 - (void)didMoveToParentViewController:(UIViewController *)parent

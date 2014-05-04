@@ -30,7 +30,7 @@
     [PFFacebookUtils initializeFacebook];
     [PFTwitterUtils initializeWithConsumerKey:@"usi9Q97qeqiUUso9Do7BMSuhO" consumerSecret:@"qKR6zE5ggJbVOq9yzV1ScZuRTXGFKTtNfM1XrGHdMyL61lgcMu"];
     
-    self.pdpID = @"sM3DPHBJ43";
+    
 
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
@@ -77,8 +77,11 @@
     return YES;
 }
 
+
+
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    
     [FBSession.activeSession handleDidBecomeActive];
     
     if (application.applicationIconBadgeNumber != 0) {
@@ -87,10 +90,19 @@
     }
 }
 
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     NSLog(@"Absolute :%@, Base :%@, Fragment: %@, Parameter: %@, Query: %@, Scheme: %@", [url absoluteString], [url baseURL], [url fragment], [url parameterString], [url query], [url scheme]);
     //Absolute :twobytwo://deeplink?pdp=123, Base :(null), Fragment: (null), Parameter: (null), Query: pdp=123, Scheme: twobytwo
+    
+    if([url query]){
+        NSArray* arr = [[url query] componentsSeparatedByString:@"="];
+        
+        self.pdpID = [arr objectAtIndex:1];
+        
+        NSLog(@"pdp %@",self.pdpID);
+    }
     
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
 }
