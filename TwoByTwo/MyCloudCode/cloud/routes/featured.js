@@ -82,6 +82,7 @@ function getPhoto(req,resp) {
 
 
                     var locationHalf = data.location_half;
+                    var location_half_str = data.location_half_str;
 
 
                     //static maps doc: https://developers.google.com/maps/documentation/staticmaps/?csw=1#StyledMaps
@@ -93,13 +94,18 @@ function getPhoto(req,resp) {
                     //http://www.2by2app.com/images/green.png
                     
                     var markers = "";
+                    var locations = 0;
 
+                    
                     if(data.location_half){
                         if(data.location_half._longitude == 0){
                             username_half+=" (?)";
                         }else{
-                            markers = "&markers=icon:http://www.2by2app.com/images/red.png%7Ccolor:0xff3366%7C"+locationHalf._latitude+","+locationHalf._longitude;
-                            markers += "&visible="+(locationHalf._latitude+0.01)+","+(locationHalf._longitude+0.01);
+                            if(location_half_str && location_half_str != ""){
+                                markers = "&markers=icon:http://www.2by2app.com/images/red.png%7Ccolor:0xff3366%7C"+encodeURIComponent(location_half_str);
+                                locations++;
+                            }
+                            //markers += "&visible="+(locationHalf._latitude+0.01)+","+(locationHalf._longitude+0.01);
                         }
                     }                       
 
@@ -108,13 +114,33 @@ function getPhoto(req,resp) {
                         if(locationFull._longitude == 0){
                             username_full+=" (?)";
                         }else{
-                            markers+="&markers=icon:http://www.2by2app.com/images/green.png%7Ccolor:0x00cc99%7C"+locationFull._latitude+","+locationFull._longitude;
-                            markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
+                            var location_full_str = data.location_full_str;
+
+                            if(location_full_str && location_full_str != ""){
+                                markers+="&markers=icon:http://www.2by2app.com/images/green.png%7Ccolor:0x00cc99%7C"+encodeURIComponent(location_full_str);
+                                locations++;
+                            }
+                            //markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
                         }
                     }
+
+                    if(locations == 2 && location_full_str == location_half_str){
+                        markers = "&markers=icon:http://www.2by2app.com/images/SameLocation.png%7Ccolor:0xff3366%7C"+encodeURIComponent(location_half_str);
+                    }
+                    
+
+                    //markers = encodeURIComponent(markers);
                     //&center=Brooklyn+Bridge,New+York,NY&zoom=13
                     var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
                     
+                    if(locations == 0){
+                        if(data.state == "full"){
+                            mapImageURL = "/markup/img/NoLocationSharedBoth@2x.png";
+                        }else{
+                            mapImageURL = "/markup/img/NoLocationShared@2x.png";
+                        }
+                        
+                    }
 
                     photoData.imageURL = imageURL;
                     photoData.likeLength = likeLength;
@@ -141,7 +167,7 @@ function getPhoto(req,resp) {
                     page: page,
                     totalPhotos: count,
                     totalPages: Math.floor(count/photosPerPage),
-                    socialImage: "http://www.2by2app.com/img?featured=true&limit=100"
+                    socialImage: "http://www.2by2app.com/img?featured=true&amp;limit=100"
                 });             
             },
             error: function(object, error) {

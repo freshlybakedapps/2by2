@@ -252,6 +252,10 @@ function getPhoto(req,resp,user,id) {
                             //markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
                         }
                     }
+
+                    if(locations == 2 && location_full_str == location_half_str){
+                        markers = "&markers=icon:http://www.2by2app.com/images/SameLocation.png%7Ccolor:0xff3366%7C"+encodeURIComponent(location_half_str);
+                    }
                     
 
                     //markers = encodeURIComponent(markers);

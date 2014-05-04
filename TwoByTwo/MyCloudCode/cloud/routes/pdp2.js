@@ -148,6 +148,10 @@ function getPhoto(req,resp,user) {
                         }
                     }
 
+                    if(locations == 2 && location_full_str == location_half_str){
+                        markers = "&markers=icon:http://www.2by2app.com/images/SameLocation.png%7Ccolor:0xff3366%7C"+encodeURIComponent(location_half_str);
+                    }
+
 	                //&center=Brooklyn+Bridge,New+York,NY&zoom=13
                 	var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
             		
