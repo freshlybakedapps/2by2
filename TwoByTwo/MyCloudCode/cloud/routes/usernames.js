@@ -7,15 +7,21 @@ exports.index = function(req, resp){
     query.each(
         function(result){
             var obj = {};
-            obj.name = result.get("username");
-            if(result.get("facebookId") && result.get("facebookId") != ""){
-            	obj.avatar = "https://graph.facebook.com/"+result.get("facebookId")+"/picture?type=square&width=60&height=60";
-				obj.type = "Facebook";
-			}else{
-				obj.avatar = result.get("TwitterProfileImage");
+            
+            if(result.get("TwitterProfileImage") && result.get("TwitterProfileImage") != ""){
+            	obj.name = result.get("username");
+            	obj.avatar = result.get("TwitterProfileImage");
 				obj.type = "Twitter";
-            }
-			usernames.push(obj);
+				usernames.push(obj);
+            }else{
+            	if(result.get("facebookId")){
+            		obj.name = result.get("username");
+            		obj.avatar = "https://graph.facebook.com/"+result.get("facebookId")+"/picture?type=square&width=60&height=60";
+					obj.type = "Facebook";
+					usernames.push(obj);
+				}
+			}
+			
         }, 
         {
         success: function() {

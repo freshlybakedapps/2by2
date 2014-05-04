@@ -9,7 +9,7 @@
   display: block;
   height: 18px;
   padding: 9px;
-  border: 1px solid #dcdcdc;
+  border: 0px solid #dcdcdc;
   border-radius:3px;
   overflow: hidden;
   background: transparent;
@@ -31,14 +31,15 @@
   right: 0;
   z-index: 10000;
   margin-top: -2px;
-
+  color:#8d8d8d;
   border-radius:5px;
   border-top-right-radius:0;
   border-top-left-radius:0;
-
+  /*
   -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
      -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.148438);
+  */
 }
 
 .mentions-input-box .mentions-autocomplete-list ul {
@@ -73,7 +74,7 @@
   margin-right: 5px;
   -moz-background-origin:3px;
 
-  border-radius:3px;
+  border-radius:50%;
 }
 
 .mentions-input-box .mentions-autocomplete-list li em {
