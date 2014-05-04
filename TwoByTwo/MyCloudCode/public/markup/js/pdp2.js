@@ -475,9 +475,11 @@ $(function () {
                     
 
                     $('#commentButton').click(function(e){
+                        console.log("xxxxxxxx: "+$('#commentText').val());
+
                         e.preventDefault();
 
-                        if($('#commentText').attr("value") == ""){
+                        if($('#commentText').val() == ""){
                             return;
                         }
                         
@@ -485,7 +487,7 @@ $(function () {
                         var Comment = Parse.Object.extend("Comment");
                         var comment = new Comment();
 
-                        comment.set("text",$('#commentText').attr("value"));
+                        comment.set("text",$('#commentText').val());
                         comment.set("username", Parse.User.current().attributes.username);
                         comment.set("commentID", photosArr[0].id);
                         comment.set("facebookId", Parse.User.current().attributes.facebookId);
@@ -503,14 +505,14 @@ $(function () {
                                     html+='<div class="comment-data">';
                                         html+='<h3><a href="#">'+Parse.User.current().changed.username+'</a></h3>';
                                         html+='<p>';
-                                            html+=that.twitterLinks($('#commentText').attr("value"));
+                                            html+=that.twitterLinks($('#commentText').val());
                                         html+='</p>';
                                     html+='</div>';
                                 html+='</li>';
                                 
                                 $(".comment-list").find("ul").prepend(html);
 
-                                $('#commentText').attr("value","");
+                                $('#commentText').val("");
 
                                 $("#comment_"+photosArr[0].id).prev().html("<span></span>"+$(".comment-list").find("li").length);
 
