@@ -1,3 +1,6 @@
+var Helper = require('cloud/routes/Helper.js');
+
+
 var photosPerPage = 32;
 var page = 0;
 
@@ -95,38 +98,12 @@ function getPhoto(req,resp,user,id) {
                     var imageURL = image._url;//.url                       
                     var likeLength = 0;
                     if(photosArr[i]._serverData.likes){
-                        likeLength = photosArr[i]._serverData.likes.length;
-
-                        //that.getLikesInfo(photosArr[i]._serverData.likes);
+                        likeLength = photosArr[i]._serverData.likes.length;                       
                     }
-
-
-
-                    var locationHalf = data.location_half;
-                    var location_half_str = data.location_half_str;
-                    //location_half_str.replace(" ","");
-
-
-                    //static maps doc: https://developers.google.com/maps/documentation/staticmaps/?csw=1#StyledMaps
-                    //https://developers.google.com/maps/documentation/staticmaps/?csw=1#CustomIcons
-                    //style map: http://gmaps-samples-v3.googlecode.com/svn/trunk/styledmaps/wizard/index.html
-                    //Get API key: https://cloud.google.com/console/project           
-                    
-                    var markers = "";
-
-                    
-                    var locations = 0;
-
                     
                     if(data.location_half){
                         if(data.location_half._longitude == 0){
                             username_half+=" (?)";
-                        }else{
-                            if(location_half_str && location_half_str != ""){
-                                markers = "&markers=icon:http://www.2by2app.com/images/red.png%7Ccolor:0xff3366%7C"+encodeURIComponent(location_half_str);
-                                locations++;
-                            }
-                            //markers += "&visible="+(locationHalf._latitude+0.01)+","+(locationHalf._longitude+0.01);
                         }
                     }                       
 
@@ -134,30 +111,11 @@ function getPhoto(req,resp,user,id) {
                         var locationFull = data.location_full;
                         if(locationFull._longitude == 0){
                             username_full+=" (?)";
-                        }else{
-                            var location_full_str = data.location_full_str;
-
-                            if(location_full_str && location_full_str != ""){
-                                markers+="&markers=icon:http://www.2by2app.com/images/green.png%7Ccolor:0x00cc99%7C"+encodeURIComponent(location_full_str);
-                                locations++;
-                            }
-                            //markers += "&visible="+(locationFull._latitude+0.01)+","+(locationFull._longitude+0.01);
                         }
                     }
                     
 
-                    //markers = encodeURIComponent(markers);
-                    //&center=Brooklyn+Bridge,New+York,NY&zoom=13
-                    var mapImageURL = "http://maps.googleapis.com/maps/api/staticmap?key=AIzaSyDvTIlW1eCIiKGx9OsJuw1fWg_tvVUJRJA&style=saturation:-100%7Clightness:-57&size=500x500&maptype=roadmap"+markers+"&sensor=false";
-                    
-                    if(locations == 0){
-                        if(data.state == "full"){
-                            mapImageURL = "/markup/img/NoLocationSharedBoth@2x.png";
-                        }else{
-                            mapImageURL = "/markup/img/NoLocationShared@2x.png";
-                        }
-                        
-                    }
+                    var mapImageURL = Helper.getMapImageURL(data);
 
 
                     photoData.imageURL = imageURL;
