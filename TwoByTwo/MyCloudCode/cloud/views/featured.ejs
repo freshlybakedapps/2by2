@@ -4,25 +4,25 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <% include meta %>
+        <% include includes/meta %>
         <title>Featured 2by2 Photos</title>
     </head>
     <body>
         <div class="container">
-            <% include header %>
+            <% include includes/header %>
             <h1>Featured Photos</h1>
             <a href="#" class="thumb-icon"></a>
             <section id="main-content" role="content">
                 <% if(allPhotosData){ %>                
-                    <% include picture-viewer-profile %>
+                    <% include includes/picture-viewer-profile %>
                 <% } %>   
             </section>
              
-            <% include pagination %>
-            <% include footer %>
+            <% include includes/pagination %>
+            <% include includes/footer %>
         </div>
 
-        <% include scripts %>
+        <% include includes/scripts %>
 
         
         <script src="/markup/js/jquery.query-object.js"></script>

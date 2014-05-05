@@ -10,9 +10,7 @@ app.use(express.cookieParser('qlOiXmQEpBNU2i9Ictj0zfKtHlgTzCDm2c0uImMu'));
 app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
 
 var indexController = require('cloud/routes/index.js');
-//var profileController = require('cloud/routes/profile.js');
 var profileController2 = require('cloud/routes/profile2.js');
-//var pdpController = require('cloud/routes/pdp.js');
 var pdpController2 = require('cloud/routes/pdp2.js');
 var aboutController = require('cloud/routes/about.js');
 var contactController = require('cloud/routes/contact.js');
