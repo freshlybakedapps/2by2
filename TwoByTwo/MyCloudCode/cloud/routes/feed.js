@@ -65,58 +65,20 @@ function getPhoto(req,resp,user,id) {
                 for(var i=0;i<photosArr.length  ;i++){
                     
                     var photoData = {};
-
-                    var data = photosArr[i].attributes;  
-                    
-                    var image = data.image_full;
-                    
+                    var data = photosArr[i].attributes;                    
+                    var image = data.image_full;                    
                     if(!image){
                         image = data.image_half;
                     }
-                    
-                    var username_half = "";
-                    if(data.user){
-                        data.user._serverData.username;
-                    }
-                    
-                    var username_full = "";
-
-                    if(user && username_half == user._serverData.username){
-                        //username_half = "You!";
-                    }
-
-                    if(data.user_full){
-                        username_full = data.user_full._serverData.username;
-                    }
-
-                    //console.log(username_full+" / "+user._serverData.username);
-
-                    if(user && username_full == user._serverData.username){
-                        //username_full = "You!";
-                    }
-                    
-                    var imageURL = image._url;//.url                       
+                    var imageURL = image._url;                      
                     var likeLength = 0;
                     if(photosArr[i]._serverData.likes){
                         likeLength = photosArr[i]._serverData.likes.length;                       
                     }
                     
-                    if(data.location_half){
-                        if(data.location_half._longitude == 0){
-                            username_half+=" (?)";
-                        }
-                    }                       
-
-                    if(data.state == "full" && data.location_full){
-                        var locationFull = data.location_full;
-                        if(locationFull._longitude == 0){
-                            username_full+=" (?)";
-                        }
-                    }
-                    
-
+                    var username_half = Helper.getUsernameHalf(data);
+                    var username_full = Helper.getUsernameFull(data);
                     var mapImageURL = Helper.getMapImageURL(data);
-
 
                     photoData.imageURL = imageURL;
                     photoData.likeLength = likeLength;
@@ -128,11 +90,7 @@ function getPhoto(req,resp,user,id) {
                     photoData.username_half = username_half;
                     photoData.username_full = username_full;
 
-
                     allPhotosData.push(photoData);
-
-                    
-                    
                 }
 
 

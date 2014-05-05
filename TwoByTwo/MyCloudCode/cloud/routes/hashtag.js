@@ -10,9 +10,7 @@ exports.index = function(req, resp){
 
 	commentQuery.find({
             success: function(commentsArr) {
-            	var idArray = [];
-
-            	
+            	var idArray = [];           	
 
             	for (var i = commentsArr.length - 1; i >= 0; i--) {
             		//console.log(commentsArr[i].attributes.commentID);
@@ -60,50 +58,21 @@ function getPhoto(req,resp,idArray) {
             success: function(photosArr) {
                 var allPhotosData = [];
 
-                for(var i=0;i<photosArr.length  ;i++){
-                    
+                for(var i=0;i<photosArr.length  ;i++){                    
                     var photoData = {};
-
-                    var data = photosArr[i].attributes;  
-                    
-                    var image = data.image_full;
-                    
+                    var data = photosArr[i].attributes;                      
+                    var image = data.image_full;                    
                     if(!image){
                         image = data.image_half;
-                    }
-                    
-                    var username_half = data.user._serverData.username;
-                    var username_full = "";
-
-                    
-
-                    if(data.user_full){
-                        username_full = data.user_full._serverData.username;
-                    }
-
-                    
-                    
-                    var imageURL = image._url;//.url                       
+                    } 
+                    var imageURL = image._url;                      
                     var likeLength = 0;
                     if(photosArr[i]._serverData.likes){
-                        likeLength = photosArr[i]._serverData.likes.length;
-
-                        //that.getLikesInfo(photosArr[i]._serverData.likes);
+                        likeLength = photosArr[i]._serverData.likes.length;                        
                     }                    
 
-                    if(data.location_half){
-                        if(data.location_half._longitude == 0){
-                            username_half+=" (?)";
-                        }
-                    }                       
-
-                    if(data.state == "full" && data.location_full){
-                        var locationFull = data.location_full;
-                        if(locationFull._longitude == 0){
-                            username_full+=" (?)";
-                        }
-                    }
-                    
+                    var username_half = Helper.getUsernameHalf(data);
+                    var username_full = Helper.getUsernameFull(data);
                     var mapImageURL = Helper.getMapImageURL(data);
 
                     photoData.imageURL = imageURL;

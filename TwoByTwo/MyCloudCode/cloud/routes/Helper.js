@@ -1,5 +1,5 @@
 exports.getDistance = function(lat1, lat2, lon1, lon2){
-	 var R = 6371; // km
+	var R = 6371; // km
     var dLat = (lat2-lat1).toRad();
     var dLon = (lon2-lon1).toRad();
     var lat1 = lat1.toRad();
@@ -8,6 +8,37 @@ exports.getDistance = function(lat1, lat2, lon1, lon2){
             Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     return R * c;
+}
+
+exports.getUsernameHalf = function(data){
+    var username_half = ".";
+                    
+    if(data.user && data.user._serverData){
+        username_half = data.user._serverData.username;
+    }     
+    
+    if(data.location_half){
+        if(data.location_half._longitude == 0){
+            username_half+=" (?)";
+        }
+    }
+    return username_half;
+}
+
+exports.getUsernameFull = function(data){    
+    var username_full = "";                    
+
+    if(data.user_full && data.user_full._serverData){
+        username_full = data.user_full._serverData.username;
+    }                 
+
+    if(data.state == "full" && data.location_full){
+        var locationFull = data.location_full;
+        if(locationFull._longitude == 0){
+            username_full+=" (?)";
+        }
+    }
+    return username_full;
 }
 
 exports.getMapImageURL = function(data){
