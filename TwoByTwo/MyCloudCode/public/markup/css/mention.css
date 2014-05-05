@@ -25,7 +25,7 @@
 .mentions-input-box .mentions-autocomplete-list {
   display: none;
   background: #fff;
-  border: 1px solid #b2b2b2;
+  border: 0px none;
   position: absolute;
   left: 0;
   right: 0;
@@ -48,13 +48,13 @@
 }
 
 .mentions-input-box .mentions-autocomplete-list li {
-  background-color: #fff;
+  background-color: #f1f1f1;
   padding: 0 5px;
   margin: 0;
   width: auto;
-  border-bottom: 1px solid #eee;
-  height: 26px;
-  line-height: 26px;
+  border-bottom: 0px none;
+  height: 34px;
+  line-height: 34px;
   overflow: hidden;
   cursor: pointer;
   list-style: none;
@@ -67,8 +67,8 @@
 
 .mentions-input-box .mentions-autocomplete-list li > img,
 .mentions-input-box .mentions-autocomplete-list li > div.icon {
-  width: 16px;
-  height: 16px;
+  width: 25px;
+  height: 25px;
   float: left;
   margin-top:5px;
   margin-right: 5px;
@@ -84,11 +84,11 @@
 
 .mentions-input-box .mentions-autocomplete-list li:hover,
 .mentions-input-box .mentions-autocomplete-list li.active {
-  background-color: #f2f2f2;
+  background-color: #f9f9f9;
 }
 
 .mentions-input-box .mentions-autocomplete-list li b {
-  background: #ffff99;
+  background: #c1eadf;
   font-weight: normal;
 }
 
