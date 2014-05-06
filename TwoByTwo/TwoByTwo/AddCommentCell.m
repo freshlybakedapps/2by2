@@ -9,6 +9,11 @@
 #import "AddCommentCell.h"
 
 
+
+
+
+
+
 @interface AddCommentCell ()
 @property (nonatomic, weak) IBOutlet UITextField *textField;
 @end
@@ -16,9 +21,12 @@
 
 @implementation AddCommentCell
 
+
 - (IBAction)sendButtonTapped:(UIButton *)sender
 {
     [self.textField resignFirstResponder];
+    
+    
     
     if (self.textField.text.length == 0) {
         return;

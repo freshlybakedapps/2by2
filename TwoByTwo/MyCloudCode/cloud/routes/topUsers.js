@@ -5,6 +5,7 @@ var usersArr = [];
 var photoCounter = [];
 var namesArr = [];
 var likesArr = [];
+var emailsArr = [];
 
 exports.index = function(req, resp){
   var Photo = Parse.Object.extend("Photo");
@@ -47,6 +48,7 @@ function getTopUsers(resp,count,skip){
               usersArr.push(user.id);
               photoCounter[user.id] = (photoCounter[user.id] || 0) + 1;
               namesArr[user.id] = name; 
+              emailsArr[user.id] = user.get("email");
             }
 
 
@@ -58,6 +60,7 @@ function getTopUsers(resp,count,skip){
                 usersArr.push(userFull.id);
                 photoCounter[userFull.id] = (photoCounter[userFull.id] || 0) + 1;
                 namesArr[userFull.id] = name_full;
+                emailsArr[userFull.id] = userFull.get("email");
               }
               
             } 
@@ -81,6 +84,7 @@ function getTopUsers(resp,count,skip){
               obj.counter = photoCounter[uniqueUserArr[i]];
               obj.id = uniqueUserArr[i];
               obj.name = namesArr[uniqueUserArr[i]];
+              obj.email = emailsArr[uniqueUserArr[i]];
               uniqueUserArr[i] = obj;
             };
 
