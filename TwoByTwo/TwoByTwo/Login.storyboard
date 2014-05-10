@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2kw-39-nlh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2kw-39-nlh">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -36,7 +36,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="236" translatesAutoresizingMaskIntoConstraints="NO" id="tL2-Ns-1Lo">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="236" translatesAutoresizingMaskIntoConstraints="NO" id="tL2-Ns-1Lo">
                                 <rect key="frame" x="42" y="336" width="236" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -52,7 +52,7 @@ one unexpected  unique image. </string>
                                 <rect key="frame" x="66" y="418" width="188" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="erS-hw-ciM"/>
+                                    <constraint firstAttribute="height" constant="40" id="xbU-yB-4lQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <inset key="titleEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -85,6 +85,7 @@ one unexpected  unique image. </string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="8AJ-oY-rbX"/>
+                                    <constraint firstAttribute="width" constant="200" id="Awd-CX-Wsb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                 <state key="normal">
@@ -95,10 +96,10 @@ QnkgY3JlYXRpbmcgYW4gYWNjb3VudCB5b3UgYWdyZWUgdG8gb3VyCgN0ZXJtcyAmIGNvbmRpdGlvbnM
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swd-hd-16b">
-                                <rect key="frame" x="66" y="377" width="200" height="36"/>
+                                <rect key="frame" x="91" y="386" width="138" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="i3g-ww-dcg"/>
+                                    <constraint firstAttribute="height" constant="24" id="X7l-g3-iXk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                 <state key="normal" title="Login with Facebook or Twitter">
@@ -108,21 +109,20 @@ QnkgY3JlYXRpbmcgYW4gYWNjb3VudCB5b3UgYWdyZWUgdG8gb3VyCgN0ZXJtcyAmIGNvbmRpdGlvbnM
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="iXk-Ha-xnI" secondAttribute="centerX" id="5g0-MX-7KH"/>
+                            <constraint firstAttribute="centerX" secondItem="K1H-T7-Lmy" secondAttribute="centerX" id="6Hb-cU-Z5z"/>
                             <constraint firstItem="Iml-HH-ahS" firstAttribute="leading" secondItem="ypO-cp-i31" secondAttribute="leading" id="7Fc-RY-fJu"/>
-                            <constraint firstItem="jWb-Hw-1aw" firstAttribute="top" secondItem="swd-hd-16b" secondAttribute="bottom" constant="5" id="BTC-eC-G2r"/>
-                            <constraint firstItem="iXk-Ha-xnI" firstAttribute="top" secondItem="jWb-Hw-1aw" secondAttribute="bottom" constant="10" id="Dqn-yl-fCC"/>
-                            <constraint firstItem="iXk-Ha-xnI" firstAttribute="centerX" secondItem="K1H-T7-Lmy" secondAttribute="centerX" id="JEE-En-NwF"/>
                             <constraint firstItem="tL2-Ns-1Lo" firstAttribute="top" secondItem="Iml-HH-ahS" secondAttribute="bottom" constant="16" id="KC0-8H-9ah"/>
-                            <constraint firstAttribute="trailing" secondItem="swd-hd-16b" secondAttribute="trailing" constant="54" id="KnV-d0-u5h"/>
+                            <constraint firstItem="iXk-Ha-xnI" firstAttribute="top" secondItem="jWb-Hw-1aw" secondAttribute="bottom" constant="10" id="M9m-WO-v2R"/>
                             <constraint firstItem="K1H-T7-Lmy" firstAttribute="top" secondItem="iXk-Ha-xnI" secondAttribute="bottom" constant="4" id="NTl-Z0-pr7"/>
-                            <constraint firstItem="jWb-Hw-1aw" firstAttribute="leading" secondItem="swd-hd-16b" secondAttribute="leading" id="Rx0-Z5-lP5"/>
-                            <constraint firstItem="tL2-Ns-1Lo" firstAttribute="centerX" secondItem="Iml-HH-ahS" secondAttribute="centerX" id="XA6-J9-EAa"/>
-                            <constraint firstItem="iXk-Ha-xnI" firstAttribute="leading" secondItem="jWb-Hw-1aw" secondAttribute="leading" id="ctG-b3-A0r"/>
+                            <constraint firstAttribute="trailing" secondItem="Iml-HH-ahS" secondAttribute="trailing" id="PSf-eZ-YVW"/>
+                            <constraint firstAttribute="centerX" secondItem="swd-hd-16b" secondAttribute="centerX" id="YI0-9x-r9D"/>
+                            <constraint firstItem="jWb-Hw-1aw" firstAttribute="top" secondItem="swd-hd-16b" secondAttribute="bottom" constant="8" id="YZF-wi-1P7"/>
                             <constraint firstItem="Iml-HH-ahS" firstAttribute="top" secondItem="ypO-cp-i31" secondAttribute="top" id="e2N-68-VOw"/>
                             <constraint firstAttribute="bottom" secondItem="K1H-T7-Lmy" secondAttribute="bottom" constant="20" symbolic="YES" id="f7Z-xG-0X2"/>
-                            <constraint firstItem="swd-hd-16b" firstAttribute="top" secondItem="tL2-Ns-1Lo" secondAttribute="bottom" id="ov4-4P-NZM"/>
-                            <constraint firstItem="tL2-Ns-1Lo" firstAttribute="centerX" secondItem="jWb-Hw-1aw" secondAttribute="centerX" id="uBS-CL-vDg"/>
-                            <constraint firstItem="K1H-T7-Lmy" firstAttribute="leading" secondItem="ypO-cp-i31" secondAttribute="leading" constant="60" id="v41-Mt-62Z"/>
+                            <constraint firstAttribute="centerX" secondItem="jWb-Hw-1aw" secondAttribute="centerX" id="svR-IO-wCw"/>
+                            <constraint firstAttribute="centerX" secondItem="tL2-Ns-1Lo" secondAttribute="centerX" id="xHm-2P-3dL"/>
+                            <constraint firstItem="swd-hd-16b" firstAttribute="top" secondItem="tL2-Ns-1Lo" secondAttribute="bottom" constant="9" id="yoO-bO-X9X"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yQt-Jf-XO1"/>
