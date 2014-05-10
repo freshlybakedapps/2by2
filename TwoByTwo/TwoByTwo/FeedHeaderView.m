@@ -116,8 +116,7 @@ static CGFloat const kHeaderHeightWithoutMessage = 80.0;
 
 
 #pragma mark -
-
-+ (CGFloat)headerHeightForType:(FeedType)type
++ (CGFloat)headerHeightForType:(ContentType)type
 {
     BOOL value = [UserDefaultsManager headerMessageDismissedForType:type];
     if (value) {

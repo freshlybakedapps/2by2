@@ -366,7 +366,6 @@ static NSUInteger const kQueryBatchSize = 20;
         cell.shouldHaveDetailLink = YES;
         cell.photo = self.objects[indexPath.row];
         
-        cell.delegate = self;
         return cell;
     }
 }

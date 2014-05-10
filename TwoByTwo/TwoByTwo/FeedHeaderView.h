@@ -30,6 +30,6 @@
 
 @property (nonatomic,weak) NSString *title;
 
-+ (CGFloat)headerHeightForType:(FeedType)type;
++ (CGFloat)headerHeightForType:(ContentType)type;
 
 @end

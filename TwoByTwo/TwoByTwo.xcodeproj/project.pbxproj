@@ -59,9 +59,16 @@
 		7C3964A3189D997E000FB989 /* CustomPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3964A2189D997E000FB989 /* CustomPickerView.m */; };
 		7C3964A8189D9AF2000FB989 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3964A7189D9AF2000FB989 /* ImageCell.xib */; };
 		7C3964AB189D9B2F000FB989 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3964AA189D9B2F000FB989 /* ImageCell.m */; };
+		7C476766191E9F8300333C59 /* ContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476765191E9F8300333C59 /* ContainerCell.m */; };
+		7C47676B191EB44600333C59 /* UICollectionView+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47676A191EB44600333C59 /* UICollectionView+Addon.m */; };
+		7C47676E191EBA1E00333C59 /* PopularContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47676D191EBA1E00333C59 /* PopularContainerCell.m */; };
+		7C476771191EBBF200333C59 /* UICollectionView+Pagination.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476770191EBBF200333C59 /* UICollectionView+Pagination.m */; };
+		7C476774191EBCD800333C59 /* PublicContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476773191EBCD800333C59 /* PublicContainerCell.m */; };
+		7C476777191EDCC600333C59 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476776191EDCC600333C59 /* Constants.m */; };
 		7C508F53188AFB1E00C1334E /* FeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C508F52188AFB1E00C1334E /* FeedHeaderView.m */; };
 		7C508F55188B028700C1334E /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F54188B028700C1334E /* FeedHeaderView.xib */; };
 		7C508F57188B035C00C1334E /* FeedProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F56188B035C00C1334E /* FeedProfileHeaderView.xib */; };
+		7C6D85A0191E93D3002EA534 /* MainV2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D859F191E93D3002EA534 /* MainV2.storyboard */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
 		7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C76578A1825962A0053483B /* UIWindow+Animation.m */; };
@@ -84,7 +91,6 @@
 		7CF39DE917E0070A003A859F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7CF39DE717E0070A003A859F /* InfoPlist.strings */; };
 		7CF39DEB17E0070A003A859F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39DEA17E0070A003A859F /* main.m */; };
 		7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF39DEE17E0070A003A859F /* AppDelegate.m */; };
-		7CF39DF217E0070A003A859F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CF39DF017E0070A003A859F /* Main.storyboard */; };
 		7CF39DF717E0070A003A859F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CF39DF617E0070A003A859F /* Images.xcassets */; };
 		7CF39DFE17E0070B003A859F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DFD17E0070B003A859F /* XCTest.framework */; };
 		7CF39DFF17E0070B003A859F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF39DDE17E0070A003A859F /* Foundation.framework */; };
@@ -188,10 +194,23 @@
 		7C3964A7189D9AF2000FB989 /* ImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		7C3964A9189D9B2F000FB989 /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		7C3964AA189D9B2F000FB989 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
+		7C476764191E9F8300333C59 /* ContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerCell.h; sourceTree = "<group>"; };
+		7C476765191E9F8300333C59 /* ContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerCell.m; sourceTree = "<group>"; };
+		7C476769191EB44600333C59 /* UICollectionView+Addon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Addon.h"; sourceTree = "<group>"; };
+		7C47676A191EB44600333C59 /* UICollectionView+Addon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Addon.m"; sourceTree = "<group>"; };
+		7C47676C191EBA1E00333C59 /* PopularContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularContainerCell.h; sourceTree = "<group>"; };
+		7C47676D191EBA1E00333C59 /* PopularContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularContainerCell.m; sourceTree = "<group>"; };
+		7C47676F191EBBF200333C59 /* UICollectionView+Pagination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+Pagination.h"; sourceTree = "<group>"; };
+		7C476770191EBBF200333C59 /* UICollectionView+Pagination.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+Pagination.m"; sourceTree = "<group>"; };
+		7C476772191EBCD800333C59 /* PublicContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicContainerCell.h; sourceTree = "<group>"; };
+		7C476773191EBCD800333C59 /* PublicContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicContainerCell.m; sourceTree = "<group>"; };
+		7C476775191EDCC600333C59 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		7C476776191EDCC600333C59 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		7C508F51188AFB1E00C1334E /* FeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedHeaderView.h; sourceTree = "<group>"; };
 		7C508F52188AFB1E00C1334E /* FeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedHeaderView.m; sourceTree = "<group>"; };
 		7C508F54188B028700C1334E /* FeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedHeaderView.xib; sourceTree = "<group>"; };
 		7C508F56188B035C00C1334E /* FeedProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedProfileHeaderView.xib; sourceTree = "<group>"; };
+		7C6D859F191E93D3002EA534 /* MainV2.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainV2.storyboard; sourceTree = "<group>"; };
 		7C73FFC117E62EB50055C57C /* ProgressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressButton.h; sourceTree = "<group>"; };
 		7C73FFC217E62EB50055C57C /* ProgressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressButton.m; sourceTree = "<group>"; };
 		7C73FFC417E637C50055C57C /* UIColor+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Utilities.h"; sourceTree = "<group>"; };
@@ -517,6 +536,10 @@
 				7C0701091873A6B90011845D /* NSDate+Addon.m */,
 				7C7B354D18D11E1900563569 /* NSURL+Facebook.h */,
 				7C7B354E18D11E1900563569 /* NSURL+Facebook.m */,
+				7C476769191EB44600333C59 /* UICollectionView+Addon.h */,
+				7C47676A191EB44600333C59 /* UICollectionView+Addon.m */,
+				7C47676F191EBBF200333C59 /* UICollectionView+Pagination.h */,
+				7C476770191EBBF200333C59 /* UICollectionView+Pagination.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -588,6 +611,7 @@
 				7CF39DEE17E0070A003A859F /* AppDelegate.m */,
 				7C76578C182597930053483B /* Login.storyboard */,
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
+				7C6D859F191E93D3002EA534 /* MainV2.storyboard */,
 				7CF39DF617E0070A003A859F /* Images.xcassets */,
 				7CD9507C17E665AA00C70956 /* Controllers */,
 				7C16CF3E18397839007EA62D /* Views */,
@@ -648,6 +672,14 @@
 			children = (
 				7CF39E1317E00775003A859F /* MainViewController.h */,
 				7CF39E1417E00775003A859F /* MainViewController.m */,
+				7C476764191E9F8300333C59 /* ContainerCell.h */,
+				7C476765191E9F8300333C59 /* ContainerCell.m */,
+				7C47676C191EBA1E00333C59 /* PopularContainerCell.h */,
+				7C47676D191EBA1E00333C59 /* PopularContainerCell.m */,
+				7C476772191EBCD800333C59 /* PublicContainerCell.h */,
+				7C476773191EBCD800333C59 /* PublicContainerCell.m */,
+				7C476775191EDCC600333C59 /* Constants.h */,
+				7C476776191EDCC600333C59 /* Constants.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -757,10 +789,10 @@
 				7CF39DE917E0070A003A859F /* InfoPlist.strings in Resources */,
 				7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */,
 				7CA4902018D66A28001D5537 /* Camera.storyboard in Resources */,
+				7C6D85A0191E93D3002EA534 /* MainV2.storyboard in Resources */,
 				7C1BFA41187629F50076EFF2 /* Dosis-Regular.ttf in Resources */,
 				1DD97169184CCDD9001D35CA /* contact.html in Resources */,
 				7C0681AE18C2E4D200B8BFD6 /* FeedCell.xib in Resources */,
-				7CF39DF217E0070A003A859F /* Main.storyboard in Resources */,
 				1D568E97189756CC0043AB04 /* FeedFooterView.xib in Resources */,
 				1D2A4B2A18DF72F100D9BDF9 /* instagram~ipad.png in Resources */,
 				7C508F57188B035C00C1334E /* FeedProfileHeaderView.xib in Resources */,
@@ -824,6 +856,7 @@
 				7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */,
 				1D568E95189756930043AB04 /* FeedFooterView.m in Sources */,
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
+				7C476771191EBBF200333C59 /* UICollectionView+Pagination.m in Sources */,
 				7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */,
 				1DB0C7FD184A636A002626C8 /* AboutViewController.m in Sources */,
 				1DF6A7211884ABD900FB913D /* NotificationCell.m in Sources */,
@@ -831,6 +864,7 @@
 				7C0681B118C2E57100B8BFD6 /* PDPViewController.m in Sources */,
 				1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */,
 				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,
+				7C476766191E9F8300333C59 /* ContainerCell.m in Sources */,
 				7C7657901825AE920053483B /* FeedCell.m in Sources */,
 				1D2A4B2618DF72F100D9BDF9 /* DMResizerViewController.m in Sources */,
 				7CA4902418D67121001D5537 /* UserDefaultsManager.m in Sources */,
@@ -838,6 +872,8 @@
 				7CD1380518C4006100D534D7 /* AddCommentCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
+				7C476774191EBCD800333C59 /* PublicContainerCell.m in Sources */,
+				7C47676E191EBA1E00333C59 /* PopularContainerCell.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
 				7C3964A3189D997E000FB989 /* CustomPickerView.m in Sources */,
 				7C1BFA4418762A6D0076EFF2 /* UIFont+TwoByTwo.m in Sources */,
@@ -851,11 +887,13 @@
 				7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */,
 				1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */,
 				1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */,
+				7C47676B191EB44600333C59 /* UICollectionView+Addon.m in Sources */,
 				7C16CF421839853B007EA62D /* FeedProfileHeaderView.m in Sources */,
 				7C7B354C18D1128A00563569 /* PFObject+User.m in Sources */,
 				7C7B354F18D11E1900563569 /* NSURL+Facebook.m in Sources */,
 				1DD9718A184CD290001D35CA /* WebViewController.m in Sources */,
 				1DD97162184C065D001D35CA /* FindContactsViewController.m in Sources */,
+				7C476777191EDCC600333C59 /* Constants.m in Sources */,
 				1D79631D18F315C90022EFD1 /* FindTwitterFriendsViewController.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,

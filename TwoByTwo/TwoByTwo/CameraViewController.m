@@ -14,7 +14,7 @@
 #import <Social/Social.h>
 #import "CustomPickerView.h"
 #import "PDPViewController.h"
-#import "MainViewController.h"
+#import "Constants.h"
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,

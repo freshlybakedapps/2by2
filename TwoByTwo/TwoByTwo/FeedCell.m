@@ -13,6 +13,7 @@
 #import "BlocksKit+UIKit.h"
 #import "PDPViewController.h"
 #import "NSURL+Facebook.h"
+#import "FeedViewController.h"
 
 
 @interface FeedCell ()
@@ -272,7 +273,7 @@
 
 - (IBAction)detailButtonTapped:(id)sender
 {
-    [self.delegate cell:self showCommentsForPhoto:self.photo];
+    [self showCommentsForPhoto:self.photo];
 }
 
 - (IBAction)featuredButtonTapped:(id)sender
@@ -297,16 +298,16 @@
 - (IBAction)userButtonTapped:(id)sender
 {
     if (sender == self.firstUserButton) {
-        [self.delegate cell:self showProfileForUser:self.photo.user];
+        [self showProfileForUser:self.photo.user];
     }
     else {
-        [self.delegate cell:self showProfileForUser:self.photo.userFull];
+        [self showProfileForUser:self.photo.userFull];
     }
 }
 
 - (IBAction)commentButtonTapped:(id)sender
 {
-    [self.delegate cell:self showCommentsForPhoto:self.photo];
+    [self showCommentsForPhoto:self.photo];
 }
 
 - (IBAction)likeButtonTapped:(id)sender
@@ -429,6 +430,21 @@
     else {
         action();
     }
+}
+
+- (void)showProfileForUser:(PFUser *)user
+{
+    FeedViewController *controller = [FeedViewController controller];
+    controller.type = FeedTypeFriend;
+    controller.user = user;
+     [[MainViewController currentController].navigationController pushViewController:controller animated:YES];
+}
+
+- (void)showCommentsForPhoto:(PFObject *)photo
+{
+    PDPViewController *controller = [PDPViewController controller];
+    controller.photoID = photo.objectId;
+     [[MainViewController currentController].navigationController pushViewController:controller animated:YES];
 }
 
 @end

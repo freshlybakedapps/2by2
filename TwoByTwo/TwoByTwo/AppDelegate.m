@@ -12,6 +12,7 @@
 #import "FeedViewController.h"
 #import "UIWindow+Animation.h"
 #import "PDPViewController.h"
+#import "MainViewController.h"
 
 
 @implementation AppDelegate
@@ -70,7 +71,7 @@
     NSDictionary *remoteNotificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotificationPayload) {
         UINavigationController *navController = (id)self.window.rootViewController;
-        [(MainViewController *)navController.topViewController showControllerWithType:FeedTypeNotifications];
+        [(MainViewController *)navController.topViewController showNotificationsAnimated:NO];
         //TODO: push in notification detail page?
     }
     
@@ -162,7 +163,7 @@
 
 - (void)showMainViewController
 {
-    UIViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    UIViewController *controller = [[UIStoryboard storyboardWithName:@"MainV2" bundle:nil] instantiateInitialViewController];
     [self.window setRootViewController:controller animated:YES];
 }
 
@@ -188,6 +189,9 @@
                                                            NSForegroundColorAttributeName:[UIColor appGrayColor],
                                                            NSFontAttributeName:[UIFont appMediumFontOfSize:14],
                                                            }];
+    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     
     UIImage *barBackBtnImg = [[UIImage imageNamed:@"backArrow"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 24.0, 0, 0)];
     [[UINavigationBar appearance] setBackIndicatorImage:barBackBtnImg];
