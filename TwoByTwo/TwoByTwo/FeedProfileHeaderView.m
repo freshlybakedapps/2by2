@@ -42,7 +42,6 @@
     self.followersLabel.text = @"Loading..";
     self.bioLabel.text = @"Loading..";
     
-    self.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.followButton.titleLabel.font = [UIFont appMediumFontOfSize:12];
     self.editButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.usernameLabel.font = [UIFont appFontOfSize:14];
@@ -50,7 +49,6 @@
     self.followingLabel.font = [UIFont appFontOfSize:14];
     self.followersLabel.font = [UIFont appFontOfSize:14];
     self.bioLabel.font = [UIFont appFontOfSize:14];
-    self.exposureLabel.font = [UIFont appMediumFontOfSize:12];
 }
 
 
@@ -92,7 +90,7 @@
     
     __weak typeof(self) weakSelf = self;
     
-    self.titleLabel.text = [user[@"fullName"] uppercaseString];
+//    self.titleLabel.text = [user[@"fullName"] uppercaseString];
     self.usernameLabel.text = user.username;
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user == %@ OR user_full == %@", user, user];
@@ -200,9 +198,9 @@
 
 #pragma mark - IBActions
 
-+ (CGFloat)headerHeightForType:(FeedType)type
-{
-    return 225.0;
-}
+//+ (CGFloat)headerHeightForType:(FeedType)type
+//{
+//    return 225.0;
+//}
 
 @end

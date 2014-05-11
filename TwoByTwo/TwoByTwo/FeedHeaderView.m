@@ -14,9 +14,9 @@ static CGFloat const kHeaderHeightWithoutMessage = 80.0;
 
 
 @interface FeedHeaderView ()
-@property (nonatomic, weak) IBOutlet UIView *messageView;
-@property (nonatomic, weak) IBOutlet UILabel *messageLabel;
-@property (nonatomic, weak) IBOutlet UIButton *messageCloseButton;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *feedToggleButton;
+@property (nonatomic, weak) IBOutlet UIButton *exposureToggleButton;
 @end
 
 
@@ -25,10 +25,33 @@ static CGFloat const kHeaderHeightWithoutMessage = 80.0;
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
     self.titleLabel.font = [UIFont appMediumFontOfSize:14];
-    self.messageLabel.font = [UIFont appMediumFontOfSize:13];
-    self.exposureLabel.font = [UIFont appMediumFontOfSize:12];
+}
+
+- (void)setTitle:(NSString *)title
+{
+    _title = title;
+    [self updateTitleLabel];
+}
+
+- (void)updateTitleLabel
+{
+    if (self.exposureToggleButton) {
+        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@:", self.title]
+                                                                                           attributes:@{
+                                                                                                        NSFontAttributeName : self.titleLabel.font,
+                                                                                                        NSForegroundColorAttributeName : [UIColor appRedColor],
+                                                                                                        }];
+        [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:(self.exposureToggleButton.selected) ? @"SINGLE EXPOSURES" : @"DOUBLE EXPOSURES"
+                                                                               attributes:@{
+                                                                                            NSFontAttributeName : self.titleLabel.font,
+                                                                                            NSForegroundColorAttributeName : [UIColor appGrayColor],
+                                                                                            }]];
+        self.titleLabel.attributedText = attributedText;
+    }
+    else {
+        self.titleLabel.text = self.title;
+    }
 }
 
 #pragma mark - IBActions
@@ -42,89 +65,8 @@ static CGFloat const kHeaderHeightWithoutMessage = 80.0;
 - (IBAction)exposureToggleButtonTapped:(UIButton *)sender
 {
     sender.selected = !sender.selected;
-    [self.delegate setShowingDouble:sender.selected];
-    
-    if(!sender.selected){
-        self.exposureLabel.text = @"SINGLE EXPOSURE";
-    }else{
-        self.exposureLabel.text = @"DOUBLE EXPOSURE";
-    }
-}
-
-- (IBAction)messageCloseButtonTapped:(id)sender
-{
-    [UserDefaultsManager setHeaderMessageDismissed:YES forType:self.type];
-    [self.delegate updateHeaderHeight];
-}
-
-
-#pragma mark - Content
-
-- (void)setType:(FeedType)type
-{
-    _type = type;
-    
-    switch (type) {
-        case FeedTypeSingle:
-            self.titleLabel.text = @"Single Exposure Shots";
-            self.messageLabel.text = @"These are single exposed photos waiting before they make it to the public feed. Tap on any of these to etch a second exposure. (This notice will go away upon closing)";
-            self.exposureLabel.hidden = YES;
-            self.exposureToggleButton.hidden = YES;
-            break;
-            
-        case FeedTypeGlobal:
-            self.titleLabel.text = @"Public feed";
-            self.messageLabel.text = @"These photos are a combination of friend's photos and the general public. All photos here have been double exposed. (This notice will go away upon closing)";
-            self.exposureLabel.hidden = YES;
-            self.exposureToggleButton.hidden = YES;
-            break;
-            
-        case FeedTypeFollowing:
-            self.titleLabel.text = @"Photos from People you follow";
-            self.messageLabel.text = @"Toggle between  single and double exposed photos from people you follow. Tap a single  exposed photo to collaborate. (This notice will go away upon closing)";
-            self.exposureLabel.hidden = NO;
-            self.exposureToggleButton.hidden = NO;
-            break;
-            
-        case FeedTypeNotifications:
-            self.titleLabel.text = @"Notifications";
-            self.messageLabel.text = @"All of your activity is collected here to help keep track of who and from where people are interacting with your photos. (This notice will go away upon closing)";
-            self.exposureLabel.hidden = YES;
-            self.exposureToggleButton.hidden = YES;
-            break;
-        case FeedTypeHashtag:
-            self.titleLabel.text = @"#hashtag";
-            //self.messageLabel.text = @"All of your activity is collected here to help keep track of who and from where people are interacting with your photos. (This notice will go away upon closing)";
-            self.exposureLabel.hidden = NO;
-            self.exposureToggleButton.hidden = NO;
-            break;
-            
-        default:
-            self.titleLabel.text = @"";
-            self.messageLabel.text = @"";
-            self.exposureLabel.hidden = YES;
-            self.exposureToggleButton.hidden = YES;
-            break;
-    }
-    
-    if(self.title){
-        self.titleLabel.text = self.title;
-    }
-    
-    self.titleLabel.text = [self.titleLabel.text uppercaseString];
-}
-
-
-#pragma mark -
-+ (CGFloat)headerHeightForType:(ContentType)type
-{
-    BOOL value = [UserDefaultsManager headerMessageDismissedForType:type];
-    if (value) {
-        return kHeaderHeightWithoutMessage;
-    }
-    else {
-        return kHeaderHeightWithMessage;
-    }
+    [self.delegate setShowingDouble:!sender.selected];
+    [self updateTitleLabel];
 }
 
 @end

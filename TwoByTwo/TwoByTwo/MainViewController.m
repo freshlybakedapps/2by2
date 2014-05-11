@@ -16,6 +16,7 @@
 #import "UICollectionView+Pagination.h"
 #import "AppDelegate.h"
 #import "Constants.h"
+#import "PopularContainerCell.h"
 #import "PublicContainerCell.h"
 
 
@@ -43,7 +44,8 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationCount:) name:NoficationDidUpdatePushNotificationCount object:nil];
 
-    [self.collectionView registerClass:[PublicContainerCell class] forCellWithReuseIdentifier:NSStringFromClass([PublicContainerCell class])];
+    [self.collectionView registerCellClass:[PopularContainerCell class]];
+    [self.collectionView registerCellClass:[PublicContainerCell class]];
     
     self.pageControl.numberOfPages = ContentTypeCount;
 }
@@ -63,9 +65,27 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PublicContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PublicContainerCell class]) forIndexPath:indexPath];
-    [cell performQuery];
-    return cell;
+    ContentType type = indexPath.row;
+    switch (type) {
+            
+        case ContentTypePopular:
+        {
+            PopularContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PopularContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            return cell;
+        }
+
+        case ContentTypePublic:
+        case ContentTypeFriends:
+        case ContentTypeProfile:
+        case ContentTypeNotifications:
+        default:
+        {
+            PublicContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PublicContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            return cell;
+        }
+    }
 }
 
 

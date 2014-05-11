@@ -13,5 +13,7 @@
 
 - (void)registerNibWithCellClass:(Class)cellClass;
 - (void)registerNibWithViewClass:(Class)viewClass forSupplementaryViewOfKind:(NSString *)kind;
+- (void)registerCellClass:(Class)cellClass;
+- (void)registerViewClass:(Class)viewClass forSupplementaryViewOfKind:(NSString *)elementKind;
 
 @end

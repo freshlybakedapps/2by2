@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FeedHeaderView.h"
+#import "FeedFooterView.h"
 #import "Constants.h"
 
 
-@interface ContainerCell : UICollectionViewCell
+@interface ContainerCell : UICollectionViewCell <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic) BOOL showingFeed;
+@property (nonatomic) BOOL showingDouble;
 @property (nonatomic, readonly) ContentType type;
 
 - (void)performQuery;

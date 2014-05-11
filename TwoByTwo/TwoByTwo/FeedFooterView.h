@@ -7,15 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MainViewController.h"
-#import "FeedViewController.h"
 
 
 @interface FeedFooterView : UICollectionReusableView
 
-@property (nonatomic) FeedType type;
-@property (nonatomic) BOOL showingDouble;
-@property (nonatomic, strong) FeedViewController *controller;
-
+@property (nonatomic, weak) IBOutlet UILabel *textLabel;
 
 @end

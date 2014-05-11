@@ -13,7 +13,6 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 @interface FeedFooterView ()
-@property (nonatomic, weak) IBOutlet UILabel *textLabel;
 
 @property (nonatomic, weak) IBOutlet UIButton *inviteFacebookButton;
 @property (nonatomic, weak) IBOutlet UIButton *inviteContanctButton;
@@ -34,9 +33,9 @@
 {
     
     
-    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self.controller;
-    [self.controller presentViewController:picker animated:YES completion:nil];
+//    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+//    picker.peoplePickerDelegate = self.controller;
+//    [self.controller presentViewController:picker animated:YES completion:nil];
 
 }
 
@@ -64,51 +63,51 @@
 }
 
 
-- (void)setType:(FeedType)type
-{
-    _type = type;
-    
-    
-    switch (type) {
-            
-        case FeedTypeYou:
-            if(!self.showingDouble){
-                self.textLabel.text = @"Not much going on here yet. Take a photo by tapping below.";
-            }else{
-                self.textLabel.text = @"Not much going on here yet. Go to any single exposed photo and tap on it to create a double exposure";
-            }
-            break;
-        case FeedTypeFollowing:
-            if(!self.showingDouble){
-                self.textLabel.text = @"There are no single exposure photos from your friends right now. \n\n2by2 is more fun with friends and family, invite them to join";
-            }else{
-                self.textLabel.text = @"There are no double exposure photos from your friends right now. \n\n2by2 is more fun with friends and family, invite them to join";
-            }
-            break;
-        case FeedTypeFriend:
-            if(!self.showingDouble){
-                self.textLabel.text = @"This person has no single shots to double expose right now. \n\nThis is a great time to invite new friends to join 2by2";
-            }else{
-                self.textLabel.text = @"This person has no double shots right now. \n\nThis is a great time to invite new friends to join 2by2";
-            }
-            break;
-        case FeedTypeSingle:
-            self.textLabel.text = @"There are no single exposure photos right now. \n\n2by2 is more fun with friends and family, invite them to join.";
-            break;
-        case FeedTypeGlobal:
-            self.textLabel.text = @"There are no double exposure photos right now. \n\n2by2 is more fun with friends and family, invite them to join.";
-            break;
-        case FeedTypeHashtag:
-            if(!self.showingDouble){
-                self.textLabel.text = @"There are no single shots to double expose right now. \n\nThis is a great time to invite new friends to join 2by2";
-            }else{
-                self.textLabel.text = @"This hashtag has no double shots right now. \n\nThis is a great time to invite new friends to join 2by2";
-            }            break;
-        default:
-            self.textLabel.text = @"";
-            break;
-    }
-}
+//- (void)setType:(FeedType)type
+//{
+//    _type = type;
+//    
+//    
+//    switch (type) {
+//            
+//        case FeedTypeYou:
+//            if(!self.showingDouble){
+//                self.textLabel.text = @"Not much going on here yet. Take a photo by tapping below.";
+//            }else{
+//                self.textLabel.text = @"Not much going on here yet. Go to any single exposed photo and tap on it to create a double exposure";
+//            }
+//            break;
+//        case FeedTypeFollowing:
+//            if(!self.showingDouble){
+//                self.textLabel.text = @"There are no single exposure photos from your friends right now. \n\n2by2 is more fun with friends and family, invite them to join";
+//            }else{
+//                self.textLabel.text = @"There are no double exposure photos from your friends right now. \n\n2by2 is more fun with friends and family, invite them to join";
+//            }
+//            break;
+//        case FeedTypeFriend:
+//            if(!self.showingDouble){
+//                self.textLabel.text = @"This person has no single shots to double expose right now. \n\nThis is a great time to invite new friends to join 2by2";
+//            }else{
+//                self.textLabel.text = @"This person has no double shots right now. \n\nThis is a great time to invite new friends to join 2by2";
+//            }
+//            break;
+//        case FeedTypeSingle:
+//            self.textLabel.text = @"There are no single exposure photos right now. \n\n2by2 is more fun with friends and family, invite them to join.";
+//            break;
+//        case FeedTypeGlobal:
+//            self.textLabel.text = @"There are no double exposure photos right now. \n\n2by2 is more fun with friends and family, invite them to join.";
+//            break;
+//        case FeedTypeHashtag:
+//            if(!self.showingDouble){
+//                self.textLabel.text = @"There are no single shots to double expose right now. \n\nThis is a great time to invite new friends to join 2by2";
+//            }else{
+//                self.textLabel.text = @"This hashtag has no double shots right now. \n\nThis is a great time to invite new friends to join 2by2";
+//            }            break;
+//        default:
+//            self.textLabel.text = @"";
+//            break;
+//    }
+//}
 
 
 

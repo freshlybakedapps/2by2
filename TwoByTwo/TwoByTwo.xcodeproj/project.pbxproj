@@ -65,6 +65,8 @@
 		7C476771191EBBF200333C59 /* UICollectionView+Pagination.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476770191EBBF200333C59 /* UICollectionView+Pagination.m */; };
 		7C476774191EBCD800333C59 /* PublicContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476773191EBCD800333C59 /* PublicContainerCell.m */; };
 		7C476777191EDCC600333C59 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476776191EDCC600333C59 /* Constants.m */; };
+		7C47677A191EFDDD00333C59 /* PopularFeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476779191EFDDD00333C59 /* PopularFeedHeaderView.m */; };
+		7C47677C191EFDE500333C59 /* PopularFeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C47677B191EFDE500333C59 /* PopularFeedHeaderView.xib */; };
 		7C508F53188AFB1E00C1334E /* FeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C508F52188AFB1E00C1334E /* FeedHeaderView.m */; };
 		7C508F55188B028700C1334E /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F54188B028700C1334E /* FeedHeaderView.xib */; };
 		7C508F57188B035C00C1334E /* FeedProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F56188B035C00C1334E /* FeedProfileHeaderView.xib */; };
@@ -206,6 +208,9 @@
 		7C476773191EBCD800333C59 /* PublicContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicContainerCell.m; sourceTree = "<group>"; };
 		7C476775191EDCC600333C59 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		7C476776191EDCC600333C59 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		7C476778191EFDDD00333C59 /* PopularFeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularFeedHeaderView.h; sourceTree = "<group>"; };
+		7C476779191EFDDD00333C59 /* PopularFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularFeedHeaderView.m; sourceTree = "<group>"; };
+		7C47677B191EFDE500333C59 /* PopularFeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopularFeedHeaderView.xib; sourceTree = "<group>"; };
 		7C508F51188AFB1E00C1334E /* FeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedHeaderView.h; sourceTree = "<group>"; };
 		7C508F52188AFB1E00C1334E /* FeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedHeaderView.m; sourceTree = "<group>"; };
 		7C508F54188B028700C1334E /* FeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedHeaderView.xib; sourceTree = "<group>"; };
@@ -489,6 +494,9 @@
 				7C508F51188AFB1E00C1334E /* FeedHeaderView.h */,
 				7C508F52188AFB1E00C1334E /* FeedHeaderView.m */,
 				7C508F54188B028700C1334E /* FeedHeaderView.xib */,
+				7C476778191EFDDD00333C59 /* PopularFeedHeaderView.h */,
+				7C476779191EFDDD00333C59 /* PopularFeedHeaderView.m */,
+				7C47677B191EFDE500333C59 /* PopularFeedHeaderView.xib */,
 				7C16CF401839853B007EA62D /* FeedProfileHeaderView.h */,
 				7C16CF411839853B007EA62D /* FeedProfileHeaderView.m */,
 				7C508F56188B035C00C1334E /* FeedProfileHeaderView.xib */,
@@ -613,6 +621,8 @@
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
 				7C6D859F191E93D3002EA534 /* MainV2.storyboard */,
 				7CF39DF617E0070A003A859F /* Images.xcassets */,
+				7C476775191EDCC600333C59 /* Constants.h */,
+				7C476776191EDCC600333C59 /* Constants.m */,
 				7CD9507C17E665AA00C70956 /* Controllers */,
 				7C16CF3E18397839007EA62D /* Views */,
 				7C16CF3F18397854007EA62D /* Models */,
@@ -678,8 +688,6 @@
 				7C47676D191EBA1E00333C59 /* PopularContainerCell.m */,
 				7C476772191EBCD800333C59 /* PublicContainerCell.h */,
 				7C476773191EBCD800333C59 /* PublicContainerCell.m */,
-				7C476775191EDCC600333C59 /* Constants.h */,
-				7C476776191EDCC600333C59 /* Constants.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -785,6 +793,7 @@
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
 				1D2A4B2918DF72F100D9BDF9 /* instagram@2x.png in Resources */,
 				7C0681BB18C2F14600B8BFD6 /* ThumbCell.xib in Resources */,
+				7C47677C191EFDE500333C59 /* PopularFeedHeaderView.xib in Resources */,
 				1D24D30F18D7383E005C196B /* FindFacebookFriendsCell.xib in Resources */,
 				7CF39DE917E0070A003A859F /* InfoPlist.strings in Resources */,
 				7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */,
@@ -893,6 +902,7 @@
 				7C7B354F18D11E1900563569 /* NSURL+Facebook.m in Sources */,
 				1DD9718A184CD290001D35CA /* WebViewController.m in Sources */,
 				1DD97162184C065D001D35CA /* FindContactsViewController.m in Sources */,
+				7C47677A191EFDDD00333C59 /* PopularFeedHeaderView.m in Sources */,
 				7C476777191EDCC600333C59 /* Constants.m in Sources */,
 				1D79631D18F315C90022EFD1 /* FindTwitterFriendsViewController.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */,

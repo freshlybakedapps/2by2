@@ -1,14 +1,14 @@
 //
-//  PopularContainerCell.h
+//  PopularFeedHeaderView.h
 //  TwoByTwo
 //
 //  Created by Joseph Lin on 5/10/14.
 //  Copyright (c) 2014 Joseph Lin. All rights reserved.
 //
 
-#import "ContainerCell.h"
+#import "FeedHeaderView.h"
 
 
-@interface PopularContainerCell : ContainerCell
+@interface PopularFeedHeaderView : FeedHeaderView
 
 @end

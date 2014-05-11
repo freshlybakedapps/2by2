@@ -7,8 +7,6 @@
 //
 
 #import "ContainerCell.h"
-#import "FeedHeaderView.h"
-#import "FeedFooterView.h"
 #import "FeedCell.h"
 #import "ThumbCell.h"
 #import "CameraViewController.h"
@@ -19,12 +17,10 @@
 static NSUInteger const kQueryBatchSize = 20;
 
 
-@interface ContainerCell () <UICollectionViewDataSource, UICollectionViewDelegate, FeedHeaderViewDelegate>
+@interface ContainerCell () <FeedHeaderViewDelegate>
 @property (nonatomic, strong) NSMutableArray *objects;
 @property (nonatomic) NSUInteger totalNumberOfObjects;
 @property (nonatomic) NSUInteger queryOffset;
-@property (nonatomic) BOOL showingFeed;
-@property (nonatomic) BOOL showingDouble;
 @end
 
 
@@ -51,7 +47,7 @@ static NSUInteger const kQueryBatchSize = 20;
         [self addSubview:collectionView];
         self.collectionView = collectionView;
         
-        self.showingDouble = YES;
+        _showingDouble = YES;
     }
     return self;
 }
@@ -103,7 +99,6 @@ static NSUInteger const kQueryBatchSize = 20;
         self.totalNumberOfObjects = number;
         query.limit= kQueryBatchSize;
         query.skip = self.objects.count;
-        //[query orderByDescending:@"createdAt"];
         
         [query setCachePolicy:kPFCachePolicyNetworkElseCache];
         
@@ -132,7 +127,11 @@ static NSUInteger const kQueryBatchSize = 20;
             else {
                 self.objects = nil;
                 [self.collectionView reloadData];
-                [[[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
+                                            message:error.localizedDescription
+                                           delegate:nil
+                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                  otherButtonTitles:nil] show];
             }
             
             if (completion) completion(objects, error);
@@ -250,7 +249,7 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return CGSizeMake(0, [FeedHeaderView headerHeightForType:self.type]);
+    return CGSizeMake(0, 80);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
@@ -267,14 +266,11 @@ static NSUInteger const kQueryBatchSize = 20;
 {
     if (kind == UICollectionElementKindSectionHeader) {
         FeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([FeedHeaderView class]) forIndexPath:indexPath];
-//        headerView.type = self.type;
         headerView.delegate = self;
         return headerView;
     }
     else {
         FeedFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([FeedFooterView class]) forIndexPath:indexPath];
-        footerView.showingDouble = self.showingDouble;
-//        footerView.type = self.type;
         return footerView;
     }
     return nil;

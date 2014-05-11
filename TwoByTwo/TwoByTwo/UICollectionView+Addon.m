@@ -25,4 +25,14 @@
     [self registerNib:nib forSupplementaryViewOfKind:kind withReuseIdentifier:className];
 }
 
+- (void)registerCellClass:(Class)cellClass
+{
+    [self registerClass:cellClass forCellWithReuseIdentifier:NSStringFromClass(cellClass)];
+}
+
+- (void)registerViewClass:(Class)viewClass forSupplementaryViewOfKind:(NSString *)elementKind
+{
+    [self registerClass:viewClass forSupplementaryViewOfKind:elementKind withReuseIdentifier:NSStringFromClass(viewClass)];
+}
+
 @end
