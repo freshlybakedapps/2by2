@@ -67,6 +67,9 @@
 		7C476777191EDCC600333C59 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476776191EDCC600333C59 /* Constants.m */; };
 		7C47677A191EFDDD00333C59 /* PopularFeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476779191EFDDD00333C59 /* PopularFeedHeaderView.m */; };
 		7C47677C191EFDE500333C59 /* PopularFeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C47677B191EFDE500333C59 /* PopularFeedHeaderView.xib */; };
+		7C47677F191F066800333C59 /* FriendsContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47677E191F066800333C59 /* FriendsContainerCell.m */; };
+		7C476782191F067F00333C59 /* ProfileContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476781191F067F00333C59 /* ProfileContainerCell.m */; };
+		7C476785191F068E00333C59 /* NotificationsContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476784191F068E00333C59 /* NotificationsContainerCell.m */; };
 		7C508F53188AFB1E00C1334E /* FeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C508F52188AFB1E00C1334E /* FeedHeaderView.m */; };
 		7C508F55188B028700C1334E /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F54188B028700C1334E /* FeedHeaderView.xib */; };
 		7C508F57188B035C00C1334E /* FeedProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F56188B035C00C1334E /* FeedProfileHeaderView.xib */; };
@@ -211,6 +214,12 @@
 		7C476778191EFDDD00333C59 /* PopularFeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularFeedHeaderView.h; sourceTree = "<group>"; };
 		7C476779191EFDDD00333C59 /* PopularFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularFeedHeaderView.m; sourceTree = "<group>"; };
 		7C47677B191EFDE500333C59 /* PopularFeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopularFeedHeaderView.xib; sourceTree = "<group>"; };
+		7C47677D191F066800333C59 /* FriendsContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsContainerCell.h; sourceTree = "<group>"; };
+		7C47677E191F066800333C59 /* FriendsContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsContainerCell.m; sourceTree = "<group>"; };
+		7C476780191F067F00333C59 /* ProfileContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileContainerCell.h; sourceTree = "<group>"; };
+		7C476781191F067F00333C59 /* ProfileContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileContainerCell.m; sourceTree = "<group>"; };
+		7C476783191F068E00333C59 /* NotificationsContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsContainerCell.h; sourceTree = "<group>"; };
+		7C476784191F068E00333C59 /* NotificationsContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsContainerCell.m; sourceTree = "<group>"; };
 		7C508F51188AFB1E00C1334E /* FeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedHeaderView.h; sourceTree = "<group>"; };
 		7C508F52188AFB1E00C1334E /* FeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedHeaderView.m; sourceTree = "<group>"; };
 		7C508F54188B028700C1334E /* FeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedHeaderView.xib; sourceTree = "<group>"; };
@@ -688,6 +697,12 @@
 				7C47676D191EBA1E00333C59 /* PopularContainerCell.m */,
 				7C476772191EBCD800333C59 /* PublicContainerCell.h */,
 				7C476773191EBCD800333C59 /* PublicContainerCell.m */,
+				7C47677D191F066800333C59 /* FriendsContainerCell.h */,
+				7C47677E191F066800333C59 /* FriendsContainerCell.m */,
+				7C476780191F067F00333C59 /* ProfileContainerCell.h */,
+				7C476781191F067F00333C59 /* ProfileContainerCell.m */,
+				7C476783191F068E00333C59 /* NotificationsContainerCell.h */,
+				7C476784191F068E00333C59 /* NotificationsContainerCell.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -880,6 +895,7 @@
 				7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */,
 				7CD1380518C4006100D534D7 /* AddCommentCell.m in Sources */,
 				7CD9507717E657CA00C70956 /* UIColor+TwoByTwo.m in Sources */,
+				7C476782191F067F00333C59 /* ProfileContainerCell.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C476774191EBCD800333C59 /* PublicContainerCell.m in Sources */,
 				7C47676E191EBA1E00333C59 /* PopularContainerCell.m in Sources */,
@@ -887,6 +903,7 @@
 				7C3964A3189D997E000FB989 /* CustomPickerView.m in Sources */,
 				7C1BFA4418762A6D0076EFF2 /* UIFont+TwoByTwo.m in Sources */,
 				1DB0C801184A65F6002626C8 /* FindInviteFriendsViewController.m in Sources */,
+				7C476785191F068E00333C59 /* NotificationsContainerCell.m in Sources */,
 				7C7E2937183052120036557E /* UserAnnotation.m in Sources */,
 				1D2A4B2518DF72F100D9BDF9 /* DMActivityInstagram.m in Sources */,
 				1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */,
@@ -910,6 +927,7 @@
 				7CD137FF18C3F43400D534D7 /* LikersCell.m in Sources */,
 				7CD1380218C3F9E400D534D7 /* AvatarCell.m in Sources */,
 				7CF39DEB17E0070A003A859F /* main.m in Sources */,
+				7C47677F191F066800333C59 /* FriendsContainerCell.m in Sources */,
 				1DB0C808184A8D0B002626C8 /* FindFacebookFriendCell.m in Sources */,
 				7C0681B918C2F13C00B8BFD6 /* ThumbCell.m in Sources */,
 				1DCD412818083BA2007A5D56 /* LoginViewController.m in Sources */,

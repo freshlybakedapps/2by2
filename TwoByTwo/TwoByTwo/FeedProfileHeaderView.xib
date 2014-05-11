@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -216,9 +216,7 @@
             </constraints>
             <connections>
                 <outlet property="bioLabel" destination="ghe-Z6-jvH" id="bJO-1U-mnK"/>
-                <outlet property="controlView" destination="tNp-A5-zxX" id="0tt-WS-Fol"/>
                 <outlet property="editButton" destination="ytc-sv-eXm" id="KwE-Tw-1gM"/>
-                <outlet property="exposureLabel" destination="eyw-TO-b2k" id="4rP-GW-MpY"/>
                 <outlet property="exposureToggleButton" destination="hJC-6d-bLw" id="myx-Qm-ZNM"/>
                 <outlet property="feedToggleButton" destination="u4U-Da-XSs" id="euo-cH-8qq"/>
                 <outlet property="followButton" destination="kgz-7D-PaU" id="Acv-6d-S1D"/>

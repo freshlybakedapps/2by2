@@ -17,7 +17,7 @@
 static NSUInteger const kQueryBatchSize = 20;
 
 
-@interface ContainerCell () <FeedHeaderViewDelegate>
+@interface ContainerCell ()
 @property (nonatomic, strong) NSMutableArray *objects;
 @property (nonatomic) NSUInteger totalNumberOfObjects;
 @property (nonatomic) NSUInteger queryOffset;

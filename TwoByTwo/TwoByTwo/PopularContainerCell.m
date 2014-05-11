@@ -7,12 +7,24 @@
 //
 
 #import "PopularContainerCell.h"
+#import "PopularFeedHeaderView.h"
+#import "UICollectionView+Addon.h"
 
 
 @implementation PopularContainerCell
 
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self.collectionView registerNibWithViewClass:[PopularFeedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader];
+    }
+    return self;
+}
+
 - (PFQuery *)photoQuery
 {
+    //TODO: what should the query be?
     PFQuery *query = [PFQuery queryWithClassName:PFPhotoClass];
     [query whereKey:PFStateKey equalTo:(self.showingDouble) ? PFStateValueFull : PFStateValueHalf];
     return query;
@@ -23,14 +35,14 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionReusableView *view = (id)[super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
-    
     if (kind == UICollectionElementKindSectionHeader) {
-        FeedHeaderView *headerView = (id)view;
+        PopularFeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([PopularFeedHeaderView class]) forIndexPath:indexPath];
         headerView.title = NSLocalizedString(@"POPULAR PHOTOS", @"Feed title");
+        headerView.delegate = self;
+       return headerView;
     }
     else {
-        FeedFooterView *footerView = (id)view;
+        FeedFooterView *footerView = (id)[super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
         
         NSString *statement = (self.showingDouble)
         ? NSLocalizedString(@"There are no double exposure photos right now.", @"Feed footer message")
@@ -39,9 +51,8 @@
         NSString *invite = NSLocalizedString(@"2by2 is more fun with friends and family, invite them to join.", @"Feed footer message");
         
         footerView.textLabel.text = [NSString stringWithFormat:@"%@\n\n%@", statement, invite];
+        return footerView;
     }
-    
-    return view;
 }
 
 @end

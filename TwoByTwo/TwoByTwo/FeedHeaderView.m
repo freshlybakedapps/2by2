@@ -37,7 +37,7 @@ static CGFloat const kHeaderHeightWithoutMessage = 80.0;
 - (void)updateTitleLabel
 {
     if (self.exposureToggleButton) {
-        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@:", self.title]
+        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", self.title]
                                                                                            attributes:@{
                                                                                                         NSFontAttributeName : self.titleLabel.font,
                                                                                                         NSForegroundColorAttributeName : [UIColor appRedColor],

@@ -12,12 +12,11 @@
 #import "Constants.h"
 
 
-@interface ContainerCell : UICollectionViewCell <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ContainerCell : UICollectionViewCell <UICollectionViewDataSource, UICollectionViewDelegate, FeedHeaderViewDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic) BOOL showingFeed;
 @property (nonatomic) BOOL showingDouble;
-@property (nonatomic, readonly) ContentType type;
 
 - (void)performQuery;
 - (PFQuery *)photoQuery;

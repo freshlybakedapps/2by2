@@ -7,9 +7,6 @@
 //
 
 #import "MainViewController.h"
-#import "FeedViewController.h"
-#import "EditProfileViewController.h"
-#import "NotificationsViewController.h"
 #import "CameraViewController.h"
 #import "UIImage+Addon.h"
 #import "UICollectionView+Addon.h"
@@ -18,6 +15,9 @@
 #import "Constants.h"
 #import "PopularContainerCell.h"
 #import "PublicContainerCell.h"
+#import "FriendsContainerCell.h"
+#import "ProfileContainerCell.h"
+#import "NotificationsContainerCell.h"
 
 
 @interface MainViewController ()
@@ -46,6 +46,9 @@
 
     [self.collectionView registerCellClass:[PopularContainerCell class]];
     [self.collectionView registerCellClass:[PublicContainerCell class]];
+    [self.collectionView registerCellClass:[FriendsContainerCell class]];
+    [self.collectionView registerCellClass:[ProfileContainerCell class]];
+    [self.collectionView registerCellClass:[NotificationsContainerCell class]];
     
     self.pageControl.numberOfPages = ContentTypeCount;
 }
@@ -76,12 +79,30 @@
         }
 
         case ContentTypePublic:
+        {
+            PublicContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PublicContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            return cell;
+        }
+            
         case ContentTypeFriends:
+        {
+            FriendsContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FriendsContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            return cell;
+        }
+        
         case ContentTypeProfile:
+        {
+            ProfileContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([ProfileContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            return cell;
+        }
+
         case ContentTypeNotifications:
         default:
         {
-            PublicContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PublicContainerCell class]) forIndexPath:indexPath];
+            NotificationsContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([NotificationsContainerCell class]) forIndexPath:indexPath];
             [cell performQuery];
             return cell;
         }
