@@ -49,6 +49,7 @@
     [self.collectionView registerCellClass:[FriendsContainerCell class]];
     [self.collectionView registerCellClass:[ProfileContainerCell class]];
     [self.collectionView registerCellClass:[NotificationsContainerCell class]];
+    self.collectionView.scrollsToTop = NO;
     
     self.pageControl.numberOfPages = ContentTypeCount;
 }
@@ -69,44 +70,48 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ContentType type = indexPath.row;
+    ContainerCell *cell;
+    
     switch (type) {
             
         case ContentTypePopular:
         {
-            PopularContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PopularContainerCell class]) forIndexPath:indexPath];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PopularContainerCell class]) forIndexPath:indexPath];
             [cell performQuery];
-            return cell;
+            break;
         }
 
         case ContentTypePublic:
         {
-            PublicContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PublicContainerCell class]) forIndexPath:indexPath];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PublicContainerCell class]) forIndexPath:indexPath];
             [cell performQuery];
-            return cell;
+            break;
         }
             
         case ContentTypeFriends:
         {
-            FriendsContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FriendsContainerCell class]) forIndexPath:indexPath];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FriendsContainerCell class]) forIndexPath:indexPath];
             [cell performQuery];
-            return cell;
+            break;
         }
         
         case ContentTypeProfile:
         {
-            ProfileContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([ProfileContainerCell class]) forIndexPath:indexPath];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([ProfileContainerCell class]) forIndexPath:indexPath];
             [cell performQuery];
-            return cell;
+            break;
         }
 
         case ContentTypeNotifications:
         default:
         {
-            NotificationsContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([NotificationsContainerCell class]) forIndexPath:indexPath];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([NotificationsContainerCell class]) forIndexPath:indexPath];
             [cell performQuery];
-            return cell;
+            break;
         }
     }
+    
+    return cell;
 }
 
 
@@ -146,7 +151,15 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    self.pageControl.currentPage = self.collectionView.currentPage;
+    NSInteger currentPage = self.collectionView.currentPage;
+    if (self.pageControl.currentPage != currentPage) {
+        self.pageControl.currentPage = currentPage;
+        NSArray *cells = [self.collectionView visibleCells];
+        [cells bk_each:^(ContainerCell *cell) {
+            NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+            cell.collectionView.scrollsToTop = (indexPath.row == currentPage) ? YES : NO;
+        }];
+    }
 }
 
 @end
