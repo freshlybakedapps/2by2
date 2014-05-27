@@ -12,7 +12,7 @@
 #import "FeedCell.h"
 #import "ThumbCell.h"
 #import "FeedHeaderView.h"
-#import "FeedProfileHeaderView.h"
+#import "ProfileFeedHeaderView.h"
 #import "FeedFooterView.h"
 #import "AppDelegate.h"
 
@@ -419,7 +419,7 @@ static NSUInteger const kQueryBatchSize = 20;
         switch (self.type) {
             case FeedTypeFriend:
             case FeedTypeYou: {
-                FeedProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView" forIndexPath:indexPath];
+                ProfileFeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView" forIndexPath:indexPath];
                 headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
                 headerView.delegate = self;
                 return headerView;

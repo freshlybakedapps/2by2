@@ -9,14 +9,8 @@
 #import "FeedHeaderView.h"
 #import "UserDefaultsManager.h"
 
-static CGFloat const kHeaderHeightWithMessage = 164.0;
-static CGFloat const kHeaderHeightWithoutMessage = 80.0;
-
 
 @interface FeedHeaderView ()
-@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UIButton *feedToggleButton;
-@property (nonatomic, weak) IBOutlet UIButton *exposureToggleButton;
 @end
 
 

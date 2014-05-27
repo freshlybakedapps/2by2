@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NotificationCell" id="hQ4-Eh-6Ev" customClass="NotificationCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultUserImage" translatesAutoresizingMaskIntoConstraints="NO" id="XjO-ep-GFW">
+                        <rect key="frame" x="10" y="10" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="UU2-ac-bWJ"/>
+                            <constraint firstAttribute="width" constant="30" id="XZF-Nt-uHb"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="KHy-N9-luq">
+                        <rect key="frame" x="50" y="10" width="260" height="51"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <string key="text" base64-UTF8="YES">
+TmFoIG1hbiwgaXMgbm90IHRoYXQgZ3JlYXQhIFRoaXMgY29tbWVudAN3aWxsIGJyZWFrIGludG8gMyBs
+aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
+</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RDz-44-tP7">
+                        <rect key="frame" x="50" y="69" width="17" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="RDz-44-tP7" firstAttribute="top" secondItem="KHy-N9-luq" secondAttribute="bottom" constant="8" symbolic="YES" id="8LE-Ph-yCk"/>
+                <constraint firstItem="KHy-N9-luq" firstAttribute="top" secondItem="hQ4-Eh-6Ev" secondAttribute="top" constant="10" id="UUz-Tl-TRj"/>
+                <constraint firstItem="KHy-N9-luq" firstAttribute="leading" secondItem="XjO-ep-GFW" secondAttribute="trailing" constant="10" id="ZF6-99-aho"/>
+                <constraint firstAttribute="trailing" secondItem="KHy-N9-luq" secondAttribute="trailing" constant="10" id="bMo-TT-t6B"/>
+                <constraint firstItem="RDz-44-tP7" firstAttribute="leading" secondItem="KHy-N9-luq" secondAttribute="leading" id="ik4-hR-L6j"/>
+                <constraint firstItem="XjO-ep-GFW" firstAttribute="leading" secondItem="hQ4-Eh-6Ev" secondAttribute="leading" constant="10" id="pX5-Ia-lAR"/>
+                <constraint firstItem="XjO-ep-GFW" firstAttribute="top" secondItem="hQ4-Eh-6Ev" secondAttribute="top" constant="10" id="rNv-KF-QvV"/>
+            </constraints>
+            <size key="customSize" width="320" height="97"/>
+            <connections>
+                <outlet property="avatarImageView" destination="XjO-ep-GFW" id="1i4-fU-4dn"/>
+                <outlet property="dateLabel" destination="RDz-44-tP7" id="ord-XK-eEO"/>
+                <outlet property="notificationLabel" destination="KHy-N9-luq" id="G52-Ts-9ab"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="defaultUserImage" width="72" height="72"/>
+    </resources>
+</document>

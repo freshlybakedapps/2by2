@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NotificationCell : UITableViewCell
+
+@interface NotificationCell : UICollectionViewCell
 
 @property (nonatomic, strong) PFObject *notification;
 

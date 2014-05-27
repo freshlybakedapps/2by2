@@ -18,7 +18,10 @@
 
 @interface FeedHeaderView : UICollectionReusableView
 
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *feedToggleButton;
+@property (nonatomic, weak) IBOutlet UIButton *exposureToggleButton;
 @property (nonatomic, weak) id <FeedHeaderViewDelegate> delegate;
+@property (nonatomic, copy) NSString *title;
 
 @end

@@ -14,6 +14,7 @@
 
 @interface ContainerCell : UICollectionViewCell <UICollectionViewDataSource, UICollectionViewDelegate, FeedHeaderViewDelegate>
 
+@property (nonatomic, strong) NSMutableArray *objects;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic) BOOL showingFeed;
 @property (nonatomic) BOOL showingDouble;

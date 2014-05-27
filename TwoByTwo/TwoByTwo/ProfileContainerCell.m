@@ -7,7 +7,7 @@
 //
 
 #import "ProfileContainerCell.h"
-#import "FeedProfileHeaderView.h"
+#import "ProfileFeedHeaderView.h"
 #import "UICollectionView+Addon.h"
 
 
@@ -21,7 +21,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self.collectionView registerNibWithViewClass:[FeedProfileHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader];
+        [self.collectionView registerNibWithViewClass:[ProfileFeedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader];
     }
     return self;
 }
@@ -47,7 +47,7 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     if (kind == UICollectionElementKindSectionHeader) {
-        FeedProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([FeedProfileHeaderView class]) forIndexPath:indexPath];
+        ProfileFeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([ProfileFeedHeaderView class]) forIndexPath:indexPath];
         headerView.user = self.user;
         headerView.delegate = self;
         return headerView;

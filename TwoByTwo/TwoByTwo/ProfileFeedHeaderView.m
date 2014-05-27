@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Joseph Lin. All rights reserved.
 //
 
-#import "FeedProfileHeaderView.h"
+#import "ProfileFeedHeaderView.h"
 #import "EditProfileViewController.h"
 #import "EverythingElseViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "AppDelegate.h"
 
 
-@interface FeedProfileHeaderView ()
+@interface ProfileFeedHeaderView ()
 @property (nonatomic, weak) IBOutlet UIButton *followButton;
 @property (nonatomic, weak) IBOutlet UIButton *editButton;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -29,7 +29,7 @@
 @end
 
 
-@implementation FeedProfileHeaderView
+@implementation ProfileFeedHeaderView
 
 - (void)awakeFromNib
 {

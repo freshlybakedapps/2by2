@@ -51,7 +51,7 @@
 		7C070107187398690011845D /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C070106187398690011845D /* CommentCell.m */; };
 		7C07010A1873A6B90011845D /* NSDate+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C0701091873A6B90011845D /* NSDate+Addon.m */; };
 		7C16CF3D1839738B007EA62D /* IconSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */; };
-		7C16CF421839853B007EA62D /* FeedProfileHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF411839853B007EA62D /* FeedProfileHeaderView.m */; };
+		7C16CF421839853B007EA62D /* ProfileFeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C16CF411839853B007EA62D /* ProfileFeedHeaderView.m */; };
 		7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C1BFA3C187629F50076EFF2 /* Dosis-Light.ttf */; };
 		7C1BFA40187629F50076EFF2 /* Dosis-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C1BFA3D187629F50076EFF2 /* Dosis-Medium.ttf */; };
 		7C1BFA41187629F50076EFF2 /* Dosis-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C1BFA3E187629F50076EFF2 /* Dosis-Regular.ttf */; };
@@ -72,7 +72,7 @@
 		7C476785191F068E00333C59 /* NotificationsContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C476784191F068E00333C59 /* NotificationsContainerCell.m */; };
 		7C508F53188AFB1E00C1334E /* FeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C508F52188AFB1E00C1334E /* FeedHeaderView.m */; };
 		7C508F55188B028700C1334E /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F54188B028700C1334E /* FeedHeaderView.xib */; };
-		7C508F57188B035C00C1334E /* FeedProfileHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F56188B035C00C1334E /* FeedProfileHeaderView.xib */; };
+		7C508F57188B035C00C1334E /* ProfileFeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F56188B035C00C1334E /* ProfileFeedHeaderView.xib */; };
 		7C6D85A0191E93D3002EA534 /* MainV2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D859F191E93D3002EA534 /* MainV2.storyboard */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
@@ -84,6 +84,9 @@
 		7C7E2937183052120036557E /* UserAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E2936183052120036557E /* UserAnnotation.m */; };
 		7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293918305ACA0036557E /* MKMapView+Utilities.m */; };
 		7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E293F18306DD30036557E /* PFObject+Photo.m */; };
+		7C8E79BA19351EEE00D94E07 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C8E79B919351EEE00D94E07 /* NotificationCell.xib */; };
+		7C8E79BD1935217300D94E07 /* NotificationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8E79BC1935217300D94E07 /* NotificationHeaderView.m */; };
+		7C8E79BF193521BE00D94E07 /* NotificationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */; };
 		7CA4902018D66A28001D5537 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CA4901F18D66A28001D5537 /* Camera.storyboard */; };
 		7CA4902418D67121001D5537 /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4902318D67121001D5537 /* UserDefaultsManager.m */; };
 		7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */; };
@@ -187,8 +190,8 @@
 		7C0701091873A6B90011845D /* NSDate+Addon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Addon.m"; sourceTree = "<group>"; };
 		7C16CF3B1839738B007EA62D /* IconSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconSegmentedControl.h; sourceTree = "<group>"; };
 		7C16CF3C1839738B007EA62D /* IconSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconSegmentedControl.m; sourceTree = "<group>"; };
-		7C16CF401839853B007EA62D /* FeedProfileHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedProfileHeaderView.h; sourceTree = "<group>"; };
-		7C16CF411839853B007EA62D /* FeedProfileHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedProfileHeaderView.m; sourceTree = "<group>"; };
+		7C16CF401839853B007EA62D /* ProfileFeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileFeedHeaderView.h; sourceTree = "<group>"; };
+		7C16CF411839853B007EA62D /* ProfileFeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileFeedHeaderView.m; sourceTree = "<group>"; };
 		7C1BFA3C187629F50076EFF2 /* Dosis-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Light.ttf"; sourceTree = "<group>"; };
 		7C1BFA3D187629F50076EFF2 /* Dosis-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Medium.ttf"; sourceTree = "<group>"; };
 		7C1BFA3E187629F50076EFF2 /* Dosis-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dosis-Regular.ttf"; sourceTree = "<group>"; };
@@ -223,7 +226,7 @@
 		7C508F51188AFB1E00C1334E /* FeedHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedHeaderView.h; sourceTree = "<group>"; };
 		7C508F52188AFB1E00C1334E /* FeedHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedHeaderView.m; sourceTree = "<group>"; };
 		7C508F54188B028700C1334E /* FeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedHeaderView.xib; sourceTree = "<group>"; };
-		7C508F56188B035C00C1334E /* FeedProfileHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedProfileHeaderView.xib; sourceTree = "<group>"; };
+		7C508F56188B035C00C1334E /* ProfileFeedHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileFeedHeaderView.xib; sourceTree = "<group>"; };
 		7C6D859F191E93D3002EA534 /* MainV2.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainV2.storyboard; sourceTree = "<group>"; };
 		7C73FFC117E62EB50055C57C /* ProgressButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressButton.h; sourceTree = "<group>"; };
 		7C73FFC217E62EB50055C57C /* ProgressButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressButton.m; sourceTree = "<group>"; };
@@ -246,6 +249,10 @@
 		7C7E293918305ACA0036557E /* MKMapView+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+Utilities.m"; sourceTree = "<group>"; };
 		7C7E293E18306DD30036557E /* PFObject+Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+Photo.h"; sourceTree = "<group>"; };
 		7C7E293F18306DD30036557E /* PFObject+Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+Photo.m"; sourceTree = "<group>"; };
+		7C8E79B919351EEE00D94E07 /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
+		7C8E79BB1935217300D94E07 /* NotificationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationHeaderView.h; sourceTree = "<group>"; };
+		7C8E79BC1935217300D94E07 /* NotificationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationHeaderView.m; sourceTree = "<group>"; };
+		7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationHeaderView.xib; sourceTree = "<group>"; };
 		7CA4901F18D66A28001D5537 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		7CA4902218D67121001D5537 /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
 		7CA4902318D67121001D5537 /* UserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsManager.m; sourceTree = "<group>"; };
@@ -327,6 +334,7 @@
 				1D0A5F661867616E0086FE1C /* NotificationsViewController.m */,
 				1DF6A71F1884ABD900FB913D /* NotificationCell.h */,
 				1DF6A7201884ABD900FB913D /* NotificationCell.m */,
+				7C8E79B919351EEE00D94E07 /* NotificationCell.xib */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -506,9 +514,12 @@
 				7C476778191EFDDD00333C59 /* PopularFeedHeaderView.h */,
 				7C476779191EFDDD00333C59 /* PopularFeedHeaderView.m */,
 				7C47677B191EFDE500333C59 /* PopularFeedHeaderView.xib */,
-				7C16CF401839853B007EA62D /* FeedProfileHeaderView.h */,
-				7C16CF411839853B007EA62D /* FeedProfileHeaderView.m */,
-				7C508F56188B035C00C1334E /* FeedProfileHeaderView.xib */,
+				7C16CF401839853B007EA62D /* ProfileFeedHeaderView.h */,
+				7C16CF411839853B007EA62D /* ProfileFeedHeaderView.m */,
+				7C508F56188B035C00C1334E /* ProfileFeedHeaderView.xib */,
+				7C8E79BB1935217300D94E07 /* NotificationHeaderView.h */,
+				7C8E79BC1935217300D94E07 /* NotificationHeaderView.m */,
+				7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */,
 				1D568E93189756930043AB04 /* FeedFooterView.h */,
 				1D568E94189756930043AB04 /* FeedFooterView.m */,
 				1D568E96189756CC0043AB04 /* FeedFooterView.xib */,
@@ -802,6 +813,7 @@
 				7C3964A8189D9AF2000FB989 /* ImageCell.xib in Resources */,
 				1DD9716A184CCDD9001D35CA /* Terms.html in Resources */,
 				7C76578D182597930053483B /* Login.storyboard in Resources */,
+				7C8E79BF193521BE00D94E07 /* NotificationHeaderView.xib in Resources */,
 				1D2A4B2718DF72F100D9BDF9 /* DMResizerViewController.xib in Resources */,
 				1D2A4B2B18DF72F100D9BDF9 /* instagram~ipad@2x.png in Resources */,
 				7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */,
@@ -819,7 +831,8 @@
 				7C0681AE18C2E4D200B8BFD6 /* FeedCell.xib in Resources */,
 				1D568E97189756CC0043AB04 /* FeedFooterView.xib in Resources */,
 				1D2A4B2A18DF72F100D9BDF9 /* instagram~ipad.png in Resources */,
-				7C508F57188B035C00C1334E /* FeedProfileHeaderView.xib in Resources */,
+				7C8E79BA19351EEE00D94E07 /* NotificationCell.xib in Resources */,
+				7C508F57188B035C00C1334E /* ProfileFeedHeaderView.xib in Resources */,
 				7C508F55188B028700C1334E /* FeedHeaderView.xib in Resources */,
 				1D2A4B2818DF72F100D9BDF9 /* instagram.png in Resources */,
 				1DD97168184CCDD9001D35CA /* aboutUs.html in Resources */,
@@ -914,8 +927,9 @@
 				1DB0C805184A6B29002626C8 /* FindFacebookFriendsViewController.m in Sources */,
 				1DB0C7F918467EF1002626C8 /* NotificationSettingsViewController.m in Sources */,
 				7C47676B191EB44600333C59 /* UICollectionView+Addon.m in Sources */,
-				7C16CF421839853B007EA62D /* FeedProfileHeaderView.m in Sources */,
+				7C16CF421839853B007EA62D /* ProfileFeedHeaderView.m in Sources */,
 				7C7B354C18D1128A00563569 /* PFObject+User.m in Sources */,
+				7C8E79BD1935217300D94E07 /* NotificationHeaderView.m in Sources */,
 				7C7B354F18D11E1900563569 /* NSURL+Facebook.m in Sources */,
 				1DD9718A184CD290001D35CA /* WebViewController.m in Sources */,
 				1DD97162184C065D001D35CA /* FindContactsViewController.m in Sources */,
