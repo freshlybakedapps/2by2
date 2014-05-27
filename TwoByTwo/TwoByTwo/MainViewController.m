@@ -32,6 +32,10 @@
 + (instancetype)currentController
 {
     id controller = [AppDelegate delegate].window.rootViewController;
+    if ([controller isKindOfClass:[UINavigationController class]]) {
+        controller = [[controller viewControllers] firstObject];
+    }
+
     if ([controller isKindOfClass:self]) {
         return controller;
     }

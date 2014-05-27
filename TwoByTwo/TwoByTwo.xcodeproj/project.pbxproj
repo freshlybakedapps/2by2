@@ -87,6 +87,7 @@
 		7C8E79BA19351EEE00D94E07 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C8E79B919351EEE00D94E07 /* NotificationCell.xib */; };
 		7C8E79BD1935217300D94E07 /* NotificationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8E79BC1935217300D94E07 /* NotificationHeaderView.m */; };
 		7C8E79BF193521BE00D94E07 /* NotificationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */; };
+		7C8E79C4193525DE00D94E07 /* InviteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8E79C3193525DE00D94E07 /* InviteManager.m */; };
 		7CA4902018D66A28001D5537 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CA4901F18D66A28001D5537 /* Camera.storyboard */; };
 		7CA4902418D67121001D5537 /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4902318D67121001D5537 /* UserDefaultsManager.m */; };
 		7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */; };
@@ -253,6 +254,8 @@
 		7C8E79BB1935217300D94E07 /* NotificationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationHeaderView.h; sourceTree = "<group>"; };
 		7C8E79BC1935217300D94E07 /* NotificationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationHeaderView.m; sourceTree = "<group>"; };
 		7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationHeaderView.xib; sourceTree = "<group>"; };
+		7C8E79C2193525DE00D94E07 /* InviteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteManager.h; sourceTree = "<group>"; };
+		7C8E79C3193525DE00D94E07 /* InviteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteManager.m; sourceTree = "<group>"; };
 		7CA4901F18D66A28001D5537 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		7CA4902218D67121001D5537 /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
 		7CA4902318D67121001D5537 /* UserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsManager.m; sourceTree = "<group>"; };
@@ -332,9 +335,6 @@
 			children = (
 				1D0A5F651867616E0086FE1C /* NotificationsViewController.h */,
 				1D0A5F661867616E0086FE1C /* NotificationsViewController.m */,
-				1DF6A71F1884ABD900FB913D /* NotificationCell.h */,
-				1DF6A7201884ABD900FB913D /* NotificationCell.m */,
-				7C8E79B919351EEE00D94E07 /* NotificationCell.xib */,
 			);
 			name = Notifications;
 			sourceTree = "<group>";
@@ -497,17 +497,25 @@
 			path = Fonts;
 			sourceTree = SOURCE_ROOT;
 		};
-		7C7657911825AEA40053483B /* Feed */ = {
+		7C7657911825AEA40053483B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				7CF39E1617E00782003A859F /* FeedViewController.h */,
-				7CF39E1717E00782003A859F /* FeedViewController.m */,
 				7C0681B718C2F13C00B8BFD6 /* ThumbCell.h */,
 				7C0681B818C2F13C00B8BFD6 /* ThumbCell.m */,
 				7C0681BA18C2F14600B8BFD6 /* ThumbCell.xib */,
 				7C76578E1825AE920053483B /* FeedCell.h */,
 				7C76578F1825AE920053483B /* FeedCell.m */,
 				7C0681AD18C2E4D200B8BFD6 /* FeedCell.xib */,
+				1DF6A71F1884ABD900FB913D /* NotificationCell.h */,
+				1DF6A7201884ABD900FB913D /* NotificationCell.m */,
+				7C8E79B919351EEE00D94E07 /* NotificationCell.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		7C8E79C01935248800D94E07 /* Header */ = {
+			isa = PBXGroup;
+			children = (
 				7C508F51188AFB1E00C1334E /* FeedHeaderView.h */,
 				7C508F52188AFB1E00C1334E /* FeedHeaderView.m */,
 				7C508F54188B028700C1334E /* FeedHeaderView.xib */,
@@ -520,16 +528,25 @@
 				7C8E79BB1935217300D94E07 /* NotificationHeaderView.h */,
 				7C8E79BC1935217300D94E07 /* NotificationHeaderView.m */,
 				7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
+		7C8E79C11935248F00D94E07 /* Footer */ = {
+			isa = PBXGroup;
+			children = (
 				1D568E93189756930043AB04 /* FeedFooterView.h */,
 				1D568E94189756930043AB04 /* FeedFooterView.m */,
 				1D568E96189756CC0043AB04 /* FeedFooterView.xib */,
 			);
-			name = Feed;
+			name = Footer;
 			sourceTree = "<group>";
 		};
 		7CB4394918C3EE4900AEA876 /* PDP */ = {
 			isa = PBXGroup;
 			children = (
+				7CF39E1617E00782003A859F /* FeedViewController.h */,
+				7CF39E1717E00782003A859F /* FeedViewController.m */,
 				7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */,
 				7C0681B018C2E57100B8BFD6 /* PDPViewController.m */,
 				7CD137FD18C3F43400D534D7 /* LikersCell.h */,
@@ -575,9 +592,10 @@
 		7CD9507C17E665AA00C70956 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7C8E79C2193525DE00D94E07 /* InviteManager.h */,
+				7C8E79C3193525DE00D94E07 /* InviteManager.m */,
 				1DCD412518083B88007A5D56 /* Login */,
 				7CF39E2117E00D3F003A859F /* Main */,
-				7C7657911825AEA40053483B /* Feed */,
 				7CB4394918C3EE4900AEA876 /* PDP */,
 				1D0A5F6118675EFE0086FE1C /* Notifications */,
 				7CF39E2017E00D3A003A859F /* Camera */,
@@ -714,6 +732,9 @@
 				7C476781191F067F00333C59 /* ProfileContainerCell.m */,
 				7C476783191F068E00333C59 /* NotificationsContainerCell.h */,
 				7C476784191F068E00333C59 /* NotificationsContainerCell.m */,
+				7C8E79C01935248800D94E07 /* Header */,
+				7C8E79C11935248F00D94E07 /* Footer */,
+				7C7657911825AEA40053483B /* Cells */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -890,6 +911,7 @@
 				7C07010A1873A6B90011845D /* NSDate+Addon.m in Sources */,
 				7C3964AB189D9B2F000FB989 /* ImageCell.m in Sources */,
 				7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */,
+				7C8E79C4193525DE00D94E07 /* InviteManager.m in Sources */,
 				7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */,
 				1D568E95189756930043AB04 /* FeedFooterView.m in Sources */,
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
