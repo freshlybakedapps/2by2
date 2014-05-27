@@ -45,8 +45,6 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 @property (nonatomic) BOOL share;
 @end
 
-static CGFloat const kImageSize = 320.0;
-
 
 @implementation CameraViewController
 

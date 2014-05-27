@@ -23,7 +23,6 @@
 @interface MainViewController ()
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
-@property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
 @end
 
 

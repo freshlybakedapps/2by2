@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A5F661867616E0086FE1C /* NotificationsViewController.m */; };
 		1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1B34EC181B203800E6F26A /* UIImage+Addon.m */; };
 		1D24D30F18D7383E005C196B /* FindFacebookFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D24D30E18D7383E005C196B /* FindFacebookFriendsCell.xib */; };
 		1D2A4B2518DF72F100D9BDF9 /* DMActivityInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2A4B1D18DF72F100D9BDF9 /* DMActivityInstagram.m */; };
@@ -88,6 +87,9 @@
 		7C8E79BD1935217300D94E07 /* NotificationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8E79BC1935217300D94E07 /* NotificationHeaderView.m */; };
 		7C8E79BF193521BE00D94E07 /* NotificationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */; };
 		7C8E79C4193525DE00D94E07 /* InviteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8E79C3193525DE00D94E07 /* InviteManager.m */; };
+		7C8E79C819352A2000D94E07 /* UIViewController+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8E79C719352A2000D94E07 /* UIViewController+Swizzle.m */; };
+		7C8E79CB19352A3600D94E07 /* NSObject+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8E79CA19352A3600D94E07 /* NSObject+Swizzle.m */; };
+		7C8E79CF19352D2500D94E07 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8E79CE19352D2500D94E07 /* NotificationsViewController.m */; };
 		7CA4902018D66A28001D5537 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CA4901F18D66A28001D5537 /* Camera.storyboard */; };
 		7CA4902418D67121001D5537 /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA4902318D67121001D5537 /* UserDefaultsManager.m */; };
 		7CBC37371874F8830016B6E4 /* NotificationSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CBC37361874F8830016B6E4 /* NotificationSettingCell.m */; };
@@ -123,8 +125,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1D0A5F651867616E0086FE1C /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
-		1D0A5F661867616E0086FE1C /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		1D1B34EB181B203800E6F26A /* UIImage+Addon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Addon.h"; sourceTree = "<group>"; };
 		1D1B34EC181B203800E6F26A /* UIImage+Addon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Addon.m"; sourceTree = "<group>"; };
 		1D24D30E18D7383E005C196B /* FindFacebookFriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFacebookFriendsCell.xib; sourceTree = "<group>"; };
@@ -256,6 +256,12 @@
 		7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationHeaderView.xib; sourceTree = "<group>"; };
 		7C8E79C2193525DE00D94E07 /* InviteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteManager.h; sourceTree = "<group>"; };
 		7C8E79C3193525DE00D94E07 /* InviteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteManager.m; sourceTree = "<group>"; };
+		7C8E79C619352A2000D94E07 /* UIViewController+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Swizzle.h"; sourceTree = "<group>"; };
+		7C8E79C719352A2000D94E07 /* UIViewController+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Swizzle.m"; sourceTree = "<group>"; };
+		7C8E79C919352A3600D94E07 /* NSObject+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Swizzle.h"; sourceTree = "<group>"; };
+		7C8E79CA19352A3600D94E07 /* NSObject+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzle.m"; sourceTree = "<group>"; };
+		7C8E79CD19352D2500D94E07 /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		7C8E79CE19352D2500D94E07 /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
 		7CA4901F18D66A28001D5537 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		7CA4902218D67121001D5537 /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
 		7CA4902318D67121001D5537 /* UserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsManager.m; sourceTree = "<group>"; };
@@ -330,15 +336,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D0A5F6118675EFE0086FE1C /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				1D0A5F651867616E0086FE1C /* NotificationsViewController.h */,
-				1D0A5F661867616E0086FE1C /* NotificationsViewController.m */,
-			);
-			name = Notifications;
-			sourceTree = "<group>";
-		};
 		1D2A4B1B18DF72F100D9BDF9 /* InstagramActivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,11 +539,29 @@
 			name = Footer;
 			sourceTree = "<group>";
 		};
+		7C8E79C5193528FF00D94E07 /* (deprecated) */ = {
+			isa = PBXGroup;
+			children = (
+				7C8E79CD19352D2500D94E07 /* NotificationsViewController.h */,
+				7C8E79CE19352D2500D94E07 /* NotificationsViewController.m */,
+				7CF39E1617E00782003A859F /* FeedViewController.h */,
+				7CF39E1717E00782003A859F /* FeedViewController.m */,
+			);
+			name = "(deprecated)";
+			sourceTree = "<group>";
+		};
+		7C8E79CC19352BD700D94E07 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7C8E79C2193525DE00D94E07 /* InviteManager.h */,
+				7C8E79C3193525DE00D94E07 /* InviteManager.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		7CB4394918C3EE4900AEA876 /* PDP */ = {
 			isa = PBXGroup;
 			children = (
-				7CF39E1617E00782003A859F /* FeedViewController.h */,
-				7CF39E1717E00782003A859F /* FeedViewController.m */,
 				7C0681AF18C2E57100B8BFD6 /* PDPViewController.h */,
 				7C0681B018C2E57100B8BFD6 /* PDPViewController.m */,
 				7CD137FD18C3F43400D534D7 /* LikersCell.h */,
@@ -585,6 +600,10 @@
 				7C47676A191EB44600333C59 /* UICollectionView+Addon.m */,
 				7C47676F191EBBF200333C59 /* UICollectionView+Pagination.h */,
 				7C476770191EBBF200333C59 /* UICollectionView+Pagination.m */,
+				7C8E79C619352A2000D94E07 /* UIViewController+Swizzle.h */,
+				7C8E79C719352A2000D94E07 /* UIViewController+Swizzle.m */,
+				7C8E79C919352A3600D94E07 /* NSObject+Swizzle.h */,
+				7C8E79CA19352A3600D94E07 /* NSObject+Swizzle.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -592,12 +611,9 @@
 		7CD9507C17E665AA00C70956 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7C8E79C2193525DE00D94E07 /* InviteManager.h */,
-				7C8E79C3193525DE00D94E07 /* InviteManager.m */,
 				1DCD412518083B88007A5D56 /* Login */,
 				7CF39E2117E00D3F003A859F /* Main */,
 				7CB4394918C3EE4900AEA876 /* PDP */,
-				1D0A5F6118675EFE0086FE1C /* Notifications */,
 				7CF39E2017E00D3A003A859F /* Camera */,
 				1DB0C7AE18464DB1002626C8 /* EverythingElse */,
 				1D4A81071854431B007227BB /* EditProfile */,
@@ -659,12 +675,12 @@
 				7CF39DF017E0070A003A859F /* Main.storyboard */,
 				7C6D859F191E93D3002EA534 /* MainV2.storyboard */,
 				7CF39DF617E0070A003A859F /* Images.xcassets */,
-				7C476775191EDCC600333C59 /* Constants.h */,
-				7C476776191EDCC600333C59 /* Constants.m */,
 				7CD9507C17E665AA00C70956 /* Controllers */,
 				7C16CF3E18397839007EA62D /* Views */,
 				7C16CF3F18397854007EA62D /* Models */,
+				7C8E79CC19352BD700D94E07 /* Utilities */,
 				7CD9507417E657BC00C70956 /* Categories */,
+				7C8E79C5193528FF00D94E07 /* (deprecated) */,
 				7C1BFA3B187629F50076EFF2 /* Fonts */,
 				7CF39DE517E0070A003A859F /* Supporting Files */,
 			);
@@ -678,6 +694,8 @@
 				7CF39DE717E0070A003A859F /* InfoPlist.strings */,
 				7CF39DEA17E0070A003A859F /* main.m */,
 				7CF39DEC17E0070A003A859F /* TwoByTwo-Prefix.pch */,
+				7C476775191EDCC600333C59 /* Constants.h */,
+				7C476776191EDCC600333C59 /* Constants.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -922,7 +940,6 @@
 				7CF39DEF17E0070A003A859F /* AppDelegate.m in Sources */,
 				7C0681B118C2E57100B8BFD6 /* PDPViewController.m in Sources */,
 				1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */,
-				1D0A5F671867616E0086FE1C /* NotificationsViewController.m in Sources */,
 				7C476766191E9F8300333C59 /* ContainerCell.m in Sources */,
 				7C7657901825AE920053483B /* FeedCell.m in Sources */,
 				1D2A4B2618DF72F100D9BDF9 /* DMResizerViewController.m in Sources */,
@@ -933,12 +950,15 @@
 				7C476782191F067F00333C59 /* ProfileContainerCell.m in Sources */,
 				7CF39E1517E00775003A859F /* MainViewController.m in Sources */,
 				7C476774191EBCD800333C59 /* PublicContainerCell.m in Sources */,
+				7C8E79C819352A2000D94E07 /* UIViewController+Swizzle.m in Sources */,
 				7C47676E191EBA1E00333C59 /* PopularContainerCell.m in Sources */,
+				7C8E79CF19352D2500D94E07 /* NotificationsViewController.m in Sources */,
 				7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */,
 				7C3964A3189D997E000FB989 /* CustomPickerView.m in Sources */,
 				7C1BFA4418762A6D0076EFF2 /* UIFont+TwoByTwo.m in Sources */,
 				1DB0C801184A65F6002626C8 /* FindInviteFriendsViewController.m in Sources */,
 				7C476785191F068E00333C59 /* NotificationsContainerCell.m in Sources */,
+				7C8E79CB19352A3600D94E07 /* NSObject+Swizzle.m in Sources */,
 				7C7E2937183052120036557E /* UserAnnotation.m in Sources */,
 				1D2A4B2518DF72F100D9BDF9 /* DMActivityInstagram.m in Sources */,
 				1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */,

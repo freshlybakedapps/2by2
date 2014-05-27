@@ -185,6 +185,7 @@
 
     [[UITableViewHeaderFooterView appearance] setTintColor:[UIColor whiteColor]];
 
+    [[UINavigationBar appearance] setTintColor:[UIColor appGrayColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSForegroundColorAttributeName:[UIColor appGrayColor],
                                                            NSFontAttributeName:[UIFont appMediumFontOfSize:14],
@@ -196,7 +197,6 @@
     UIImage *barBackBtnImg = [[UIImage imageNamed:@"backArrow"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 24.0, 0, 0)];
     [[UINavigationBar appearance] setBackIndicatorImage:barBackBtnImg];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:barBackBtnImg];
-    [[UIBarButtonItem appearance] setBackButtonBackgroundVerticalPositionAdjustment:5.0 forBarMetrics:UIBarMetricsDefault];
 }
 
 @end
