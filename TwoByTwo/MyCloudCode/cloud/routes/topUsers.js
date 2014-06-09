@@ -43,12 +43,18 @@ function getTopUsers(resp,count,skip){
 
             if(photo.get("state") == "half"){
               var user = photo.get("user");
+
+              //console.log(user.id);
+
+              var name = "";
+              if(user){
+                name = user.get("fullName");
+                usersArr.push(user.id);
+                photoCounter[user.id] = (photoCounter[user.id] || 0) + 1;
+                namesArr[user.id] = name; 
+                emailsArr[user.id] = user.get("email");
+              }
               
-              var name = user.get("fullName");
-              usersArr.push(user.id);
-              photoCounter[user.id] = (photoCounter[user.id] || 0) + 1;
-              namesArr[user.id] = name; 
-              emailsArr[user.id] = user.get("email");
             }
 
 
@@ -98,8 +104,9 @@ function getTopUsers(resp,count,skip){
           }            
         
       },
-      error: function(error) {        
-        console.log("ERRRRRRRRRRRROR: "+error.message);
+      error: function(error) {
+        resp.render('error', {error: error.message});        
+        //console.log("ERRRRRRRRRRRROR: "+error.message);
       }
     });           
 }

@@ -201,6 +201,14 @@ static CGFloat const kImageSize = 320.0;
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/transport/%u/",arc4random_uniform(10)],
                      [NSString stringWithFormat:@"http://lorempixel.com/300/300/abstract/%u/",arc4random_uniform(10)]];
     int r = arc4random_uniform((int)arr.count - 1);
+    
+    //NSString* str = @"http://www.2by2app.com/images/bot/ashton1.png";
+    //NSString* str = @"http://www.2by2app.com/images/bot/cathy2.png";
+    //NSString* str = @"http://www.2by2app.com/images/bot/gaga2.png";
+    //NSString* str = @"http://www.2by2app.com/images/bot/Justin1.png";
+    //NSString* str = @"http://www.2by2app.com/images/bot/Kanye.png";
+    //NSString* str = @"http://www.2by2app.com/images/bot/kim.png";
+    //NSString* str = @"http://www.2by2app.com/images/bot/taylor3.png";
     return arr[r];
 }
 

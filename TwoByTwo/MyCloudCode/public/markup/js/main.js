@@ -49,34 +49,57 @@ $(function () {
 				location.reload(true);
 			}),
 	
-            $('#signin').click(function (e) {
+      $('#signin').click(function (e) {
 
-                Parse.FacebookUtils.logIn(null, {
-                    success: function (user) {
-                        $('#signin').hide();           
-                        that.gotoProfile();
+          Parse.FacebookUtils.logIn('email,user_about_me', {
+              success: function (user) {
+                  $("#fullname").html(Parse.User.current().changed.fullName);
+                  $('#signin').hide();
+                  $(".logout").show();
+                  $("#fullname").show(); 
+                  $(".need-to-log-in").hide();
 
-                        // If it's a new user, let's fetch their name from FB
-                        if (!user.existed()) {
-                            //NEW USER
-                        }else {
-							FB.api('/me', function (response) {
-                                if (!response.error) {
-                                    //console.log(response.name);
-									$('.logout').text(response.name + " - logout");
-								}
-                            });
-                            
-                        }
-                    },
-                    error: function (user, error) {
-                        console.log("Oops, something went wrong.");
-                    }
-                });
+                  if(!Parse.User.current()){
+                      $(".picture-data").hide();
+                  }else{
+                      $(".picture-data").show();
+                  }
 
-                return false;
-            });
-        },
+                  //console.log(response);
+
+                  if (!user.existed()) {
+                      FB.api('/me', null, function(response) {
+                          console.log(response);
+
+                          user.set("username", response.first_name+response.last_name);
+                          user.set("email", response.email);
+                          user.set("facebookId", response.id);
+
+                          user.save(null, {
+                              success: function (n) {
+                                  console.log("saved successfully");
+                                  that.gotoProfile();
+
+                              },
+                              error: function (item,error) {
+                                  console.log("User save error: " + error.message);
+                              }
+                          });
+                      });
+                  }else{
+                    that.gotoProfile();
+                  }            
+                  
+                  
+              },
+              error: function (user, error) {
+                  console.log("Oops, something went wrong.", error);
+              }
+          });
+
+          return false;
+      });    
+    },
 
         gotoProfile: function(){
           if(Parse.User.current()){

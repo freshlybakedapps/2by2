@@ -52,6 +52,7 @@ function getTopLikes(resp,count,skip){
       },
       error: function(error) {        
         console.log("ERRRRRRRRRRRROR: "+error.message);
+        resp.render('error', {error: error.message});     
       }
     });           
 }

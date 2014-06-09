@@ -50,7 +50,7 @@ function main(request, status,count,skip) {
                 counter++;
             },
             error: function (item,error) {
-                console.log("Save error: " + error.message);
+                console.log("FixUserNames Save error: " + error.message);
             }
         });          
       });

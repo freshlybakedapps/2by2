@@ -134,12 +134,13 @@ function addNotification(notificationID,photoID,notificationType,byUserID,byUser
         console.log("Save ok");
     },
     error: function (item,error) {
-        console.log("Save error: " + error.message);
+        console.log("Notification Save error: " + error.message);
     }
 });
 }
 
 function sendMail(msg,htmlMsg,subject,username,email){
+    /*
     mandrill.sendEmail({
         message: {
           text: msg,
@@ -159,6 +160,7 @@ function sendMail(msg,htmlMsg,subject,username,email){
         success: function(httpResponse) { console.log("Email sent!"); },
         error: function(httpResponse) { console.log("Uh oh, something went wrong"); }
       });
+    */
 }
 
 function sendPush(userID,msg,photoID){

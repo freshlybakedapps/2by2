@@ -157,6 +157,8 @@ function toggleMarkerClusterer() {
   }
 }
 
+var counter = 0;
+
 function connectSingleDoublePhoto(map,lat1, lon1, lat2, lon2){
     var coordinates = [
       new google.maps.LatLng(lat1, lon1),
@@ -166,11 +168,18 @@ function connectSingleDoublePhoto(map,lat1, lon1, lat2, lon2){
       path: coordinates,
       geodesic: true,
       strokeColor: '#'+(Math.random()*0xFFFFFF<<0).toString(16),
-      strokeOpacity: 1.0,
+      strokeOpacity: 0.5,
       strokeWeight: 2
     });
 
-    path.setMap(map);
+    //path.setMap(map);
+    if(counter == 0){
+      setTimeout(function(){path.setMap(map)}, 10000);
+    }else{
+      setTimeout(function(){path.setMap(map)}, 10000+(10*counter));
+    }
+    
+    counter++;
 }
 
 
@@ -242,10 +251,11 @@ function initialize() {
   //console.log(markers);
 
   if (markers) {
+    counter = 0;
     for (var level in markers) {
       for (var i = 0; i < markers[level].length; i++) {
         var details = markers[level][i];
-        //var details2 = markers[level][i+1];
+        var details2 = markers[level][i+1];
 
         markers[level][i] = new google.maps.Marker({
           title: details.level,
@@ -255,11 +265,12 @@ function initialize() {
           draggable: false,
           flat: true
         });
-        /*
+        
         if(details.location && details2.location){
+
             connectSingleDoublePhoto(map,details.location[0],details.location[1],details2.location[0],details2.location[1]);
         }
-        */
+        
         //var infowindow = new google.maps.InfoWindow();
         //infowindow.setContent(details.name);
         //infowindow.open(map, markers[level][i]);

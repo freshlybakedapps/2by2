@@ -22,7 +22,17 @@ exports.main = function(request, response){
           var u = userArr[i];
           //make sure current user is not included here
           if(u.id != userID){            
-            var obj = {username:u.get("fullName"),id:u.id,email:u.get("email"),facebookID:u.get('authData').facebook.id};
+            var obj = {};
+            obj.username = u.get("fullName") || "";
+            obj.id = u.id;
+
+            obj.email = u.get("email") || "";
+            if(u.get('authData') && u.get('authData').facebook){
+              obj.facebookID = u.get('authData').facebook.id;
+            }else{
+              obj.facebookID = "0";
+            }
+            
             twoByTwoUsers.push(obj);
           }          
         }

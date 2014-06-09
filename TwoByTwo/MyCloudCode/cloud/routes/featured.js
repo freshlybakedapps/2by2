@@ -79,6 +79,7 @@ function getPhoto(req,resp) {
                 // The object was not retrieved successfully.
                 // error is a Parse.Error with an error code and description.
                 console.log("error: ",error);
+                resp.render('error', {error: error.message});     
             }
         });
     });  

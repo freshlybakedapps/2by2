@@ -1,0 +1,57 @@
+<% include head %>
+
+  <script type="text/javascript" src="http://platform.linkedin.com/in.js">
+    api_key: R_WLJ949QNtc1puM-CIk9bfGjXQvwp029JPaMoZLLy2xLd3e9C3uNefHCxpNoyAv
+    authorize: true
+  </script>
+
+  <script type="text/javascript">
+  	function logout() {
+	    Parse.User.logOut();
+	    window.location.href='/';
+	}
+
+	if (!Parse.User.current()) {
+    	window.location.href='/';
+	} else {
+	  //user logged in to Parse
+	  onLinkedInAuth();
+
+	}
+
+    // Once we have an authorization, fetch the user's profile via API
+    function onLinkedInAuth() {
+      
+
+		IN.API.Profile("me")
+        .result( function(r) {setProfile(r);} )
+        .error( function(e) {alert("something broke " + e);} );
+    }
+
+	function onPeopleSearch(result){
+		console.log(result);
+	}
+
+    // Display basic profile information inside the page
+    function setProfile(result) {
+		console.log(result);
+		var user = result.values[0];
+		var msg = "<p>Welcome " + user.firstName + " " + user.lastName + "</p>";
+		msg+="<img src='"+user.pictureUrl+"'>"
+		msg+="<p>"+user.headline+"</p>";
+
+		var profileDiv = document.getElementById("userprofile");
+		profileDiv.innerHTML = msg;
+    }
+
+  </script>
+
+
+  <script type="in/login" data-onAuth="onLinkedInAuth"></script>
+
+  <div id="userprofile"></div>
+
+  <input type="button" value="Log Out" onclick="logout();" />
+
+
+<% include foot %>

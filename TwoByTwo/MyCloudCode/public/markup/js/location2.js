@@ -68,6 +68,20 @@ $(function () {
             var that = this;
             var Photo = Parse.Object.extend("Photo");
             var photoquery = new Parse.Query(Photo);
+
+            var daysback;
+            if($.query.get("daysback")){
+              daysback = Number($.query.get("daysback"));
+            }
+
+            var today = new Date();
+            var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - daysback);
+            
+            if(daysback){
+              photoquery.greaterThan('updatedAt', lastWeek);
+            }
+            
+
             photoquery.count({
                 success: function(count) {
                     that.getLocations(count,0); 
@@ -87,6 +101,18 @@ $(function () {
           var that = this;
           var Photo = Parse.Object.extend("Photo");
           var photoquery = new Parse.Query(Photo);
+
+          var daysback;
+          if($.query.get("daysback")){
+            daysback = Number($.query.get("daysback"));
+          }
+
+          var today = new Date();
+          var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - daysback);
+          
+          if(daysback){
+            photoquery.greaterThan('updatedAt', lastWeek);
+          }
 
           //photoquery.equalTo("state", "half");
 
@@ -206,7 +232,10 @@ $(function () {
               var uniqueUserArr = uniqueUserArr.sort(compare);
               window.users = [];                
               for(var i=0; i<20; i++) {
-                window.users.push({'info': uniqueUserArr[i].name +"("+uniqueUserArr[i].id+") - "+ uniqueUserArr[i].counter});
+                if(uniqueUserArr[i]){
+                  window.users.push({'info': uniqueUserArr[i].name +"("+uniqueUserArr[i].id+") - "+ uniqueUserArr[i].counter});
+                }
+                
               }
 
               console.log(window.users);
@@ -214,7 +243,10 @@ $(function () {
               var likesArr = window.likesArr.sort(compare)
               window.likes = [];                
               for(var i=0; i<20; i++) {
-                window.likes.push({'info': "http://www.2by2app.com/pdp/"+likesArr[i].photo.id +"("+likesArr[i].filter +") - "+likesArr[i].counter});
+                if(likesArr[i]){
+                  window.likes.push({'info': "http://www.2by2app.com/pdp/"+likesArr[i].photo.id +"("+likesArr[i].filter +") - "+likesArr[i].counter});
+                }
+                
               }
 
               window.markers = {};

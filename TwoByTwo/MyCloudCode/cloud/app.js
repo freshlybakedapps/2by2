@@ -2,12 +2,15 @@ var express = require('express');
 var parseExpressCookieSession = require('parse-express-cookie-session');
 
 var app = express();
+var querystring = require('querystring');
+var _ = require('underscore');
+var Buffer = require('buffer').Buffer;
 app.set('views', 'cloud/views');
 //https://github.com/visionmedia/ejs
 app.set('view engine', 'ejs');    
 app.use(express.bodyParser());
-app.use(express.cookieParser('qlOiXmQEpBNU2i9Ictj0zfKtHlgTzCDm2c0uImMu'));
-app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
+//app.use(express.cookieParser('qlOiXmQEpBNU2i9Ictj0zfKtHlgTzCDm2c0uImMu'));
+//app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
 
 var indexController = require('cloud/routes/index.js');
 var profileController2 = require('cloud/routes/profile2.js');
@@ -52,28 +55,20 @@ app.get('/topLikes',auth,topLikesController.index);
 app.get('/usernames',usernamesController.index);
 
 
+//Logon github test
+//var Github = require('cloud/Github.js');
+//Github.init(app); 
 
+//Logon linkedIn test
+//var LinkedIn = require('cloud/LinkedIn.js');
+//LinkedIn.init(app);
 
-
-
-
-
-
- 
-// Making a "login" endpoint is SOOOOOOOO easy.
-app.post("/login", function(req, res) {
-  Parse.User.logIn(req.body.username, req.body.password).then(function() {
-    // Login succeeded, redirect to homepage.
-    // parseExpressCookieSession will automatically set cookie.
-    res.redirect('/');
-  },
-  function(error) {
-    // Login failed, redirect back to login form.
-    res.redirect("/login");
-  });
-});
-
+//Logon twitter
+var Twitter = require('cloud/Twitter.js');
+Twitter.init(app);  
 
 app.listen();
+
+
 
 
