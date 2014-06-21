@@ -72,6 +72,7 @@
 		7C508F53188AFB1E00C1334E /* FeedHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C508F52188AFB1E00C1334E /* FeedHeaderView.m */; };
 		7C508F55188B028700C1334E /* FeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F54188B028700C1334E /* FeedHeaderView.xib */; };
 		7C508F57188B035C00C1334E /* ProfileFeedHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C508F56188B035C00C1334E /* ProfileFeedHeaderView.xib */; };
+		7C6C990819564E1300B75ECE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CF39DF017E0070A003A859F /* Main.storyboard */; };
 		7C6D85A0191E93D3002EA534 /* MainV2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D859F191E93D3002EA534 /* MainV2.storyboard */; };
 		7C73FFC317E62EB50055C57C /* ProgressButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC217E62EB50055C57C /* ProgressButton.m */; };
 		7C73FFC617E637C50055C57C /* UIColor+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C73FFC517E637C50055C57C /* UIColor+Utilities.m */; };
@@ -855,6 +856,7 @@
 				7C8E79BF193521BE00D94E07 /* NotificationHeaderView.xib in Resources */,
 				1D2A4B2718DF72F100D9BDF9 /* DMResizerViewController.xib in Resources */,
 				1D2A4B2B18DF72F100D9BDF9 /* instagram~ipad@2x.png in Resources */,
+				7C6C990819564E1300B75ECE /* Main.storyboard in Resources */,
 				7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */,
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
 				1D2A4B2918DF72F100D9BDF9 /* instagram@2x.png in Resources */,
