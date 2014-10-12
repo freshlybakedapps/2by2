@@ -805,7 +805,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
-				ORGANIZATIONNAME = "Joseph Lin";
+				ORGANIZATIONNAME = "John Tubert";
 				TargetAttributes = {
 					7CF39DDA17E0070A003A859F = {
 						DevelopmentTeam = 62ZQN87A2T;

@@ -56,6 +56,7 @@
     
     self.pageControl.numberOfPages = ContentTypeCount;
     
+    /*
     if ([PFUser currentUser]) {
         Mixpanel *mixpanel = [Mixpanel sharedInstance];
         [mixpanel track:@"app started" properties:@{
@@ -63,7 +64,7 @@
                                                 @"user": [PFUser user].objectId
                                                 }];
     }
-    
+    */
 }
 
 - (void)dealloc
