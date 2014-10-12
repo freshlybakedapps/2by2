@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +15,6 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultUserImage" translatesAutoresizingMaskIntoConstraints="NO" id="XjO-ep-GFW">
                         <rect key="frame" x="10" y="10" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="UU2-ac-bWJ"/>
                             <constraint firstAttribute="width" constant="30" id="XZF-Nt-uHb"/>
@@ -23,7 +22,6 @@
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="KHy-N9-luq">
                         <rect key="frame" x="50" y="10" width="260" height="51"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <string key="text" base64-UTF8="YES">
 TmFoIG1hbiwgaXMgbm90IHRoYXQgZ3JlYXQhIFRoaXMgY29tbWVudAN3aWxsIGJyZWFrIGludG8gMyBs
 aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
@@ -34,10 +32,15 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3d" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RDz-44-tP7">
                         <rect key="frame" x="50" y="69" width="17" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view autoresizesSubviews="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="aPO-7Y-en8">
+                        <rect key="frame" x="10" y="98" width="300" height="0.5"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.5"/>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -49,6 +52,10 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
                 <constraint firstItem="RDz-44-tP7" firstAttribute="leading" secondItem="KHy-N9-luq" secondAttribute="leading" id="ik4-hR-L6j"/>
                 <constraint firstItem="XjO-ep-GFW" firstAttribute="leading" secondItem="hQ4-Eh-6Ev" secondAttribute="leading" constant="10" id="pX5-Ia-lAR"/>
                 <constraint firstItem="XjO-ep-GFW" firstAttribute="top" secondItem="hQ4-Eh-6Ev" secondAttribute="top" constant="10" id="rNv-KF-QvV"/>
+                <constraint firstItem="aPO-7Y-en8" firstAttribute="leading" secondItem="hQ4-Eh-6Ev" secondAttribute="leading" constant="10" id="tGx-vY-cgh"/>
+                <constraint firstAttribute="bottom" secondItem="aPO-7Y-en8" secondAttribute="bottom" constant="1" id="vfw-4I-REj"/>
+                <constraint firstAttribute="trailing" secondItem="aPO-7Y-en8" secondAttribute="trailing" constant="10" id="yO5-Aq-5eS"/>
+                <constraint firstItem="aPO-7Y-en8" firstAttribute="top" secondItem="RDz-44-tP7" secondAttribute="bottom" constant="12" id="yiS-Ir-Uag"/>
             </constraints>
             <size key="customSize" width="320" height="97"/>
             <connections>
@@ -61,4 +68,9 @@ aW5lcywgdGhhbmsgZ29vZCBvbGQgZXhhbXBsZXM
     <resources>
         <image name="defaultUserImage" width="72" height="72"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
