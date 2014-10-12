@@ -55,6 +55,15 @@
     self.collectionView.scrollsToTop = NO;
     
     self.pageControl.numberOfPages = ContentTypeCount;
+    
+    if ([PFUser currentUser]) {
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        [mixpanel track:@"app started" properties:@{
+                                                @"username": [PFUser user].username,
+                                                @"user": [PFUser user].objectId
+                                                }];
+    }
+    
 }
 
 - (void)dealloc
@@ -124,6 +133,7 @@
 {
     CameraViewController *controller = [CameraViewController controller];
     [self presentViewController:controller animated:YES completion:nil];
+    
 }
 
 

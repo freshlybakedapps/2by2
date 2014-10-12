@@ -14,6 +14,8 @@
 #import "PDPViewController.h"
 #import "MainViewController.h"
 
+#define MIXPANEL_TOKEN @"47b0765ad75655a0170dc3a1742abc47"
+
 
 @implementation AppDelegate
 
@@ -24,6 +26,9 @@
 
     // TestFlight
     [TestFlight takeOff:@"f14b6606-f5bd-460a-be98-4da27a654296"];
+    
+    // MixPanel
+    [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];
     
     // Parse
     [Parse setApplicationId:@"6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg" clientKey:@"CdsYZN5y9Tuum2IlHhvipft0rWItCON6JoXeqYJL"];

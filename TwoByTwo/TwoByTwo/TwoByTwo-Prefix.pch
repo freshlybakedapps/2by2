@@ -22,4 +22,5 @@
     #import "UIColor+TwoByTwo.h"
     #import "UIFont+TwoByTwo.h"
     #import "EXTScope.h"
+    #import "Mixpanel.h"
 #endif
