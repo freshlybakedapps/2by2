@@ -27,6 +27,7 @@
     //TODO: what should the query be?
     PFQuery *query = [PFQuery queryWithClassName:PFPhotoClass];
     [query whereKey:PFStateKey equalTo:(self.showingDouble) ? PFStateValueFull : PFStateValueHalf];
+    [query whereKey:@"featured" equalTo:[NSNumber numberWithBool:YES]];
     return query;
 }
 
