@@ -15,6 +15,8 @@
 #import "NSURL+Facebook.h"
 #import "FeedViewController.h"
 
+#import "ProfileViewController.h"
+
 
 @interface FeedCell ()
 @property (nonatomic, weak) IBOutlet UIView *headerView;
@@ -297,6 +299,9 @@
 
 - (IBAction)userButtonTapped:(id)sender
 {
+    
+    
+    
     if (sender == self.firstUserButton) {
         [self showProfileForUser:self.photo.user];
     }
@@ -434,7 +439,10 @@
 
 - (void)showProfileForUser:(PFUser *)user
 {
-    FeedViewController *controller = [FeedViewController controller];
+    ProfileViewController *controller = [ProfileViewController controller];
+    
+    
+    //FeedViewController *controller = [FeedViewController controller];
     controller.type = FeedTypeFriend;
     controller.user = user;
      [[MainViewController currentController].navigationController pushViewController:controller animated:YES];

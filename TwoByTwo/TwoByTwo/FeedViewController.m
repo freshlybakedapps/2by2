@@ -66,6 +66,8 @@ static NSUInteger const kQueryBatchSize = 20;
     [self.collectionView registerNib:[UINib nibWithNibName:@"ThumbCell" bundle:nil] forCellWithReuseIdentifier:@"ThumbCell"];
     
     
+    
+    
     // Load Data    
     AppDelegate* delegate = [AppDelegate delegate];
     if(delegate.pdpID){
@@ -415,10 +417,18 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    
+    NSLog(@"/////////////////////////////////////// %@", kind);
+    
+    
+    
     if (kind == UICollectionElementKindSectionHeader) {
         switch (self.type) {
             case FeedTypeFriend:
             case FeedTypeYou: {
+                
+                NSLog(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                
                 ProfileFeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView" forIndexPath:indexPath];
                 headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
                 headerView.delegate = self;
@@ -426,6 +436,9 @@ static NSUInteger const kQueryBatchSize = 20;
             }
                 
             default: {
+                
+                 NSLog(@"-------------------------------------");
+                
                 FeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView" forIndexPath:indexPath];
                 
                 
