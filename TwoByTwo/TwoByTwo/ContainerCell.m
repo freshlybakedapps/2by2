@@ -70,6 +70,7 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)performQuery
 {
+    NSLog(@"xxxxxxxxx");
     // Default behavoir. Subclass to override this.
     [self loadPhotosWithCompletion:nil];
 }
@@ -210,7 +211,11 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    //NSLog(@"%lu %lu",(unsigned long)self.objects.count,(unsigned long)self.totalNumberOfObjects);
+    
+    
     if (indexPath.row == self.objects.count - 1 && self.objects.count < self.totalNumberOfObjects) {
+        
         [self performQuery];
     }
     

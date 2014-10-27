@@ -63,6 +63,9 @@
     self.mapFirstUserLabel.font = [UIFont appMediumFontOfSize:14];
     
     
+    self.firstUserButton.frame = CGRectMake(10, 0, self.firstUserButton.frame.size.width, self.firstUserButton.frame.size.height);
+    
+    
 }
 
 
