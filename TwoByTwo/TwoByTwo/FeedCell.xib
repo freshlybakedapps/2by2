@@ -262,6 +262,7 @@
                 <constraint firstItem="p63-Im-2Md" firstAttribute="top" secondItem="VyA-Z4-b7C" secondAttribute="top" id="ubO-Js-SOa"/>
             </constraints>
             <connections>
+                <outlet property="ampersand" destination="eYZ-vO-lcX" id="3Yx-Wc-gcg"/>
                 <outlet property="commentButton" destination="BWW-1N-wMk" id="zIK-tg-FCL"/>
                 <outlet property="containerView" destination="6nV-Wv-aUZ" id="uJb-mB-pdY"/>
                 <outlet property="detailsButton" destination="Fdq-DE-CaA" id="YRr-lZ-ytl"/>

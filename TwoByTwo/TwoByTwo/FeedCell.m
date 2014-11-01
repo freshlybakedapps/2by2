@@ -25,6 +25,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *firstUserButton;
 @property (nonatomic, weak) IBOutlet UIButton *secondUserButton;
 
+@property (nonatomic, weak) IBOutlet UILabel *ampersand;
+
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UIButton *mapCloseButton;
@@ -119,10 +121,12 @@
         self.secondUserImageView.hidden = NO;
         [self.secondUserButton setTitle:self.photo.userFull.username forState:UIControlStateNormal];
         self.secondUserButton.hidden = NO;
+        self.ampersand.hidden = NO;
     }
     else {
         self.secondUserImageView.hidden = YES;
         self.secondUserButton.hidden = YES;
+        self.ampersand.hidden = YES;
     }
 
     
