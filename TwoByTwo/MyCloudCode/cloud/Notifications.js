@@ -59,12 +59,8 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
 
       //var digestEmailAlert = user.get("digestEmailAlert");
 
-      console.log("WTFFFFFFFFFF 0");
-
       //This should always happen (unless is the same user)
       if(user.id != byUserID){
-
-        console.log("WTFFFFFFFFFF 1");
 
         
         if(byUserID && byUserID != ""){
@@ -114,7 +110,7 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
       }
       
       if(response){
-        response.success("Notifications sent");
+        //response.success("Notifications sent");
       }
       
     
