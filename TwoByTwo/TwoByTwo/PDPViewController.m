@@ -47,6 +47,15 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
     self.title = @"Details";
     
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
+    self.navigationController.navigationBar.translucent = NO;
+    
+    
+    
+    
     
     if (!self.shareButton) {
         self.shareButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];

@@ -21,6 +21,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    
     // Crittercism
     [Crittercism enableWithAppID:@"52a0a4f04002054d18000001"];
 
@@ -59,6 +61,8 @@
     
     // Root View
     [self setAppearance];
+    
+    
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
