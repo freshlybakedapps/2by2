@@ -242,8 +242,16 @@ static NSUInteger const kQueryBatchSize = 20;
         [[MainViewController currentController] presentViewController:controller animated:YES completion:nil];
     }
     else {
+        NSString* photoID = photo[@"photoID"];
+        
         PDPViewController *controller = [PDPViewController controller];
-        controller.photoID = photo.objectId;
+        
+        if(photoID){
+            controller.photoID = photoID;
+        }else{
+            controller.photoID = photo.objectId;
+        }
+        
         [[MainViewController currentController].navigationController pushViewController:controller animated:YES];
     }
 }
