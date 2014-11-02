@@ -26,6 +26,8 @@
 
 - (void)performQuery
 {
+    
+    
     PFQuery *query = [PFQuery queryWithClassName:PFNotificationClass];
     [query whereKey:PFNotificationIDKey equalTo:[PFUser currentUser].objectId];
     [query orderByDescending:PFCreatedAtKey];
@@ -35,6 +37,8 @@
         if (!error) {
             weakSelf.objects = [objects mutableCopy];
             [weakSelf.collectionView reloadData];
+            
+            NSLog(@"MMMM %lu", (unsigned long)weakSelf.objects.count);
         }
     }];
 }
