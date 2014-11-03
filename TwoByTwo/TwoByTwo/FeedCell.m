@@ -355,18 +355,40 @@
     [PFAnalytics trackEvent:@"like_or_unlike" dimensions:dimensions];
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Button Index =%ld",buttonIndex);
+    if (buttonIndex == 0)
+    {
+        NSLog(@"You have clicked Cancel");
+    }
+    else if(buttonIndex == 1)
+    {
+        [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if(error){
+                NSLog(@"DELETE %@", error.description);
+            }
+            
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:NoficationShouldReloadPhotos object:nil];
+        }];
+
+    }
+}
+
 - (IBAction)toolButtonTapped:(id)sender
 {
     if (self.photo.canDelete) {
         
-        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex != alertView.cancelButtonIndex) {
-                [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    NSLog(@"DELETE");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NoficationShouldReloadPhotos object:nil];
-                }];
-            }
-        }];
+        UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Confirm"
+                                                         message:@"Are you sure you want to delete this photo?"
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                               otherButtonTitles: nil];
+        
+        [alert addButtonWithTitle:@"OK"];
+        [alert show];
     }
     else {
         UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"Flagging this photo" message:@"Choose a reason for flagging:"];
