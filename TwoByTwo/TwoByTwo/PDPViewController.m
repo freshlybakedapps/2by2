@@ -16,6 +16,7 @@
 #import "DAKeyboardControl.h"
 #import "DMActivityInstagram.h"
 #import "UIImage+Addon.h"
+#import "ProfileViewController.h"
 
 typedef NS_ENUM(NSUInteger, CollectionViewSection) {
     CollectionViewSectionMain = 0,
@@ -306,7 +307,10 @@ typedef NS_ENUM(NSUInteger, CollectionViewSection) {
 
 - (void)cell:(FeedCell *)cell showProfileForUser:(PFUser *)user
 {
-    FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+    //FeedViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedViewController"];
+    
+    ProfileViewController *controller = [ProfileViewController controller];
+    
     controller.type = FeedTypeFriend;
     controller.user = user;
     [self.navigationController pushViewController:controller animated:YES];
