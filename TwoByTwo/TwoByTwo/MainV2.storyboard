@@ -74,6 +74,9 @@
                                     <rect key="frame" x="65" y="2" width="71" height="37"/>
                                     <color key="pageIndicatorTintColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="currentPageIndicatorTintColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="changePage:" destination="bjM-sF-lxP" eventType="valueChanged" id="MBU-zZ-NbM"/>
+                                    </connections>
                                 </pageControl>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

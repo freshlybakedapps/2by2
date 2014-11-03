@@ -176,4 +176,11 @@
     }
 }
 
+- (IBAction)changePage:(id)sender {
+    UIPageControl *pager=sender;
+    NSInteger page = pager.currentPage;
+    NSIndexPath *nextItem = [NSIndexPath indexPathForItem:page inSection:0];
+    [self.collectionView scrollToItemAtIndexPath:nextItem atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
+}
+
 @end
