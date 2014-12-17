@@ -13,20 +13,31 @@ exports.main = function(request, response){
     Parse.Cloud.useMasterKey();
 
     var userQuery = new Parse.Query(Parse.User);
-    userQuery.find({
-      success: function(userArr) {
+    //userQuery.limit(1000);
 
-        //console.log(contacts.length);
+    userQuery.each(function(u) {
 
-        for (var i = 0; i < userArr.length; i++) {          
-          var u = userArr[i];
           //make sure current user is not included here
-          if(u.id != userID){            
-            var obj = {username:u.get("fullName"),id:u.id,email:u.get("email"),facebookID:u.get('authData').facebook.id};
+          if(u.id != userID){
+            var hasFB = false;
+
+            if(u.get('authData') && u.get('authData').facebook){
+              hasFB = true;
+            }
+
+            var obj;
+
+            if(hasFB){
+              obj = {username:u.get("fullName"),id:u.id,email:u.get("email"),facebookID:u.get('authData').facebook.id};
+            }else{
+              obj = {username:u.get("fullName"),id:u.id,email:u.get("email"),facebookID:"",twitterProfileImage:u.get("twitterProfileImage")};
+              //get("twitterProfileImage")
+            }
+            
             twoByTwoUsers.push(obj);
           }          
-        }
 
+    }).then(function() {
         var followersStr = followers.join();
         var contactsStr = contacts.join();
 
@@ -38,8 +49,18 @@ exports.main = function(request, response){
               if(followersStr.indexOf(twoByTwoUsers[i].id) != -1){
                 following = true;
               }
+
+              var obj;
               
-              var obj ={name:twoByTwoUsers[i].username,parseID:twoByTwoUsers[i].id,facebookID:twoByTwoUsers[i].facebookID,following:following};
+              if(twoByTwoUsers[i].twitterProfileImage){
+                obj ={name:twoByTwoUsers[i].username,parseID:twoByTwoUsers[i].id,facebookID:twoByTwoUsers[i].facebookID,following:following,twitterProfileImage:twoByTwoUsers[i].twitterProfileImage};
+
+              }else{
+                obj ={name:twoByTwoUsers[i].username,parseID:twoByTwoUsers[i].id,facebookID:twoByTwoUsers[i].facebookID,following:following};
+
+              }
+
+              //var obj ={name:twoByTwoUsers[i].username,parseID:twoByTwoUsers[i].id,facebookID:twoByTwoUsers[i].facebookID,following:following};
               items.push(obj);
             }
           //};
@@ -48,14 +69,9 @@ exports.main = function(request, response){
 
         response.success(items);
 
+    })
 
-
-      },
-      error: function(error) {
-        status.error(error.description);
-      }
     });
-  });
 
   
 }
