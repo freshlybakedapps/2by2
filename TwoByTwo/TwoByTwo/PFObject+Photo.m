@@ -171,8 +171,8 @@ static NSString * const kCommentCount = @"comment_count";
 - (BOOL)canDelete
 {
     // You can only delete your own photo that is not double-exposed yet.
-    //NSLog(@"user: %@ %@",self.user,[PFUser currentUser]);
-    return ([self.user.username isEqualToString:[PFUser currentUser].username] && [self.state isEqualToString:PFStateValueHalf]);
+    NSLog(@"user: %@ %@",self.user.fullName,[PFUser currentUser].fullName);
+    return ([self.user.fullName isEqualToString:[PFUser currentUser].fullName] && [self.state isEqualToString:PFStateValueHalf]);
 }
 
 - (BOOL)likedByMe
