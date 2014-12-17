@@ -19,6 +19,7 @@
 - (void)performQuery
 {
     [self loadFollowersWithCompletion:^(NSArray *objects, NSError *error) {
+        
         self.followers = objects;
         [self loadPhotosWithCompletion:nil];
     }];

@@ -36,6 +36,8 @@
     // Enable Crash Reporting
     [ParseCrashReporting enable];
     
+    //[Parse enableLocalDatastore];
+    
     // Parse
     [Parse setApplicationId:@"6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg" clientKey:@"CdsYZN5y9Tuum2IlHhvipft0rWItCON6JoXeqYJL"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];

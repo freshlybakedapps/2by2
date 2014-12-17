@@ -16,6 +16,7 @@
 		1D2A4B2918DF72F100D9BDF9 /* instagram@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D2A4B2218DF72F100D9BDF9 /* instagram@2x.png */; };
 		1D2A4B2A18DF72F100D9BDF9 /* instagram~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D2A4B2318DF72F100D9BDF9 /* instagram~ipad.png */; };
 		1D2A4B2B18DF72F100D9BDF9 /* instagram~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D2A4B2418DF72F100D9BDF9 /* instagram~ipad@2x.png */; };
+		1D2CAFE31A4177EF00750F8E /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2CAFE21A4177EF00750F8E /* libsqlite3.dylib */; };
 		1D4207C517E6AB1E008A7F98 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */; };
 		1D4207C717E6AB2D008A7F98 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */; };
 		1D4207C917E6AB42008A7F98 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4207C817E6AB42008A7F98 /* libz.1.1.3.dylib */; };
@@ -139,6 +140,7 @@
 		1D2A4B2218DF72F100D9BDF9 /* instagram@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram@2x.png"; sourceTree = "<group>"; };
 		1D2A4B2318DF72F100D9BDF9 /* instagram~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram~ipad.png"; sourceTree = "<group>"; };
 		1D2A4B2418DF72F100D9BDF9 /* instagram~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instagram~ipad@2x.png"; sourceTree = "<group>"; };
+		1D2CAFE21A4177EF00750F8E /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1D4207C217E6AB10008A7F98 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1D4207C417E6AB1E008A7F98 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1D4207C617E6AB2D008A7F98 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -311,6 +313,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D2CAFE31A4177EF00750F8E /* libsqlite3.dylib in Frameworks */,
 				1DB4232E19142DE20093470D /* UIKit.framework in Frameworks */,
 				1DD9715D184BF663001D35CA /* AddressBook.framework in Frameworks */,
 				1DD9715E184BF663001D35CA /* AddressBookUI.framework in Frameworks */,
@@ -648,6 +651,7 @@
 		7CF39DDD17E0070A003A859F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D2CAFE21A4177EF00750F8E /* libsqlite3.dylib */,
 				1DDC01071868E3DF00292DA2 /* Social.framework */,
 				1DD9715B184BF663001D35CA /* AddressBook.framework */,
 				1DD9715C184BF663001D35CA /* AddressBookUI.framework */,

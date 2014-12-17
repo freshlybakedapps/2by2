@@ -83,10 +83,14 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)loadPhotosWithCompletion:(PFArrayResultBlock)completion
 {
+    NSLog(@"loadPhotosWithCompletion 1");
+    
     PFQuery *query = [self photoQuery];
     if (!query) {
         return;
     }
+    
+    NSLog(@"loadPhotosWithCompletion 2");
     
     [query includeKey:PFUserKey];
     [query includeKey:PFUserFullKey];
@@ -96,11 +100,13 @@ static NSUInteger const kQueryBatchSize = 20;
     [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         @strongify(self);
 
+        NSLog(@"loadPhotosWithCompletion 3");
+        
         self.totalNumberOfObjects = number;
         query.limit= kQueryBatchSize;
         query.skip = self.objects.count;
         
-        [query setCachePolicy:kPFCachePolicyNetworkElseCache];
+        //query.cachePolicy = kPFCachePolicyNetworkElseCache;
         
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             
@@ -115,12 +121,17 @@ static NSUInteger const kQueryBatchSize = 20;
                     NSUInteger count = self.objects.count;
                     NSMutableArray *indexPaths = [NSMutableArray array];
                     
+                    
+                    
                     for (NSUInteger i = count; i < count + objects.count; i++) {
                         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                     }
                     
                     [self.objects addObjectsFromArray:objects];
                     [self.collectionView insertItemsAtIndexPaths:indexPaths];
+                    
+                    //save object for offline
+                    //[PFObject pinAllInBackground:objects];
                     
                 } completion:nil];
             }
@@ -146,11 +157,14 @@ static NSUInteger const kQueryBatchSize = 20;
         return;
     }
     
+    NSLog(@"loadFollowersWithCompletion");
+    
     PFQuery *query = [PFQuery queryWithClassName:PFFollowersClass];
     [query whereKey:PFUserIDKey equalTo:[PFUser currentUser].objectId];
     [query selectKeys:@[PFFollowingUserIDKey]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            
             NSArray *followers = [objects bk_map:^id(id object) {
                 NSString *userID = object[PFFollowingUserIDKey];
                 PFUser *user = [PFUser objectWithoutDataWithObjectId:userID];
