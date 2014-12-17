@@ -68,6 +68,11 @@ Parse.Cloud.define("lastPhotoURL", function(request, response) {
     LastPhotoURL.main(request, response);
 });
 
+var GetPopularPhotos = require('cloud/GetPopularPhotos.js');
+Parse.Cloud.define("getPopularPhotos", function(request, response) {
+    GetPopularPhotos.main(request, response);
+});
+
 var CreateThumbnails = require('cloud/CreateThumbnails.js');
 Parse.Cloud.define("CreateThumbnails", function(request, response) {
   CreateThumbnails.main(request, response);

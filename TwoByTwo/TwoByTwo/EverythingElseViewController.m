@@ -187,6 +187,7 @@ static NSString * const FacebookIDKey = @"id";
 {
     [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to logout?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex != alertView.cancelButtonIndex) {
+            NSLog(@"logoutButtonTapped");
             [PFUser logOut];
             [[AppDelegate delegate] showLoginViewController];
         }

@@ -14,6 +14,7 @@
 #import "PDPViewController.h"
 #import "MainViewController.h"
 
+
 #define MIXPANEL_TOKEN @"47b0765ad75655a0170dc3a1742abc47"
 
 
@@ -35,7 +36,7 @@
     // Parse
     [Parse setApplicationId:@"6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg" clientKey:@"CdsYZN5y9Tuum2IlHhvipft0rWItCON6JoXeqYJL"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    [PFFacebookUtils initializeFacebook];
+    //[PFFacebookUtils initializeFacebook];
     [PFTwitterUtils initializeWithConsumerKey:@"usi9Q97qeqiUUso9Do7BMSuhO" consumerSecret:@"qKR6zE5ggJbVOq9yzV1ScZuRTXGFKTtNfM1XrGHdMyL61lgcMu"];
     
     

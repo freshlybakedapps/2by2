@@ -1,0 +1,12 @@
+SLIDE 14
+
+- Only an agency like R/GA could pull this of in such a short period of time
+- The first question we had to answer was if it was possible 
+- Second question was if it was possible to do a VR google cardboard experience for iOS
+- Not only we did it but in RECORD TIME
+- Now the question was if it should be live action or all CGI
+
+SLIDE 26
+
+- Fidelity vs Filesize - we wanted the highest possible quality at the smallest possible size. The final rendered video file we received from Framestore were 10GB and we wanted the apps to be at least less than 300mb. At the end the files were about 100mb
+- cross platform - while we had to build two separate native apps, we were able to build the VR experience using a game engine called UNITY. Using Unity we were able to build once and deploy everywhere.
