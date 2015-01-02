@@ -19,10 +19,13 @@
 #import "ProfileContainerCell.h"
 #import "NotificationsContainerCell.h"
 
+BOOL popularLoadedOnce = NO;
+
 
 @interface MainViewController ()
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, strong) IBOutlet UIButton *cameraButton;
 @end
 
 
@@ -39,6 +42,12 @@
         return controller;
     }
     return nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    //self.cameraButton.frame = CGRectMake(self.cameraButton.frame.origin.x, 20, self.cameraButton.frame.size.width, self.cameraButton.frame.size.height);
+    
 }
 
 - (void)viewDidLoad
@@ -90,7 +99,13 @@
         case ContentTypePopular:
         {
             cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PopularContainerCell class]) forIndexPath:indexPath];
-            [cell performQuery];
+            
+            if(popularLoadedOnce == NO){
+                popularLoadedOnce = YES;
+                [cell performQuery];
+            }
+            
+            
             break;
         }
 

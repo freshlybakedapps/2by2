@@ -27,6 +27,7 @@
 		1D4A810A1854433D007227BB /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D4A81091854433D007227BB /* EditProfileViewController.m */; };
 		1D568E95189756930043AB04 /* FeedFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D568E94189756930043AB04 /* FeedFooterView.m */; };
 		1D568E97189756CC0043AB04 /* FeedFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D568E96189756CC0043AB04 /* FeedFooterView.xib */; };
+		1D76348D1A57376A009CAF98 /* NSMutableArray+Shuffling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D76348C1A57376A009CAF98 /* NSMutableArray+Shuffling.m */; };
 		1D79631D18F315C90022EFD1 /* FindTwitterFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D79631C18F315C90022EFD1 /* FindTwitterFriendsViewController.m */; };
 		1DA9486E19FC22580079FAAC /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA9486D19FC22580079FAAC /* ProfileViewController.m */; };
 		1DB0C7B118464DED002626C8 /* EverythingElseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0C7B018464DED002626C8 /* EverythingElseViewController.m */; };
@@ -155,6 +156,8 @@
 		1D568E94189756930043AB04 /* FeedFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedFooterView.m; sourceTree = "<group>"; };
 		1D568E96189756CC0043AB04 /* FeedFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedFooterView.xib; sourceTree = "<group>"; };
 		1D74B5701809A681005A4937 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1D76348B1A57376A009CAF98 /* NSMutableArray+Shuffling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffling.h"; sourceTree = "<group>"; };
+		1D76348C1A57376A009CAF98 /* NSMutableArray+Shuffling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffling.m"; sourceTree = "<group>"; };
 		1D79631B18F315C90022EFD1 /* FindTwitterFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindTwitterFriendsViewController.h; sourceTree = "<group>"; };
 		1D79631C18F315C90022EFD1 /* FindTwitterFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindTwitterFriendsViewController.m; sourceTree = "<group>"; };
 		1DA9486C19FC22580079FAAC /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -611,6 +614,8 @@
 				7C8E79C719352A2000D94E07 /* UIViewController+Swizzle.m */,
 				7C8E79C919352A3600D94E07 /* NSObject+Swizzle.h */,
 				7C8E79CA19352A3600D94E07 /* NSObject+Swizzle.m */,
+				1D76348B1A57376A009CAF98 /* NSMutableArray+Shuffling.h */,
+				1D76348C1A57376A009CAF98 /* NSMutableArray+Shuffling.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -991,6 +996,7 @@
 				7C476777191EDCC600333C59 /* Constants.m in Sources */,
 				1D79631D18F315C90022EFD1 /* FindTwitterFriendsViewController.m in Sources */,
 				1D1B34ED181B203800E6F26A /* UIImage+Addon.m in Sources */,
+				1D76348D1A57376A009CAF98 /* NSMutableArray+Shuffling.m in Sources */,
 				7CF39E1817E00782003A859F /* FeedViewController.m in Sources */,
 				7CD137FF18C3F43400D534D7 /* LikersCell.m in Sources */,
 				7CD1380218C3F9E400D534D7 /* AvatarCell.m in Sources */,

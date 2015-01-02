@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="aL1-k4-LRD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="aL1-k4-LRD">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -46,7 +46,7 @@
                                     <outlet property="delegate" destination="bjM-sF-lxP" id="cWr-dO-dpl"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOi-T2-Ipr">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOi-T2-Ipr">
                                 <rect key="frame" x="125" y="478" width="70" height="70"/>
                                 <state key="normal" image="button-shutter-green">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,6 +60,8 @@
                         <constraints>
                             <constraint firstItem="omm-Ak-f0Z" firstAttribute="top" secondItem="SzB-vn-tBX" secondAttribute="top" id="7dJ-n2-3d6"/>
                             <constraint firstAttribute="trailing" secondItem="omm-Ak-f0Z" secondAttribute="trailing" id="9TE-ud-whI"/>
+                            <constraint firstAttribute="bottom" secondItem="FOi-T2-Ipr" secondAttribute="bottom" constant="20" symbolic="YES" id="IRG-P2-D0i"/>
+                            <constraint firstItem="FOi-T2-Ipr" firstAttribute="centerX" secondItem="omm-Ak-f0Z" secondAttribute="centerX" id="OHO-Yj-EKd"/>
                             <constraint firstAttribute="bottom" secondItem="omm-Ak-f0Z" secondAttribute="bottom" id="e1J-2q-VYJ"/>
                             <constraint firstItem="omm-Ak-f0Z" firstAttribute="leading" secondItem="SzB-vn-tBX" secondAttribute="leading" id="e8k-hu-y8i"/>
                         </constraints>
@@ -87,6 +89,7 @@
                         </view>
                     </navigationItem>
                     <connections>
+                        <outlet property="cameraButton" destination="FOi-T2-Ipr" id="ftb-3x-8rH"/>
                         <outlet property="collectionView" destination="omm-Ak-f0Z" id="UBv-pC-UwC"/>
                         <outlet property="pageControl" destination="mLc-lS-sN4" id="jYn-YV-oq0"/>
                     </connections>

@@ -17,6 +17,8 @@
 static NSUInteger const kQueryBatchSize = 20;
 
 
+
+
 @interface ContainerCell ()
 @property (nonatomic) NSUInteger totalNumberOfObjects;
 @property (nonatomic) NSUInteger queryOffset;
@@ -27,8 +29,15 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (id)initWithFrame:(CGRect)frame
 {
+    
+    
+    
     self = [super initWithFrame:frame];
+    
     if (self) {
+        
+        
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performQuery) name:NoficationShouldReloadPhotos object:nil];
         
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
@@ -47,6 +56,8 @@ static NSUInteger const kQueryBatchSize = 20;
         self.collectionView = collectionView;
         
         _showingDouble = YES;
+        
+        
     }
     return self;
 }
@@ -70,7 +81,8 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (void)performQuery
 {
-    NSLog(@"xxxxxxxxx");
+    
+    NSLog(@"mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
     // Default behavoir. Subclass to override this.
     [self loadPhotosWithCompletion:nil];
 }
@@ -104,7 +116,19 @@ static NSUInteger const kQueryBatchSize = 20;
         
         self.totalNumberOfObjects = number;
         query.limit= kQueryBatchSize;
+        
+        
         query.skip = self.objects.count;
+        
+        /*
+        //Randomize the order for the popular feed
+        if([[self.class description] isEqualToString:@"PopularContainerCell"]){
+            query.skip = floor(arc4random_uniform(number));
+        }else{
+            query.skip = self.objects.count;
+        }
+        */
+        
         
         //query.cachePolicy = kPFCachePolicyNetworkElseCache;
         
