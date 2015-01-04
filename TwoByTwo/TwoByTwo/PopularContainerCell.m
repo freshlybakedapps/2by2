@@ -100,7 +100,7 @@
         NSLog(@"loadPhotosWithCompletion 3");
         
         self.totalNumberOfObjects = number;
-        query.limit= 25;
+        query.limit= 24;
         
         
         query.skip = self.objects.count;
