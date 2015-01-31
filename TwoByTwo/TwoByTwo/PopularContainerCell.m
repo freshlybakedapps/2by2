@@ -13,6 +13,7 @@
 #import "ThumbCell.h"
 #import "NSMutableArray+Shuffling.h"
 
+#import "TwoByTwo-Swift.h"
 
 
 @interface PopularContainerCell ()
@@ -33,6 +34,8 @@
         [self.collectionView registerNibWithViewClass:[PopularFeedHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader];
         
         
+        SwiftTest* t = [SwiftTest new];
+        NSLog(@"test: %@",[t helloWorldSwift]);
         
         
     }
