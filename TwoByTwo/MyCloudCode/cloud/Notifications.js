@@ -25,6 +25,8 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
     success: function(user) {
       var email = user.get("email");
       var username = user.get("username");
+
+      var twitterProfileImage = user.get("TwitterProfileImage");
       
 
       var userAllowsPush;
@@ -59,15 +61,29 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
 
       //This should always happen (unless is the same user)
       if(user.id != byUserID){
+
         
         if(byUserID && byUserID != ""){
+          console.log("WTFFFFFFFFFF 2 " + byUserID);
+
           var query2 = new Parse.Query(Parse.User);
           query2.get(byUserID, {
             success: function(u) {
-              var facebookID = u.get('authData').facebook.id;
-              console.log("byUserID/facebookID: "+ facebookID);
-              addNotification(user.id,photoID,notificationType,byUserID,byUsername,locationString,content,facebookID);
-            },
+
+              var twitterProfileImage2 = u.get("TwitterProfileImage");
+
+              if(twitterProfileImage2 =! ""){
+                addNotification(user.id,photoID,notificationType,byUserID,byUsername,locationString,content,u.get("twitterId"));
+
+              }else{
+                var facebookID = u.get('authData').facebook.id;
+                console.log("byUserID/facebookID: "+ facebookID);
+                addNotification(user.id,photoID,notificationType,byUserID,byUsername,locationString,content,facebookID);
+
+              }
+
+
+                          },
             error: function(error) {
                 console.log("Got an error " + error);
 
@@ -94,7 +110,7 @@ exports.sendNotifications = function(response,notificationType,userID,msg,htmlMs
       }
       
       if(response){
-        response.success("Notifications sent");
+        //response.success("Notifications sent");
       }
       
     
@@ -168,7 +184,7 @@ function sendPush(userID,msg,photoID){
   pushQuery.equalTo('deviceType', 'ios');
   pushQuery.equalTo('channels', userID);//'SREzPjOawD');//
 
-    console.log("user.objectId: "+userID);
+    console.log("sendPush - user.objectId: "+userID);
     Parse.Push.send({
       where: pushQuery, // Set our Installation query
       data: {

@@ -14,7 +14,7 @@
 #import <Social/Social.h>
 #import "CustomPickerView.h"
 #import "PDPViewController.h"
-#import "MainViewController.h"
+#import "Constants.h"
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
@@ -57,6 +57,13 @@ static CGFloat const kImageSize = 320.0;
     return controller;
 }
 
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    if (status == kCLAuthorizationStatusNotDetermined && [manager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [manager requestAlwaysAuthorization];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,6 +77,7 @@ static CGFloat const kImageSize = 320.0;
     
     // Location
     self.locationManager = [CLLocationManager new];
+    [self.locationManager requestAlwaysAuthorization];
     [self.locationManager startMonitoringSignificantLocationChanges];
     
 

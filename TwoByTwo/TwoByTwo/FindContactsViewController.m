@@ -77,6 +77,8 @@
         }
     }
     CFRelease(allContacts);
+    
+    NSLog(@"uniqueEmails: %lu",(unsigned long)uniqueEmails.count);
 
     self.statusLabel.text = [NSString stringWithFormat:@"Checking %lu contacts...", (unsigned long)uniqueEmails.count];
 
@@ -86,6 +88,7 @@
                                     if (!error) {
                                         self.statusLabel.text = [NSString stringWithFormat:@"Found %lu friends", (unsigned long)result.count];
                                         self.friends = result;
+                                        NSLog(@"%@",result);
                                         [self.tableView reloadData];
                                     }
                                     else {

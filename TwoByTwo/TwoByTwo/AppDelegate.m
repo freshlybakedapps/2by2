@@ -12,17 +12,31 @@
 #import "FeedViewController.h"
 #import "UIWindow+Animation.h"
 #import "PDPViewController.h"
+#import "MainViewController.h"
+
+
+#define MIXPANEL_TOKEN @"47b0765ad75655a0170dc3a1742abc47"
 
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    
     // Crittercism
     [Crittercism enableWithAppID:@"52a0a4f04002054d18000001"];
 
     // TestFlight
     [TestFlight takeOff:@"f14b6606-f5bd-460a-be98-4da27a654296"];
+    
+    // MixPanel
+    [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];
+    
+    // Enable Crash Reporting
+    [ParseCrashReporting enable];
+    
+    //[Parse enableLocalDatastore];
     
     // Parse
     [Parse setApplicationId:@"6glczDK1p4HX3JVuupVvX09zE1TywJRs3Xr2NYXg" clientKey:@"CdsYZN5y9Tuum2IlHhvipft0rWItCON6JoXeqYJL"];
@@ -53,6 +67,8 @@
     
     // Root View
     [self setAppearance];
+    
+    
 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
@@ -70,7 +86,7 @@
     NSDictionary *remoteNotificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotificationPayload) {
         UINavigationController *navController = (id)self.window.rootViewController;
-        [(MainViewController *)navController.topViewController showControllerWithType:FeedTypeNotifications];
+        [(MainViewController *)navController.topViewController showNotificationsAnimated:NO];
         //TODO: push in notification detail page?
     }
     
@@ -162,7 +178,7 @@
 
 - (void)showMainViewController
 {
-    UIViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    UIViewController *controller = [[UIStoryboard storyboardWithName:@"MainV2" bundle:nil] instantiateInitialViewController];
     [self.window setRootViewController:controller animated:YES];
 }
 
@@ -184,15 +200,18 @@
 
     [[UITableViewHeaderFooterView appearance] setTintColor:[UIColor whiteColor]];
 
+    [[UINavigationBar appearance] setTintColor:[UIColor appGrayColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSForegroundColorAttributeName:[UIColor appGrayColor],
                                                            NSFontAttributeName:[UIFont appMediumFontOfSize:14],
                                                            }];
     
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    
     UIImage *barBackBtnImg = [[UIImage imageNamed:@"backArrow"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 24.0, 0, 0)];
     [[UINavigationBar appearance] setBackIndicatorImage:barBackBtnImg];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:barBackBtnImg];
-    [[UIBarButtonItem appearance] setBackButtonBackgroundVerticalPositionAdjustment:5.0 forBarMetrics:UIBarMetricsDefault];
 }
 
 @end

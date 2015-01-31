@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FeedViewController.h"
 
 
 @protocol FeedHeaderViewDelegate <NSObject>
@@ -20,16 +19,9 @@
 @interface FeedHeaderView : UICollectionReusableView
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UIView *controlView;
 @property (nonatomic, weak) IBOutlet UIButton *feedToggleButton;
-@property (nonatomic, weak) IBOutlet UILabel *exposureLabel;
 @property (nonatomic, weak) IBOutlet UIButton *exposureToggleButton;
-
-@property (nonatomic) FeedType type;
 @property (nonatomic, weak) id <FeedHeaderViewDelegate> delegate;
-
-@property (nonatomic,weak) NSString *title;
-
-+ (CGFloat)headerHeightForType:(FeedType)type;
+@property (nonatomic, copy) NSString *title;
 
 @end

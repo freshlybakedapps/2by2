@@ -13,6 +13,9 @@
 #import "BlocksKit+UIKit.h"
 #import "PDPViewController.h"
 #import "NSURL+Facebook.h"
+#import "FeedViewController.h"
+
+#import "ProfileViewController.h"
 
 
 @interface FeedCell ()
@@ -21,6 +24,8 @@
 @property (nonatomic, weak) IBOutlet UIImageView *secondUserImageView;
 @property (nonatomic, weak) IBOutlet UIButton *firstUserButton;
 @property (nonatomic, weak) IBOutlet UIButton *secondUserButton;
+
+@property (nonatomic, weak) IBOutlet UILabel *ampersand;
 
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
@@ -58,6 +63,9 @@
     self.detailsButton.titleLabel.font = [UIFont appMediumFontOfSize:14];
     self.mapSecondUserLabel.font = [UIFont appMediumFontOfSize:14];
     self.mapFirstUserLabel.font = [UIFont appMediumFontOfSize:14];
+    
+    
+    self.firstUserButton.frame = CGRectMake(10, 0, self.firstUserButton.frame.size.width, self.firstUserButton.frame.size.height);
     
     
 }
@@ -113,10 +121,12 @@
         self.secondUserImageView.hidden = NO;
         [self.secondUserButton setTitle:self.photo.userFull.username forState:UIControlStateNormal];
         self.secondUserButton.hidden = NO;
+        self.ampersand.hidden = NO;
     }
     else {
         self.secondUserImageView.hidden = YES;
         self.secondUserButton.hidden = YES;
+        self.ampersand.hidden = YES;
     }
 
     
@@ -272,7 +282,7 @@
 
 - (IBAction)detailButtonTapped:(id)sender
 {
-    [self.delegate cell:self showCommentsForPhoto:self.photo];
+    [self showCommentsForPhoto:self.photo];
 }
 
 - (IBAction)featuredButtonTapped:(id)sender
@@ -296,17 +306,20 @@
 
 - (IBAction)userButtonTapped:(id)sender
 {
+    
+    
+    
     if (sender == self.firstUserButton) {
-        [self.delegate cell:self showProfileForUser:self.photo.user];
+        [self showProfileForUser:self.photo.user];
     }
     else {
-        [self.delegate cell:self showProfileForUser:self.photo.userFull];
+        [self showProfileForUser:self.photo.userFull];
     }
 }
 
 - (IBAction)commentButtonTapped:(id)sender
 {
-    [self.delegate cell:self showCommentsForPhoto:self.photo];
+    [self showCommentsForPhoto:self.photo];
 }
 
 - (IBAction)likeButtonTapped:(id)sender
@@ -342,18 +355,40 @@
     [PFAnalytics trackEvent:@"like_or_unlike" dimensions:dimensions];
 }
 
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Button Index =%ld",buttonIndex);
+    if (buttonIndex == 0)
+    {
+        NSLog(@"You have clicked Cancel");
+    }
+    else if(buttonIndex == 1)
+    {
+        [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if(error){
+                NSLog(@"DELETE %@", error.description);
+            }
+            
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:NoficationShouldReloadPhotos object:nil];
+        }];
+
+    }
+}
+
 - (IBAction)toolButtonTapped:(id)sender
 {
     if (self.photo.canDelete) {
         
-        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Are you sure you want to delete this photo?" cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex != alertView.cancelButtonIndex) {
-                [self.photo deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    NSLog(@"DELETE");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NoficationShouldReloadPhotos object:nil];
-                }];
-            }
-        }];
+        UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Confirm"
+                                                         message:@"Are you sure you want to delete this photo?"
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                               otherButtonTitles: nil];
+        
+        [alert addButtonWithTitle:@"OK"];
+        [alert show];
     }
     else {
         UIAlertView *alert = [UIAlertView bk_alertViewWithTitle:@"Flagging this photo" message:@"Choose a reason for flagging:"];
@@ -429,6 +464,24 @@
     else {
         action();
     }
+}
+
+- (void)showProfileForUser:(PFUser *)user
+{
+    ProfileViewController *controller = [ProfileViewController controller];
+    
+    
+    //FeedViewController *controller = [FeedViewController controller];
+    controller.type = FeedTypeFriend;
+    controller.user = user;
+     [[MainViewController currentController].navigationController pushViewController:controller animated:YES];
+}
+
+- (void)showCommentsForPhoto:(PFObject *)photo
+{
+    PDPViewController *controller = [PDPViewController controller];
+    controller.photoID = photo.objectId;
+     [[MainViewController currentController].navigationController pushViewController:controller animated:YES];
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MainViewController.h"
+#import "Constants.h"
 
 
 @interface UserDefaultsManager : NSObject

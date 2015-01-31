@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileFeedHeaderView" id="jEN-KA-6NF" customClass="ProfileFeedHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DaO-64-SB6" userLabel="Edit Button">
+                    <rect key="frame" x="250" y="0.0" width="60" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="962-Je-zn5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="EDIT">
+                        <color key="titleColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="editButtonTapped:" destination="jEN-KA-6NF" eventType="touchUpInside" id="VJc-6M-ZXA"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltp-8r-0wX" userLabel="Follow Button">
+                    <rect key="frame" x="250" y="0.0" width="60" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="AQ0-Uf-xqp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="FOLLOW">
+                        <color key="titleColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="followButtonTapped:" destination="jEN-KA-6NF" eventType="touchUpInside" id="8oS-UQ-8nn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VcM-76-VhQ" userLabel="More Button">
+                    <rect key="frame" x="250" y="44" width="60" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="v8F-cT-me1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <state key="normal" image="more">
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="moreButtonTapped:" destination="jEN-KA-6NF" eventType="touchUpInside" id="VNP-Gj-P0O"/>
+                    </connections>
+                </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="koQ-Ss-VV3">
+                    <rect key="frame" x="125" y="0.0" width="70" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="70" id="2Mn-rD-6tm"/>
+                        <constraint firstAttribute="width" constant="70" id="Zbp-Tf-rFw"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amin Torres (You) : Double EXPOSURES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fT-QU-b3B">
+                    <rect key="frame" x="20" y="82" width="280" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="Fpe-4J-l3W"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="amintorres / 12345 Photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77Y-fu-SeG">
+                    <rect key="frame" x="20" y="101" width="280" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="hjF-KU-sMV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1329 Following / 1390 Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ib-V7-R5i">
+                    <rect key="frame" x="20" y="120" width="280" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="280" id="W4d-BG-V0N"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="ghe-Z6-jvH">
+                    <rect key="frame" x="20" y="139" width="280" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="YEE-m2-LCb"/>
+                        <constraint firstAttribute="width" constant="280" id="gVv-rO-5QE"/>
+                    </constraints>
+                    <string key="text" base64-UTF8="YES">
+QmlvMTAwIENoYXJzIG0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIANhZGlwaXNjaW5n
+IGVsaXQuIE51bmMgaW4gbWF1cmlzIHZpdmVycmEsIHNvbGxpY2l0dWQgA
+</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qbe-oV-8eo" userLabel="Feed Button">
+                    <rect key="frame" x="123" y="199" width="27" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="button-grid">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="button-feed"/>
+                    <connections>
+                        <action selector="feedToggleButtonTapped:" destination="jEN-KA-6NF" eventType="touchUpInside" id="H8U-ZV-ykB"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEO-oC-OEJ" userLabel="Exposure Button">
+                    <rect key="frame" x="171" y="199" width="27" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" image="button-double">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="button-single"/>
+                    <connections>
+                        <action selector="exposureToggleButtonTapped:" destination="jEN-KA-6NF" eventType="touchUpInside" id="FtW-Rc-Rmj"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="DaO-64-SB6" secondAttribute="trailing" constant="10" id="002-j2-Nfk"/>
+                <constraint firstItem="DaO-64-SB6" firstAttribute="top" secondItem="jEN-KA-6NF" secondAttribute="top" id="4Uj-N9-A4u"/>
+                <constraint firstAttribute="centerX" secondItem="ghe-Z6-jvH" secondAttribute="centerX" id="4tf-lU-UmA"/>
+                <constraint firstAttribute="centerX" secondItem="3Ib-V7-R5i" secondAttribute="centerX" id="5Wh-TD-Ssd"/>
+                <constraint firstItem="koQ-Ss-VV3" firstAttribute="top" secondItem="jEN-KA-6NF" secondAttribute="top" id="7Ic-Mz-jy2"/>
+                <constraint firstItem="Qbe-oV-8eo" firstAttribute="top" secondItem="ghe-Z6-jvH" secondAttribute="bottom" constant="10" id="8XW-e0-F8K"/>
+                <constraint firstItem="77Y-fu-SeG" firstAttribute="top" secondItem="2fT-QU-b3B" secondAttribute="bottom" constant="2" id="ASl-q9-6iV"/>
+                <constraint firstAttribute="centerX" secondItem="Qbe-oV-8eo" secondAttribute="centerX" constant="24" id="FHc-qa-GoA"/>
+                <constraint firstAttribute="centerX" secondItem="vEO-oC-OEJ" secondAttribute="centerX" constant="-24" id="J7K-WA-Xzh"/>
+                <constraint firstAttribute="centerX" secondItem="koQ-Ss-VV3" secondAttribute="centerX" id="KA8-ll-hfJ"/>
+                <constraint firstAttribute="trailing" secondItem="ltp-8r-0wX" secondAttribute="trailing" constant="10" id="Pk9-iI-rnU"/>
+                <constraint firstItem="ltp-8r-0wX" firstAttribute="top" secondItem="jEN-KA-6NF" secondAttribute="top" id="S8J-Gl-U4c"/>
+                <constraint firstItem="2fT-QU-b3B" firstAttribute="top" secondItem="koQ-Ss-VV3" secondAttribute="bottom" constant="12" id="Tco-qc-69K"/>
+                <constraint firstItem="Qbe-oV-8eo" firstAttribute="centerY" secondItem="vEO-oC-OEJ" secondAttribute="centerY" id="V74-HW-FTY"/>
+                <constraint firstItem="3Ib-V7-R5i" firstAttribute="top" secondItem="77Y-fu-SeG" secondAttribute="bottom" constant="2" id="XCp-Tt-W4n"/>
+                <constraint firstItem="koQ-Ss-VV3" firstAttribute="bottom" secondItem="VcM-76-VhQ" secondAttribute="bottom" id="YfQ-2a-20M"/>
+                <constraint firstAttribute="centerX" secondItem="2fT-QU-b3B" secondAttribute="centerX" id="bTQ-cM-UA5"/>
+                <constraint firstAttribute="centerX" secondItem="77Y-fu-SeG" secondAttribute="centerX" id="fso-aQ-4wO"/>
+                <constraint firstAttribute="trailing" secondItem="VcM-76-VhQ" secondAttribute="trailing" constant="10" id="hsf-vB-PXr"/>
+                <constraint firstItem="ghe-Z6-jvH" firstAttribute="top" secondItem="3Ib-V7-R5i" secondAttribute="bottom" constant="2" id="tom-qK-ubt"/>
+            </constraints>
+            <connections>
+                <outlet property="bioLabel" destination="ghe-Z6-jvH" id="bJO-1U-mnK"/>
+                <outlet property="editButton" destination="DaO-64-SB6" id="W0Z-iX-7dx"/>
+                <outlet property="exposureToggleButton" destination="vEO-oC-OEJ" id="73O-Nw-mDj"/>
+                <outlet property="feedToggleButton" destination="Qbe-oV-8eo" id="hjU-Cm-1L4"/>
+                <outlet property="followButton" destination="ltp-8r-0wX" id="qrW-2V-gCQ"/>
+                <outlet property="followersLabel" destination="3Ib-V7-R5i" id="NRm-2X-ihx"/>
+                <outlet property="imageView" destination="koQ-Ss-VV3" id="EhL-5w-O4C"/>
+                <outlet property="moreButton" destination="VcM-76-VhQ" id="TGB-BV-Eq7"/>
+                <outlet property="titleLabel" destination="2fT-QU-b3B" id="qng-OF-tAN"/>
+                <outlet property="usernameLabel" destination="77Y-fu-SeG" id="3DU-xu-Wmt"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="button-double" width="27" height="27"/>
+        <image name="button-feed" width="27" height="27"/>
+        <image name="button-grid" width="27" height="27"/>
+        <image name="button-single" width="27" height="27"/>
+        <image name="more" width="26" height="26"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

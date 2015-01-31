@@ -9,7 +9,7 @@
 #import "FeedHeaderView.h"
 
 
-@interface FeedProfileHeaderView : FeedHeaderView
+@interface ProfileFeedHeaderView : FeedHeaderView
 
 @property (nonatomic, strong) PFUser *user;
 

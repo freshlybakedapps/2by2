@@ -12,7 +12,7 @@
 #import "FeedCell.h"
 #import "ThumbCell.h"
 #import "FeedHeaderView.h"
-#import "FeedProfileHeaderView.h"
+#import "ProfileFeedHeaderView.h"
 #import "FeedFooterView.h"
 #import "AppDelegate.h"
 
@@ -64,6 +64,8 @@ static NSUInteger const kQueryBatchSize = 20;
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"FeedCell" bundle:nil] forCellWithReuseIdentifier:@"FeedCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ThumbCell" bundle:nil] forCellWithReuseIdentifier:@"ThumbCell"];
+    
+    
     
     
     // Load Data    
@@ -366,7 +368,6 @@ static NSUInteger const kQueryBatchSize = 20;
         cell.shouldHaveDetailLink = YES;
         cell.photo = self.objects[indexPath.row];
         
-        cell.delegate = self;
         return cell;
     }
 }
@@ -390,17 +391,17 @@ static NSUInteger const kQueryBatchSize = 20;
 
 #pragma mark - Collection View Header
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    switch (self.type) {
-        case FeedTypeFriend:
-        case FeedTypeYou:
-            return CGSizeMake(0, [FeedProfileHeaderView headerHeightForType:self.type]);
-            
-        default:
-            return CGSizeMake(0, [FeedHeaderView headerHeightForType:self.type]);
-    }
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
+//{
+//    switch (self.type) {
+//        case FeedTypeFriend:
+//        case FeedTypeYou:
+//            return CGSizeMake(0, [FeedProfileHeaderView headerHeightForType:self.type]);
+//            
+//        default:
+//            return CGSizeMake(0, [FeedHeaderView headerHeightForType:self.type]);
+//    }
+//}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
@@ -416,17 +417,28 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    
+    NSLog(@"/////////////////////////////////////// %@", kind);
+    
+    
+    
     if (kind == UICollectionElementKindSectionHeader) {
         switch (self.type) {
             case FeedTypeFriend:
             case FeedTypeYou: {
-                FeedProfileHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView" forIndexPath:indexPath];
+                
+                NSLog(@"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                
+                ProfileFeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedProfileHeaderView" forIndexPath:indexPath];
                 headerView.user = (self.type == FeedTypeFriend) ? self.user : nil;
                 headerView.delegate = self;
                 return headerView;
             }
                 
             default: {
+                
+                 NSLog(@"-------------------------------------");
+                
                 FeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"FeedHeaderView" forIndexPath:indexPath];
                 
                 
@@ -434,7 +446,7 @@ static NSUInteger const kQueryBatchSize = 20;
                     headerView.title = [NSString stringWithFormat:@"%@",self.hashtag];
                 }
                 
-                headerView.type = self.type;
+//                headerView.type = self.type;
                 headerView.delegate = self;
                 
                 return headerView;
@@ -443,9 +455,9 @@ static NSUInteger const kQueryBatchSize = 20;
     }
     else {
         self.footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FeedFooterView" forIndexPath:indexPath];
-        self.footerView.controller = self;
-        self.footerView.showingDouble = self.showingDouble;
-        self.footerView.type = self.type;
+//        self.footerView.controller = self;
+//        self.footerView.showingDouble = self.showingDouble;
+//        self.footerView.type = self.type;
         self.footerView.hidden = YES;
         return self.footerView;
     }

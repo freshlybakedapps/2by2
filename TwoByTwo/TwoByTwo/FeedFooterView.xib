@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,17 +10,25 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1h1-ol-Gwf">
-                    <rect key="frame" x="20" y="8" width="280" height="86"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="240" translatesAutoresizingMaskIntoConstraints="NO" id="1h1-ol-Gwf">
+                    <rect key="frame" x="40" y="8" width="240" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" id="eN4-1x-Ckd"/>
+                        <constraint firstAttribute="width" constant="240" id="z2e-yr-6yx"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="y21-K2-7ij">
-                    <rect key="frame" x="43" y="109" width="235" height="37"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y21-K2-7ij">
+                    <rect key="frame" x="40" y="106" width="240" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="CuU-bo-Kbl"/>
+                        <constraint firstAttribute="height" constant="40" id="EU8-vE-gsd"/>
+                    </constraints>
                     <state key="normal" title="Invite from contact list">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -29,10 +37,14 @@
                         <action selector="inviteEmailButtonTapped:" destination="EQy-CB-5yq" eventType="touchUpInside" id="aMO-F3-Jy1"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SeX-Yx-cYQ">
-                    <rect key="frame" x="43" y="154" width="235" height="37"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SeX-Yx-cYQ">
+                    <rect key="frame" x="40" y="154" width="240" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.26666666666666666" green="0.37647058823529411" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="BTi-X8-xwi"/>
+                        <constraint firstAttribute="height" constant="40" id="LwB-Hv-Snn"/>
+                    </constraints>
                     <state key="normal" title="Invite Facebook Friends">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -42,6 +54,14 @@
                     </connections>
                 </button>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="y21-K2-7ij" secondAttribute="centerX" id="8Sz-sM-wKK"/>
+                <constraint firstItem="SeX-Yx-cYQ" firstAttribute="top" secondItem="y21-K2-7ij" secondAttribute="bottom" constant="8" id="D9X-wc-fh4"/>
+                <constraint firstItem="1h1-ol-Gwf" firstAttribute="top" secondItem="EQy-CB-5yq" secondAttribute="top" constant="8" id="Gyf-Lc-oil"/>
+                <constraint firstAttribute="centerX" secondItem="1h1-ol-Gwf" secondAttribute="centerX" id="SnO-R1-yio"/>
+                <constraint firstAttribute="centerX" secondItem="SeX-Yx-cYQ" secondAttribute="centerX" id="Stb-im-wG6"/>
+                <constraint firstItem="y21-K2-7ij" firstAttribute="top" secondItem="1h1-ol-Gwf" secondAttribute="bottom" constant="8" id="VIm-aa-fEv"/>
+            </constraints>
             <connections>
                 <outlet property="inviteContanctButton" destination="y21-K2-7ij" id="oCu-Ec-GJD"/>
                 <outlet property="inviteFacebookButton" destination="SeX-Yx-cYQ" id="YGW-56-Ggt"/>

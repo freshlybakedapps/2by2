@@ -29,7 +29,10 @@ $(function () {
             var that = this;
 
             if (Parse.User.current()) {
-            	$("#fullname").html(Parse.User.current().changed.fullName);
+
+                //console.log(Parse.User.current());
+
+            	$("#fullname").html(Parse.User.current().attributes.fullName);
                 
 
 

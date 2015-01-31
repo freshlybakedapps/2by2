@@ -7,36 +7,73 @@
 //
 
 #import "MainViewController.h"
-#import "FeedViewController.h"
-#import "EditProfileViewController.h"
-#import "NotificationsViewController.h"
 #import "CameraViewController.h"
 #import "UIImage+Addon.h"
+#import "UICollectionView+Addon.h"
+#import "UICollectionView+Pagination.h"
+#import "AppDelegate.h"
+#import "Constants.h"
+#import "PopularContainerCell.h"
+#import "PublicContainerCell.h"
+#import "FriendsContainerCell.h"
+#import "ProfileContainerCell.h"
+#import "NotificationsContainerCell.h"
 
-NSString * const NoficationDidUpdatePushNotificationCount = @"NoficationDidUpdatePushNotificationCount";
-NSString * const NoficationUserInfoKeyCount = @"NoficationUserInfoKeyCount";
-NSString * const NoficationShouldReloadPhotos = @"NoficationShouldReloadPhotos";
+BOOL popularLoadedOnce = NO;
 
 
 @interface MainViewController ()
-@property (nonatomic, strong) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, strong) UILabel *leftLabel;
-@property (nonatomic, strong) UIButton *rightButton;
-@property (nonatomic, strong) UIViewController *childViewController;
-@property (nonatomic) FeedType currentFeedType;
+@property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, strong) IBOutlet UIButton *cameraButton;
 @end
 
 
 @implementation MainViewController
 
++ (instancetype)currentController
+{
+    id controller = [AppDelegate delegate].window.rootViewController;
+    if ([controller isKindOfClass:[UINavigationController class]]) {
+        controller = [[controller viewControllers] firstObject];
+    }
+
+    if ([controller isKindOfClass:self]) {
+        return controller;
+    }
+    return nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    //self.cameraButton.frame = CGRectMake(self.cameraButton.frame.origin.x, 20, self.cameraButton.frame.size.width, self.cameraButton.frame.size.height);
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateNotificationCount:) name:NoficationDidUpdatePushNotificationCount object:nil];
 
-    [self showControllerWithType:0];
+    [self.collectionView registerCellClass:[PopularContainerCell class]];
+    [self.collectionView registerCellClass:[PublicContainerCell class]];
+    [self.collectionView registerCellClass:[FriendsContainerCell class]];
+    [self.collectionView registerCellClass:[ProfileContainerCell class]];
+    [self.collectionView registerCellClass:[NotificationsContainerCell class]];
+    self.collectionView.scrollsToTop = NO;
+    
+    self.pageControl.numberOfPages = ContentTypeCount;
+    
+    /*
+    if ([PFUser currentUser]) {
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        [mixpanel track:@"app started" properties:@{
+                                                @"username": [PFUser user].username,
+                                                @"user": [PFUser user].objectId
+                                                }];
+    }
+    */
 }
 
 - (void)dealloc
@@ -45,56 +82,74 @@ NSString * const NoficationShouldReloadPhotos = @"NoficationShouldReloadPhotos";
 }
 
 
-#pragma mark - IBAction
+#pragma mark - Collection View
 
-- (IBAction)segmentedControlValueChanged:(UISegmentedControl *)sender
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (self.childViewController && self.currentFeedType == sender.selectedSegmentIndex) {
-        if ([self.childViewController isKindOfClass:[FeedViewController class]]) {
-            FeedViewController *controller = (id)self.childViewController;
-            [controller.collectionView setContentOffset:CGPointMake(0, -controller.collectionView.contentInset.top) animated:YES];
+    return ContentTypeCount;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ContentType type = indexPath.row;
+    ContainerCell *cell;
+    
+    switch (type) {
+            
+        case ContentTypePopular:
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PopularContainerCell class]) forIndexPath:indexPath];
+            
+            if(popularLoadedOnce == NO){
+                popularLoadedOnce = YES;
+                [cell performQuery];
+            }
+            
+            
+            break;
+        }
+
+        case ContentTypePublic:
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([PublicContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            break;
+        }
+            
+        case ContentTypeFriends:
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([FriendsContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            break;
+        }
+        
+        case ContentTypeProfile:
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([ProfileContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            break;
+        }
+
+        case ContentTypeNotifications:
+        default:
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([NotificationsContainerCell class]) forIndexPath:indexPath];
+            [cell performQuery];
+            break;
         }
     }
-    else {
-        [self showControllerWithType:sender.selectedSegmentIndex];
-    }
+    
+    return cell;
 }
+
+
+#pragma mark - IBAction
 
 - (IBAction)cameraButtonTapped:(id)sender
 {
     CameraViewController *controller = [CameraViewController controller];
     [self presentViewController:controller animated:YES completion:nil];
-}
-
-
-#pragma mark - Child Controller
-
-- (void)showControllerWithType:(FeedType)type
-{
-    // Show Child Controller
     
-    if (self.childViewController) {
-        [self.childViewController willMoveToParentViewController:nil];
-        [self.childViewController.view removeFromSuperview];
-        [self.childViewController removeFromParentViewController];
-    }
-    
-    if (type == FeedTypeNotifications) {
-        NotificationsViewController *controller = [NotificationsViewController controller];
-        self.childViewController = controller;
-    }
-    else {
-        FeedViewController *controller = [FeedViewController controller];
-        controller.type = type;
-        self.childViewController = controller;
-    }
-    
-    [self addChildViewController:self.childViewController];
-    self.childViewController.view.frame = self.view.bounds;
-    [self.view insertSubview:self.childViewController.view atIndex:0];
-    [self.childViewController didMoveToParentViewController:self];
-    
-    self.currentFeedType = type;
 }
 
 
@@ -105,12 +160,42 @@ NSString * const NoficationShouldReloadPhotos = @"NoficationShouldReloadPhotos";
     NSNumber *count = notification.userInfo[NoficationUserInfoKeyCount];
     if (count.integerValue) {
         UIImage *image = [UIImage circleWithNumber:count.integerValue radius:30];
-        [self.segmentedControl setImage:image forSegmentAtIndex:FeedTypeNotifications];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(notificationButtonTapped:)];
+        [self.navigationItem setRightBarButtonItem:item animated:YES];
     }
     else {
-        UIImage *image = [UIImage imageNamed:@"notifications_Active"];
-        [self.segmentedControl setImage:image forSegmentAtIndex:FeedTypeNotifications];
+        [self.navigationItem setRightBarButtonItem:nil animated:YES];
     }
+}
+
+- (void)notificationButtonTapped:(id)sender
+{
+    [self showNotificationsAnimated:YES];
+}
+
+- (void)showNotificationsAnimated:(BOOL)animated
+{
+    [self.collectionView scrollToPage:ContentTypeNotifications];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSInteger currentPage = self.collectionView.currentPage;
+    if (self.pageControl.currentPage != currentPage) {
+        self.pageControl.currentPage = currentPage;
+        NSArray *cells = [self.collectionView visibleCells];
+        [cells bk_each:^(ContainerCell *cell) {
+            NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+            cell.collectionView.scrollsToTop = (indexPath.row == currentPage) ? YES : NO;
+        }];
+    }
+}
+
+- (IBAction)changePage:(id)sender {
+    UIPageControl *pager=sender;
+    NSInteger page = pager.currentPage;
+    NSIndexPath *nextItem = [NSIndexPath indexPathForItem:page inSection:0];
+    [self.collectionView scrollToItemAtIndexPath:nextItem atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
 }
 
 @end

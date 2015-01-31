@@ -8,23 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString * const NoficationDidUpdatePushNotificationCount;
-extern NSString * const NoficationUserInfoKeyCount;
-extern NSString * const NoficationShouldReloadPhotos;
-
-typedef NS_ENUM(NSUInteger, FeedType) {
-    FeedTypeSingle = 0,
-    FeedTypeGlobal,
-    FeedTypeFollowing,
-    FeedTypeYou,
-    FeedTypeNotifications,
-    FeedTypeFriend,
-    FeedTypeHashtag,
-};
-
 
 @interface MainViewController : UIViewController
 
-- (void)showControllerWithType:(FeedType)type;
++ (instancetype)currentController;
+- (void)showNotificationsAnimated:(BOOL)animated;
 
 @end
