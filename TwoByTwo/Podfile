@@ -1,4 +1,5 @@
 inhibit_all_warnings!
+source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'GPUImage'
 pod 'ReactiveCocoa', '2.4.2'
