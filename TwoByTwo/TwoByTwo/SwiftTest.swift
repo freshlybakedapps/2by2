@@ -13,7 +13,7 @@ class SwiftTest:NSObject {
     override init() {}
 
     func helloWorldSwift() -> String{
-        return "hello world swift"
+        return "hello world swift!"
     }
     
 }
