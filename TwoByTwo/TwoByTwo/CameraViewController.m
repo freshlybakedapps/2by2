@@ -15,6 +15,7 @@
 #import "CustomPickerView.h"
 #import "PDPViewController.h"
 #import "Constants.h"
+#import "FriendsViewController.h"
 
 typedef NS_ENUM(NSUInteger, CameraViewState) {
     CameraViewStateTakePhoto = 0,
@@ -317,6 +318,9 @@ static CGFloat const kImageSize = 320.0;
 - (IBAction)friendsPhotosButtonTapped:(id)sender
 {
     //__weak typeof(self) weakSelf = self;
+    FriendsViewController *controller = [FriendsViewController controller];
+    [self presentViewController:controller animated:YES completion:NULL];
+
     
 }
 

@@ -314,6 +314,7 @@ static NSUInteger const kQueryBatchSize = 20;
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (kind == UICollectionElementKindSectionHeader) {
         FeedHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([FeedHeaderView class]) forIndexPath:indexPath];
         headerView.delegate = self;
