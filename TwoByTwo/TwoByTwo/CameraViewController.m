@@ -43,6 +43,10 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 @property (nonatomic) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property (nonatomic) BOOL isPostingToFacebook;
 @property (nonatomic) BOOL share;
+
+@property (nonatomic, weak) IBOutlet UIButton *libraryButton;
+@property (nonatomic, weak) IBOutlet UIButton *friendsPhotosButton;
+
 @end
 
 static CGFloat const kImageSize = 320.0;
@@ -288,6 +292,34 @@ static CGFloat const kImageSize = 320.0;
 
 
 #pragma mark - Actions
+
+
+- (IBAction)libraryButtonTapped:(id)sender
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.previewView.image = chosenImage;
+    self.state = CameraViewStateReadyToUpload;
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)friendsPhotosButtonTapped:(id)sender
+{
+    //__weak typeof(self) weakSelf = self;
+    
+}
+
 
 - (IBAction)topLeftButtonTapped:(id)sender
 {

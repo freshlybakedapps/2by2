@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface CameraViewController : UIViewController <CLLocationManagerDelegate>
+@interface CameraViewController : UIViewController <CLLocationManagerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) PFObject *photo;
 
