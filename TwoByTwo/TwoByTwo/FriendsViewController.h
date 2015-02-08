@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CameraViewController.h"
 #import "Constants.h"
 
 @interface FriendsViewController : UIViewController
+
+@property (nonatomic, strong) CameraViewController *cameraViewController;
 
 + (instancetype)controller;
 

@@ -48,9 +48,13 @@ typedef NS_ENUM(NSUInteger, CameraViewState) {
 @property (nonatomic, weak) IBOutlet UIButton *libraryButton;
 @property (nonatomic, weak) IBOutlet UIButton *friendsPhotosButton;
 
+@property (nonatomic, strong) FriendsViewController *friendsViewController;
+
 @end
 
 static CGFloat const kImageSize = 320.0;
+
+
 
 
 @implementation CameraViewController
@@ -318,10 +322,22 @@ static CGFloat const kImageSize = 320.0;
 - (IBAction)friendsPhotosButtonTapped:(id)sender
 {
     //__weak typeof(self) weakSelf = self;
-    FriendsViewController *controller = [FriendsViewController controller];
-    [self presentViewController:controller animated:YES completion:NULL];
+    self.friendsViewController = [FriendsViewController controller];
+    
+    self.friendsViewController.cameraViewController = self;
+    
+    [self presentViewController:self.friendsViewController animated:YES completion:NULL];
 
     
+}
+
+- (void) friendsPhotoSelected:(PFObject*)photoObj
+{
+    self.photo = photoObj;
+    //TODO: need to create image from photo object
+    //self.previewView.image = img;
+    self.state = CameraViewStateReadyToUpload; //CameraViewStateTakePhoto
+    [self.friendsViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 

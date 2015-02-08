@@ -64,6 +64,9 @@
 {
     CameraFriendsContainerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([CameraFriendsContainerCell class]) forIndexPath:indexPath];
     
+    cell.cameraViewController = self.cameraViewController;
+    
+    cell.parent = self;
     
     [cell performQuery];
     

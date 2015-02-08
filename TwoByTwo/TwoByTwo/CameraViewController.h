@@ -15,4 +15,6 @@
 
 + (instancetype)controller;
 
+- (void) friendsPhotoSelected:(PFObject*)photoObj;
+
 @end

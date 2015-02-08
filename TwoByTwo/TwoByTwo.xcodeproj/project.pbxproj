@@ -119,6 +119,8 @@
 		8AB5BC5834294D7CBF47B62A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 997CEE5E850E4BFC9549234B /* libPods.a */; };
 		EA8C40CE1A87BE7C00640BC2 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8C40CD1A87BE7C00640BC2 /* FriendsViewController.m */; };
 		EA8C40D11A87C1ED00640BC2 /* CameraFriendsContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8C40D01A87C1ED00640BC2 /* CameraFriendsContainerCell.m */; };
+		EA8C40D51A87CEE100640BC2 /* CameraFriendStrangerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8C40D31A87CEE100640BC2 /* CameraFriendStrangerHeaderView.m */; };
+		EA8C40D61A87CEE100640BC2 /* CameraFriendStrangerHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C40D41A87CEE100640BC2 /* CameraFriendStrangerHeaderView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -319,6 +321,9 @@
 		EA8C40CD1A87BE7C00640BC2 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 		EA8C40CF1A87C1ED00640BC2 /* CameraFriendsContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFriendsContainerCell.h; sourceTree = "<group>"; };
 		EA8C40D01A87C1ED00640BC2 /* CameraFriendsContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFriendsContainerCell.m; sourceTree = "<group>"; };
+		EA8C40D21A87CEE100640BC2 /* CameraFriendStrangerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraFriendStrangerHeaderView.h; sourceTree = "<group>"; };
+		EA8C40D31A87CEE100640BC2 /* CameraFriendStrangerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraFriendStrangerHeaderView.m; sourceTree = "<group>"; };
+		EA8C40D41A87CEE100640BC2 /* CameraFriendStrangerHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraFriendStrangerHeaderView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -545,6 +550,9 @@
 				7C8E79BB1935217300D94E07 /* NotificationHeaderView.h */,
 				7C8E79BC1935217300D94E07 /* NotificationHeaderView.m */,
 				7C8E79BE193521BE00D94E07 /* NotificationHeaderView.xib */,
+				EA8C40D21A87CEE100640BC2 /* CameraFriendStrangerHeaderView.h */,
+				EA8C40D31A87CEE100640BC2 /* CameraFriendStrangerHeaderView.m */,
+				EA8C40D41A87CEE100640BC2 /* CameraFriendStrangerHeaderView.xib */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -895,6 +903,7 @@
 				7C8E79BF193521BE00D94E07 /* NotificationHeaderView.xib in Resources */,
 				1D2A4B2718DF72F100D9BDF9 /* DMResizerViewController.xib in Resources */,
 				1D2A4B2B18DF72F100D9BDF9 /* instagram~ipad@2x.png in Resources */,
+				EA8C40D61A87CEE100640BC2 /* CameraFriendStrangerHeaderView.xib in Resources */,
 				7C6C990819564E1300B75ECE /* Main.storyboard in Resources */,
 				7C1BFA3F187629F50076EFF2 /* Dosis-Light.ttf in Resources */,
 				7CF39DF717E0070A003A859F /* Images.xcassets in Resources */,
@@ -975,6 +984,7 @@
 				7C7E294018306DD30036557E /* PFObject+Photo.m in Sources */,
 				1D0F2D351A7D78D1009F4FA8 /* SwiftTest.swift in Sources */,
 				1D568E95189756930043AB04 /* FeedFooterView.m in Sources */,
+				EA8C40D51A87CEE100640BC2 /* CameraFriendStrangerHeaderView.m in Sources */,
 				7C76578B1825962A0053483B /* UIWindow+Animation.m in Sources */,
 				7C476771191EBBF200333C59 /* UICollectionView+Pagination.m in Sources */,
 				7C7E293A18305ACA0036557E /* MKMapView+Utilities.m in Sources */,

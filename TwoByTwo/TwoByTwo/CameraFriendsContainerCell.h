@@ -7,7 +7,13 @@
 //
 
 #import "ContainerCell.h"
+#import "CameraViewController.h"
+#import "FriendsViewController.h"
 
 @interface CameraFriendsContainerCell : ContainerCell
+
+@property (nonatomic, strong) CameraViewController *cameraViewController;
+
+@property (nonatomic, strong) FriendsViewController *parent;
 
 @end

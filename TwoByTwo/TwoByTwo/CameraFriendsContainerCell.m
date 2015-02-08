@@ -7,6 +7,10 @@
 //
 
 #import "CameraFriendsContainerCell.h"
+#import "UICollectionView+Addon.h"
+#import "CameraFriendStrangerHeaderView.h"
+#import "CameraViewController.h"
+#import "MainViewController.h"
 
 
 @interface CameraFriendsContainerCell ()
@@ -15,6 +19,17 @@
 
 
 @implementation CameraFriendsContainerCell
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self.collectionView registerNibWithViewClass:[CameraFriendStrangerHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader];
+        
+    }
+    return self;
+}
+
 
 - (void)performQuery
 {
@@ -37,15 +52,47 @@
     return query;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    PFObject *photo = self.objects[indexPath.row];
+    [self.cameraViewController friendsPhotoSelected:photo];
+    
+}
+
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
-    return CGSizeMake(0, 1);
+    return CGSizeMake(320, 100);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
     return CGSizeMake(0, 1);
 }
+
+#pragma mark - Collection View Header
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if (kind == UICollectionElementKindSectionHeader) {
+        CameraFriendStrangerHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([CameraFriendStrangerHeaderView class]) forIndexPath:indexPath];
+        
+        return headerView;
+    }
+    else {
+        FeedFooterView *footerView = (id)[super collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
+        
+        NSString *statement = (self.showingDouble)
+        ? NSLocalizedString(@"There are no double exposure photos right now.", @"Feed footer message")
+        : NSLocalizedString(@"There are no single exposure photos right now.", @"Feed footer message");
+        
+        NSString *invite = NSLocalizedString(@"2by2 is more fun with friends and family, invite them to join.", @"Feed footer message");
+        
+        footerView.textLabel.text = [NSString stringWithFormat:@"%@\n\n%@", statement, invite];
+        return footerView;
+    }
+}
+
 
 
 
